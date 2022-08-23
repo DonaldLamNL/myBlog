@@ -1,0 +1,407 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>JS ES6 - ES6新增語法 | myBlog</title><meta name="keywords" content="ES6,JS"><meta name="author" content="Donald Lam,manholam8@gmail.com"><meta name="copyright" content="Donald Lam"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="數據聲明let關鍵字 簡介：  ES6 中新增用於聲明變量的關鍵字   特性：  變量不能重複聲明  具有模塊作用域  let聲明的變量只在所處於的塊級有效 防止循環變量變成全局變量 例子：  1234567891011if(true)&amp;#123;    let a &#x3D; 10    var b &#x3D; 20&amp;#125;console.log(a)      &#x2F;&#x2F; err: a is not defin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS ES6 - ES6新增語法">
+<meta property="og:url" content="http://example.com/2022/07/23/2022/JavaScript/2022-7-23-ES6-ES6%E6%96%B0%E5%A2%9E%E8%AA%9E%E6%B3%95/index.html">
+<meta property="og:site_name" content="myBlog">
+<meta property="og:description" content="數據聲明let關鍵字 簡介：  ES6 中新增用於聲明變量的關鍵字   特性：  變量不能重複聲明  具有模塊作用域  let聲明的變量只在所處於的塊級有效 防止循環變量變成全局變量 例子：  1234567891011if(true)&amp;#123;    let a &#x3D; 10    var b &#x3D; 20&amp;#125;console.log(a)      &#x2F;&#x2F; err: a is not defin">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1h5gxpxagw5j21hb0u00t9.jpg">
+<meta property="article:published_time" content="2022-07-22T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-08-21T16:00:00.000Z">
+<meta property="article:author" content="Donald Lam">
+<meta property="article:tag" content="ES6">
+<meta property="article:tag" content="JS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1h5gxpxagw5j21hb0u00t9.jpg"><link rel="shortcut icon" href="../../../../../../img/favicon.png"><link rel="canonical" href="http://example.com/2022/07/23/2022/JavaScript/2022-7-23-ES6-ES6%E6%96%B0%E5%A2%9E%E8%AA%9E%E6%B3%95/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="../../../../../../css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'JS ES6 - ES6新增語法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-22 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5g0hw08gjj20pz0qqwh3.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="../archives/"><div class="headline">Articles</div><div class="length-num">15</div></a><a href="/"><div class="headline">Tags</div><div class="length-num">11</div></a><a href="../categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="../index.html"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="../archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="../tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="../categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://tva1.sinaimg.cn/large/e6c9d24egy1h5gxpxagw5j21hb0u00t9.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="../index.html">myBlog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="../index.html"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="../archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="../tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="../categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">JS ES6 - ES6新增語法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-07-22T16:00:00.000Z" title="Created 2022-07-23 00:00:00">2022-07-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-08-21T16:00:00.000Z" title="Updated 2022-08-22 00:00:00">2022-08-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="../../../../../../categories/JavaScript/">JavaScript</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="JS ES6 - ES6新增語法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="數據聲明"><a href="#數據聲明" class="headerlink" title="數據聲明"></a>數據聲明</h2><h3 id="let關鍵字"><a href="#let關鍵字" class="headerlink" title="let關鍵字"></a>let關鍵字</h3><ol>
+<li><p>簡介：</p>
+<ul>
+<li>ES6 中新增用於聲明變量的關鍵字</li>
+</ul>
+</li>
+<li><p>特性：</p>
+<ol>
+<li><p>變量不能重複聲明</p>
+</li>
+<li><p>具有模塊作用域</p>
+<ul>
+<li><code>let</code>聲明的變量只在所處於的塊級有效</li>
+<li>防止循環變量變成全局變量</li>
+<li>例子：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> a = <span class="number">10</span></span><br><span class="line">    <span class="keyword">var</span> b = <span class="number">20</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a)      <span class="comment">// err: a is not defined</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(b)      <span class="comment">// b = 20</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++)&#123;&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; <span class="number">2</span>; j++)&#123;&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(i)      <span class="comment">// err: i is not defined</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(j)      <span class="comment">// j = 2</span></span><br></pre></td></tr></table></figure></li>
+<li>注意：使用<code>let</code>關鍵字聲明的變量才具有塊級作用域，使用<code>var</code>關鍵字聲明的變量不具備塊級作用域的特性</li>
+</ul>
+</li>
+<li><p>不存在變量提升</p>
+<ul>
+<li><code>var</code>關鍵字聲明的變量存在變量提升，因此存在先使用後聲明的處境</li>
+<li><code>let</code>關鍵字聲明的變量不存在變量提升  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a)      <span class="comment">// a = undefined</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a)      <span class="comment">// err: a is not defined</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="number">20</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>存有暫時性死區特性</p>
+<ul>
+<li>在塊級區域使用<code>let</code>聲明的變量會被整體綁定在該塊級區域，不受外部代碼影響  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">10</span></span><br><span class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(num);   <span class="comment">// err: num is not defined</span></span><br><span class="line">    <span class="keyword">let</span> num = <span class="number">20</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    如果塊級中使用了 let 關鍵字聲明重名變量變量</span></span><br><span class="line"><span class="comment">    就會和塊級區域整體進行綁定，在當前區域中的變量與外部是沒有關係</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="const關鍵字"><a href="#const關鍵字" class="headerlink" title="const關鍵字"></a>const關鍵字</h3><ol>
+<li><p>簡介：</p>
+<ul>
+<li>ES6 新增用於聲明常量的關鍵字</li>
+<li>常量就是值<font color="#f54747">（內存地址）</font>不能變化的量</li>
+</ul>
+</li>
+<li><p>特性：</p>
+<ol>
+<li><p>聲明常量時必須賦值</p>
+</li>
+<li><p>具有模塊作用域</p>
+<ul>
+<li><code>const</code>聲明的變量只在所處於的塊級有效  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">    <span class="keyword">const</span> a = <span class="number">10</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a)      <span class="comment">// err: a is not defined</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>常量賦值後值不能修改</p>
+<ul>
+<li>基本數據類型中，常量的值不可更改  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="variable constant_">PI</span> = <span class="number">3.14</span></span><br><span class="line"><span class="variable constant_">PI</span> = <span class="number">100</span>    <span class="comment">// Assignment to constant variable</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>數組與對象的元素修改，不算做對常量的修改</p>
+<ul>
+<li>複雜數據類型中，數據結構內部的值可更改，但常量的地址不可更改  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">100</span>, <span class="number">200</span>]</span><br><span class="line">arr[<span class="number">0</span>] = <span class="string">&#x27;a&#x27;</span></span><br><span class="line">arr[<span class="number">1</span>] = <span class="string">&#x27;b&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr)    <span class="comment">// [&#x27;a&#x27;,&#x27;b&#x27;]</span></span><br><span class="line">arr = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>]    <span class="comment">// Assignment to constant variable</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="聲明方法的區別"><a href="#聲明方法的區別" class="headerlink" title="聲明方法的區別"></a>聲明方法的區別</h3><ol>
+<li><p>使用<font color="#f54747"><code>var</code></font>聲明的變量，其作用域為<font color="#f54747">該語句所在的函數內，且存在變量提升現象</font></p>
+</li>
+<li><p>使用<font color="#f54747"><code>let</code></font>聲明的變量，其作用域為<font color="#f54747">該語句所在的代碼塊內，不存在變量提升</font></p>
+</li>
+<li><p>使用<font color="#f54747"><code>const</code></font>聲明的是常量，在後面出現的代碼中<font color="#f54747">不能再修改該常量的值</font></p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center"><code>var</code></th>
+<th align="center"><code>let</code></th>
+<th align="center"><code>const</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">函數級作用域</td>
+<td align="center">塊級作用域</td>
+<td align="center">塊級作用域</td>
+</tr>
+<tr>
+<td align="center">變量提升</td>
+<td align="center">不存在變量提升</td>
+<td align="center">不存在變量提升</td>
+</tr>
+<tr>
+<td align="center">值可更改</td>
+<td align="center">值可更改</td>
+<td align="center">值不可更改</td>
+</tr>
+</tbody></table>
+<h2 id="解構賦值"><a href="#解構賦值" class="headerlink" title="解構賦值"></a>解構賦值</h2><ol>
+<li><p>簡介：</p>
+<ul>
+<li>ES6 允許按照一定模式從數組和對象中提取值，對變量進行賦值</li>
+</ul>
+</li>
+<li><p>數組解構</p>
+<ul>
+<li>數組解構允許我們按照一一對應的關係從數組中提取值，然後賦值給變量  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">let</span> [a, b, c] = arr         <span class="comment">// a = 1, b = 2, c = 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果解構不成功，變量的值為 undefined</span></span><br><span class="line"><span class="keyword">let</span> [a, b, c, d] = arr      <span class="comment">// d = undefined</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>對象解構</p>
+<ol>
+<li><p>變量名與屬性名相同</p>
+<ul>
+<li>對象解構允許我們使用變量的名字匹配對象的屬性，匹配成功將對象屬性賦值給變量  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;<span class="attr">name</span>:<span class="string">&#x27;Donald&#x27;</span>, <span class="attr">age</span>:<span class="number">20</span>&#125;</span><br><span class="line"><span class="keyword">let</span> &#123;age, name&#125; = person    <span class="comment">// name = &#x27;Donald&#x27;, age = 20</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果解構不成功，變量的值為 undefined   </span></span><br><span class="line"><span class="keyword">let</span> &#123;name, age, gender&#125; = person    <span class="comment">// gender = undefined</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>變量名與屬性名不同</p>
+<ul>
+<li>這種寫法將左側用於進行屬性匹配，匹配成功後將對象屬性賦值給右側的別名  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;<span class="attr">name</span>:<span class="string">&#x27;Donald&#x27;</span>, <span class="attr">age</span>:<span class="number">20</span>&#125;</span><br><span class="line"><span class="keyword">let</span> &#123;<span class="attr">name</span>: myName, <span class="attr">age</span>: myAge&#125;      <span class="comment">// myName = &#x27;Donald&#x27;, myAge = 20</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h2><ol>
+<li><p>簡介：</p>
+<ul>
+<li>ES6 引入新的聲明字符串的方式</li>
+<li>語法：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">`Hello World`</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>特性：</p>
+<ol>
+<li><p>內容中可以直接出現換行符</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">`&lt;ul&gt;</span></span><br><span class="line"><span class="string">        &lt;li&gt;Hello World 1&lt;/li&gt;</span></span><br><span class="line"><span class="string">        &lt;li&gt;Hello World 2&lt;/li&gt;</span></span><br><span class="line"><span class="string">        &lt;li&gt;Hello World 3&lt;/li&gt;</span></span><br><span class="line"><span class="string">    &lt;/ul&gt;`</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>變量拼接</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str1 = <span class="string">&#x27;Hello &#x27;</span></span><br><span class="line"><span class="keyword">let</span> str2 = <span class="string">`<span class="subst">$&#123;str1&#125;</span>World`</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str2)       <span class="comment">// Hello World</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+<h2 id="箭頭函數"><a href="#箭頭函數" class="headerlink" title="箭頭函數"></a>箭頭函數</h2><ol>
+<li><p>簡介：</p>
+<ul>
+<li>ES6 允許使用箭頭來定義函數</li>
+<li>語法：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title function_">fn</span> = (<span class="params">args</span>) =&gt; &#123;</span><br><span class="line">    <span class="comment">// 函數體</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>特性：</p>
+<ol>
+<li><p><code>this</code>是靜態的</p>
+<ul>
+<li><p>在傳統函數中，<code>this</code>指向的是函數的<font color="#f54747">調用者</font></p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">name</span> = <span class="string">&#x27;Window&#x27;</span></span><br><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;Object&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getName</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">getName</span>()  <span class="comment">// Window</span></span><br><span class="line">getName.<span class="title function_">call</span>(person)   <span class="comment">// Object</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在箭頭函數中，<code>this</code>指向的是<font color="#f54747">函數聲明時所在作用域下的<code>this</code>指向</font><br>  箭頭函數沒有自己的<code>this</code>，如果在函數中調用<code>this</code>則指向箭頭函數定義位置的<code>this</code></p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">name</span> = <span class="string">&#x27;Window&#x27;</span></span><br><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;Object&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="title function_">getName</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">getName</span>()   <span class="comment">// Window</span></span><br><span class="line">getName.<span class="title function_">call</span>(person)    <span class="comment">// Window （函數永遠指向聲明時，函數所在作用域的 this 指向）</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>不能作為構造函數實例化對象</p>
+<ul>
+<li>具體編碼：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title function_">Person</span> = (<span class="params">name, age</span>) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = name</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">age</span> = age</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> donald = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&#x27;Donald&#x27;</span>, <span class="number">18</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(donald)     <span class="comment">// Person is not a constructor</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>不能使用<code>arguments</code>變量</p>
+<ul>
+<li>具體編碼：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title function_">fn</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">arguments</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">fn</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)   <span class="comment">// arguments is not defined</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>箭頭函數的簡寫</p>
+<ol>
+<li><p>省略<code>()</code>，當形參有且只有一個的時候</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title function_">double</span> = n =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> n + n</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>省略<code>&#123;&#125;</code>，當代碼體只有一條語句時（如果語句的執行結果就是函數的返回值，<code>return</code>必須省略）</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title function_">square</span> = n =&gt; n * n</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>箭頭函數的應用場景</p>
+<ul>
+<li>箭頭函數適用於：與<code>this</code>無關的回調，例如：定時器、數組的方法回調</li>
+<li>箭頭函數不適用於：與<code>this</code>有關的回調，例如：DOM的事件回調、對象的方法</li>
+</ul>
+</li>
+<li><p>箭頭函數面試題</p>
+<ol>
+<li>對象中箭頭函數的<code>this</code>指向問題 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    <span class="attr">age</span>:<span class="number">20</span>,</span><br><span class="line">    <span class="attr">say</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">age</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.<span class="title function_">say</span>()   <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    由於箭頭函數並沒有自己的 this 指向，而對象 obj 並不能產生作用域，因此箭頭函數實則被定義在全局作用域下</span></span><br><span class="line"><span class="comment">    所以在調用 say() 方法時，this 指向的是 Window，而 Window 並未聲明 age 屬性，因此返回 undefined</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+<h2 id="函數參數的默認設置"><a href="#函數參數的默認設置" class="headerlink" title="函數參數的默認設置"></a>函數參數的默認設置</h2><ol>
+<li><p>簡介：</p>
+<ul>
+<li>ES6 允許給函數參數賦予初始值</li>
+</ul>
+</li>
+<li><p>形參初始值</p>
+<ul>
+<li>能給形參設置初始化值</li>
+<li>注：具有默認值的參數位置一半靠後</li>
+<li>具體編碼：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">add</span>(<span class="params">a, b, c = <span class="number">10</span></span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b + c</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">add</span>(<span class="number">1</span>,<span class="number">2</span>))   <span class="comment">// 13</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>與解構賦值結合</p>
+<ul>
+<li>能在傳遞參數的時候同時使用解構賦值，節省使用<code>this</code>重新賦值</li>
+<li>具體編碼：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">connect</span>(<span class="params">&#123;host=<span class="string">&#x27;127.0.0.1&#x27;</span>, username, password, port&#125;</span>)&#123;</span><br><span class="line">    <span class="comment">// let host = this.host</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(host)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(username)</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">connect</span>(&#123;</span><br><span class="line">    <span class="comment">// host:&#x27;localhost&#x27;,</span></span><br><span class="line">    <span class="attr">username</span>: <span class="string">&#x27;admin&#x27;</span>,</span><br><span class="line">    <span class="attr">password</span>: <span class="string">&#x27;root&#x27;</span>,</span><br><span class="line">    <span class="attr">port</span>: <span class="number">3306</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h2 id="rest-參數"><a href="#rest-參數" class="headerlink" title="rest 參數"></a>rest 參數</h2><ol>
+<li><p>簡介：</p>
+<ul>
+<li>ES6 引入<code>rest</code>參數，用於獲取函數的實參，用來代替<code>arguments</code></li>
+</ul>
+</li>
+<li><p>ES5獲取實參的方法：</p>
+<ul>
+<li>利用<code>arguments</code>獲取實參</li>
+<li>注：<code>arguments</code>並不是數組，是一個<font color="#f54747">對象</font></li>
+<li>具體編碼：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">students</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">arguments</span>)      </span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">students</span>(<span class="string">&#x27;Donald&#x27;</span>, <span class="string">&#x27;John&#x27;</span>, <span class="string">&#x27;May&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><code>rest</code>參數獲取實參：</p>
+<ul>
+<li>語法：<code>...args</code></li>
+<li><code>args</code>是一個<font color="#f54747">數組</font>，因此可以使用數組的API方法，例如<code>filter()</code>、<code>map()</code>、<code>some()</code></li>
+<li>具體編碼：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">students</span>(<span class="params">...args</span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(args)</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">students</span>(<span class="string">&#x27;Donald&#x27;</span>, <span class="string">&#x27;John&#x27;</span>, <span class="string">&#x27;May&#x27;</span>)   <span class="comment">// [&#x27;Donald&#x27;, &#x27;John&#x27;, &#x27;May&#x27;]</span></span><br></pre></td></tr></table></figure></li>
+<li>注意：<font color="#f54747"><code>rest</code>參數必須放到參數的最後</font></li>
+</ul>
+</li>
+<li><p><code>rest</code>參數配合解構使用：</p>
+<ul>
+<li>解構變量寫法也可以寫成剩餘參數的形式  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"><span class="keyword">let</span> [a1, ...args] = arr     <span class="comment">// a1 = 1, args = [2, 3, 4]</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h2 id="擴展運算符-spread"><a href="#擴展運算符-spread" class="headerlink" title="擴展運算符 spread"></a>擴展運算符 spread</h2><ol>
+<li><p>簡介：</p>
+<ul>
+<li>將數組轉換為都好分隔的「參數序列」</li>
+<li>具體編碼：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> students = [<span class="string">&#x27;Donald&#x27;</span>, <span class="string">&#x27;John&#x27;</span>, <span class="string">&#x27;May&#x27;</span>]  <span class="comment">// =&gt; &#x27;Donald&#x27;, &#x27;John&#x27;, &#x27;May&#x27;</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getName</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">arguments</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">getName</span>(students)       <span class="comment">// === getName([&#x27;Donald&#x27;, &#x27;John&#x27;, &#x27;May&#x27;])</span></span><br><span class="line"><span class="title function_">getName</span>(...students)    <span class="comment">// === getName(&#x27;Donald&#x27;, &#x27;John&#x27;, &#x27;May&#x27;)        </span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>應用：</p>
+<ol>
+<li><p>合併數組</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> boys = [<span class="string">&#x27;Donald&#x27;</span>, <span class="string">&#x27;John&#x27;</span>]</span><br><span class="line"><span class="keyword">const</span> girls = [<span class="string">&#x27;May&#x27;</span>, <span class="string">&#x27;Lily&#x27;</span>]</span><br><span class="line"><span class="keyword">const</span> students = boys.<span class="title function_">concat</span>(girls)     <span class="comment">// ES5 的數組API方法</span></span><br><span class="line"><span class="keyword">const</span> students = [...boys, ...girls]    <span class="comment">// === [&#x27;Donald&#x27;, &#x27;John&#x27;, &#x27;May&#x27;, &#x27;Lily&#x27;]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>複製數組</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> boys = [<span class="string">&#x27;Donald&#x27;</span>, <span class="string">&#x27;John&#x27;</span>]</span><br><span class="line"><span class="keyword">const</span> men = [...boys]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意：如果數組裡面的元素有引用類型數據，是<font color="#f54747">淺拷貝</font></li>
+</ul>
+</li>
+<li><p>將偽數組轉為真數組</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> divs = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(divs)       <span class="comment">// NodeList</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>([...divs])  <span class="comment">// Array</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>轉換之後，就可以使用數組的API方法</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">Donald Lam</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2022/07/23/2022/JavaScript/2022-7-23-ES6-ES6%E6%96%B0%E5%A2%9E%E8%AA%9E%E6%B3%95/">http://example.com/2022/07/23/2022/JavaScript/2022-7-23-ES6-ES6%E6%96%B0%E5%A2%9E%E8%AA%9E%E6%B3%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="../../../../../../tags/ES6/">ES6</a><a class="post-meta__tags" href="../../../../../../tags/JS/">JS</a></div><div class="post_share"><div class="social-share" data-image="https://tva1.sinaimg.cn/large/e6c9d24egy1h5gxpxagw5j21hb0u00t9.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="../../../../25/2022/JavaScript/2022-7-25-ES6-ES6%E6%96%B0%E5%A2%9E%E6%95%B8%E6%93%9A%E9%A1%9E%E5%9E%8B/"><img class="prev-cover" src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5gxpxagw5j21hb0u00t9.jpg" onerror="onerror=null;src='../../../../../../img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">JS ES6 - ES6新增數據類型</div></div></a></div><div class="next-post pull-right"><a href="../../../../22/2022/JavaScript/2022-7-22-JS-%E6%AD%A3%E5%89%87%E8%A1%A8%E9%81%94%E5%BC%8F/"><img class="next-cover" src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5gyn4bhn8j20rs0gowg7.jpg" onerror="onerror=null;src='../../../../../../img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">JS Advanced - 正則表達式 Regular Expression</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="../../../../25/2022/JavaScript/2022-7-25-ES6-ES6%E6%96%B0%E5%A2%9E%E6%95%B8%E6%93%9A%E9%A1%9E%E5%9E%8B/" title="JS ES6 - ES6新增數據類型"><img class="cover" src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5gxpxagw5j21hb0u00t9.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-25</div><div class="title">JS ES6 - ES6新增數據類型</div></div></a></div><div><a href="../../../../09/2022/JavaScript/2022-7-9-JS-%E9%A1%9E%E8%88%87%E5%B0%8D%E8%B1%A1/" title="JS Advanced - 類與對象 Class &amp; Object"><img class="cover" src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5gyn4bhn8j20rs0gowg7.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-09</div><div class="title">JS Advanced - 類與對象 Class &amp; Object</div></div></a></div><div><a href="../../../../14/2022/JavaScript/2022-7-14-JS-ES5%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="JS Advanced - ES5新增API"><img class="cover" src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5gyn4bhn8j20rs0gowg7.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-14</div><div class="title">JS Advanced - ES5新增API</div></div></a></div><div><a href="../../../../16/2022/JavaScript/2022-7-16-JS-%E5%87%BD%E6%95%B8/" title="JS Advanced - 函數 Function"><img class="cover" src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5gyn4bhn8j20rs0gowg7.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-16</div><div class="title">JS Advanced - 函數 Function</div></div></a></div><div><a href="../../../../22/2022/JavaScript/2022-7-22-JS-%E6%AD%A3%E5%89%87%E8%A1%A8%E9%81%94%E5%BC%8F/" title="JS Advanced - 正則表達式 Regular Expression"><img class="cover" src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5gyn4bhn8j20rs0gowg7.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-22</div><div class="title">JS Advanced - 正則表達式 Regular Expression</div></div></a></div><div><a href="../../../../11/2022/JavaScript/2022-7-11-JS-ES5%E9%9D%A2%E5%90%91%E5%B0%8D%E8%B1%A1/" title="JS Advanced - ES5實現面向對象"><img class="cover" src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5gyn4bhn8j20rs0gowg7.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-11</div><div class="title">JS Advanced - ES5實現面向對象</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5g0hw08gjj20pz0qqwh3.jpg" onerror="this.onerror=null;this.src='../img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Donald Lam</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="../archives/"><div class="headline">Articles</div><div class="length-num">15</div></a><a href="/"><div class="headline">Tags</div><div class="length-num">11</div></a><a href="../categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="http://localhost:8080/home"><i></i><span>My Personal Website</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DonaldLamNL" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="../mailto:manholam8@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B8%E6%93%9A%E8%81%B2%E6%98%8E"><span class="toc-number">1.</span> <span class="toc-text">數據聲明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#let%E9%97%9C%E9%8D%B5%E5%AD%97"><span class="toc-number">1.1.</span> <span class="toc-text">let關鍵字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#const%E9%97%9C%E9%8D%B5%E5%AD%97"><span class="toc-number">1.2.</span> <span class="toc-text">const關鍵字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%B2%E6%98%8E%E6%96%B9%E6%B3%95%E7%9A%84%E5%8D%80%E5%88%A5"><span class="toc-number">1.3.</span> <span class="toc-text">聲明方法的區別</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E6%A7%8B%E8%B3%A6%E5%80%BC"><span class="toc-number">2.</span> <span class="toc-text">解構賦值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">3.</span> <span class="toc-text">模板字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%AD%E9%A0%AD%E5%87%BD%E6%95%B8"><span class="toc-number">4.</span> <span class="toc-text">箭頭函數</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B8%E5%8F%83%E6%95%B8%E7%9A%84%E9%BB%98%E8%AA%8D%E8%A8%AD%E7%BD%AE"><span class="toc-number">5.</span> <span class="toc-text">函數參數的默認設置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rest-%E5%8F%83%E6%95%B8"><span class="toc-number">6.</span> <span class="toc-text">rest 參數</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%B4%E5%B1%95%E9%81%8B%E7%AE%97%E7%AC%A6-spread"><span class="toc-number">7.</span> <span class="toc-text">擴展運算符 spread</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="../2022/08/05/2022/NodeJS/2022-8-5-NodeJS-MongoDB/" title="NodeJS - MongoDB交互"><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5gwq3hdv6j214u0oldgg.jpg" onerror="this.onerror=null;this.src='../img/404.jpg'" alt="NodeJS - MongoDB交互"/></a><div class="content"><a class="title" href="../2022/08/05/2022/NodeJS/2022-8-5-NodeJS-MongoDB/" title="NodeJS - MongoDB交互">NodeJS - MongoDB交互</a><time datetime="2022-08-04T16:00:00.000Z" title="Created 2022-08-05 00:00:00">2022-08-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="../2022/08/03/2022/NodeJS/2022-8-3-NodeJS-Express/" title="NodeJS - Express API"><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5gwlrv1esj212w0rhq48.jpg" onerror="this.onerror=null;this.src='../img/404.jpg'" alt="NodeJS - Express API"/></a><div class="content"><a class="title" href="../2022/08/03/2022/NodeJS/2022-8-3-NodeJS-Express/" title="NodeJS - Express API">NodeJS - Express API</a><time datetime="2022-08-02T16:00:00.000Z" title="Created 2022-08-03 00:00:00">2022-08-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="../2022/08/03/2022/AJAX/2022-8-3-Fetch-API/" title="AJAX - Fetch API"><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5gwrhlt1ej20xc0go0t0.jpg" onerror="this.onerror=null;this.src='../img/404.jpg'" alt="AJAX - Fetch API"/></a><div class="content"><a class="title" href="../2022/08/03/2022/AJAX/2022-8-3-Fetch-API/" title="AJAX - Fetch API">AJAX - Fetch API</a><time datetime="2022-08-02T16:00:00.000Z" title="Created 2022-08-03 00:00:00">2022-08-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="../2022/08/02/2022/AJAX/2022-8-2-AJAX%E8%B7%A8%E5%9F%9F%E5%95%8F%E9%A1%8C/" title="AJAX - 跨域問題"><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5gykaxdljj20xc0hgglu.jpg" onerror="this.onerror=null;this.src='../img/404.jpg'" alt="AJAX - 跨域問題"/></a><div class="content"><a class="title" href="../2022/08/02/2022/AJAX/2022-8-2-AJAX%E8%B7%A8%E5%9F%9F%E5%95%8F%E9%A1%8C/" title="AJAX - 跨域問題">AJAX - 跨域問題</a><time datetime="2022-08-01T16:00:00.000Z" title="Created 2022-08-02 00:00:00">2022-08-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="../2022/08/01/2022/AJAX/2022-8-1-%E5%8E%9F%E7%94%9FAJAX/" title="AJAX - 原生AJAX"><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5gykaxdljj20xc0hgglu.jpg" onerror="this.onerror=null;this.src='../img/404.jpg'" alt="AJAX - 原生AJAX"/></a><div class="content"><a class="title" href="../2022/08/01/2022/AJAX/2022-8-1-%E5%8E%9F%E7%94%9FAJAX/" title="AJAX - 原生AJAX">AJAX - 原生AJAX</a><time datetime="2022-07-31T16:00:00.000Z" title="Created 2022-08-01 00:00:00">2022-08-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 By Donald Lam</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="../../../../../../js/utils.js"></script><script src="../../../../../../js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

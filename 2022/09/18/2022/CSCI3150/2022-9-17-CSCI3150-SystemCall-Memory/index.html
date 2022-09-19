@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>CSCI3150 - System Call (Memory) | myBlog</title><meta name="author" content="Donald Lam,manholam8@gmail.com"><meta name="copyright" content="Donald Lam"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Memory AllocationMemory API malloc Description Allocate a memory region on the heap.  Grammar:  #include stdlib.h void* malloc(size_t size)   Argument:  size_t size: the size of the memory block (in b">
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>CSCI3150 - System Call (Memory) | myBlog</title><meta name="author" content="Donald Lam,manholam8@gmail.com"><meta name="copyright" content="Donald Lam"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Memory AllocationMemory API malloc Description Allocate a memory region on the heap.  Syntax:  #include stdlib.h void* malloc(size_t size)   Argument:  size_t size: the size of the memory block (in by">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSCI3150 - System Call (Memory)">
 <meta property="og:url" content="https://github.com/DonaldLamNL/myBlog/2022/09/18/2022/CSCI3150/2022-9-17-CSCI3150-SystemCall-Memory/index.html">
 <meta property="og:site_name" content="myBlog">
-<meta property="og:description" content="Memory AllocationMemory API malloc Description Allocate a memory region on the heap.  Grammar:  #include stdlib.h void* malloc(size_t size)   Argument:  size_t size: the size of the memory block (in b">
+<meta property="og:description" content="Memory AllocationMemory API malloc Description Allocate a memory region on the heap.  Syntax:  #include stdlib.h void* malloc(size_t size)   Argument:  size_t size: the size of the memory block (in by">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1h5gvvucomkj21hc0mudnv.jpg">
 <meta property="article:published_time" content="2022-09-17T16:00:00.000Z">
@@ -145,7 +145,7 @@
 <li>Description<ul>
 <li><p>Allocate a memory region on the <font color="7B3279">heap</font>.</p>
 </li>
-<li><p>Grammar:</p>
+<li><p>Syntax:</p>
 <ul>
 <li><code>#include stdlib.h</code></li>
 <li><code>void* malloc(size_t size)</code></li>
@@ -179,7 +179,7 @@
 <li>Description<ul>
 <li><p>To free a memory region allocated by a call to <code>malloc</code>.</p>
 </li>
-<li><p>Grammar:</p>
+<li><p>Syntax:</p>
 <ul>
 <li><code>#include stdlib.h</code></li>
 <li><code>void free(void *ptr)</code></li>
@@ -199,7 +199,7 @@
 <li>Description<ul>
 <li><p>Allocate memory on the <font color="7B3279">heap</font> and set with <font color="7B3279">zero</font> before returning.</p>
 </li>
-<li><p>Grammar:</p>
+<li><p>Syntax:</p>
 <ul>
 <li><code>#include &lt;stdlib.h&gt;</code></li>
 <li><code>void* calloc(size_t num, size_t size)</code></li>
@@ -224,7 +224,7 @@
 <li>Description<ul>
 <li><p>Change the size of memory block.</p>
 </li>
-<li><p>Grammar: </p>
+<li><p>Syntax: </p>
 <ul>
 <li><code>#include &lt;stdlib.h&gt;</code></li>
 <li><code>void* realloc(void *ptr, size_t size)</code></li>

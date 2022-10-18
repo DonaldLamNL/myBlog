@@ -298,7 +298,8 @@
 </li>
 <li><p>Solutions:</p>
 <ol>
-<li>Read &amp; Cache<ul>
+<li><p>Read &amp; Cache</p>
+<ul>
 <li>To reduce the I&#x2F;O traffic, file system uses system memory (DRAM) to cache.<ul>
 <li>Early, file system uses fixed-size cache to hold the popular blocks, but it is wasting memory.</li>
 <li>Now, model system uses <font color="3A75EA">dynamic partitioning approach</font> and <font color="3A75EA">unified page cache</font>.</li>
@@ -307,7 +308,8 @@
 <li>Thus, read I&#x2F;O can be avoided by the cache.</li>
 </ul>
 </li>
-<li>Write &amp; Buffer<ul>
+<li><p>Write &amp; Buffer</p>
+<ul>
 <li>Since write traffic has to go to the disk for persistent, cache does not reduce write I&#x2F;Os.</li>
 <li>File system uses write buffering for writing performance benefits.<ul>
 <li>It can delay writes such that the file system batch some updates into a smaller set of I&#x2F;Os.</li>

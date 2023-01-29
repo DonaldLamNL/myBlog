@@ -1,0 +1,322 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>CSCI3170 - Entity-Relationship Model | myBlog</title><meta name="keywords" content="CSCI3180"><meta name="author" content="Donald Lam,manholam8@gmail.com"><meta name="copyright" content="Donald Lam"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Entity-Relationship DiagramsComponents   Entity Type  an object in the real world that is distinguishable from other objects    Entity Set  a collection of entities of the same type    Attributes  the">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSCI3170 - Entity-Relationship Model">
+<meta property="og:url" content="https://github.com/DonaldLamNL/myBlog/2023/01/28/2023/2023-1-28-CSCI3170-ER-Model/index.html">
+<meta property="og:site_name" content="myBlog">
+<meta property="og:description" content="Entity-Relationship DiagramsComponents   Entity Type  an object in the real world that is distinguishable from other objects    Entity Set  a collection of entities of the same type    Attributes  the">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://p.ipic.vip/ruvwfy.jpg">
+<meta property="article:published_time" content="2023-01-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-27T16:00:00.000Z">
+<meta property="article:author" content="Donald Lam">
+<meta property="article:tag" content="CSCI3180">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p.ipic.vip/ruvwfy.jpg"><link rel="shortcut icon" href="/myBlog/img/favicon.png"><link rel="canonical" href="https://github.com/DonaldLamNL/myBlog/2023/01/28/2023/2023-1-28-CSCI3170-ER-Model/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/myBlog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/myBlog/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CSCI3170 - Entity-Relationship Model',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-01-28 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">38</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">11</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">8</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://p.ipic.vip/ruvwfy.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/myBlog/">myBlog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">CSCI3170 - Entity-Relationship Model</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-01-27T16:00:00.000Z" title="Created 2023-01-28 00:00:00">2023-01-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-01-27T16:00:00.000Z" title="Updated 2023-01-28 00:00:00">2023-01-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/myBlog/categories/CSCI3180/">CSCI3180</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="CSCI3170 - Entity-Relationship Model"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Entity-Relationship-Diagrams"><a href="#Entity-Relationship-Diagrams" class="headerlink" title="Entity-Relationship Diagrams"></a>Entity-Relationship Diagrams</h1><h2 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h2><img src="https://p.ipic.vip/y43qkp.jpg" width="500px" />
+
+<ol>
+<li><p><font color="3A75EA"><strong>Entity Type</strong></font></p>
+<ul>
+<li>an object in the real world that is distinguishable from other objects <img src="https://p.ipic.vip/73xd6j.png" width="100px" /></li>
+</ul>
+</li>
+<li><p><font color="3A75EA"><strong>Entity Set</strong></font></p>
+<ul>
+<li>a collection of entities of the same type <img src="https://p.ipic.vip/azcz7x.png" width="100px" /></li>
+</ul>
+</li>
+<li><p><font color="3A75EA"><strong>Attributes</strong></font></p>
+<ul>
+<li>the properties that define the entity type <img src="https://p.ipic.vip/acwaqs.png" width="100px" /></li>
+</ul>
+</li>
+<li><p><font color="3A75EA"><strong>Key Attribute</strong></font></p>
+<ul>
+<li>a uniquely identifies each entity in the entity set <img src="https://p.ipic.vip/yyaazr.png" width="100px" /></li>
+</ul>
+</li>
+<li><p><font color="3A75EA"><strong>Relationship Type</strong></font></p>
+<ul>
+<li>represents the association between entity types <img src="https://p.ipic.vip/cjmfqr.png" width="300px" /></li>
+</ul>
+</li>
+<li><p><font color="3A75EA"><strong>Relationship Set</strong></font></p>
+ <img src="https://p.ipic.vip/pjfz1o.png" width="300px" /></li>
+</ol>
+<h2 id="Key"><a href="#Key" class="headerlink" title="Key"></a>Key</h2><ol>
+<li><p><font color="3A75EA"><strong>superkey</strong></font></p>
+<ul>
+<li>any set of attributes which can <font color="F54747">uniquely identify</font> an entry</li>
+</ul>
+</li>
+<li><p><font color="3A75EA"><strong>key &#x2F; candidate key</strong></font></p>
+<ul>
+<li>a <font color="F54747">minimal</font> set of attributes whose values can <font color="F54747">uniquely identify</font> an entry</li>
+<li>there is no more than one candidate key</li>
+</ul>
+</li>
+<li><p><font color="3A75EA"><strong>primary key</strong></font></p>
+<ul>
+<li>a candidate key chosen to serve as the key for the entity set</li>
+</ul>
+</li>
+</ol>
+<h2 id="Key-Constraints"><a href="#Key-Constraints" class="headerlink" title="Key Constraints"></a>Key Constraints</h2><ol>
+<li><p>One-to-one</p>
+<ul>
+<li>An entity in A is associated with at most one entity in B.</li>
+<li>An entity in B is associated with at most one entity in A.<ul>
+<li>a man may be married to at most one woman, and a woman may be married to at most one man. <img src="https://p.ipic.vip/od5jt4.jpg" width="400px" /></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>One-to-many</p>
+<ul>
+<li>An entity in A is associated with any number in B.</li>
+<li>An entity in B is associated with at most one entity in A.<ul>
+<li>each child can have at most one mother, but a mother may have more than one children. <img src="https://p.ipic.vip/h0xmy9.jpg" width="400px" /></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Many-to-one</p>
+<ul>
+<li>An entity in A is associated with at most one entity in B.</li>
+<li>An entity in B is associated with any number in A.<ul>
+<li>an employee can only work in at most one department, but a department has more than one employees. <img src="https://p.ipic.vip/gm063c.jpg" width="400px" /></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Many-to-many</p>
+<ul>
+<li>Entities in A and B are associated with any number from each other.<ul>
+<li>both boy and girl can have more than one girl and boy classmates resepectively. <img src="https://p.ipic.vip/w7w9d3.jpg" width="400px" /></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="Participation-Constraints"><a href="#Participation-Constraints" class="headerlink" title="Participation Constraints"></a>Participation Constraints</h2><ul>
+<li><p>The example of a one-to-one key constraint, noting that a man may be married to at most one woman, and a woman may be married to at most one man (<font color="3A75EA">both men and women can be unmarried</font>). Suppose we want to build a database for the “Married Persons Association”. In this case everyone must be married! In database terms their participation must be <font color="F54747">total</font>.</p>
+</li>
+<li><p>If the participation of an entity set in a relationship set is total, they must be connected by a <font color="F54747">bold</font> link.</p>
+</li>
+</ul>
+<img src="https://p.ipic.vip/926h4t.jpg" width="350px">
+
+
+
+<h2 id="Weak-Entity"><a href="#Weak-Entity" class="headerlink" title="Weak Entity"></a>Weak Entity</h2><ul>
+<li><p><font color="3A75EA"><strong>Strong Entity</strong></font></p>
+<ul>
+<li>An entity which has a <font color="3A75EA">super key</font>.</li>
+<li>Each entity can be distinguished from other entities.</li>
+</ul>
+</li>
+<li><p><font color="3A75EA"><strong>Weak Entity</strong></font></p>
+<ul>
+<li>An entity <font color="3A75EA">without super key</font> (only has a <font color="F54747">partial key</font>).</li>
+<li>May not be able to distinguish themselves from other entities <font color="3A75EA">without associations with entities in other entity sets</font>.</li>
+</ul>
+  <img src="https://p.ipic.vip/gsw7pf.jpg" width="600px" /></li>
+</ul>
+<h2 id="Ternary-Relationships"><a href="#Ternary-Relationships" class="headerlink" title="Ternary Relationships"></a>Ternary Relationships</h2><ul>
+<li><p>It is possible to have higher order relationships, including ternary relationships.</p>
+  <img src="https://p.ipic.vip/wd0rmm.jpg" width="500px" />
+</li>
+<li><p><font color="F54747">NOTED</font>: Every ternary (and higher order) relationship can be converted into a set of binary relationships.</p>
+  <img src="https://p.ipic.vip/2w87qt.jpg" />
+</li>
+<li><p><font color="F54747">NOTED</font>: A non-binary relationship set cannot be replaced by a number of binary relationship sets.<br><font color="F54747"><strong>The ternary relationship cannot be convert into these relationships !!!</strong></font></p>
+  <img src="https://p.ipic.vip/pegxds.jpg" width="400px" /></li>
+</ul>
+<h2 id="Class-Hierarchies"><a href="#Class-Hierarchies" class="headerlink" title="Class Hierarchies"></a>Class Hierarchies</h2><ul>
+<li>Sometimes it is natural to classify the entities in an entity set into <font color="3A75EA">subclasses</font>.  <img src="https://p.ipic.vip/vgumem.jpg" width="400px" /></li>
+</ul>
+<h2 id="Aggregation"><a href="#Aggregation" class="headerlink" title="Aggregation"></a>Aggregation</h2><ul>
+<li>Model a relationship between a collection of entities and relationships.</li>
+<li>Aggregation allows us to indicate that a relationship set participates in another relationship set.  <img src="https://p.ipic.vip/nnszjq.jpg" width="400px" /></li>
+</ul>
+<!-- <font color="3A75EA">Blue</font>
+<font color="F54747">Red</font> --></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog">Donald Lam</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog/2023/01/28/2023/2023-1-28-CSCI3170-ER-Model/">https://github.com/DonaldLamNL/myBlog/2023/01/28/2023/2023-1-28-CSCI3170-ER-Model/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/myBlog/tags/CSCI3180/">CSCI3180</a></div><div class="post_share"><div class="social-share" data-image="https://p.ipic.vip/ruvwfy.jpg" data-sites="facebook,twitter"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/myBlog/2022/12/07/2022/2022-12-7-CSCI3150-Concurrency-Lock-ConditionalVariable.md/"><img class="next-cover" src="https://p.ipic.vip/ruvwfy.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">CSCI3150 - Concurrency (Lock &amp; Conditional Variable)</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="this.onerror=null;this.src='/myBlog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Donald Lam</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">38</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">11</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://donaldlamnl.github.io/myWeb/#/home"><i></i><span>My Personal Website</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DonaldLamNL" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:manholam8@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Entity-Relationship-Diagrams"><span class="toc-number">1.</span> <span class="toc-text">Entity-Relationship Diagrams</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Components"><span class="toc-number">1.1.</span> <span class="toc-text">Components</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Key"><span class="toc-number">1.2.</span> <span class="toc-text">Key</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Key-Constraints"><span class="toc-number">1.3.</span> <span class="toc-text">Key Constraints</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Participation-Constraints"><span class="toc-number">1.4.</span> <span class="toc-text">Participation Constraints</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Weak-Entity"><span class="toc-number">1.5.</span> <span class="toc-text">Weak Entity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ternary-Relationships"><span class="toc-number">1.6.</span> <span class="toc-text">Ternary Relationships</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Class-Hierarchies"><span class="toc-number">1.7.</span> <span class="toc-text">Class Hierarchies</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Aggregation"><span class="toc-number">1.8.</span> <span class="toc-text">Aggregation</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/01/28/2023/2023-1-28-CSCI3170-ER-Model/" title="CSCI3170 - Entity-Relationship Model"><img src="https://p.ipic.vip/ruvwfy.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="CSCI3170 - Entity-Relationship Model"/></a><div class="content"><a class="title" href="/myBlog/2023/01/28/2023/2023-1-28-CSCI3170-ER-Model/" title="CSCI3170 - Entity-Relationship Model">CSCI3170 - Entity-Relationship Model</a><time datetime="2023-01-27T16:00:00.000Z" title="Created 2023-01-28 00:00:00">2023-01-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2022/12/07/2022/2022-12-7-CSCI3150-Concurrency-Lock-ConditionalVariable.md/" title="CSCI3150 - Concurrency (Lock &amp; Conditional Variable)"><img src="https://p.ipic.vip/ruvwfy.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="CSCI3150 - Concurrency (Lock &amp; Conditional Variable)"/></a><div class="content"><a class="title" href="/myBlog/2022/12/07/2022/2022-12-7-CSCI3150-Concurrency-Lock-ConditionalVariable.md/" title="CSCI3150 - Concurrency (Lock &amp; Conditional Variable)">CSCI3150 - Concurrency (Lock &amp; Conditional Variable)</a><time datetime="2022-12-06T16:00:00.000Z" title="Created 2022-12-07 00:00:00">2022-12-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2022/12/07/2022/2022-12-7-CSCI3150-Concurrency-Thread/" title="CSCI3150 - Concurrency (Thread)"><img src="https://p.ipic.vip/ruvwfy.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="CSCI3150 - Concurrency (Thread)"/></a><div class="content"><a class="title" href="/myBlog/2022/12/07/2022/2022-12-7-CSCI3150-Concurrency-Thread/" title="CSCI3150 - Concurrency (Thread)">CSCI3150 - Concurrency (Thread)</a><time datetime="2022-12-06T16:00:00.000Z" title="Created 2022-12-07 00:00:00">2022-12-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2022/11/26/2022/2022-11-26-CSCI3150-Virtualizing-Memory-Segmentation-Paging/" title="CSCI3150 - Virtualizing Memory (Segmentation and Paging)"><img src="https://p.ipic.vip/ruvwfy.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="CSCI3150 - Virtualizing Memory (Segmentation and Paging)"/></a><div class="content"><a class="title" href="/myBlog/2022/11/26/2022/2022-11-26-CSCI3150-Virtualizing-Memory-Segmentation-Paging/" title="CSCI3150 - Virtualizing Memory (Segmentation and Paging)">CSCI3150 - Virtualizing Memory (Segmentation and Paging)</a><time datetime="2022-11-25T16:00:00.000Z" title="Created 2022-11-26 00:00:00">2022-11-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2022/11/18/2022/2022-11-18-CSCI3150-Virtualizing-Memory-Address-Space%20copy/" title="CSCI3150 - Virtualizing Memory (Address Space)"><img src="https://p.ipic.vip/ruvwfy.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="CSCI3150 - Virtualizing Memory (Address Space)"/></a><div class="content"><a class="title" href="/myBlog/2022/11/18/2022/2022-11-18-CSCI3150-Virtualizing-Memory-Address-Space%20copy/" title="CSCI3150 - Virtualizing Memory (Address Space)">CSCI3150 - Virtualizing Memory (Address Space)</a><time datetime="2022-11-17T16:00:00.000Z" title="Created 2022-11-18 00:00:00">2022-11-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By Donald Lam</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/myBlog/js/utils.js"></script><script src="/myBlog/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

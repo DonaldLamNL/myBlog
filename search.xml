@@ -7752,7 +7752,7 @@
   <entry>
     <title>CSCI3170 - Entity-Relationship Model</title>
     <url>/myBlog/2023/01/28/2023/2023-1-28-CSCI3170-ER-Model/</url>
-    <content><![CDATA[<h1 id="Entity-Relationship-Diagrams"><a href="#Entity-Relationship-Diagrams" class="headerlink" title="Entity-Relationship Diagrams"></a>Entity-Relationship Diagrams</h1><h2 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h2><img src="https://p.ipic.vip/y43qkp.jpg" width="500px" />
+    <content><![CDATA[<h2 id="Entity-Relationship-Diagrams"><a href="#Entity-Relationship-Diagrams" class="headerlink" title="Entity-Relationship Diagrams"></a>Entity-Relationship Diagrams</h2><img src="https://p.ipic.vip/y43qkp.jpg" width="500px" />
 
 <ol>
 <li><p><font color="3A75EA"><strong>Entity Type</strong></font></p>
@@ -7784,24 +7784,26 @@
  <img src="https://p.ipic.vip/pjfz1o.png" width="300px" /></li>
 </ol>
 <h2 id="Key"><a href="#Key" class="headerlink" title="Key"></a>Key</h2><ol>
-<li><p><font color="3A75EA"><strong>superkey</strong></font></p>
+<li><p><font color="3A75EA"><strong>Super key</strong></font></p>
 <ul>
-<li>any set of attributes which can <font color="F54747">uniquely identify</font> an entry</li>
+<li>A superkey is <font color="F54747">any set of one or more attributes</font> that can uniquely identify an entity in a table.</li>
+<li>It doesn’t have to be the smallest set of attributes that can do so.</li>
 </ul>
 </li>
-<li><p><font color="3A75EA"><strong>key &#x2F; candidate key</strong></font></p>
+<li><p><font color="3A75EA"><strong>Candidate key</strong></font></p>
 <ul>
-<li>a <font color="F54747">minimal</font> set of attributes whose values can <font color="F54747">uniquely identify</font> an entry</li>
-<li>there is no more than one candidate key</li>
+<li>A candidate key is a superkey for which no proper subset is also a superkey.</li>
+<li>It is a <font color="F54747">minimal set of attributes</font> that can uniquely identify an entity in a table.</li>
 </ul>
 </li>
-<li><p><font color="3A75EA"><strong>primary key</strong></font></p>
+<li><p><font color="3A75EA"><strong>Primary key</strong></font></p>
 <ul>
-<li>a candidate key chosen to serve as the key for the entity set</li>
+<li>A primary key is a candidate key that has been selected as the main key for a table.</li>
+<li>There can only be <font color="F54747">one primary key</font> per table.</li>
 </ul>
 </li>
 </ol>
-<h2 id="Key-Constraints"><a href="#Key-Constraints" class="headerlink" title="Key Constraints"></a>Key Constraints</h2><ol>
+<h2 id="Constraints"><a href="#Constraints" class="headerlink" title="Constraints"></a>Constraints</h2><h3 id="Key-Constraints"><a href="#Key-Constraints" class="headerlink" title="Key Constraints"></a>Key Constraints</h3><ol>
 <li><p>One-to-one</p>
 <ul>
 <li>An entity in A is associated with at most one entity in B.</li>
@@ -7838,7 +7840,7 @@
 </ul>
 </li>
 </ol>
-<h2 id="Participation-Constraints"><a href="#Participation-Constraints" class="headerlink" title="Participation Constraints"></a>Participation Constraints</h2><ul>
+<h3 id="Participation-Constraints"><a href="#Participation-Constraints" class="headerlink" title="Participation Constraints"></a>Participation Constraints</h3><ul>
 <li><p>The example of a one-to-one key constraint, noting that a man may be married to at most one woman, and a woman may be married to at most one man (<font color="3A75EA">both men and women can be unmarried</font>). Suppose we want to build a database for the “Married Persons Association”. In this case everyone must be married! In database terms their participation must be <font color="F54747">total</font>.</p>
 </li>
 <li><p>If the participation of an entity set in a relationship set is total, they must be connected by a <font color="F54747">bold</font> link.</p>
@@ -7848,7 +7850,7 @@
 
 
 
-<h2 id="Weak-Entity"><a href="#Weak-Entity" class="headerlink" title="Weak Entity"></a>Weak Entity</h2><ul>
+<h3 id="Weak-Entity"><a href="#Weak-Entity" class="headerlink" title="Weak Entity"></a>Weak Entity</h3><ul>
 <li><p><font color="3A75EA"><strong>Strong Entity</strong></font></p>
 <ul>
 <li>An entity which has a <font color="3A75EA">super key</font>.</li>
@@ -7858,11 +7860,11 @@
 <li><p><font color="3A75EA"><strong>Weak Entity</strong></font></p>
 <ul>
 <li>An entity <font color="3A75EA">without super key</font> (only has a <font color="F54747">partial key</font>).</li>
-<li>May not be able to distinguish themselves from other entities <font color="3A75EA">without associations with entities in other entity sets</font>.</li>
+<li>May not be able to distinguish from other entities <font color="3A75EA">without associations with entities in other entity sets</font>.</li>
 </ul>
   <img src="https://p.ipic.vip/gsw7pf.jpg" width="600px" /></li>
 </ul>
-<h2 id="Ternary-Relationships"><a href="#Ternary-Relationships" class="headerlink" title="Ternary Relationships"></a>Ternary Relationships</h2><ul>
+<h2 id="Other-Relationships"><a href="#Other-Relationships" class="headerlink" title="Other Relationships"></a>Other Relationships</h2><h3 id="Ternary-Relationships"><a href="#Ternary-Relationships" class="headerlink" title="Ternary Relationships"></a>Ternary Relationships</h3><ul>
 <li><p>It is possible to have higher order relationships, including ternary relationships.</p>
   <img src="https://p.ipic.vip/wd0rmm.jpg" width="500px" />
 </li>
@@ -7872,10 +7874,10 @@
 <li><p><font color="F54747">NOTED</font>: A non-binary relationship set cannot be replaced by a number of binary relationship sets.<br><font color="F54747"><strong>The ternary relationship cannot be convert into these relationships !!!</strong></font></p>
   <img src="https://p.ipic.vip/pegxds.jpg" width="400px" /></li>
 </ul>
-<h2 id="Class-Hierarchies"><a href="#Class-Hierarchies" class="headerlink" title="Class Hierarchies"></a>Class Hierarchies</h2><ul>
+<h3 id="Class-Hierarchies"><a href="#Class-Hierarchies" class="headerlink" title="Class Hierarchies"></a>Class Hierarchies</h3><ul>
 <li>Sometimes it is natural to classify the entities in an entity set into <font color="3A75EA">subclasses</font>.  <img src="https://p.ipic.vip/vgumem.jpg" width="400px" /></li>
 </ul>
-<h2 id="Aggregation"><a href="#Aggregation" class="headerlink" title="Aggregation"></a>Aggregation</h2><ul>
+<h3 id="Aggregation"><a href="#Aggregation" class="headerlink" title="Aggregation"></a>Aggregation</h3><ul>
 <li>Model a relationship between a collection of entities and relationships.</li>
 <li>Aggregation allows us to indicate that a relationship set participates in another relationship set.  <img src="https://p.ipic.vip/nnszjq.jpg" width="400px" /></li>
 </ul>
@@ -8128,11 +8130,27 @@
   <entry>
     <title>CSCI3170 - Relational Model</title>
     <url>/myBlog/2023/02/15/2023/2023-2-15-CSCI3170-Relational-Model/</url>
-    <content><![CDATA[<h2 id="Relations"><a href="#Relations" class="headerlink" title="Relations"></a>Relations</h2><ol>
+    <content><![CDATA[<style>
+/* table{
+    text-align: center;
+    margin: auto auto;
+    width: fit-content;
+}
+
+table th {
+    display: solid;
+    width: 80px;
+} */
+.block {
+    width: 80px;
+}
+</style>
+
+<h2 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h2><h3 id="Relations"><a href="#Relations" class="headerlink" title="Relations"></a>Relations</h3><ol>
 <li><p>Relation Schema</p>
 <ul>
 <li>the column heads for the table which contains <font color="3A75EA">name of each field</font> and the <font color="3A75EA">domain of each field</font><ul>
-<li>e.g. Students( <ins>sid</ins>: string, name: string, login: string, age: integer, gpa: real )<table>
+<li>e.g. Students( <ins>sid</ins>: <code>string</code>, name: <code>string</code>, login: <code>string</code>, age: <code>integer</code>, gpa: <code>real</code> )<table>
 <thead>
 <tr>
 <th align="center"><ins>sid</ins></th>
@@ -8226,7 +8244,7 @@
 </ol>
 </li>
 </ol>
-<h2 id="Data-Definition-Language"><a href="#Data-Definition-Language" class="headerlink" title="Data Definition Language"></a>Data Definition Language</h2><ol>
+<h3 id="Data-Definition-Language"><a href="#Data-Definition-Language" class="headerlink" title="Data Definition Language"></a>Data Definition Language</h3><ol>
 <li><p>Create</p>
 <ul>
 <li>create the Student relation  <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Create</span> <span class="keyword">table</span> Students(</span><br><span class="line">    sid    <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    name   <span class="type">CHAR</span>(<span class="number">30</span>),</span><br><span class="line">    login  <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    age    <span class="type">INTEGER</span>,</span><br><span class="line">    gpa    <span class="type">REAL</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
@@ -8305,11 +8323,11 @@
 </ul>
 </li>
 </ol>
-<h2 id="Key-Constraint"><a href="#Key-Constraint" class="headerlink" title="Key Constraint"></a>Key Constraint</h2><ul>
+<h3 id="Key-Constraint"><a href="#Key-Constraint" class="headerlink" title="Key Constraint"></a>Key Constraint</h3><ul>
 <li>certain minimal subset of the fields, which is a <font color="F54747">unique identifier</font> for a tuple, declare by <code>UNIQUE</code> command</li>
 <li>designer can also identify a <font color="F54747">primary key</font> by <code>PRIMARY KEY</code>  <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Create</span> <span class="keyword">table</span> Students(</span><br><span class="line">    sid    <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    name   <span class="type">CHAR</span>(<span class="number">30</span>),</span><br><span class="line">    login  <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    age    <span class="type">INTEGER</span>,</span><br><span class="line">    gpa    <span class="type">REAL</span>,</span><br><span class="line">    <span class="keyword">UNIQUE</span>(name, age),     <span class="comment">-- a key: not allow two records have the same name and age</span></span><br><span class="line">    <span class="keyword">CONSTRAINT</span> StudentsKey <span class="keyword">PRIMARY</span> KEY (sid)    <span class="comment">-- a primary key</span></span><br><span class="line">)   <span class="comment">-- the constraint name StudentsKey is not necessary to be set</span></span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="Foreign-Key"><a href="#Foreign-Key" class="headerlink" title="Foreign Key"></a>Foreign Key</h2><ul>
+<h3 id="Foreign-Key"><a href="#Foreign-Key" class="headerlink" title="Foreign Key"></a>Foreign Key</h3><ul>
 <li>a set of fields in one relation r that is used to <font color="F54747">refer</font> to a tuple in another relation s<ul>
 <li><p>e.g.</p>
 <table>
@@ -8398,38 +8416,310 @@
 </ol>
   <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Enrolled&#123;</span><br><span class="line">    sid     <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    cid     <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    grade   <span class="type">CHAR</span>(<span class="number">10</span>),</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (sid, cid),</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (sid) <span class="keyword">REFERENCES</span> Students</span><br><span class="line">                        <span class="keyword">ON</span> <span class="keyword">DELETE</span> CASCADE</span><br><span class="line">                        <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">NO</span> ACTION</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="Logical-Database-Design"><a href="#Logical-Database-Design" class="headerlink" title="Logical Database Design"></a>Logical Database Design</h2><ol>
-<li><p>Entity Sets to Tables</p>
- <img src="https://p.ipic.vip/fd10un.png" width="250px" />
- <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Employees(</span><br><span class="line">    id      <span class="type">CHAR</span>(<span class="number">11</span>),</span><br><span class="line">    name    <span class="type">CHAR</span>(<span class="number">30</span>),</span><br><span class="line">    lot     <span class="type">INTEGER</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY(id)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h2 id="Logical-Database-Design"><a href="#Logical-Database-Design" class="headerlink" title="Logical Database Design"></a>Logical Database Design</h2><h3 id="Entity-Sets"><a href="#Entity-Sets" class="headerlink" title="Entity Sets"></a>Entity Sets</h3><img src="https://p.ipic.vip/fd10un.png" width="250px"/>
 
-
+<ol>
+<li><p>Attributes:</p>
+<ul>
+<li>all attributes of that entity</li>
+</ul>
 </li>
-<li><p>Relationship Sets (no Key Constraints)</p>
- <img src="https://p.ipic.vip/49vkub.png" width="400px" />
- <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Work_In2(</span><br><span class="line">    id      <span class="type">CHAR</span>(<span class="number">11</span>),</span><br><span class="line">    did     <span class="type">INTEGER</span>,</span><br><span class="line">    address <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    since   <span class="type">DATE</span>,</span><br><span class="line">    <span class="comment">-- necessary to declare the primary keys (i.e. cannot be null)</span></span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (id, did, address),  <span class="comment">-- the group of them formed a key</span></span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (id) <span class="keyword">REFERENCES</span> Employees,</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (did) <span class="keyword">REFERENCES</span> Departments,</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (address) <span class="keyword">REFERENCES</span> Locations</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
- <img src="https://p.ipic.vip/yhhwjs.png" width="250px" />
- <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Reoports_To(</span><br><span class="line">    supervisor_id   <span class="type">CHAR</span>(<span class="number">11</span>),</span><br><span class="line">    subordinate_id  <span class="type">CHAR</span>(<span class="number">11</span>),</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (supervisor_id, subordinate_id),</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (supervisor_id) <span class="keyword">REFERENCES</span> Employees(id),</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (subordinate_id) <span class="keyword">REFERENCES</span> Employees(id),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-
-
+<li><p>Keys:</p>
+<ul>
+<li>the primary key and condidate keys (if exist)</li>
+</ul>
 </li>
-<li><p>Relationship Sets (with Key Constraints)</p>
- <img src="https://p.ipic.vip/h6bfwe.png" width="400px" />
- <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Managers(</span><br><span class="line">    id      <span class="type">CHAR</span>(<span class="number">11</span>),</span><br><span class="line">    did     <span class="type">INTEGER</span>,</span><br><span class="line">    since   <span class="type">DATE</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (did),</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (id) <span class="keyword">REFERENCES</span> Employees,</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (did) <span class="keyword">REFERENCES</span> Departments</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
- <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Managers(</span><br><span class="line">    did     <span class="type">INTEGER</span>,</span><br><span class="line">    dname   <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    id      <span class="type">CHAR</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    since   <span class="type">DATE</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (did),</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (id) <span class="keyword">REFERENCES</span> Employees <span class="keyword">NO</span> <span class="keyword">DELETE</span> <span class="keyword">NO</span> ACTION</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<li><p>Entity Set:</p>
+<ul>
+<li><strong>Employees</strong>: <ins>id</ins>, name, lot</li>
+</ul>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Employees(</span><br><span class="line">    id      <span class="type">CHAR</span>(<span class="number">11</span>),</span><br><span class="line">    name    <span class="type">CHAR</span>(<span class="number">30</span>),</span><br><span class="line">    lot     <span class="type">INTEGER</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY(id)     <span class="comment">-- primary key &#123;id&#125;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Relationship-Sets"><a href="#Relationship-Sets" class="headerlink" title="Relationship Sets"></a>Relationship Sets</h3><img src="https://p.ipic.vip/49vkub.png" width="400px" />
 
-
+<ol>
+<li><p>Attributes:</p>
+<ul>
+<li>the primary key attributes of each participating entity set</li>
+<li>its own attribute</li>
+<li>the descriptive attribute</li>
+</ul>
 </li>
-<li><p>Week Entity Sets</p>
- <img src="https://p.ipic.vip/kay8v8.png" width="400px" />
- <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Dep_Policy (</span><br><span class="line">    pname   <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    age     <span class="type">INTEGER</span>,</span><br><span class="line">    cost    <span class="type">REAL</span>,</span><br><span class="line">    id      <span class="type">CHAR</span>(<span class="number">11</span>),</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (pname,id),</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (id) <span class="keyword">REFERENCES</span> Employees <span class="keyword">ON</span> <span class="keyword">DELETE</span> CASCADE</span><br><span class="line">    <span class="comment">-- ensure that information about employee&#x27;s policy and dependents is deleted</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<li><p>Keys:</p>
+<ul>
+<li><font color="F54747">primary key</font>: the group of primary keys of each participating entity</li>
+<li>the foreign keys</li>
+</ul>
+</li>
+<li><p>Entity Table:</p>
+<ul>
+<li><strong>Employees</strong>: <ins>id</ins>, name, lot</li>
+<li><strong>Departments</strong>: <ins>did</ins>, dname, budget</li>
+<li><strong>Locations</strong>: <ins>address</ins>, capacity</li>
+</ul>
+</li>
+<li><p>Relationship Table:</p>
+<ul>
+<li><strong>Work_In2</strong>: id, did, address, since (<font color="F54747">primary key</font>: <code>&#123;id, did, address&#125;</code>)</li>
+</ul>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Work_In2(</span><br><span class="line">    <span class="comment">-- primary key of each participating entity set</span></span><br><span class="line">    id      <span class="type">CHAR</span>(<span class="number">11</span>),</span><br><span class="line">    did     <span class="type">INTEGER</span>,</span><br><span class="line">    address <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    <span class="comment">-- its own attribute</span></span><br><span class="line">    since   <span class="type">DATE</span>,</span><br><span class="line">    <span class="comment">-- primary key (cannot be null)</span></span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (id, did, address),  <span class="comment">-- the group of primary keys of each entity</span></span><br><span class="line">    <span class="comment">-- foreign keys</span></span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (id) <span class="keyword">REFERENCES</span> Employees,</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (did) <span class="keyword">REFERENCES</span> Departments,</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (address) <span class="keyword">REFERENCES</span> Locations</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li><p>demonstrating on descriptive attributes</p>
+  <img src="https://p.ipic.vip/yhhwjs.png" width="250px" /></li>
+</ul>
+<ol start="3">
+<li><p>Entity Table:</p>
+<ul>
+<li><strong>Employees</strong>: <ins>id</ins>, name, lot</li>
+</ul>
+</li>
+<li><p>Relationship Table:</p>
+<ul>
+<li><strong>Reoports_To</strong>: supervisor_id, subordinate_id (<font color="F54747">primary key</font>: <code>&#123;supervisor_id, subordinate_id&#125;</code>)</li>
+</ul>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Reoports_To(</span><br><span class="line">    <span class="comment">-- the descriptive attributes</span></span><br><span class="line">    supervisor_id   <span class="type">CHAR</span>(<span class="number">11</span>),</span><br><span class="line">    subordinate_id  <span class="type">CHAR</span>(<span class="number">11</span>),</span><br><span class="line">    <span class="comment">-- primary key</span></span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (supervisor_id, subordinate_id),    <span class="comment">-- the group of attributes</span></span><br><span class="line">    <span class="comment">-- foreign keys (relate the descriptive attributes to the associated attribute)</span></span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (supervisor_id) <span class="keyword">REFERENCES</span> Employees(id),</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (subordinate_id) <span class="keyword">REFERENCES</span> Employees(id),</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Relationship-Sets-Key-Constraints"><a href="#Relationship-Sets-Key-Constraints" class="headerlink" title="Relationship Sets (Key Constraints)"></a>Relationship Sets (<font color="3A75EA">Key Constraints</font>)</h3><img src="https://p.ipic.vip/h6bfwe.png" width="400px" />
+
+<ul>
+<li>each department has <font color="3A75EA">at most one</font> manager (i.e., no two tuples can have same <code>did</code> but can have same <code>id</code> in <code>Managers</code> table)</li>
+<li><code>did</code> is the primary &#x2F; candidate key but <code>&#123;id, did&#125;</code> is not as it is not minimal</li>
+</ul>
+<ol>
+<li><p>Attributes:</p>
+<ul>
+<li>all attributes of the entity set with the candidate key</li>
+<li>the primary key attributes of each participating entity set</li>
+<li>its own attributes</li>
+</ul>
+</li>
+<li><p>Keys:</p>
+<ul>
+<li><font color="F54747">primary key</font>: the only required primary key</li>
+<li>the foreign keys</li>
+</ul>
+</li>
+<li><p>Entity Table:</p>
+<ul>
+<li><strong>Employees</strong>: <ins>id</ins>, name, lot</li>
+<li><strong>Departments</strong>: <ins>did</ins>, dname, budget</li>
+</ul>
+</li>
+<li><p>Relationship Table:</p>
+<ul>
+<li><strong>Managers</strong>: <ins>did</ins>, dname, budget, id, since (<font color="F54747">primary key</font>: <code>&#123;did&#125;</code>)</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>Cons: if a lot of departments have no manager, it is wasting space</p>
+  <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Managers(</span><br><span class="line">    <span class="comment">-- all attributes of the entity set with the candidate key</span></span><br><span class="line">    did     <span class="type">INTEGER</span>,</span><br><span class="line">    dname   <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    budget  <span class="type">REAL</span>,</span><br><span class="line">    <span class="comment">-- primary key of each entity set</span></span><br><span class="line">    id      <span class="type">CHAR</span>(<span class="number">11</span>),</span><br><span class="line">    <span class="comment">-- its own attributes</span></span><br><span class="line">    since   <span class="type">DATE</span>,</span><br><span class="line">    <span class="comment">-- primary key (not the set of primary keys in entity sets)</span></span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (did),</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (id) <span class="keyword">REFERENCES</span> Employees</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Relationship-Sets-Participation-Constraints"><a href="#Relationship-Sets-Participation-Constraints" class="headerlink" title="Relationship Sets (Participation Constraints)"></a>Relationship Sets (<font color="3A75EA">Participation Constraints</font>)</h3><img src="https://p.ipic.vip/kay8v8.png" width="400px" />
+
+<ul>
+<li><p>each department has <font color="3A75EA">exactly one one</font> manager (i.e., <code>id</code> cannot set to be <code>DELETE</code>)</p>
+  <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Managers(</span><br><span class="line">    did     <span class="type">INTEGER</span>,</span><br><span class="line">    dname   <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    budget  <span class="type">REAL</span>,</span><br><span class="line">    id      <span class="type">CHAR</span>(<span class="number">11</span>),</span><br><span class="line">    since   <span class="type">DATE</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (did),</span><br><span class="line">    <span class="comment">-- must have one manager (turn on cannot DELETE)</span></span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (id) <span class="keyword">REFERENCES</span> Employees <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">NO</span> ACTION     </span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Week-Entity-Sets"><a href="#Week-Entity-Sets" class="headerlink" title="Week Entity Sets"></a>Week Entity Sets</h3><img src="https://p.ipic.vip/sr2epq.png" width="400px" />
+
+<ul>
+<li><p>The weak entity set always</p>
+<ul>
+<li>participates in a one-to-many binary relationship</li>
+<li>has a key constraint</li>
+<li>has total participation</li>
+</ul>
+</li>
+<li><p>Primary key: <code>&#123;id, pname&#125;</code> as <code>Dependents</code> is a weak entity</p>
+</li>
+</ul>
+<ol>
+<li><p>Attributes:</p>
+<ul>
+<li>all attributes of the entity set with the candidate key</li>
+<li>the primary key attributes of each participating entity set</li>
+<li>its own attributes</li>
+</ul>
+</li>
+<li><p>Keys:</p>
+<ul>
+<li><font color="F54747">primary key</font>: the group of primary key in participating entity</li>
+<li>the foreign keys</li>
+</ul>
+</li>
+<li><p>Entity Table:</p>
+<ul>
+<li><strong>Employees</strong>: <ins>id</ins>, name, lot</li>
+<li><strong>Departments</strong>: <ins>did</ins>, dname, budget</li>
+</ul>
+</li>
+<li><p>Relationship Table:</p>
+<ul>
+<li><strong>Managers</strong>: did, dname, budget, id, since (<font color="F54747">primary key</font>: <code>&#123;id, pname&#125;</code>)</li>
+</ul>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Policy(</span><br><span class="line">    <span class="comment">-- all attributes of the entity set</span></span><br><span class="line">    pname   <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    age     <span class="type">INTEGER</span>,</span><br><span class="line">    <span class="comment">-- the primary key of each participating entity</span></span><br><span class="line">    id      <span class="type">CHAR</span>(<span class="number">11</span>),</span><br><span class="line">    <span class="comment">-- its own attributes</span></span><br><span class="line">    cost    <span class="type">REAL</span>,</span><br><span class="line">    <span class="comment">-- primary key</span></span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (pname,id),</span><br><span class="line">    <span class="comment">-- ensure that information about employee&#x27;s policy and dependents is deleted</span></span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (id) <span class="keyword">REFERENCES</span> Employees <span class="keyword">ON</span> <span class="keyword">DELETE</span> CASCADE</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Class-Hierarchies"><a href="#Class-Hierarchies" class="headerlink" title="Class Hierarchies"></a>Class Hierarchies</h3><img src="https://p.ipic.vip/d3y6w4.png" width="450px" />
+
+<ol>
+<li>Entity Table:<ul>
+<li><strong>Employees</strong>: <ins>id</ins>, name, lot</li>
+<li><strong>Hourly-Emps</strong>: <ins>id</ins>, hour_worked, hour_wages</li>
+<li><strong>Contract-Emps</strong>: <ins>id</ins>, contract_id</li>
+</ul>
+</li>
+</ol>
+<h3 id="Aggregation"><a href="#Aggregation" class="headerlink" title="Aggregation"></a>Aggregation</h3><img src="https://p.ipic.vip/hz86ip.png" width="500px" />
+
+<ol>
+<li><p>Entity Table:</p>
+<ul>
+<li><strong>Employees</strong>: <ins>id</ins>, name, lot</li>
+<li><strong>Departments</strong>: <ins>did</ins>, dname, budget</li>
+<li><strong>Projects</strong>: <ins>pid</ins>, started-on, pbudget</li>
+</ul>
+</li>
+<li><p>Relationship Table:</p>
+<ul>
+<li><strong>Monitors</strong>: id, pid, did, until (<font color="F54747">primary key</font>: <code>&#123;id, pid, did&#125;</code>)</li>
+<li><strong>Sponsors</strong>: pid, did, since (<font color="F54747">primary key</font>: <code>&#123;pid, did&#125;</code>)</li>
+</ul>
+</li>
+</ol>
 <!-- 
 <font color="3A75EA">Blue</font>
 <font color="F54747">Red</font>
---></li>
+-->]]></content>
+      <categories>
+        <category>CSCI3170</category>
+      </categories>
+      <tags>
+        <tag>CSCI3170</tag>
+        <tag>database</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CSCI3170 - Relational Algebra</title>
+    <url>/myBlog/2023/02/16/2023/2023-2-16-CSCI3170-Relational-Algebra/</url>
+    <content><![CDATA[<!-- <style>
+table{
+    text-align: center;
+    margin: auto auto;
+    width: fit-content;
+}
+
+table th {
+    display: solid;
+    width: 80px;
+}
+</style> -->
+
+<h2 id="Basic-Operations"><a href="#Basic-Operations" class="headerlink" title="Basic Operations"></a>Basic Operations</h2><h3 id="Select-sigma"><a href="#Select-sigma" class="headerlink" title="Select $\sigma$"></a>Select <font size="3px">$\sigma$</font></h3><ul>
+<li><p>specifies the tuples to retain through a <font color="3A75EA">selection condition</font> which is a Boolean combination</p>
+<p>  $$\sigma_{conditions}(R)$$</p>
+  <img src="https://p.ipic.vip/rgtu0c.png" width="400px" /></li>
+</ul>
+<h3 id="Project-Pi"><a href="#Project-Pi" class="headerlink" title="Project $\Pi$"></a>Project <font size="3px">$\Pi$</font></h3><ul>
+<li><p><font color="3A75EA"><strong>Return</strong></font>: extract columns from a relation by specifying the field to be retained</p>
+</li>
+<li><p>the duplicated row will be <font color="F54747">eliminated</font></p>
+<p>  $$\Pi_{fields}(R)$$</p>
+  <img src="https://p.ipic.vip/rzij6p.png" width="400px" /></li>
+</ul>
+<h3 id="Rename-rho"><a href="#Rename-rho" class="headerlink" title="Rename $\rho$"></a>Rename <font size="3px">$\rho$</font></h3><p>$$\rho \space(R(F), \space E)$$ </p>
+<ul>
+<li><p><font color="3A75EA"><strong>Return</strong></font>: a relation named R</p>
+</li>
+<li><p>E: relation algebra expression</p>
+</li>
+<li><p>F: renaming list</p>
+<ul>
+<li>oldname → newname<ul>
+<li>$ \rho \space ( \space C ( sid → identity, \space child → dependent ), \space E )$</li>
+</ul>
+</li>
+<li>position → newname<ul>
+<li>$ \rho \space ( \space C ( 3 → identity), \space E )$</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Sets-Operations"><a href="#Sets-Operations" class="headerlink" title="Sets Operations"></a>Sets Operations</h2><h3 id="Union-R-cup-S"><a href="#Union-R-cup-S" class="headerlink" title="Union $R \cup S$"></a>Union <font size="3px">$R \cup S$</font></h3><ul>
+<li><p><font color="3A75EA"><strong>Return</strong></font>: a relation instance containing all tuples that <font color="3A75EA">occurs in either relation instance R or S</font></p>
+</li>
+<li><p>the duplicated row will be <font color="F54747">eliminated</font></p>
+</li>
+<li><p>Two relation instances must be <font color="3A75EA">union-compatible</font></p>
+<ul>
+<li>They have <font color="F54747">same number of fields</font></li>
+<li>The corresponding fields have the <font color="F54747">same domains</font></li>
+</ul>
+<p>  $$R \cup S &#x3D; S \cup R$$</p>
+  <img src="https://p.ipic.vip/kf2cz3.png" width="400px" /></li>
+</ul>
+<h3 id="Set-Different-R-S"><a href="#Set-Different-R-S" class="headerlink" title="Set Different $R - S$"></a>Set Different <font size="3px">$R - S$</font></h3><ul>
+<li><p><font color="3A75EA"><strong>Return</strong></font>: a relation instance containing all the tuples that <font color="3A75EA">occurs in R but not in S</font></p>
+</li>
+<li><p>Two relation instances must be <font color="3A75EA">union-compatible</font></p>
+<p>  $$R - S \ne S - R$$</p>
+  <img src="https://p.ipic.vip/osr1ew.png" width="400px" /></li>
+</ul>
+<h3 id="Set-Intersection-R-cap-S"><a href="#Set-Intersection-R-cap-S" class="headerlink" title="Set Intersection $R \cap S$"></a>Set Intersection <font size="3px">$R \cap S$</font></h3><ul>
+<li><p><font color="3A75EA"><strong>Return</strong></font>: a relation instance containing all tuples that <font color="3A75EA">occurs in both R and S</font></p>
+</li>
+<li><p>Two relation instances must be <font color="3A75EA">union-compatible</font></p>
+<p>  $$R \cap S &#x3D; R - (R - S) &#x3D; S - (S - R)$$</p>
+  <img src="https://p.ipic.vip/03sbta.png" width="400px" /></li>
+</ul>
+<h2 id="Corss-amp-Join"><a href="#Corss-amp-Join" class="headerlink" title="Corss &amp; Join"></a>Corss &amp; Join</h2><h3 id="Cartesian-Product"><a href="#Cartesian-Product" class="headerlink" title="Cartesian Product"></a>Cartesian Product</h3><ul>
+<li><p><font color="3A75EA"><strong>Return</strong></font>: a relation instance whose schema contains all the fields of R followed by all the fields of S<br>  $$R \times S \space &#x3D; \space \langle r, s \rangle, \space \space \space r \in R, s \in S$$</p>
+  <img src="https://p.ipic.vip/27lxln.png" width="400px" />
+</li>
+<li><p>Situation: Comparation in different entity seys</p>
+<ol>
+<li><p>Select the female employees and project the <code>f_name</code>, <code>l_name</code> and <code>id</code> to Empnames<br> $$ \rho \space ( \space Empnames,\space \Pi_{fname, \space lname, \space id} \space ( \space \sigma_{sex&#x3D;’F’} \space ( Employee ) ) )$$</p>
+ <img src="https://p.ipic.vip/sczbps.png" width="400px" />
+</li>
+<li><p>FemaleEmps cross Empnames, such that they are able to compare in a table (entity)<br> $$ \rho \space ( \space EmpDependents, FemaleEmps \times Empnames )$$</p>
+ <img src="https://p.ipic.vip/4hzl7b.png" width="400px" />
+</li>
+<li><p>Choose the row that has the same id and did and project the <code>f_name</code>, <code>l_name</code> and <code>dep_name</code> onto Results<br> $$\rho \space ( \space Results, \space \Pi_{fname, \space lname, \space depname} \space ( \space \sigma_{id &#x3D; did} \space ( EmpDependents ) ) )$$</p>
+ <img src="https://p.ipic.vip/mtxewc.png" width="200px" /></li>
 </ol>
-]]></content>
+</li>
+</ul>
+<h3 id="Condition-Join-Join"><a href="#Condition-Join-Join" class="headerlink" title="Condition Join $\Join$"></a>Condition Join $\Join$</h3><ul>
+<li><p>Cartesian product with selection<br>$$ R \Join_{c} S &#x3D; \sigma_{c} \space ( R \times S) $$</p>
+  <img src="https://p.ipic.vip/rv7eax.png" width="500px" />
+</li>
+<li><p>Situation: Find maximum</p>
+<ol>
+<li><p>Select the employees whose salary is not the greatest<br> $$ \rho \space (R, \space \Pi_{E.name} \space ( E \space \Join_{E.salary \space &lt; \space F.salary} \space \rho (F, E)))$$</p>
+ <img src="https://p.ipic.vip/cs5znb.png" width="400px" />
+</li>
+<li><p>Different (Remove the selected employee)<br> $$ \rho \space (Result, \Pi_{name} \space (E) - R) $$</p>
+ <img src="https://p.ipic.vip/hooft9.png" width="300px" /></li>
+</ol>
+</li>
+</ul>
+<h3 id="Equi-Join"><a href="#Equi-Join" class="headerlink" title="Equi Join"></a>Equi Join</h3><ul>
+<li>the join condition consists solely of equalities<br>$$ R \Join_{R.b \space &#x3D; \space S.b} S$$  <img src="https://p.ipic.vip/a5t0yl.png" width="400px" /></li>
+</ul>
+<h3 id="Natural-Join"><a href="#Natural-Join" class="headerlink" title="Natural Join"></a>Natural Join</h3><ul>
+<li>An equi join in which equalities are specified on all fields having the same names in R and S<br>$$ R \Join S &#x3D; R \Join_{R.b \space &#x3D; \space S.b \space \land \space R.d \space &#x3D; \space S.d } S $$  <img src="https://p.ipic.vip/h49ps8.png" width="400px" /></li>
+</ul>
+<h2 id="Division"><a href="#Division" class="headerlink" title="Division"></a>Division</h2><ul>
+<li>The division operation is useful for expressing certain kinds of queries</li>
+<li>Example: find the names of sailors who have reserved all boats</li>
+</ul>
+<!-- 
+<img src="" width="500px" />
+<font color="3A75EA">Blue</font>
+<font color="F54747">Red</font>
+-->]]></content>
       <categories>
         <category>CSCI3170</category>
       </categories>

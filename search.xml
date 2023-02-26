@@ -8012,15 +8012,17 @@
 <li><p>it first occurs <font color="F54747">during execution</font> or can <font color="F54747">change during execution of the program</font> (<code>JavaScript</code>, <code>Python</code>, <code>PHP</code>)</p>
   <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">list</span> = [<span class="number">2</span>, <span class="number">4.33</span>, <span class="number">6</span>, <span class="number">8</span>]</span><br><span class="line"><span class="built_in">list</span> = <span class="number">17.3</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>Advantages:</p>
+<li><p><strong>Evaluation</strong>:</p>
 <ul>
+<li><font color="F54747"><strong>Advantages</strong></font>:<ol>
 <li>flexibility (code generic)</li>
-</ul>
+</ol>
 </li>
-<li><p>Disadvantages:</p>
-<ul>
+<li><font color="F54747"><strong>Disadvantages</strong></font>:<ol>
 <li>high cost</li>
 <li>type error detection by compoler is difficult</li>
+</ol>
+</li>
 </ul>
 </li>
 </ul>
@@ -8046,34 +8048,42 @@
 <li><p>Bound to memory cells <font color="F54747">before execution begins</font> and remains bound to the <font color="3A75EA">same</font> memory cell <font color="F54747">throughout execution</font></p>
   <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> x = <span class="number">0</span>;  <span class="comment">// global variable (static)</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> y = <span class="number">50</span>;  <span class="comment">// global variable (this static doesn&#x27;t mean static variable)</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">int</span> z = <span class="number">100</span>;    <span class="comment">// local variable</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>Advantages:</p>
+<li><p><strong>Evaluation</strong>:</p>
+<ul>
+<li><p><font color="F54747"><strong>Advantages</strong></font>:</p>
 <ol>
 <li>Efficiency (direct addressing)</li>
 <li>History-sensitive subprogram support</li>
 </ol>
 </li>
-<li><p>Disadvantages:</p>
+<li><p><font color="F54747"><strong>Disadvantages</strong></font>:</p>
 <ol>
 <li>Lack of flexibility (cannot use for recursion)</li>
 <li>No sharing of storage</li>
 </ol>
 </li>
 </ul>
+</li>
+</ul>
 <h3 id="Stack-Dynamic-Variables"><a href="#Stack-Dynamic-Variables" class="headerlink" title="Stack-Dynamic Variables"></a>Stack-Dynamic Variables</h3><ul>
 <li><p>Bound to stack memory cells <font color="F54747">when the function is called</font> and remains bound to the <font color="3A75EA">same</font> memory cell <font color="F54747">until the function is returned</font></p>
   <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">f</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">999</span>;    <span class="comment">// stack-dynamic variable</span></span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    f();</span><br><span class="line">    f();    <span class="comment">// has the same address (the memory cells for pervious function was removed)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>Advantages:</p>
+<li><p><strong>Evaluation</strong>:</p>
+<ul>
+<li><p><font color="F54747"><strong>Advantages</strong></font>:</p>
 <ol>
 <li>Can use for recursion</li>
 <li>Conversation of storage</li>
 </ol>
 </li>
-<li><p>Disadvantages:</p>
+<li><p><font color="F54747"><strong>Disadvantages</strong></font>:</p>
 <ol>
 <li>Overhead of allocation and deallocation</li>
 <li>Inefficient references (indirect addressing)</li>
 </ol>
+</li>
+</ul>
 </li>
 </ul>
 <h3 id="Explicit-Heap-Dynamic-Variables"><a href="#Explicit-Heap-Dynamic-Variables" class="headerlink" title="Explicit Heap-Dynamic Variables"></a>Explicit Heap-Dynamic Variables</h3><ul>
@@ -8083,33 +8093,41 @@
   <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// *</span></span><br><span class="line">    <span class="type">int</span>* p = <span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">88</span>);   <span class="comment">// one single integer</span></span><br><span class="line">    <span class="type">int</span>* a = <span class="keyword">new</span> <span class="type">int</span>[size]; <span class="comment">// an array of size integers</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// **</span></span><br><span class="line">    <span class="type">int</span>** pp = &amp;p;  <span class="comment">// pp -&gt; p -&gt; int(88)</span></span><br><span class="line">    Ingredient** ingredientStorage = <span class="keyword">new</span> Ingredient*[size]; <span class="comment">// Assignment 1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 </li>
-<li><p>Advantages:</p>
+<li><p><strong>Evaluation</strong>:</p>
+<ul>
+<li><p><font color="F54747"><strong>Advantages</strong></font>:</p>
 <ol>
 <li>Flexibility</li>
 <li>Storage efficiency (Dynamic storage management)</li>
 </ol>
 </li>
-<li><p>Disadvantages:</p>
+<li><p><font color="F54747"><strong>Disadvantages</strong></font>:</p>
 <ol>
 <li>Time-inefficient</li>
 <li>Unreliable (dealing with pointers)</li>
 </ol>
 </li>
 </ul>
+</li>
+</ul>
 <h3 id="Implicit-Heap-Dynamic-Variables"><a href="#Implicit-Heap-Dynamic-Variables" class="headerlink" title="Implicit Heap-Dynamic Variables"></a>Implicit Heap-Dynamic Variables</h3><ul>
 <li><p>Allocated and deallocated by <font color="F54747">assignment statement</font>, <font color="3A75EA">specified by the programmer</font>, which can take effect <font color="F54747">during execution</font></p>
   <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="string">&quot;Hello&quot;</span>, <span class="number">1.234</span>, <span class="string">&quot;World&quot;</span>]</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>Advantages:</p>
+<li><p><strong>Evaluation</strong>:</p>
+<ul>
+<li><p><font color="F54747"><strong>Advantages</strong></font>:</p>
 <ol>
 <li>Flexibility</li>
 </ol>
 </li>
-<li><p>Disadvantages:</p>
+<li><p><font color="F54747"><strong>Disadvantages</strong></font>:</p>
 <ol>
 <li>Inefficient</li>
 <li>Loss of error detection</li>
 </ol>
+</li>
+</ul>
 </li>
 </ul>
 <!-- 
@@ -8726,6 +8744,371 @@ table th {
       <tags>
         <tag>CSCI3170</tag>
         <tag>database</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CSCI3180 - Data Types</title>
+    <url>/myBlog/2023/02/26/2023/2023-2-26-CSCI3180-Scope%20copy/</url>
+    <content><![CDATA[<h2 id="Primitive-Data-Types"><a href="#Primitive-Data-Types" class="headerlink" title="Primitive Data Types"></a>Primitive Data Types</h2><ul>
+<li>The most basic data types available in a programming language</li>
+<li>Reflections of the hardware<ul>
+<li>are directly related to how the computer’s hardware processes and stores data</li>
+<li>primitive data types are designed to map directly to the underlying hardware of a computer (i.e., allow programs to interact with the hardware in an efficient way)</li>
+</ul>
+</li>
+</ul>
+<h3 id="Integer"><a href="#Integer" class="headerlink" title="Integer"></a>Integer</h3><ul>
+<li><p>An exact reflection of the hardware</p>
+</li>
+<li><p>Integer sizes: platform-independent</p>
+<ul>
+<li><code>Java</code> signed integer sizes: <code>byte</code>(1 bytes), <code>short</code>(2 bytes), <code>int</code>(4 bytes), <code>long</code>(8 bytes)</li>
+<li><code>C</code>&#x2F;<code>C++</code> signed integer sizes are not fixed</li>
+<li><code>Python</code>: arbitrary sizes</li>
+</ul>
+</li>
+</ul>
+<h3 id="Floating-Point"><a href="#Floating-Point" class="headerlink" title="Floating Point"></a>Floating Point</h3><ul>
+<li>Mordelling real numbers, but just approximations</li>
+<li>IEEE Floating-Point Standard 754</li>
+<li>Languages support at least 2 floating-point types: <code>float</code> (32 bits), <code>double</code> (64 bits)</li>
+</ul>
+<h3 id="Complex"><a href="#Complex" class="headerlink" title="Complex"></a>Complex</h3><ul>
+<li>Some languages support a complex type (e.g., <code>Python</code>, <code>C99</code>)  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="number">1</span>+<span class="number">4j</span>) <span class="comment"># (1+4j)</span></span><br><span class="line"><span class="built_in">print</span>((<span class="number">1</span>+<span class="number">4j</span>)*(<span class="number">1</span>+<span class="number">4j</span>))    <span class="comment"># (-15+8j)</span></span><br><span class="line"><span class="built_in">print</span>(j)    <span class="comment"># not complex</span></span><br><span class="line"><span class="built_in">print</span>(j*j)  <span class="comment"># not complex</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">1j</span>*<span class="number">1j</span>)    <span class="comment"># (-1+0j)</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Decimal"><a href="#Decimal" class="headerlink" title="Decimal"></a>Decimal</h3><ul>
+<li>For business applications which involve money (e.g., <code>COBOL</code>~ essential, <code>C#</code>, <code>Python</code>)</li>
+<li>It stores a fixed number of decimal digits in <font color="3A75EA">binary coded decimal</font></li>
+<li><strong>Advantages</strong>:<ol>
+<li>Accuracy</li>
+</ol>
+</li>
+<li><strong>Disadvantages</strong>:<ol>
+<li>Limited range</li>
+<li>Memory waste</li>
+</ol>
+</li>
+</ul>
+<h3 id="Boolean"><a href="#Boolean" class="headerlink" title="Boolean"></a>Boolean</h3><ul>
+<li><p><code>true</code>, <code>false</code></p>
+</li>
+<li><p><code>C99</code> and <code>C++</code> allow numeric expressions to be used as Boolean, but <code>Java</code> and <code>C#</code> do not because of the reliability</p>
+  <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(j = <span class="number">1</span>)&#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;GG&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Advantages</strong>:</p>
+<ol>
+<li>Readability</li>
+<li>Reliability</li>
+</ol>
+</li>
+</ul>
+<h3 id="Character"><a href="#Character" class="headerlink" title="Character"></a>Character</h3><ul>
+<li>Stored as <font color="3A75EA">numeric codings</font> (ASCII standard and Unicode not standard)</li>
+<li><font color="F54747">Noted</font>: <code>Python</code> does not have Character type (it is a string of one length)</li>
+</ul>
+<h3 id="Character-String-Types"><a href="#Character-String-Types" class="headerlink" title="Character String Types"></a>Character String Types</h3><ul>
+<li><p>A sequences of characters</p>
+</li>
+<li><p>Typical Operations:</p>
+<ol>
+<li>Assignment and copying</li>
+<li>Comparasion (ascending&#x2F;descending)</li>
+<li>Concatenation</li>
+<li>Substring reference</li>
+<li>Pattern matching</li>
+</ol>
+</li>
+<li><p>String Types in Languages:</p>
+<ol>
+<li><p><code>C</code> and <code>C++</code></p>
+<ul>
+<li>Not primitive, use char arrays and a library of functions provides operation</li>
+</ul>
+</li>
+<li><p><code>Java</code> and <code>C#</code></p>
+<ul>
+<li>Not primitive, use the String class</li>
+</ul>
+</li>
+<li><p><code>Fortran</code> and <code>Python</code></p>
+<ul>
+<li>Primitive type with assignment and serveral operations</li>
+</ul>
+</li>
+<li><p><code>Perl</code> and <code>JavaScript</code></p>
+<ul>
+<li>Provide built-in pattern matching (regular expression)</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>String Length Options:</p>
+<ul>
+<li><font color="3A75EA">Static length</font> in <code>Python</code>, <code>Java</code> String class</li>
+<li><font color="3A75EA">Limited dynamic length</font> in <code>C</code> and <code>C++</code> char arrays (<code>\0</code> indicates the end of string)  <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">char</span> s1[<span class="number">3</span>] = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">    std::cout &lt;&lt; s1 &lt;&lt; std::endl;   <span class="comment">// dangerous</span></span><br><span class="line">    <span class="type">char</span> s2[<span class="number">4</span>] = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;\0&#x27;</span>&#125;;</span><br><span class="line">    std::cout &lt;&lt; s2 &lt;&lt; std::endl;   <span class="comment">// safe</span></span><br><span class="line">    <span class="type">char</span> s3[] = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line">    std::cout &lt;&lt; s3 &lt;&lt; std::endl;   <span class="comment">// safe</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Limited dynamic length</span></span><br><span class="line">    <span class="type">char</span> s4[<span class="number">20</span>] = <span class="string">&quot;hahahaha&quot;</span>;</span><br><span class="line">    std::cout &lt;&lt; s4 &lt;&lt; std::endl;   <span class="comment">// hahahaha</span></span><br><span class="line">    s4[<span class="number">8</span>] = <span class="string">&#x27;!&#x27;</span>;</span><br><span class="line">    std::cout &lt;&lt; s4 &lt;&lt; std::endl;   <span class="comment">// hahahaha!</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><font color="3A75EA">Unlimited dynamic length</font> in <code>Perl</code></li>
+</ul>
+</li>
+</ul>
+<!-- 
+<font color="3A75EA">Blue</font>
+<font color="F54747">Red</font>
+-->]]></content>
+      <categories>
+        <category>CSCI3180</category>
+      </categories>
+      <tags>
+        <tag>CSCI3180</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CSCI3180 - Scope</title>
+    <url>/myBlog/2023/02/25/2023/2023-2-25-CSCI3180-Scope/</url>
+    <content><![CDATA[<h2 id="Scope"><a href="#Scope" class="headerlink" title="Scope"></a>Scope</h2><ul>
+<li>variables and functions declared in a particular scope are visible and accessible only within that scope and its nested scopes, but not outside of it<ol>
+<li><p>Local variables</p>
+<ul>
+<li>The variables defined within a particular function or block of code</li>
+<li>The are only accessible within that function or block and its nested scopes</li>
+</ul>
+</li>
+<li><p>Nonlocal variables</p>
+<ul>
+<li>The variables defined in a parent function</li>
+<li>They are accessible within nested functions</li>
+</ul>
+ <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> g;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">int</span> a)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> b;</span><br><span class="line">    <span class="comment">// g is nonlocal (global)</span></span><br><span class="line">    <span class="comment">// a, b are local</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// g is nonlocal (global)</span></span><br><span class="line">    <span class="comment">// x is local</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">        <span class="type">int</span> y = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// g is nonlocal (global)</span></span><br><span class="line">        <span class="comment">// x is nonlcoal</span></span><br><span class="line">        <span class="comment">// i, y are local</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<h2 id="Static-Scope"><a href="#Static-Scope" class="headerlink" title="Static Scope"></a>Static Scope</h2><ul>
+<li><p>It done <font color="3A75EA">before run time</font></p>
+</li>
+<li><p>It searches <font color="3A75EA">locally</font>, then proceeds to <font color="F54747">increasingly larger enclosing scopes</font> until the given variable name is found</p>
+<ul>
+<li><p>Static ancestors: the enclosing static scope that contain it</p>
+</li>
+<li><p>Static parent: the nearest static ancestors</p>
+  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x = <span class="string">&quot;global&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">outer</span>():</span><br><span class="line">    x = <span class="string">&quot;outer&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>():</span><br><span class="line">        x = <span class="string">&quot;inner&quot;</span></span><br><span class="line">        <span class="built_in">print</span>(x) <span class="comment"># inner</span></span><br><span class="line"></span><br><span class="line">    inner()</span><br><span class="line">    <span class="built_in">print</span>(x) <span class="comment"># outer</span></span><br><span class="line"></span><br><span class="line">outer()</span><br><span class="line"><span class="built_in">print</span>(x) <span class="comment"># global</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>Evaluation</strong>:</p>
+<ul>
+<li><font color="F54747"><strong>Advantages</strong></font>:<ol>
+<li>Easy to read and understand</li>
+<li>Relatively fast</li>
+<li>Static type checking is possible</li>
+</ol>
+</li>
+<li><font color="F54747"><strong>Disadvantages</strong></font>:<ol>
+<li>Too much access is possible</li>
+<li>Inconvenience<ul>
+<li>As the program evolves, the initial structure is destoryed and local variables often become global, even subprograms also toward become global rather than nested</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Blocks"><a href="#Blocks" class="headerlink" title="Blocks"></a>Blocks</h3><ul>
+<li><p>A method of creating static scopes inside a program unit (<code>C++</code>, <code>Java</code> cannot define a function inside a function)</p>
+</li>
+<li><p><font color="3A75EA">Compound statement</font> is a statement sequence that groups more statements into a single statement (in a brace<code>&#123;&#125;</code>)</p>
+<ul>
+<li><p>each compound statement have declarations which defined a new scope</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        System.out.println(y);  <span class="comment">// 1</span></span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(y);  <span class="comment">// y is not visible</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><font color="3A75EA">Nested block</font></p>
+<ul>
+<li>Reusing name in nested blocks is only legal in <code>C</code> and <code>C++</code>  <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">0</span>;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> x = <span class="number">1</span>;</span><br><span class="line">        std::cout &lt;&lt; x &lt;&lt; std::endl; <span class="comment">// 1</span></span><br><span class="line">    &#125;</span><br><span class="line">    std::cout &lt;&lt; x &lt;&lt; std::endl; <span class="comment">// 0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">1</span>;  <span class="comment">// error - already defined</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="Declaration-Order"><a href="#Declaration-Order" class="headerlink" title="Declaration Order"></a>Declaration Order</h3><ul>
+<li><p>Some old languages (<code>C89</code>) require variable declaration <font color="3A75EA">at the top</font> of the function</p>
+<ul>
+<li>In <code>C89</code> compiler, the variable should be declare before the loop  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">// int i;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)&#123; <span class="comment">// error</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;hi &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><code>C99</code>, <code>C++</code>, <code>Java</code>, <code>C#</code> allow variable declarations appear <font color="3A75EA">anywhere</font></p>
+<ul>
+<li><p>In <code>C99</code>, <code>C++</code>, <code>Java</code>, the scope of all local variables is <font color="F54747">from the declaration to the end of the block</font></p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// OK in Java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>But in <code>C#</code>, the scope of any variable declared in a block is the <font color="F54747">whole block</font></p>
+  <figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Not ok in C#</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span> &#123;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span> x = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">int</span> x = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="Global-Scope"><a href="#Global-Scope" class="headerlink" title="Global Scope"></a>Global Scope</h3><ul>
+<li>The scope in which variables and functions are visible to the entire program (including in other files)  <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// File 1</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> i = <span class="number">99</span>;  <span class="comment">// CAN define it again in other file</span></span><br><span class="line"><span class="type">int</span> g = <span class="number">100</span>;    <span class="comment">// CANNOT define it again in other file</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">int</span> j;   <span class="comment">// extern needed, if you want to declare a variable from other file</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; i &lt;&lt; std::endl;    <span class="comment">// 99</span></span><br><span class="line">    std::cout &lt;&lt; j &lt;&lt; std::endl;    <span class="comment">// 777</span></span><br><span class="line">    std::cout &lt;&lt; g &lt;&lt; std::endl;    <span class="comment">// 100</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// File 2</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> i = <span class="number">1234</span>;</span><br><span class="line"><span class="type">int</span> j = <span class="number">777</span>;</span><br><span class="line"><span class="type">int</span> g = <span class="number">0</span>;  <span class="comment">// illegal</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; i &lt;&lt; std::endl;    <span class="comment">// 1234</span></span><br><span class="line">    std::cout &lt;&lt; j &lt;&lt; std::endl;    <span class="comment">// 777</span></span><br><span class="line">    std::cout &lt;&lt; g &lt;&lt; std::endl;    <span class="comment">// Compilation error: &#x27;g&#x27; has already been defined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Python-Scope"><a href="#Python-Scope" class="headerlink" title="Python Scope"></a>Python Scope</h4><ul>
+<li><p>Global variable</p>
+<ul>
+<li>It can be referenced in <font color="3A75EA">all functions</font></li>
+<li>It can be assigned if it has been declared to be global using the keyword <code>global</code> in the function  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">g = <span class="string">&quot;global&quot;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>():</span><br><span class="line">    <span class="keyword">global</span> g</span><br><span class="line">    g = <span class="string">&quot;local&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;from f(), &quot;</span>, g)  // local</span><br><span class="line">f()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;from glocal, &quot;</span>, g)   // local</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Nonlocal variable</p>
+<ul>
+<li>It can be referenced in the <font color="3A75EA">inner functions</font></li>
+<li>It can be assigned if it has been declared to be nonlocal using the keyword <code>nonlocal</code> in the function</li>
+<li><font color="F54747">NOTED: The <code>nonlocal</code> only refers to the nearest static ancestors</font></li>
+<li><font color="F54747">NOTED: The <code>nonlocal</code> only works for nonlocal variables, which means it cannot refer to a global variable</font>  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">sub1</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;sub1&quot;</span>)</span><br><span class="line">    x = <span class="string">&quot;modified at sub1&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sub2</span>():</span><br><span class="line">        <span class="comment"># nonlocal x  # goes into the static parent (sub2)</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;sub2&quot;</span>)</span><br><span class="line">        x = <span class="string">&quot;modified at sub2&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">sub3</span>():</span><br><span class="line">            <span class="keyword">nonlocal</span> x  <span class="comment">#</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;sub3&quot;</span>)</span><br><span class="line">            x = <span class="string">&quot;modified at sub3&quot;</span></span><br><span class="line"></span><br><span class="line">        sub3()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;x from sub2:&quot;</span>, x)   <span class="comment"># x from sub2: modified at sub3</span></span><br><span class="line"></span><br><span class="line">    sub2()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;x from sub1:&quot;</span>, x)   <span class="comment"># x from sub1: modified at sub1</span></span><br><span class="line"></span><br><span class="line">sub1()</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="Dynamic-Scope"><a href="#Dynamic-Scope" class="headerlink" title="Dynamic Scope"></a>Dynamic Scope</h2><ul>
+<li><p>The scope of a variable is determined by the order of function calls at runtime rather than by the static structure of the program</p>
+<ul>
+<li>Temporal</li>
+<li>Can only be determined at runtime  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">big</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> x = <span class="string">&quot;hehe&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">sub1</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> x = <span class="string">&quot;haha&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">sub2</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="title function_">sub1</span>()</span><br><span class="line">        <span class="keyword">var</span> y = x</span><br><span class="line">        <span class="keyword">var</span> z = <span class="string">&quot;hoho&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">sub2</span>()</span><br><span class="line">    <span class="title function_">print</span>(x)</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">big</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">// static scoping: hehe</span></span><br><span class="line"><span class="comment">// dynamic scoping: haha</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>Evaluation</strong>:</p>
+<ul>
+<li><font color="F54747"><strong>Advantages</strong></font>:<ol>
+<li>Convenience<ul>
+<li>Variables from the caller are <font color="3A75EA">implicitly</font> visible in the callee</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><font color="F54747"><strong>Disadvantages</strong></font>:<ol>
+<li>Reliability<ul>
+<li>The variables are visibile to all subprograms it calls</li>
+<li>Impossible to statically type check</li>
+</ul>
+</li>
+<li>Hard to understand<ul>
+<li>the variable value can be different every time</li>
+</ul>
+</li>
+<li>Costly runtime</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Referencing-Environments"><a href="#Referencing-Environments" class="headerlink" title="Referencing Environments"></a>Referencing Environments</h2><ul>
+<li><p>A data structure that stores all variable names that are visible at the statement</p>
+</li>
+<li><p>Static-scoped language:</p>
+<ul>
+<li>local variables + all visible variables in all <font color="F54747">enclosing scopes</font></li>
+</ul>
+</li>
+<li><p>Dynamic-scoped language</p>
+<ul>
+<li>local variables + all visible variables in all <font color="F54747">active subprograms</font> in calling sequence</li>
+<li><font color="F54747">active subprograms&lt;</font>: the execution has begun but not yet terminated</li>
+</ul>
+</li>
+<li><p>Practice 1:</p>
+  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">g = <span class="string">&quot;global doge&quot;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sub1</span>():</span><br><span class="line">h = <span class="string">&quot;husky&quot;</span> </span><br><span class="line">    <span class="comment"># Point (1) </span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sub2</span>():</span><br><span class="line">        <span class="keyword">global</span> g</span><br><span class="line">        c = <span class="string">&quot;corgi&quot;</span></span><br><span class="line">        <span class="comment"># Point (2)</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">sub3</span>():</span><br><span class="line">            <span class="keyword">nonlocal</span> c</span><br><span class="line">            g = <span class="string">&quot;meow&quot;</span></span><br><span class="line">            <span class="comment"># Point (3)</span></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="center">Point</th>
+<th align="center">Referencing Environment</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">(1)</td>
+<td align="center"><font color="3A75EA">local h</font> (reference &amp; assignment), <font color="3A75EA">global g</font> (reference only)</td>
+</tr>
+<tr>
+<td align="center">(2)</td>
+<td align="center"><font color="3A75EA">local c</font> (reference &amp; assignment), <font color="3A75EA">global g</font> (reference and assignment), <font color="3A75EA">nonlocal h</font> (reference only)</td>
+</tr>
+<tr>
+<td align="center">(3)</td>
+<td align="center"><font color="3A75EA">local g</font> (reference &amp; assignment), <font color="3A75EA">nonlocal c</font> from sub2 (reference and assignment)</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>Practice 2:</p>
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">sub1</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> a, b</span><br><span class="line">    <span class="comment">//Point (1)</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">sub2</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> b, c</span><br><span class="line">    <span class="comment">//Point (2)</span></span><br><span class="line">    <span class="title function_">sub1</span>()</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">main</span>(<span class="params"></span>)&#123; <span class="comment">//suppose main() is the program entry point</span></span><br><span class="line">    <span class="keyword">var</span> c, d</span><br><span class="line">    <span class="comment">//Point (3)</span></span><br><span class="line">    <span class="title function_">sub2</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="center">Point</th>
+<th align="center">Referencing Environment</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">(1)</td>
+<td align="center">a and b (sub1), c (sub2), d (main)</td>
+</tr>
+<tr>
+<td align="center">(2)</td>
+<td align="center">b and c (sub2), d (main)</td>
+</tr>
+<tr>
+<td align="center">(3)</td>
+<td align="center">c and d (main)</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="Named-Constants"><a href="#Named-Constants" class="headerlink" title="Named Constants"></a>Named Constants</h2><ul>
+<li><p>A variable that is bound to a value only <font color="F54747">once</font></p>
+</li>
+<li><p>The binding of values can be <font color="3A75EA">either static or dynamic</font></p>
+</li>
+<li><p><font color="F54747"><strong>Advantages</strong></font></p>
+<ol>
+<li>Readibility</li>
+<li>Reliability</li>
+<li>Possibility to parameterize a program</li>
+</ol>
+</li>
+<li><p>Syntax:</p>
+<ul>
+<li><p><code>Java</code></p>
+<ul>
+<li><code>final</code>: dynamically bound</li>
+</ul>
+</li>
+<li><p><code>C++</code></p>
+<ol>
+<li><code>const</code>: dynamically bound</li>
+<li><code>constexp</code>: statically bound, must be evaluated at compile time</li>
+</ol>
+</li>
+<li><p><code>C#</code></p>
+<ol>
+<li><code>readonly</code>: dynamically bound</li>
+<li><code>const</code>: statically bound, must be evaluated at compile time</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Scope-amp-Lifetime"><a href="#Scope-amp-Lifetime" class="headerlink" title="Scope &amp; Lifetime"></a>Scope &amp; Lifetime</h2><ul>
+<li>Scope and lifetime are often closely related, but are different concepts</li>
+<li>Example:  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">f</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> x;   <span class="comment">// static storage</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;ha &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    f();</span><br><span class="line">    x = <span class="number">0</span>;  <span class="comment">// cannot be accessed</span></span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Lifetime: <code>x</code> is static storage because of the keyword <code>static</code>, because all static storage variables are already existed in the data region</li>
+<li>Scope: <code>x</code> cannot be accessed in the main function because of its scope, which is not related to the static storage</li>
+</ul>
+</li>
+</ul>
+<!-- 
+<font color="3A75EA">Blue</font>
+<font color="F54747">Red</font>
+-->
+]]></content>
+      <categories>
+        <category>CSCI3180</category>
+      </categories>
+      <tags>
+        <tag>CSCI3180</tag>
       </tags>
   </entry>
 </search>

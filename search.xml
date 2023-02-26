@@ -7750,148 +7750,6 @@
       </tags>
   </entry>
   <entry>
-    <title>CSCI3170 - Entity-Relationship Model</title>
-    <url>/myBlog/2023/01/28/2023/2023-1-28-CSCI3170-ER-Model/</url>
-    <content><![CDATA[<h2 id="Entity-Relationship-Diagrams"><a href="#Entity-Relationship-Diagrams" class="headerlink" title="Entity-Relationship Diagrams"></a>Entity-Relationship Diagrams</h2><img src="https://p.ipic.vip/y43qkp.jpg" width="500px" />
-
-<ol>
-<li><p><font color="3A75EA"><strong>Entity Type</strong></font></p>
-<ul>
-<li>an object in the real world that is distinguishable from other objects <img src="https://p.ipic.vip/73xd6j.png" width="100px" /></li>
-</ul>
-</li>
-<li><p><font color="3A75EA"><strong>Entity Set</strong></font></p>
-<ul>
-<li>a collection of entities of the same type <img src="https://p.ipic.vip/azcz7x.png" width="100px" /></li>
-</ul>
-</li>
-<li><p><font color="3A75EA"><strong>Attributes</strong></font></p>
-<ul>
-<li>the properties that define the entity type <img src="https://p.ipic.vip/acwaqs.png" width="100px" /></li>
-</ul>
-</li>
-<li><p><font color="3A75EA"><strong>Key Attribute</strong></font></p>
-<ul>
-<li>a uniquely identifies each entity in the entity set <img src="https://p.ipic.vip/yyaazr.png" width="100px" /></li>
-</ul>
-</li>
-<li><p><font color="3A75EA"><strong>Relationship Type</strong></font></p>
-<ul>
-<li>represents the association between entity types <img src="https://p.ipic.vip/cjmfqr.png" width="300px" /></li>
-</ul>
-</li>
-<li><p><font color="3A75EA"><strong>Relationship Set</strong></font></p>
- <img src="https://p.ipic.vip/pjfz1o.png" width="300px" /></li>
-</ol>
-<h2 id="Key"><a href="#Key" class="headerlink" title="Key"></a>Key</h2><ol>
-<li><p><font color="3A75EA"><strong>Super key</strong></font></p>
-<ul>
-<li>A superkey is <font color="F54747">any set of one or more attributes</font> that can uniquely identify an entity in a table.</li>
-<li>It doesn’t have to be the smallest set of attributes that can do so.</li>
-</ul>
-</li>
-<li><p><font color="3A75EA"><strong>Candidate key</strong></font></p>
-<ul>
-<li>A candidate key is a superkey for which no proper subset is also a superkey.</li>
-<li>It is a <font color="F54747">minimal set of attributes</font> that can uniquely identify an entity in a table.</li>
-</ul>
-</li>
-<li><p><font color="3A75EA"><strong>Primary key</strong></font></p>
-<ul>
-<li>A primary key is a candidate key that has been selected as the main key for a table.</li>
-<li>There can only be <font color="F54747">one primary key</font> per table.</li>
-</ul>
-</li>
-</ol>
-<h2 id="Constraints"><a href="#Constraints" class="headerlink" title="Constraints"></a>Constraints</h2><h3 id="Key-Constraints"><a href="#Key-Constraints" class="headerlink" title="Key Constraints"></a>Key Constraints</h3><ol>
-<li><p>One-to-one</p>
-<ul>
-<li>An entity in A is associated with at most one entity in B.</li>
-<li>An entity in B is associated with at most one entity in A.<ul>
-<li>a man may be married to at most one woman, and a woman may be married to at most one man. <img src="https://p.ipic.vip/od5jt4.jpg" width="400px" /></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>One-to-many</p>
-<ul>
-<li>An entity in A is associated with any number in B.</li>
-<li>An entity in B is associated with at most one entity in A.<ul>
-<li>each child can have at most one mother, but a mother may have more than one children. <img src="https://p.ipic.vip/h0xmy9.jpg" width="400px" /></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Many-to-one</p>
-<ul>
-<li>An entity in A is associated with at most one entity in B.</li>
-<li>An entity in B is associated with any number in A.<ul>
-<li>an employee can only work in at most one department, but a department has more than one employees. <img src="https://p.ipic.vip/gm063c.jpg" width="400px" /></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Many-to-many</p>
-<ul>
-<li>Entities in A and B are associated with any number from each other.<ul>
-<li>both boy and girl can have more than one girl and boy classmates resepectively. <img src="https://p.ipic.vip/w7w9d3.jpg" width="400px" /></li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<h3 id="Participation-Constraints"><a href="#Participation-Constraints" class="headerlink" title="Participation Constraints"></a>Participation Constraints</h3><ul>
-<li><p>The example of a one-to-one key constraint, noting that a man may be married to at most one woman, and a woman may be married to at most one man (<font color="3A75EA">both men and women can be unmarried</font>). Suppose we want to build a database for the “Married Persons Association”. In this case everyone must be married! In database terms their participation must be <font color="F54747">total</font>.</p>
-</li>
-<li><p>If the participation of an entity set in a relationship set is total, they must be connected by a <font color="F54747">bold</font> link.</p>
-</li>
-</ul>
-<img src="https://p.ipic.vip/926h4t.jpg" width="350px">
-
-
-
-<h3 id="Weak-Entity"><a href="#Weak-Entity" class="headerlink" title="Weak Entity"></a>Weak Entity</h3><ul>
-<li><p><font color="3A75EA"><strong>Strong Entity</strong></font></p>
-<ul>
-<li>An entity which has a <font color="3A75EA">super key</font>.</li>
-<li>Each entity can be distinguished from other entities.</li>
-</ul>
-</li>
-<li><p><font color="3A75EA"><strong>Weak Entity</strong></font></p>
-<ul>
-<li>An entity <font color="3A75EA">without super key</font> (only has a <font color="F54747">partial key</font>).</li>
-<li>May not be able to distinguish from other entities <font color="3A75EA">without associations with entities in other entity sets</font>.</li>
-</ul>
-  <img src="https://p.ipic.vip/gsw7pf.jpg" width="600px" /></li>
-</ul>
-<h2 id="Other-Relationships"><a href="#Other-Relationships" class="headerlink" title="Other Relationships"></a>Other Relationships</h2><h3 id="Ternary-Relationships"><a href="#Ternary-Relationships" class="headerlink" title="Ternary Relationships"></a>Ternary Relationships</h3><ul>
-<li><p>It is possible to have higher order relationships, including ternary relationships.</p>
-  <img src="https://p.ipic.vip/wd0rmm.jpg" width="500px" />
-</li>
-<li><p><font color="F54747">NOTED</font>: Every ternary (and higher order) relationship can be converted into a set of binary relationships.</p>
-  <img src="https://p.ipic.vip/2w87qt.jpg" />
-</li>
-<li><p><font color="F54747">NOTED</font>: A non-binary relationship set cannot be replaced by a number of binary relationship sets.<br><font color="F54747"><strong>The ternary relationship cannot be convert into these relationships !!!</strong></font></p>
-  <img src="https://p.ipic.vip/pegxds.jpg" width="400px" /></li>
-</ul>
-<h3 id="Class-Hierarchies"><a href="#Class-Hierarchies" class="headerlink" title="Class Hierarchies"></a>Class Hierarchies</h3><ul>
-<li>Sometimes it is natural to classify the entities in an entity set into <font color="3A75EA">subclasses</font>.  <img src="https://p.ipic.vip/vgumem.jpg" width="400px" /></li>
-</ul>
-<h3 id="Aggregation"><a href="#Aggregation" class="headerlink" title="Aggregation"></a>Aggregation</h3><ul>
-<li>Model a relationship between a collection of entities and relationships.</li>
-<li>Aggregation allows us to indicate that a relationship set participates in another relationship set.  <img src="https://p.ipic.vip/nnszjq.jpg" width="400px" /></li>
-</ul>
-<!-- <font color="3A75EA">Blue</font>
-<font color="F54747">Red</font> -->]]></content>
-      <categories>
-        <category>CSCI3170</category>
-      </categories>
-      <tags>
-        <tag>CSCI3170</tag>
-        <tag>database</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CSCI3180 - Variables</title>
     <url>/myBlog/2023/02/08/2023/2023-2-8-CSCI3180-Abstraction/</url>
     <content><![CDATA[<h2 id="Names-Design-Issues"><a href="#Names-Design-Issues" class="headerlink" title="Names Design Issues"></a>Names Design Issues</h2><ol>
@@ -8146,8 +8004,400 @@
       </tags>
   </entry>
   <entry>
+    <title>CSCI3180 - Scope</title>
+    <url>/myBlog/2023/02/25/2023/2023-2-25-CSCI3180-Scope/</url>
+    <content><![CDATA[<h2 id="Scope"><a href="#Scope" class="headerlink" title="Scope"></a>Scope</h2><ul>
+<li>variables and functions declared in a particular scope are visible and accessible only within that scope and its nested scopes, but not outside of it<ol>
+<li><p>Local variables</p>
+<ul>
+<li>The variables defined within a particular function or block of code</li>
+<li>The are only accessible within that function or block and its nested scopes</li>
+</ul>
+</li>
+<li><p>Nonlocal variables</p>
+<ul>
+<li>The variables defined in a parent function</li>
+<li>They are accessible within nested functions</li>
+</ul>
+ <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> g;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">int</span> a)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> b;</span><br><span class="line">    <span class="comment">// g is nonlocal (global)</span></span><br><span class="line">    <span class="comment">// a, b are local</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// g is nonlocal (global)</span></span><br><span class="line">    <span class="comment">// x is local</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">        <span class="type">int</span> y = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// g is nonlocal (global)</span></span><br><span class="line">        <span class="comment">// x is nonlcoal</span></span><br><span class="line">        <span class="comment">// i, y are local</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<h2 id="Static-Scope"><a href="#Static-Scope" class="headerlink" title="Static Scope"></a>Static Scope</h2><ul>
+<li><p>It done <font color="3A75EA">before run time</font></p>
+</li>
+<li><p>It searches <font color="3A75EA">locally</font>, then proceeds to <font color="F54747">increasingly larger enclosing scopes</font> until the given variable name is found</p>
+<ul>
+<li><p>Static ancestors: the enclosing static scope that contain it</p>
+</li>
+<li><p>Static parent: the nearest static ancestors</p>
+  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x = <span class="string">&quot;global&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">outer</span>():</span><br><span class="line">    x = <span class="string">&quot;outer&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>():</span><br><span class="line">        x = <span class="string">&quot;inner&quot;</span></span><br><span class="line">        <span class="built_in">print</span>(x) <span class="comment"># inner</span></span><br><span class="line"></span><br><span class="line">    inner()</span><br><span class="line">    <span class="built_in">print</span>(x) <span class="comment"># outer</span></span><br><span class="line"></span><br><span class="line">outer()</span><br><span class="line"><span class="built_in">print</span>(x) <span class="comment"># global</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>Evaluation</strong>:</p>
+<ul>
+<li><font color="F54747"><strong>Advantages</strong></font>:<ol>
+<li>Easy to read and understand</li>
+<li>Relatively fast</li>
+<li>Static type checking is possible</li>
+</ol>
+</li>
+<li><font color="F54747"><strong>Disadvantages</strong></font>:<ol>
+<li>Too much access is possible</li>
+<li>Inconvenience<ul>
+<li>As the program evolves, the initial structure is destoryed and local variables often become global, even subprograms also toward become global rather than nested</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Blocks"><a href="#Blocks" class="headerlink" title="Blocks"></a>Blocks</h3><ul>
+<li><p>A method of creating static scopes inside a program unit (<code>C++</code>, <code>Java</code> cannot define a function inside a function)</p>
+</li>
+<li><p><font color="3A75EA">Compound statement</font> is a statement sequence that groups more statements into a single statement (in a brace<code>&#123;&#125;</code>)</p>
+<ul>
+<li><p>each compound statement have declarations which defined a new scope</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        System.out.println(y);  <span class="comment">// 1</span></span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(y);  <span class="comment">// y is not visible</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><font color="3A75EA">Nested block</font></p>
+<ul>
+<li>Reusing name in nested blocks is only legal in <code>C</code> and <code>C++</code>  <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">0</span>;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> x = <span class="number">1</span>;</span><br><span class="line">        std::cout &lt;&lt; x &lt;&lt; std::endl; <span class="comment">// 1</span></span><br><span class="line">    &#125;</span><br><span class="line">    std::cout &lt;&lt; x &lt;&lt; std::endl; <span class="comment">// 0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">1</span>;  <span class="comment">// error - already defined</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="Declaration-Order"><a href="#Declaration-Order" class="headerlink" title="Declaration Order"></a>Declaration Order</h3><ul>
+<li><p>Some old languages (<code>C89</code>) require variable declaration <font color="3A75EA">at the top</font> of the function</p>
+<ul>
+<li>In <code>C89</code> compiler, the variable should be declare before the loop  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">// int i;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)&#123; <span class="comment">// error</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;hi &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><code>C99</code>, <code>C++</code>, <code>Java</code>, <code>C#</code> allow variable declarations appear <font color="3A75EA">anywhere</font></p>
+<ul>
+<li><p>In <code>C99</code>, <code>C++</code>, <code>Java</code>, the scope of all local variables is <font color="F54747">from the declaration to the end of the block</font></p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// OK in Java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>But in <code>C#</code>, the scope of any variable declared in a block is the <font color="F54747">whole block</font></p>
+  <figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Not ok in C#</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span> &#123;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span> x = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">int</span> x = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="Global-Scope"><a href="#Global-Scope" class="headerlink" title="Global Scope"></a>Global Scope</h3><ul>
+<li>The scope in which variables and functions are visible to the entire program (including in other files)  <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// File 1</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> i = <span class="number">99</span>;  <span class="comment">// CAN define it again in other file</span></span><br><span class="line"><span class="type">int</span> g = <span class="number">100</span>;    <span class="comment">// CANNOT define it again in other file</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">int</span> j;   <span class="comment">// extern needed, if you want to declare a variable from other file</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; i &lt;&lt; std::endl;    <span class="comment">// 99</span></span><br><span class="line">    std::cout &lt;&lt; j &lt;&lt; std::endl;    <span class="comment">// 777</span></span><br><span class="line">    std::cout &lt;&lt; g &lt;&lt; std::endl;    <span class="comment">// 100</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// File 2</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> i = <span class="number">1234</span>;</span><br><span class="line"><span class="type">int</span> j = <span class="number">777</span>;</span><br><span class="line"><span class="type">int</span> g = <span class="number">0</span>;  <span class="comment">// illegal</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; i &lt;&lt; std::endl;    <span class="comment">// 1234</span></span><br><span class="line">    std::cout &lt;&lt; j &lt;&lt; std::endl;    <span class="comment">// 777</span></span><br><span class="line">    std::cout &lt;&lt; g &lt;&lt; std::endl;    <span class="comment">// Compilation error: &#x27;g&#x27; has already been defined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Python-Scope"><a href="#Python-Scope" class="headerlink" title="Python Scope"></a>Python Scope</h4><ul>
+<li><p>Global variable</p>
+<ul>
+<li>It can be referenced in <font color="3A75EA">all functions</font></li>
+<li>It can be assigned if it has been declared to be global using the keyword <code>global</code> in the function  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">g = <span class="string">&quot;global&quot;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>():</span><br><span class="line">    <span class="keyword">global</span> g</span><br><span class="line">    g = <span class="string">&quot;local&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;from f(), &quot;</span>, g)  // local</span><br><span class="line">f()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;from glocal, &quot;</span>, g)   // local</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Nonlocal variable</p>
+<ul>
+<li>It can be referenced in the <font color="3A75EA">inner functions</font></li>
+<li>It can be assigned if it has been declared to be nonlocal using the keyword <code>nonlocal</code> in the function</li>
+<li><font color="F54747">NOTED: The <code>nonlocal</code> only refers to the nearest static ancestors</font></li>
+<li><font color="F54747">NOTED: The <code>nonlocal</code> only works for nonlocal variables, which means it cannot refer to a global variable</font>  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">sub1</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;sub1&quot;</span>)</span><br><span class="line">    x = <span class="string">&quot;modified at sub1&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sub2</span>():</span><br><span class="line">        <span class="comment"># nonlocal x  # goes into the static parent (sub2)</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;sub2&quot;</span>)</span><br><span class="line">        x = <span class="string">&quot;modified at sub2&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">sub3</span>():</span><br><span class="line">            <span class="keyword">nonlocal</span> x  <span class="comment">#</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;sub3&quot;</span>)</span><br><span class="line">            x = <span class="string">&quot;modified at sub3&quot;</span></span><br><span class="line"></span><br><span class="line">        sub3()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;x from sub2:&quot;</span>, x)   <span class="comment"># x from sub2: modified at sub3</span></span><br><span class="line"></span><br><span class="line">    sub2()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;x from sub1:&quot;</span>, x)   <span class="comment"># x from sub1: modified at sub1</span></span><br><span class="line"></span><br><span class="line">sub1()</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="Dynamic-Scope"><a href="#Dynamic-Scope" class="headerlink" title="Dynamic Scope"></a>Dynamic Scope</h2><ul>
+<li><p>The scope of a variable is determined by the order of function calls at runtime rather than by the static structure of the program</p>
+<ul>
+<li>Temporal</li>
+<li>Can only be determined at runtime  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">big</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> x = <span class="string">&quot;hehe&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">sub1</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> x = <span class="string">&quot;haha&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">sub2</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="title function_">sub1</span>()</span><br><span class="line">        <span class="keyword">var</span> y = x</span><br><span class="line">        <span class="keyword">var</span> z = <span class="string">&quot;hoho&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">sub2</span>()</span><br><span class="line">    <span class="title function_">print</span>(x)</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">big</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">// static scoping: hehe</span></span><br><span class="line"><span class="comment">// dynamic scoping: haha</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>Evaluation</strong>:</p>
+<ul>
+<li><font color="F54747"><strong>Advantages</strong></font>:<ol>
+<li>Convenience<ul>
+<li>Variables from the caller are <font color="3A75EA">implicitly</font> visible in the callee</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><font color="F54747"><strong>Disadvantages</strong></font>:<ol>
+<li>Reliability<ul>
+<li>The variables are visibile to all subprograms it calls</li>
+<li>Impossible to statically type check</li>
+</ul>
+</li>
+<li>Hard to understand<ul>
+<li>the variable value can be different every time</li>
+</ul>
+</li>
+<li>Costly runtime</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Referencing-Environments"><a href="#Referencing-Environments" class="headerlink" title="Referencing Environments"></a>Referencing Environments</h2><ul>
+<li><p>A data structure that stores all variable names that are visible at the statement</p>
+</li>
+<li><p>Static-scoped language:</p>
+<ul>
+<li>local variables + all visible variables in all <font color="F54747">enclosing scopes</font></li>
+</ul>
+</li>
+<li><p>Dynamic-scoped language</p>
+<ul>
+<li>local variables + all visible variables in all <font color="F54747">active subprograms</font> in calling sequence</li>
+<li><font color="F54747">active subprograms&lt;</font>: the execution has begun but not yet terminated</li>
+</ul>
+</li>
+<li><p>Practice 1:</p>
+  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">g = <span class="string">&quot;global doge&quot;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sub1</span>():</span><br><span class="line">h = <span class="string">&quot;husky&quot;</span> </span><br><span class="line">    <span class="comment"># Point (1) </span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sub2</span>():</span><br><span class="line">        <span class="keyword">global</span> g</span><br><span class="line">        c = <span class="string">&quot;corgi&quot;</span></span><br><span class="line">        <span class="comment"># Point (2)</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">sub3</span>():</span><br><span class="line">            <span class="keyword">nonlocal</span> c</span><br><span class="line">            g = <span class="string">&quot;meow&quot;</span></span><br><span class="line">            <span class="comment"># Point (3)</span></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="center">Point</th>
+<th align="center">Referencing Environment</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">(1)</td>
+<td align="center"><font color="3A75EA">local h</font> (reference &amp; assignment), <font color="3A75EA">global g</font> (reference only)</td>
+</tr>
+<tr>
+<td align="center">(2)</td>
+<td align="center"><font color="3A75EA">local c</font> (reference &amp; assignment), <font color="3A75EA">global g</font> (reference and assignment), <font color="3A75EA">nonlocal h</font> (reference only)</td>
+</tr>
+<tr>
+<td align="center">(3)</td>
+<td align="center"><font color="3A75EA">local g</font> (reference &amp; assignment), <font color="3A75EA">nonlocal c</font> from sub2 (reference and assignment)</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>Practice 2:</p>
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">sub1</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> a, b</span><br><span class="line">    <span class="comment">//Point (1)</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">sub2</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> b, c</span><br><span class="line">    <span class="comment">//Point (2)</span></span><br><span class="line">    <span class="title function_">sub1</span>()</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">main</span>(<span class="params"></span>)&#123; <span class="comment">//suppose main() is the program entry point</span></span><br><span class="line">    <span class="keyword">var</span> c, d</span><br><span class="line">    <span class="comment">//Point (3)</span></span><br><span class="line">    <span class="title function_">sub2</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="center">Point</th>
+<th align="center">Referencing Environment</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">(1)</td>
+<td align="center">a and b (sub1), c (sub2), d (main)</td>
+</tr>
+<tr>
+<td align="center">(2)</td>
+<td align="center">b and c (sub2), d (main)</td>
+</tr>
+<tr>
+<td align="center">(3)</td>
+<td align="center">c and d (main)</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="Named-Constants"><a href="#Named-Constants" class="headerlink" title="Named Constants"></a>Named Constants</h2><ul>
+<li><p>A variable that is bound to a value only <font color="F54747">once</font></p>
+</li>
+<li><p>The binding of values can be <font color="3A75EA">either static or dynamic</font></p>
+</li>
+<li><p><font color="F54747"><strong>Advantages</strong></font></p>
+<ol>
+<li>Readibility</li>
+<li>Reliability</li>
+<li>Possibility to parameterize a program</li>
+</ol>
+</li>
+<li><p>Syntax:</p>
+<ul>
+<li><p><code>Java</code></p>
+<ul>
+<li><code>final</code>: dynamically bound</li>
+</ul>
+</li>
+<li><p><code>C++</code></p>
+<ol>
+<li><code>const</code>: dynamically bound</li>
+<li><code>constexp</code>: statically bound, must be evaluated at compile time</li>
+</ol>
+</li>
+<li><p><code>C#</code></p>
+<ol>
+<li><code>readonly</code>: dynamically bound</li>
+<li><code>const</code>: statically bound, must be evaluated at compile time</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Scope-amp-Lifetime"><a href="#Scope-amp-Lifetime" class="headerlink" title="Scope &amp; Lifetime"></a>Scope &amp; Lifetime</h2><ul>
+<li>Scope and lifetime are often closely related, but are different concepts</li>
+<li>Example:  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">f</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> x;   <span class="comment">// static storage</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;ha &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    f();</span><br><span class="line">    x = <span class="number">0</span>;  <span class="comment">// cannot be accessed</span></span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Lifetime: <code>x</code> is static storage because of the keyword <code>static</code>, because all static storage variables are already existed in the data region</li>
+<li>Scope: <code>x</code> cannot be accessed in the main function because of its scope, which is not related to the static storage</li>
+</ul>
+</li>
+</ul>
+<!-- 
+<font color="3A75EA">Blue</font>
+<font color="F54747">Red</font>
+-->
+]]></content>
+      <categories>
+        <category>CSCI3180</category>
+      </categories>
+      <tags>
+        <tag>CSCI3180</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CSCI3170 - Entity-Relationship Model</title>
+    <url>/myBlog/2023/01/28/2023/2023-1-28-CSCI3170-ERModel/</url>
+    <content><![CDATA[<h2 id="Entity-Relationship-Diagrams"><a href="#Entity-Relationship-Diagrams" class="headerlink" title="Entity-Relationship Diagrams"></a>Entity-Relationship Diagrams</h2><img src="https://p.ipic.vip/y43qkp.jpg" width="500px" />
+
+<ol>
+<li><p><font color="3A75EA"><strong>Entity Type</strong></font></p>
+<ul>
+<li>an object in the real world that is distinguishable from other objects <img src="https://p.ipic.vip/73xd6j.png" width="100px" /></li>
+</ul>
+</li>
+<li><p><font color="3A75EA"><strong>Entity Set</strong></font></p>
+<ul>
+<li>a collection of entities of the same type <img src="https://p.ipic.vip/azcz7x.png" width="100px" /></li>
+</ul>
+</li>
+<li><p><font color="3A75EA"><strong>Attributes</strong></font></p>
+<ul>
+<li>the properties that define the entity type <img src="https://p.ipic.vip/acwaqs.png" width="100px" /></li>
+</ul>
+</li>
+<li><p><font color="3A75EA"><strong>Key Attribute</strong></font></p>
+<ul>
+<li>a uniquely identifies each entity in the entity set <img src="https://p.ipic.vip/yyaazr.png" width="100px" /></li>
+</ul>
+</li>
+<li><p><font color="3A75EA"><strong>Relationship Type</strong></font></p>
+<ul>
+<li>represents the association between entity types <img src="https://p.ipic.vip/cjmfqr.png" width="300px" /></li>
+</ul>
+</li>
+<li><p><font color="3A75EA"><strong>Relationship Set</strong></font></p>
+ <img src="https://p.ipic.vip/pjfz1o.png" width="300px" /></li>
+</ol>
+<h2 id="Key"><a href="#Key" class="headerlink" title="Key"></a>Key</h2><ol>
+<li><p><font color="3A75EA"><strong>Super key</strong></font></p>
+<ul>
+<li>A superkey is <font color="F54747">any set of one or more attributes</font> that can uniquely identify an entity in a table.</li>
+<li>It doesn’t have to be the smallest set of attributes that can do so.</li>
+</ul>
+</li>
+<li><p><font color="3A75EA"><strong>Candidate key</strong></font></p>
+<ul>
+<li>A candidate key is a superkey for which no proper subset is also a superkey.</li>
+<li>It is a <font color="F54747">minimal set of attributes</font> that can uniquely identify an entity in a table.</li>
+</ul>
+</li>
+<li><p><font color="3A75EA"><strong>Primary key</strong></font></p>
+<ul>
+<li>A primary key is a candidate key that has been selected as the main key for a table.</li>
+<li>There can only be <font color="F54747">one primary key</font> per table.</li>
+</ul>
+</li>
+</ol>
+<h2 id="Constraints"><a href="#Constraints" class="headerlink" title="Constraints"></a>Constraints</h2><h3 id="Key-Constraints"><a href="#Key-Constraints" class="headerlink" title="Key Constraints"></a>Key Constraints</h3><ol>
+<li><p>One-to-one</p>
+<ul>
+<li>An entity in A is associated with at most one entity in B.</li>
+<li>An entity in B is associated with at most one entity in A.<ul>
+<li>a man may be married to at most one woman, and a woman may be married to at most one man. <img src="https://p.ipic.vip/od5jt4.jpg" width="400px" /></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>One-to-many</p>
+<ul>
+<li>An entity in A is associated with any number in B.</li>
+<li>An entity in B is associated with at most one entity in A.<ul>
+<li>each child can have at most one mother, but a mother may have more than one children. <img src="https://p.ipic.vip/h0xmy9.jpg" width="400px" /></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Many-to-one</p>
+<ul>
+<li>An entity in A is associated with at most one entity in B.</li>
+<li>An entity in B is associated with any number in A.<ul>
+<li>an employee can only work in at most one department, but a department has more than one employees. <img src="https://p.ipic.vip/gm063c.jpg" width="400px" /></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Many-to-many</p>
+<ul>
+<li>Entities in A and B are associated with any number from each other.<ul>
+<li>both boy and girl can have more than one girl and boy classmates resepectively. <img src="https://p.ipic.vip/w7w9d3.jpg" width="400px" /></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="Participation-Constraints"><a href="#Participation-Constraints" class="headerlink" title="Participation Constraints"></a>Participation Constraints</h3><ul>
+<li><p>The example of a one-to-one key constraint, noting that a man may be married to at most one woman, and a woman may be married to at most one man (<font color="3A75EA">both men and women can be unmarried</font>). Suppose we want to build a database for the “Married Persons Association”. In this case everyone must be married! In database terms their participation must be <font color="F54747">total</font>.</p>
+</li>
+<li><p>If the participation of an entity set in a relationship set is total, they must be connected by a <font color="F54747">bold</font> link.</p>
+</li>
+</ul>
+<img src="https://p.ipic.vip/926h4t.jpg" width="350px">
+
+
+
+<h3 id="Weak-Entity"><a href="#Weak-Entity" class="headerlink" title="Weak Entity"></a>Weak Entity</h3><ul>
+<li><p><font color="3A75EA"><strong>Strong Entity</strong></font></p>
+<ul>
+<li>An entity which has a <font color="3A75EA">super key</font>.</li>
+<li>Each entity can be distinguished from other entities.</li>
+</ul>
+</li>
+<li><p><font color="3A75EA"><strong>Weak Entity</strong></font></p>
+<ul>
+<li>An entity <font color="3A75EA">without super key</font> (only has a <font color="F54747">partial key</font>).</li>
+<li>May not be able to distinguish from other entities <font color="3A75EA">without associations with entities in other entity sets</font>.</li>
+</ul>
+  <img src="https://p.ipic.vip/gsw7pf.jpg" width="600px" /></li>
+</ul>
+<h2 id="Other-Relationships"><a href="#Other-Relationships" class="headerlink" title="Other Relationships"></a>Other Relationships</h2><h3 id="Ternary-Relationships"><a href="#Ternary-Relationships" class="headerlink" title="Ternary Relationships"></a>Ternary Relationships</h3><ul>
+<li><p>It is possible to have higher order relationships, including ternary relationships.</p>
+  <img src="https://p.ipic.vip/wd0rmm.jpg" width="500px" />
+</li>
+<li><p><font color="F54747">NOTED</font>: Every ternary (and higher order) relationship can be converted into a set of binary relationships.</p>
+  <img src="https://p.ipic.vip/2w87qt.jpg" />
+</li>
+<li><p><font color="F54747">NOTED</font>: A non-binary relationship set cannot be replaced by a number of binary relationship sets.<br><font color="F54747"><strong>The ternary relationship cannot be convert into these relationships !!!</strong></font></p>
+  <img src="https://p.ipic.vip/pegxds.jpg" width="400px" /></li>
+</ul>
+<h3 id="Class-Hierarchies"><a href="#Class-Hierarchies" class="headerlink" title="Class Hierarchies"></a>Class Hierarchies</h3><ul>
+<li>Sometimes it is natural to classify the entities in an entity set into <font color="3A75EA">subclasses</font>.  <img src="https://p.ipic.vip/vgumem.jpg" width="400px" /></li>
+</ul>
+<h3 id="Aggregation"><a href="#Aggregation" class="headerlink" title="Aggregation"></a>Aggregation</h3><ul>
+<li>Model a relationship between a collection of entities and relationships.</li>
+<li>Aggregation allows us to indicate that a relationship set participates in another relationship set.  <img src="https://p.ipic.vip/nnszjq.jpg" width="400px" /></li>
+</ul>
+<!-- <font color="3A75EA">Blue</font>
+<font color="F54747">Red</font> -->]]></content>
+      <categories>
+        <category>CSCI3170</category>
+      </categories>
+      <tags>
+        <tag>CSCI3170</tag>
+        <tag>database</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CSCI3170 - Relational Model</title>
-    <url>/myBlog/2023/02/15/2023/2023-2-15-CSCI3170-Relational-Model/</url>
+    <url>/myBlog/2023/02/15/2023/2023-2-15-CSCI3170-RelationalModel/</url>
     <content><![CDATA[<style>
 /* table{
     text-align: center;
@@ -8620,7 +8870,7 @@ table th {
   </entry>
   <entry>
     <title>CSCI3170 - Relational Algebra</title>
-    <url>/myBlog/2023/02/16/2023/2023-2-16-CSCI3170-Relational-Algebra/</url>
+    <url>/myBlog/2023/02/16/2023/2023-2-16-CSCI3170-RelationalAlgebra/</url>
     <content><![CDATA[<!-- <style>
 table{
     text-align: center;
@@ -8748,7 +8998,7 @@ table th {
   </entry>
   <entry>
     <title>CSCI3180 - Data Types</title>
-    <url>/myBlog/2023/02/26/2023/2023-2-26-CSCI3180-Scope%20copy/</url>
+    <url>/myBlog/2023/02/26/2023/2023-2-26-CSCI3180-DataTypes/</url>
     <content><![CDATA[<h2 id="Primitive-Data-Types"><a href="#Primitive-Data-Types" class="headerlink" title="Primitive Data Types"></a>Primitive Data Types</h2><ul>
 <li>The most basic data types available in a programming language</li>
 <li>Reflections of the hardware<ul>
@@ -8854,256 +9104,6 @@ table th {
 <font color="3A75EA">Blue</font>
 <font color="F54747">Red</font>
 -->]]></content>
-      <categories>
-        <category>CSCI3180</category>
-      </categories>
-      <tags>
-        <tag>CSCI3180</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CSCI3180 - Scope</title>
-    <url>/myBlog/2023/02/25/2023/2023-2-25-CSCI3180-Scope/</url>
-    <content><![CDATA[<h2 id="Scope"><a href="#Scope" class="headerlink" title="Scope"></a>Scope</h2><ul>
-<li>variables and functions declared in a particular scope are visible and accessible only within that scope and its nested scopes, but not outside of it<ol>
-<li><p>Local variables</p>
-<ul>
-<li>The variables defined within a particular function or block of code</li>
-<li>The are only accessible within that function or block and its nested scopes</li>
-</ul>
-</li>
-<li><p>Nonlocal variables</p>
-<ul>
-<li>The variables defined in a parent function</li>
-<li>They are accessible within nested functions</li>
-</ul>
- <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> g;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">int</span> a)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> b;</span><br><span class="line">    <span class="comment">// g is nonlocal (global)</span></span><br><span class="line">    <span class="comment">// a, b are local</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// g is nonlocal (global)</span></span><br><span class="line">    <span class="comment">// x is local</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">        <span class="type">int</span> y = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// g is nonlocal (global)</span></span><br><span class="line">        <span class="comment">// x is nonlcoal</span></span><br><span class="line">        <span class="comment">// i, y are local</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-</ul>
-<h2 id="Static-Scope"><a href="#Static-Scope" class="headerlink" title="Static Scope"></a>Static Scope</h2><ul>
-<li><p>It done <font color="3A75EA">before run time</font></p>
-</li>
-<li><p>It searches <font color="3A75EA">locally</font>, then proceeds to <font color="F54747">increasingly larger enclosing scopes</font> until the given variable name is found</p>
-<ul>
-<li><p>Static ancestors: the enclosing static scope that contain it</p>
-</li>
-<li><p>Static parent: the nearest static ancestors</p>
-  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x = <span class="string">&quot;global&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">outer</span>():</span><br><span class="line">    x = <span class="string">&quot;outer&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>():</span><br><span class="line">        x = <span class="string">&quot;inner&quot;</span></span><br><span class="line">        <span class="built_in">print</span>(x) <span class="comment"># inner</span></span><br><span class="line"></span><br><span class="line">    inner()</span><br><span class="line">    <span class="built_in">print</span>(x) <span class="comment"># outer</span></span><br><span class="line"></span><br><span class="line">outer()</span><br><span class="line"><span class="built_in">print</span>(x) <span class="comment"># global</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><strong>Evaluation</strong>:</p>
-<ul>
-<li><font color="F54747"><strong>Advantages</strong></font>:<ol>
-<li>Easy to read and understand</li>
-<li>Relatively fast</li>
-<li>Static type checking is possible</li>
-</ol>
-</li>
-<li><font color="F54747"><strong>Disadvantages</strong></font>:<ol>
-<li>Too much access is possible</li>
-<li>Inconvenience<ul>
-<li>As the program evolves, the initial structure is destoryed and local variables often become global, even subprograms also toward become global rather than nested</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Blocks"><a href="#Blocks" class="headerlink" title="Blocks"></a>Blocks</h3><ul>
-<li><p>A method of creating static scopes inside a program unit (<code>C++</code>, <code>Java</code> cannot define a function inside a function)</p>
-</li>
-<li><p><font color="3A75EA">Compound statement</font> is a statement sequence that groups more statements into a single statement (in a brace<code>&#123;&#125;</code>)</p>
-<ul>
-<li><p>each compound statement have declarations which defined a new scope</p>
-  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        System.out.println(y);  <span class="comment">// 1</span></span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(y);  <span class="comment">// y is not visible</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><font color="3A75EA">Nested block</font></p>
-<ul>
-<li>Reusing name in nested blocks is only legal in <code>C</code> and <code>C++</code>  <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">0</span>;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> x = <span class="number">1</span>;</span><br><span class="line">        std::cout &lt;&lt; x &lt;&lt; std::endl; <span class="comment">// 1</span></span><br><span class="line">    &#125;</span><br><span class="line">    std::cout &lt;&lt; x &lt;&lt; std::endl; <span class="comment">// 0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">1</span>;  <span class="comment">// error - already defined</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<h3 id="Declaration-Order"><a href="#Declaration-Order" class="headerlink" title="Declaration Order"></a>Declaration Order</h3><ul>
-<li><p>Some old languages (<code>C89</code>) require variable declaration <font color="3A75EA">at the top</font> of the function</p>
-<ul>
-<li>In <code>C89</code> compiler, the variable should be declare before the loop  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">// int i;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)&#123; <span class="comment">// error</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;hi &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><code>C99</code>, <code>C++</code>, <code>Java</code>, <code>C#</code> allow variable declarations appear <font color="3A75EA">anywhere</font></p>
-<ul>
-<li><p>In <code>C99</code>, <code>C++</code>, <code>Java</code>, the scope of all local variables is <font color="F54747">from the declaration to the end of the block</font></p>
-  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// OK in Java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>But in <code>C#</code>, the scope of any variable declared in a block is the <font color="F54747">whole block</font></p>
-  <figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Not ok in C#</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span> &#123;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span> x = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">int</span> x = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<h3 id="Global-Scope"><a href="#Global-Scope" class="headerlink" title="Global Scope"></a>Global Scope</h3><ul>
-<li>The scope in which variables and functions are visible to the entire program (including in other files)  <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// File 1</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> i = <span class="number">99</span>;  <span class="comment">// CAN define it again in other file</span></span><br><span class="line"><span class="type">int</span> g = <span class="number">100</span>;    <span class="comment">// CANNOT define it again in other file</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">int</span> j;   <span class="comment">// extern needed, if you want to declare a variable from other file</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; i &lt;&lt; std::endl;    <span class="comment">// 99</span></span><br><span class="line">    std::cout &lt;&lt; j &lt;&lt; std::endl;    <span class="comment">// 777</span></span><br><span class="line">    std::cout &lt;&lt; g &lt;&lt; std::endl;    <span class="comment">// 100</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-  <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// File 2</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> i = <span class="number">1234</span>;</span><br><span class="line"><span class="type">int</span> j = <span class="number">777</span>;</span><br><span class="line"><span class="type">int</span> g = <span class="number">0</span>;  <span class="comment">// illegal</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; i &lt;&lt; std::endl;    <span class="comment">// 1234</span></span><br><span class="line">    std::cout &lt;&lt; j &lt;&lt; std::endl;    <span class="comment">// 777</span></span><br><span class="line">    std::cout &lt;&lt; g &lt;&lt; std::endl;    <span class="comment">// Compilation error: &#x27;g&#x27; has already been defined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="Python-Scope"><a href="#Python-Scope" class="headerlink" title="Python Scope"></a>Python Scope</h4><ul>
-<li><p>Global variable</p>
-<ul>
-<li>It can be referenced in <font color="3A75EA">all functions</font></li>
-<li>It can be assigned if it has been declared to be global using the keyword <code>global</code> in the function  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">g = <span class="string">&quot;global&quot;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>():</span><br><span class="line">    <span class="keyword">global</span> g</span><br><span class="line">    g = <span class="string">&quot;local&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;from f(), &quot;</span>, g)  // local</span><br><span class="line">f()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;from glocal, &quot;</span>, g)   // local</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>Nonlocal variable</p>
-<ul>
-<li>It can be referenced in the <font color="3A75EA">inner functions</font></li>
-<li>It can be assigned if it has been declared to be nonlocal using the keyword <code>nonlocal</code> in the function</li>
-<li><font color="F54747">NOTED: The <code>nonlocal</code> only refers to the nearest static ancestors</font></li>
-<li><font color="F54747">NOTED: The <code>nonlocal</code> only works for nonlocal variables, which means it cannot refer to a global variable</font>  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">sub1</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;sub1&quot;</span>)</span><br><span class="line">    x = <span class="string">&quot;modified at sub1&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sub2</span>():</span><br><span class="line">        <span class="comment"># nonlocal x  # goes into the static parent (sub2)</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;sub2&quot;</span>)</span><br><span class="line">        x = <span class="string">&quot;modified at sub2&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">sub3</span>():</span><br><span class="line">            <span class="keyword">nonlocal</span> x  <span class="comment">#</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;sub3&quot;</span>)</span><br><span class="line">            x = <span class="string">&quot;modified at sub3&quot;</span></span><br><span class="line"></span><br><span class="line">        sub3()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;x from sub2:&quot;</span>, x)   <span class="comment"># x from sub2: modified at sub3</span></span><br><span class="line"></span><br><span class="line">    sub2()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;x from sub1:&quot;</span>, x)   <span class="comment"># x from sub1: modified at sub1</span></span><br><span class="line"></span><br><span class="line">sub1()</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<h2 id="Dynamic-Scope"><a href="#Dynamic-Scope" class="headerlink" title="Dynamic Scope"></a>Dynamic Scope</h2><ul>
-<li><p>The scope of a variable is determined by the order of function calls at runtime rather than by the static structure of the program</p>
-<ul>
-<li>Temporal</li>
-<li>Can only be determined at runtime  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">big</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> x = <span class="string">&quot;hehe&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">sub1</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> x = <span class="string">&quot;haha&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">sub2</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="title function_">sub1</span>()</span><br><span class="line">        <span class="keyword">var</span> y = x</span><br><span class="line">        <span class="keyword">var</span> z = <span class="string">&quot;hoho&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">sub2</span>()</span><br><span class="line">    <span class="title function_">print</span>(x)</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">big</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">// static scoping: hehe</span></span><br><span class="line"><span class="comment">// dynamic scoping: haha</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><strong>Evaluation</strong>:</p>
-<ul>
-<li><font color="F54747"><strong>Advantages</strong></font>:<ol>
-<li>Convenience<ul>
-<li>Variables from the caller are <font color="3A75EA">implicitly</font> visible in the callee</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><font color="F54747"><strong>Disadvantages</strong></font>:<ol>
-<li>Reliability<ul>
-<li>The variables are visibile to all subprograms it calls</li>
-<li>Impossible to statically type check</li>
-</ul>
-</li>
-<li>Hard to understand<ul>
-<li>the variable value can be different every time</li>
-</ul>
-</li>
-<li>Costly runtime</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Referencing-Environments"><a href="#Referencing-Environments" class="headerlink" title="Referencing Environments"></a>Referencing Environments</h2><ul>
-<li><p>A data structure that stores all variable names that are visible at the statement</p>
-</li>
-<li><p>Static-scoped language:</p>
-<ul>
-<li>local variables + all visible variables in all <font color="F54747">enclosing scopes</font></li>
-</ul>
-</li>
-<li><p>Dynamic-scoped language</p>
-<ul>
-<li>local variables + all visible variables in all <font color="F54747">active subprograms</font> in calling sequence</li>
-<li><font color="F54747">active subprograms&lt;</font>: the execution has begun but not yet terminated</li>
-</ul>
-</li>
-<li><p>Practice 1:</p>
-  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">g = <span class="string">&quot;global doge&quot;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sub1</span>():</span><br><span class="line">h = <span class="string">&quot;husky&quot;</span> </span><br><span class="line">    <span class="comment"># Point (1) </span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sub2</span>():</span><br><span class="line">        <span class="keyword">global</span> g</span><br><span class="line">        c = <span class="string">&quot;corgi&quot;</span></span><br><span class="line">        <span class="comment"># Point (2)</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">sub3</span>():</span><br><span class="line">            <span class="keyword">nonlocal</span> c</span><br><span class="line">            g = <span class="string">&quot;meow&quot;</span></span><br><span class="line">            <span class="comment"># Point (3)</span></span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th align="center">Point</th>
-<th align="center">Referencing Environment</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">(1)</td>
-<td align="center"><font color="3A75EA">local h</font> (reference &amp; assignment), <font color="3A75EA">global g</font> (reference only)</td>
-</tr>
-<tr>
-<td align="center">(2)</td>
-<td align="center"><font color="3A75EA">local c</font> (reference &amp; assignment), <font color="3A75EA">global g</font> (reference and assignment), <font color="3A75EA">nonlocal h</font> (reference only)</td>
-</tr>
-<tr>
-<td align="center">(3)</td>
-<td align="center"><font color="3A75EA">local g</font> (reference &amp; assignment), <font color="3A75EA">nonlocal c</font> from sub2 (reference and assignment)</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>Practice 2:</p>
-  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">sub1</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> a, b</span><br><span class="line">    <span class="comment">//Point (1)</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">sub2</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> b, c</span><br><span class="line">    <span class="comment">//Point (2)</span></span><br><span class="line">    <span class="title function_">sub1</span>()</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">main</span>(<span class="params"></span>)&#123; <span class="comment">//suppose main() is the program entry point</span></span><br><span class="line">    <span class="keyword">var</span> c, d</span><br><span class="line">    <span class="comment">//Point (3)</span></span><br><span class="line">    <span class="title function_">sub2</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th align="center">Point</th>
-<th align="center">Referencing Environment</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">(1)</td>
-<td align="center">a and b (sub1), c (sub2), d (main)</td>
-</tr>
-<tr>
-<td align="center">(2)</td>
-<td align="center">b and c (sub2), d (main)</td>
-</tr>
-<tr>
-<td align="center">(3)</td>
-<td align="center">c and d (main)</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-<h2 id="Named-Constants"><a href="#Named-Constants" class="headerlink" title="Named Constants"></a>Named Constants</h2><ul>
-<li><p>A variable that is bound to a value only <font color="F54747">once</font></p>
-</li>
-<li><p>The binding of values can be <font color="3A75EA">either static or dynamic</font></p>
-</li>
-<li><p><font color="F54747"><strong>Advantages</strong></font></p>
-<ol>
-<li>Readibility</li>
-<li>Reliability</li>
-<li>Possibility to parameterize a program</li>
-</ol>
-</li>
-<li><p>Syntax:</p>
-<ul>
-<li><p><code>Java</code></p>
-<ul>
-<li><code>final</code>: dynamically bound</li>
-</ul>
-</li>
-<li><p><code>C++</code></p>
-<ol>
-<li><code>const</code>: dynamically bound</li>
-<li><code>constexp</code>: statically bound, must be evaluated at compile time</li>
-</ol>
-</li>
-<li><p><code>C#</code></p>
-<ol>
-<li><code>readonly</code>: dynamically bound</li>
-<li><code>const</code>: statically bound, must be evaluated at compile time</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Scope-amp-Lifetime"><a href="#Scope-amp-Lifetime" class="headerlink" title="Scope &amp; Lifetime"></a>Scope &amp; Lifetime</h2><ul>
-<li>Scope and lifetime are often closely related, but are different concepts</li>
-<li>Example:  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">f</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> x;   <span class="comment">// static storage</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;ha &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    f();</span><br><span class="line">    x = <span class="number">0</span>;  <span class="comment">// cannot be accessed</span></span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Lifetime: <code>x</code> is static storage because of the keyword <code>static</code>, because all static storage variables are already existed in the data region</li>
-<li>Scope: <code>x</code> cannot be accessed in the main function because of its scope, which is not related to the static storage</li>
-</ul>
-</li>
-</ul>
-<!-- 
-<font color="3A75EA">Blue</font>
-<font color="F54747">Red</font>
--->
-]]></content>
       <categories>
         <category>CSCI3180</category>
       </categories>

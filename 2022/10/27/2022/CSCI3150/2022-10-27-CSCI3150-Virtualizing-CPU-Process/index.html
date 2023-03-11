@@ -1,0 +1,456 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>CSCI3150 - Virtualizing CPU (Process) | myBlog</title><meta name="author" content="Donald Lam,manholam8@gmail.com"><meta name="copyright" content="Donald Lam"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Process Process is a running program, which includes: Memory (address space) Instructions Data sections   Registers Program counter Stack pointer      Process API Create  create a new process to run a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSCI3150 - Virtualizing CPU (Process)">
+<meta property="og:url" content="https://github.com/DonaldLamNL/myBlog/2022/10/27/2022/CSCI3150/2022-10-27-CSCI3150-Virtualizing-CPU-Process/index.html">
+<meta property="og:site_name" content="myBlog">
+<meta property="og:description" content="Process Process is a running program, which includes: Memory (address space) Instructions Data sections   Registers Program counter Stack pointer      Process API Create  create a new process to run a">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://p.ipic.vip/ruvwfy.jpg">
+<meta property="article:published_time" content="2022-10-26T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-10-26T16:00:00.000Z">
+<meta property="article:author" content="Donald Lam">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p.ipic.vip/ruvwfy.jpg"><link rel="shortcut icon" href="/myBlog/img/favicon.png"><link rel="canonical" href="https://github.com/DonaldLamNL/myBlog/2022/10/27/2022/CSCI3150/2022-10-27-CSCI3150-Virtualizing-CPU-Process/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/myBlog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/myBlog/',
+  algolia: undefined,
+  localSearch: {"path":"/myBlog/search.xml","preload":true,"languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CSCI3150 - Virtualizing CPU (Process)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-10-27 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">44</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">13</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">9</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://p.ipic.vip/ruvwfy.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/myBlog/">myBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">CSCI3150 - Virtualizing CPU (Process)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-10-26T16:00:00.000Z" title="Created 2022-10-27 00:00:00">2022-10-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-10-26T16:00:00.000Z" title="Updated 2022-10-27 00:00:00">2022-10-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/myBlog/categories/CSCI3150/">CSCI3150</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="CSCI3150 - Virtualizing CPU (Process)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Process"><a href="#Process" class="headerlink" title="Process"></a>Process</h2><ul>
+<li>Process is a running program, which includes:<ol>
+<li>Memory (address space)<ul>
+<li>Instructions</li>
+<li>Data sections</li>
+</ul>
+</li>
+<li>Registers<ul>
+<li>Program counter</li>
+<li>Stack pointer</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="Process-API"><a href="#Process-API" class="headerlink" title="Process API"></a>Process API</h3><ol>
+<li><p><code>Create</code></p>
+<ul>
+<li>create a new process to run a program</li>
+</ul>
+</li>
+<li><p><code>Destory</code></p>
+<ul>
+<li>halt a runaway process</li>
+</ul>
+</li>
+<li><p><code>Wait</code></p>
+<ul>
+<li>wait for a process to stop running</li>
+</ul>
+</li>
+<li><p><code>Miscellaneous Control</code></p>
+<ul>
+<li>some kind of method to suspend a process and then resume it (暫停然後恢復)</li>
+</ul>
+</li>
+<li><p><code>Status</code></p>
+<ul>
+<li>get some status information about a process</li>
+</ul>
+</li>
+</ol>
+<h3 id="Process-Creation"><a href="#Process-Creation" class="headerlink" title="Process Creation"></a>Process Creation</h3><ol>
+<li><p>Load a program code into <font color="F54747">memory</font>, then build up an <font color="F54747">address space</font> for the process.</p>
+<ul>
+<li>The OS performs the loading process lazily, it loads the pieces of code or data <font color="3A75EA">only when they are needed</font> during the program execution.</li>
+</ul>
+</li>
+<li><p>Allocate the program’s run-time <font color="F54747">process stack</font> (store at the bottom of the address space)</p>
+<ul>
+<li><p>Used for <font color="3A75EA">local variables</font>, <font color="3A75EA">function parameters</font> and <font color="3A75EA">return address</font>.</p>
+</li>
+<li><p>Initialize the stack with arguments <code>argc</code> and the <code>argv</code> array of <code>main()</code> function.</p>
+</li>
+</ul>
+</li>
+<li><p>Create the program’s <font color="F54747">heap</font> (store at the position that after the coding)</p>
+<ul>
+<li>Used for <font color="3A75EA">requesting dynamically allocated data</font>.</li>
+<li>Program requests such space by calling <code>malloc()</code> and free it by calling <code>free()</code>.</li>
+</ul>
+</li>
+<li><p>Do the initialization tasks</p>
+<ul>
+<li>Input &#x2F; Output setup<ul>
+<li>each process has three open file descriptors in default</li>
+<li>standard input, output an error</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Start the program running at the entry point (<code>main()</code>)</p>
+</li>
+</ol>
+<img src="https://p.ipic.vip/h01f63.png" width="500px">
+
+
+
+<h3 id="Process-Status"><a href="#Process-Status" class="headerlink" title="Process Status"></a>Process Status</h3><ol>
+<li><p>Running</p>
+<ul>
+<li>A process is running on a processor.</li>
+</ul>
+</li>
+<li><p>Ready</p>
+<ul>
+<li>A process is ready to run but for some reason the OS has chosen <font color="3A75EA">not to run it</font> at the moment.</li>
+</ul>
+</li>
+<li><p>Blocked</p>
+<ul>
+<li>A process has performed some kind of operation.</li>
+<li>When a process initiates an I&#x2F;O request to a disk, it becomes <font color="3A75EA">blocked</font> and thus some other process can use the processor.<img src="https://p.ipic.vip/n3v5i6.png" width="400px"></li>
+</ul>
+</li>
+</ol>
+<h3 id="Data-Structures"><a href="#Data-Structures" class="headerlink" title="Data Structures"></a>Data Structures</h3><ul>
+<li>In the OS system, the key data structure<ol>
+<li><p><strong>Process List</strong></p>
+<ul>
+<li>Current running process</li>
+<li>Ready processes</li>
+<li>Blocked processes</li>
+</ul>
+</li>
+<li><p><strong>Register Context</strong></p>
+<ul>
+<li>the registers we need to run the process.</li>
+</ul>
+</li>
+<li><p><strong>Process Control Block</strong></p>
+<ul>
+<li>For each process, there is an in-memory data structure that contains information about that process.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="Execution-Mechanism"><a href="#Execution-Mechanism" class="headerlink" title="Execution Mechanism"></a>Execution Mechanism</h2><ul>
+<li>The OS need to share the physical CPU by <font color="F54747">time sharing</font>,<br><font color="3A75EA">i.e., How we implement time sharing among multiple processes</font>.<ol>
+<li><strong>Performance</strong>: How can we implement virtualization <font color="3A75EA">without add excessive overhead</font> to the system?</li>
+<li><strong>Control</strong>: How can we run processes efficiently while <font color="3A75EA">retaining control</font> over the CPU?</li>
+</ol>
+</li>
+</ul>
+<h3 id="Direct-Execution"><a href="#Direct-Execution" class="headerlink" title="Direct Execution"></a>Direct Execution</h3><h4 id="Execution-Procedure"><a href="#Execution-Procedure" class="headerlink" title="Execution Procedure"></a>Execution Procedure</h4><img src="https://p.ipic.vip/so5ak6.png" width="500px">
+<!-- | OS | Program |
+| :--- | :--- |
+| 1. Create entry for the process list | |
+| 2. Allocate memory for the program | |
+| 3. Load program into the memory | |
+| 4. Set up stack with `argc` / `argv` | |
+| 5. Clear registers | |
+| 6. Execute call `main()` | |
+| | 7. Run `main()` |
+| | 8. Execute `return` from `main()` |
+| 9. Free memory of process | |
+| 10. Remove from process list | | -->
+
+
+<h4 id="Problems"><a href="#Problems" class="headerlink" title="Problems"></a>Problems</h4><ul>
+<li><p><strong>Problem</strong>: <font color="F54747"><strong>Restricted Operation</strong></font></p>
+<ul>
+<li>if a process wishes to perform some kind of restricted operation (受限的操作), such as,<ul>
+<li>issung an I&#x2F;O request to a disk</li>
+<li>gaining access to more system resources like CPU or memory</li>
+</ul>
+</li>
+<li>The running program should be <font color="F54747">limited</font>, otherwise the OS would not be <font color="F54747">in control of anything</font> (it just becomes a library).</li>
+<li>There should be something to isolate the applications and OS system, not allow the process touches the other processes’ address space.</li>
+</ul>
+</li>
+<li><p><strong>Solution</strong>: </p>
+<ul>
+<li><p>Using protected control transfer to control users’ behaviors.</p>
+<ol>
+<li><p><font color="3A75EA"><strong>User Mode</strong></font>: Applications do not have full access to hardware resources.</p>
+</li>
+<li><p><font color="3A75EA"><strong>Kernel Mode</strong></font>: The OS has access to the full resources of the machine.</p>
+</li>
+</ol>
+<ul>
+<li>There are some privileged instructions</li>
+<li>If users execute those privileged instructions under user mode, the system can limit the users’ behaviors.</li>
+<li>Users can only execute those privileged instructions under kernel mode through system call.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="System-Call"><a href="#System-Call" class="headerlink" title="System Call"></a>System Call</h3><ul>
+<li>Allow the users utilize the sysyem services through system calls.</li>
+<li>It allows the kernel to <font color="F54747">carefully expose</font> certain <font color="3A75EA">key pieces of functionality</font> to user program, such as,<ul>
+<li>accessing the file system</li>
+<li>creating and destorying processes</li>
+<li>communicating with other processes</li>
+<li>allocating more memory</li>
+</ul>
+</li>
+<li>Users can only call those system calls to get the services.</li>
+</ul>
+<ol>
+<li><p><strong>Trap Instuction</strong></p>
+<ul>
+<li>switch from user mode to kernel mode (raise the privilege level to kernel mode).</li>
+</ul>
+</li>
+<li><p><strong>Return-from-trap Instruction</strong></p>
+<ul>
+<li>return into the calling user program (reduce the privilege level to user mode).</li>
+</ul>
+</li>
+</ol>
+<h3 id="Limited-Direction-Execution"><a href="#Limited-Direction-Execution" class="headerlink" title="Limited Direction Execution"></a>Limited Direction Execution</h3><h4 id="Execution-Procedure-1"><a href="#Execution-Procedure-1" class="headerlink" title="Execution Procedure"></a>Execution Procedure</h4><img src="https://p.ipic.vip/0u1e9k.png" width="500px">
+
+<h4 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h4><ul>
+<li><strong>Problem</strong>: <font color="F54747"><strong>Switching between Processes</strong></font><ul>
+<li>How can the OS <font color="F54747">regain control</font> (重新獲取控制權) of the CPU so that it can switch between the processes?</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><p><font color="3A75EA"><strong>Cooperative Approach: Wait for system call</strong></font></p>
+<ul>
+<li>Processes periodically give up the CPU by making system calls, like <code>yield</code> (i.e., wait until the running process gives up the control).<ul>
+<li>The OS decides to run other tasks.</li>
+<li>Application also transfers control to the OS when they do something illegal, such as, divide by zero.</li>
+</ul>
+</li>
+<li><font color="F54747">Problem: a process may get stuck in an infinite loop, if this happened, we need to reboot the machine.</font></li>
+</ul>
+</li>
+<li><p><font color="3A75EA"><strong>Non-cooperative Approach: The OS takes control</strong></font> through a <font color="F54747"><strong>timer interrupt</strong></font>.</p>
+<ol>
+<li><p>During the boot sequence, the OS starts the <font color="3A75EA">timer</font>.</p>
+</li>
+<li><p>The timer raises an interrupt every specific milliseconds.</p>
+</li>
+<li><p>When the interrupt is raised</p>
+<ul>
+<li>The currect running process is halted.</li>
+<li>Save enough of the state of the program.</li>
+<li>A pre-configured interrupt handler in the OS runs.</li>
+</ul>
+</li>
+<li><p>After that, the <font color="3A75EA">scheduler</font> can make a decision:</p>
+<ul>
+<li>Continue running the current process or switch to different process.</li>
+<li>If the decision is switch, the OS will execute <font color="F54747"><strong>Context switch</strong></font>.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="Context-Switch"><a href="#Context-Switch" class="headerlink" title="Context Switch"></a>Context Switch</h3><ol>
+<li><p><font color="3A75EA"><strong>Save the value of necessary registers</strong></font> for the current process onto its kernel stack.</p>
+</li>
+<li><p><font color="3A75EA"><strong>Restore the register values</strong></font> for the soon-to-be-executing process from its kernel stack.</p>
+</li>
+<li><p><font color="3A75EA"><strong>Switch to the kernel stack</strong></font> for the soon-to-be-executing process.</p>
+</li>
+</ol>
+<ul>
+<li>Examples: If we want to switch from process A to process B<ol>
+<li>save the necessary registers of process A onto its kernel stack</li>
+<li>restore the registers for process B from its kernel stack</li>
+<li>switch to process B kernel stack</li>
+</ol>
+</li>
+</ul>
+<img src="https://p.ipic.vip/bis8ht.png" width="500px">
+<img src="https://p.ipic.vip/wsk38g.png" width="500px">
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog">Donald Lam</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog/2022/10/27/2022/CSCI3150/2022-10-27-CSCI3150-Virtualizing-CPU-Process/">https://github.com/DonaldLamNL/myBlog/2022/10/27/2022/CSCI3150/2022-10-27-CSCI3150-Virtualizing-CPU-Process/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://p.ipic.vip/ruvwfy.jpg" data-sites="facebook,twitter"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/myBlog/2022/11/04/2022/CSCI3150/2022-11-4-CSCI3150-Virtualizing-CPU-Scheduling/"><img class="prev-cover" src="https://p.ipic.vip/ruvwfy.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">CSCI3150 - Virtualizing CPU (Scheduling)</div></div></a></div><div class="next-post pull-right"><a href="/myBlog/2022/10/26/2022/CSCI3150/2022-10-26-CSCI3150-Presistence-IODevice/"><img class="next-cover" src="https://p.ipic.vip/ruvwfy.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">CSCI3150 - Presistence (I/O Devices)</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="this.onerror=null;this.src='/myBlog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Donald Lam</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">44</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">13</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://donaldlamnl.github.io/myWeb/#/home"><i></i><span>My Personal Website</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DonaldLamNL" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:manholam8@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Process"><span class="toc-number">1.</span> <span class="toc-text">Process</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Process-API"><span class="toc-number">1.1.</span> <span class="toc-text">Process API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Process-Creation"><span class="toc-number">1.2.</span> <span class="toc-text">Process Creation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Process-Status"><span class="toc-number">1.3.</span> <span class="toc-text">Process Status</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Structures"><span class="toc-number">1.4.</span> <span class="toc-text">Data Structures</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Execution-Mechanism"><span class="toc-number">2.</span> <span class="toc-text">Execution Mechanism</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Direct-Execution"><span class="toc-number">2.1.</span> <span class="toc-text">Direct Execution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Execution-Procedure"><span class="toc-number">2.1.1.</span> <span class="toc-text">Execution Procedure</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Problems"><span class="toc-number">2.1.2.</span> <span class="toc-text">Problems</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#System-Call"><span class="toc-number">2.2.</span> <span class="toc-text">System Call</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Limited-Direction-Execution"><span class="toc-number">2.3.</span> <span class="toc-text">Limited Direction Execution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Execution-Procedure-1"><span class="toc-number">2.3.1.</span> <span class="toc-text">Execution Procedure</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Problem"><span class="toc-number">2.3.2.</span> <span class="toc-text">Problem</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Context-Switch"><span class="toc-number">2.4.</span> <span class="toc-text">Context Switch</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/03/11/2023/CSCI3170/2023-3-10-CSCI3170-SQL/" title="CSCI3170 - Structured Query Language"><img src="https://p.ipic.vip/ruvwfy.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="CSCI3170 - Structured Query Language"/></a><div class="content"><a class="title" href="/myBlog/2023/03/11/2023/CSCI3170/2023-3-10-CSCI3170-SQL/" title="CSCI3170 - Structured Query Language">CSCI3170 - Structured Query Language</a><time datetime="2023-03-10T16:00:00.000Z" title="Created 2023-03-11 00:00:00">2023-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/02/26/2023/CSCI3180/2023-2-26-CSCI3180-DataTypes/" title="CSCI3180 - Data Types"><img src="https://p.ipic.vip/ruvwfy.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="CSCI3180 - Data Types"/></a><div class="content"><a class="title" href="/myBlog/2023/02/26/2023/CSCI3180/2023-2-26-CSCI3180-DataTypes/" title="CSCI3180 - Data Types">CSCI3180 - Data Types</a><time datetime="2023-02-25T16:00:00.000Z" title="Created 2023-02-26 00:00:00">2023-02-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/02/25/2023/CSCI3180/2023-2-25-CSCI3180-Scope/" title="CSCI3180 - Scope"><img src="https://p.ipic.vip/ruvwfy.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="CSCI3180 - Scope"/></a><div class="content"><a class="title" href="/myBlog/2023/02/25/2023/CSCI3180/2023-2-25-CSCI3180-Scope/" title="CSCI3180 - Scope">CSCI3180 - Scope</a><time datetime="2023-02-24T16:00:00.000Z" title="Created 2023-02-25 00:00:00">2023-02-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/02/16/2023/CSCI3170/2023-2-16-CSCI3170-RelationalAlgebra/" title="CSCI3170 - Relational Algebra"><img src="https://p.ipic.vip/ruvwfy.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="CSCI3170 - Relational Algebra"/></a><div class="content"><a class="title" href="/myBlog/2023/02/16/2023/CSCI3170/2023-2-16-CSCI3170-RelationalAlgebra/" title="CSCI3170 - Relational Algebra">CSCI3170 - Relational Algebra</a><time datetime="2023-02-15T16:00:00.000Z" title="Created 2023-02-16 00:00:00">2023-02-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/02/15/2023/CSCI3170/2023-2-15-CSCI3170-RelationalModel/" title="CSCI3170 - Relational Model"><img src="https://p.ipic.vip/ruvwfy.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="CSCI3170 - Relational Model"/></a><div class="content"><a class="title" href="/myBlog/2023/02/15/2023/CSCI3170/2023-2-15-CSCI3170-RelationalModel/" title="CSCI3170 - Relational Model">CSCI3170 - Relational Model</a><time datetime="2023-02-15T08:00:00.000Z" title="Created 2023-02-15 16:00:00">2023-02-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By Donald Lam</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/myBlog/js/utils.js"></script><script src="/myBlog/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/myBlog/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

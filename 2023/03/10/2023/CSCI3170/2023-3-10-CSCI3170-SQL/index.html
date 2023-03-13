@@ -1,0 +1,460 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>CSCI3170 - Structured Query Language | myBlog</title><meta name="keywords" content="CSCI3170,database"><meta name="author" content="Donald Lam,manholam8@gmail.com"><meta name="copyright" content="Donald Lam"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Basic QuerySyntax SELECT clause specify the columns that you want to retrieve from a database table     DISTINCT keyword (optional) return only unique values from a specific column (i.e., it would eli">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSCI3170 - Structured Query Language">
+<meta property="og:url" content="https://github.com/DonaldLamNL/myBlog/2023/03/10/2023/CSCI3170/2023-3-10-CSCI3170-SQL/index.html">
+<meta property="og:site_name" content="myBlog">
+<meta property="og:description" content="Basic QuerySyntax SELECT clause specify the columns that you want to retrieve from a database table     DISTINCT keyword (optional) return only unique values from a specific column (i.e., it would eli">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://p.ipic.vip/ruvwfy.jpg">
+<meta property="article:published_time" content="2023-03-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-09T16:00:00.000Z">
+<meta property="article:author" content="Donald Lam">
+<meta property="article:tag" content="CSCI3170">
+<meta property="article:tag" content="database">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p.ipic.vip/ruvwfy.jpg"><link rel="shortcut icon" href="/myBlog/img/favicon.png"><link rel="canonical" href="https://github.com/DonaldLamNL/myBlog/2023/03/10/2023/CSCI3170/2023-3-10-CSCI3170-SQL/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/myBlog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/myBlog/',
+  algolia: undefined,
+  localSearch: {"path":"/myBlog/search.xml","preload":true,"languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CSCI3170 - Structured Query Language',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-10 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">45</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">13</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">9</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://p.ipic.vip/ruvwfy.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/myBlog/">myBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">CSCI3170 - Structured Query Language</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-03-09T16:00:00.000Z" title="Created 2023-03-10 00:00:00">2023-03-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-03-09T16:00:00.000Z" title="Updated 2023-03-10 00:00:00">2023-03-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/myBlog/categories/CSCI3170/">CSCI3170</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="CSCI3170 - Structured Query Language"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Basic-Query"><a href="#Basic-Query" class="headerlink" title="Basic Query"></a>Basic Query</h2><h3 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h3><ol>
+<li><code>SELECT</code> clause<ul>
+<li>specify the columns that you want to retrieve from a database table</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><code>DISTINCT</code> keyword (optional)<ul>
+<li>return only unique values from a specific column (i.e., it would eliminate the outputs)</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li><p><code>FROM</code> clause</p>
+<ul>
+<li>specify the table or tables from which you want to retrieve data</li>
+</ul>
+</li>
+<li><p><code>WHERE</code>clause (optional)</p>
+<ul>
+<li>filter data based on a specific condition</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>$$\Pi_{a_1, a_2, \cdots, a_n}( \space \sigma_P ( \space R_1 \times R_2 \times \cdots \times R_m))$$</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> a1, a2, ..., an    <span class="comment">-- target list</span></span><br><span class="line"><span class="keyword">FROM</span> R1, R2, ..., Rm    <span class="comment">-- relation list</span></span><br><span class="line"><span class="keyword">WHERE</span> P     <span class="comment">-- qualification</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Examples:</p>
+<ol>
+<li><p>Find the names of sailors who have reserved boat number 103</p>
+ <img src="https://p.ipic.vip/26oc0w.png" width="500px" />
+ 
+<ul>
+<li>$$\Pi_{S.sname}( \space \sigma_{R.sid &#x3D; S.sid \space \land \space R.bid &#x3D; 103} ( S \times R))$$  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> S.sname</span><br><span class="line"><span class="keyword">FROM</span> Sailors S, Reserves R</span><br><span class="line"><span class="keyword">WHERE</span> R.sid <span class="operator">=</span> S.sid <span class="keyword">AND</span> R.bid <span class="operator">=</span> <span class="number">103</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Given following schema:</p>
+ <img src="https://p.ipic.vip/e72rar.png" width="400px" />
+
+<ol>
+<li><p>Find the sids of sailors who have reserved a red boat</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> R.sid</span><br><span class="line"><span class="keyword">FROM</span> Boats B, Reserves R</span><br><span class="line"><span class="keyword">WHERE</span> B.bid <span class="operator">=</span> R.bid <span class="keyword">AND</span> B.color <span class="operator">=</span> <span class="string">&#x27;red&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Find the names of sailors who have reserved a red boat</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> S.sname</span><br><span class="line"><span class="keyword">FROM</span> Sailors S, Boats B, Reserves R</span><br><span class="line"><span class="keyword">WHERE</span> S.sid <span class="operator">=</span> R.sid <span class="keyword">AND</span> B.bid <span class="operator">=</span> R.bid <span class="keyword">AND</span> B.color <span class="operator">=</span> <span class="string">&#x27;red&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Find the colors of boats reserved by Lubber</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> B.color</span><br><span class="line"><span class="keyword">FROM</span> Sailors S, Boats B, Reserves R</span><br><span class="line"><span class="keyword">WHERE</span> S.sname <span class="operator">=</span> <span class="string">&#x27;Lubber&#x27;</span> <span class="keyword">AND</span> S.sid <span class="operator">=</span> R.sid <span class="keyword">AND</span> B.bid <span class="operator">=</span> R.bid</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="Expressions-amp-Strings"><a href="#Expressions-amp-Strings" class="headerlink" title="Expressions &amp; Strings"></a>Expressions &amp; Strings</h3><ol>
+<li><p><code>AS</code> and <code>=</code> (name field)</p>
+<ul>
+<li>rename columns or tables in the query result  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> S.age, age1 <span class="operator">=</span> S.age <span class="operator">+</span> <span class="number">5</span>, S.age <span class="operator">*</span> <span class="number">2</span> <span class="keyword">AS</span> age2</span><br><span class="line"><span class="keyword">FROM</span> Sailors S</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><code>LIKE</code></p>
+<ul>
+<li>is used for string matching</li>
+<li><code>_</code> means any one character (must have one character)</li>
+<li><code>%</code> means 0 or more arbitrary characters  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WHERE</span> S.sname <span class="keyword">LIKE</span> <span class="string">&#x27;B_%B&#x27;</span>   <span class="comment">-- BAB, BBBBBBB are accepted, BB is not accepted</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h2 id="Set-Manipulation"><a href="#Set-Manipulation" class="headerlink" title="Set Manipulation"></a>Set Manipulation</h2><h3 id="Union"><a href="#Union" class="headerlink" title="Union"></a>Union</h3><ul>
+<li>combine the results of two <code>SELECT</code> statements into a single result set (<font color="3A75EA">eliminates duplicates</font>)<ul>
+<li><p>E.g., Find the sids of sailors who have reserved a red boat <font color="3A75EA">or</font> a green boat</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- SELECT R.sid</span></span><br><span class="line"><span class="comment">-- FROM Boats B, Reserves R</span></span><br><span class="line"><span class="comment">-- WHERE B.bid = R.bid AND (B.color = &#x27;red&#x27; OR B.color = &#x27;green&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> R.sid</span><br><span class="line"><span class="keyword">FROM</span> Boats B, Reserves R</span><br><span class="line"><span class="keyword">WHERE</span> B.bid <span class="operator">=</span> R.bid <span class="keyword">AND</span> B.color <span class="operator">=</span> <span class="string">&#x27;red&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> R.sid</span><br><span class="line"><span class="keyword">FROM</span> Boats B, Reserves R</span><br><span class="line"><span class="keyword">WHERE</span> B.bid <span class="operator">=</span> R.bid <span class="keyword">AND</span> B.color <span class="operator">=</span> <span class="string">&#x27;green&#x27;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="Intersection"><a href="#Intersection" class="headerlink" title="Intersection"></a>Intersection</h3><ul>
+<li>retrieve only the common records returned by two <code>SELECT</code> statements<ul>
+<li>E.g., Find the sids of sailors who have reserved a red boat <font color="3A75EA">and</font> a green boat  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- SELECT R.sid</span></span><br><span class="line"><span class="comment">-- FROM Boats B, Reserves R</span></span><br><span class="line"><span class="comment">-- WHERE B.bid = R.bid AND (B.color = &#x27;red&#x27; AND B.color = &#x27;green&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> R.sid</span><br><span class="line"><span class="keyword">FROM</span> Boats B, Reserves R</span><br><span class="line"><span class="keyword">WHERE</span> B.bid <span class="operator">=</span> R.bid <span class="keyword">AND</span> B.color <span class="operator">=</span> <span class="string">&#x27;red&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">INTERSECT</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> R.sid</span><br><span class="line"><span class="keyword">FROM</span> Boats B, Reserves R</span><br><span class="line"><span class="keyword">WHERE</span> B.bid <span class="operator">=</span> R.bid <span class="keyword">AND</span> B.color <span class="operator">=</span> <span class="string">&#x27;green&#x27;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="Except"><a href="#Except" class="headerlink" title="Except"></a>Except</h3><ul>
+<li>retrieve all records from one <code>SELECT</code> statement that are not returned by a second <code>SELECT</code> statement<ul>
+<li>E.g., Find the sids of sailors who have reserved a red boat <font color="3A75EA">but not</font> a green boat  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> R.sid</span><br><span class="line"><span class="keyword">FROM</span> Boats B, Reserves R</span><br><span class="line"><span class="keyword">WHERE</span> B.bid <span class="operator">=</span> R.bid <span class="keyword">AND</span> B.color <span class="operator">=</span> <span class="string">&#x27;red&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXCEPT</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> R.sid</span><br><span class="line"><span class="keyword">FROM</span> Boats B, Reserves R</span><br><span class="line"><span class="keyword">WHERE</span> B.bid <span class="operator">=</span> R.bid <span class="keyword">AND</span> B.color <span class="operator">=</span> <span class="string">&#x27;green&#x27;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="Nested-Structure"><a href="#Nested-Structure" class="headerlink" title="Nested Structure"></a>Nested Structure</h2><h3 id="Nested-Queries"><a href="#Nested-Queries" class="headerlink" title="Nested Queries"></a>Nested Queries</h3><ul>
+<li>a query that has another query embedded within it, the embedded query is called as a subquery</li>
+<li>the queries can have a deeply nested structures<ul>
+<li>E.g., Find names of sailors who have reserved boat with bid 103  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> S.sname</span><br><span class="line"><span class="keyword">FROM</span> Sailors S</span><br><span class="line"><span class="keyword">WHERE</span> S.sid <span class="keyword">IN</span> (<span class="keyword">SELECT</span> R.sid</span><br><span class="line">                <span class="keyword">FROM</span> Reserves R</span><br><span class="line">                <span class="keyword">WHERE</span> R.bid <span class="operator">=</span> <span class="number">103</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>The inner subquery is completely independent of the outer query</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Correlated-Nested-Queries"><a href="#Correlated-Nested-Queries" class="headerlink" title="Correlated Nested Queries"></a>Correlated Nested Queries</h3><ul>
+<li>a type of nested query that uses data from the outer query in the subquery<ul>
+<li>E.g., Find names of sailors who have reserved boat with bid 103  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> S.sname</span><br><span class="line"><span class="keyword">FROM</span> Sailors S</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">EXISTS</span> (<span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line">              <span class="keyword">FROM</span> Reserves R</span><br><span class="line">              <span class="keyword">WHERE</span> R.bid <span class="operator">=</span> <span class="number">103</span> <span class="keyword">AND</span> S.sid <span class="operator">=</span> R.sid)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>The inner subquery depends on the row that being examined in the outer query</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Comparsion-Operators"><a href="#Comparsion-Operators" class="headerlink" title="Comparsion Operators"></a>Comparsion Operators</h2><h3 id="Arithmetic-Comparison-Operators"><a href="#Arithmetic-Comparison-Operators" class="headerlink" title="Arithmetic Comparison Operators"></a>Arithmetic Comparison Operators</h3><ol>
+<li><p><code>=</code>: equality</p>
+</li>
+<li><p><code>!=</code> or <code>&lt;&gt;</code>: not equal to</p>
+</li>
+<li><p><code>&lt;</code>:less than</p>
+</li>
+<li><p><code>&gt;</code>: greater than</p>
+</li>
+<li><p><code>&lt;=</code>: less than or equal to</p>
+</li>
+<li><p><code>&gt;=</code>: greater than or equal to</p>
+</li>
+</ol>
+<h3 id="Set-Comparsion-Operators"><a href="#Set-Comparsion-Operators" class="headerlink" title="Set Comparsion Operators"></a>Set Comparsion Operators</h3><ol>
+<li><p><code>IN</code> Operator</p>
+<ul>
+<li>check whether a specified value matches any value in a list or a subquery</li>
+<li>allows us to specify multiple values in a <code>WHERE</code> clause</li>
+<li>negative operator: <code>NOT IN</code><ul>
+<li>E.g., Find the names of boats which are red, blue or green  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> B.bname</span><br><span class="line"><span class="keyword">FROM</span> Boats B</span><br><span class="line"><span class="keyword">WHERE</span> B.color <span class="keyword">IN</span> (<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;green&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>EXISTS</code></p>
+<ul>
+<li>check if a subquery returns any rows</li>
+<li>negative operator: <code>NOT EXISTS</code><ul>
+<li>E.g., Find names of sailors who have reserved boat with bid 103  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> S.sname</span><br><span class="line"><span class="keyword">FROM</span> Sailors S</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">EXISTS</span> (<span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line">                <span class="keyword">FROM</span> Reserves R</span><br><span class="line">                <span class="keyword">WHERE</span> R.bid <span class="operator">=</span> <span class="number">103</span> <span class="keyword">AND</span> S.sid <span class="operator">=</span> R.sid)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>op ANY</code> or <code>op SOME</code></p>
+<ul>
+<li>check if the value being compared matches any of the values returned by the subquery<ul>
+<li>E.g., Find sailors whose rating is greater than that of some sailor called Horatio:  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> Sailors S1</span><br><span class="line"><span class="keyword">WHERE</span> S1.rating <span class="operator">&gt;</span> <span class="keyword">ANY</span> (<span class="keyword">SELECT</span> S2.rating</span><br><span class="line">                       <span class="keyword">FROM</span> Sailors S2</span><br><span class="line">                       <span class="keyword">WHERE</span> S2.name <span class="operator">=</span> <span class="string">&#x27;Horatio&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>op ALL</code></p>
+<ul>
+<li>check if the value being compared matches all of the values returned by the subquery<ul>
+<li>E.g., Find sailors whose rating is better than every sailor called Horatio  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> Sailors S1</span><br><span class="line"><span class="keyword">WHERE</span> S1.rating <span class="operator">&gt;</span> <span class="keyword">ALL</span> (<span class="keyword">SELECT</span> S2.rating</span><br><span class="line">                       <span class="keyword">FROM</span> Sailors S2</span><br><span class="line">                       <span class="keyword">WHERE</span> S2.name <span class="operator">=</span> <span class="string">&#x27;Horatio&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li>E.g., Find the sailors with the highest rating  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> Sailors S1</span><br><span class="line"><span class="keyword">WHERE</span> S1.rating <span class="operator">&gt;=</span> <span class="keyword">ALL</span> (<span class="keyword">SELECT</span> S2.rating</span><br><span class="line">                        <span class="keyword">FROM</span> Sailors S2)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="Division"><a href="#Division" class="headerlink" title="Division"></a>Division</h2><h2 id="Aggregate-Operations"><a href="#Aggregate-Operations" class="headerlink" title="Aggregate Operations"></a>Aggregate Operations</h2><h3 id="Five-Operations"><a href="#Five-Operations" class="headerlink" title="Five Operations"></a>Five Operations</h3><table>
+<thead>
+<tr>
+<th align="center">Operations</th>
+<th align="center">Syntax</th>
+<th align="center">Descriptions</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">COUNT</td>
+<td align="center"><code>COUNT([DISTINCT]A)</code></td>
+<td align="center">The number of [unique] value in the A column</td>
+</tr>
+<tr>
+<td align="center">SUM</td>
+<td align="center"><code>SUM([DISTINCT]A)</code></td>
+<td align="center">The sum of all [unique] values in the A column</td>
+</tr>
+<tr>
+<td align="center">AVG</td>
+<td align="center"><code>AVG([DISTINCT]A)</code></td>
+<td align="center">The average of all [unique] values in the A column</td>
+</tr>
+<tr>
+<td align="center">MAX</td>
+<td align="center"><code>MAX(A)</code></td>
+<td align="center">The maximum values in the A column</td>
+</tr>
+<tr>
+<td align="center">MIN</td>
+<td align="center"><code>MIN(A)</code></td>
+<td align="center">The minimum values in the A column</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Syntax for <code>COUNT</code>, <code>SUM</code> and <code>AVG</code>:</p>
+<ul>
+<li>E.g., Find the average age of all sailors with rating of 10  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(S.age)</span><br><span class="line"><span class="keyword">FROM</span> Sailors S</span><br><span class="line"><span class="keyword">WHERE</span> S.rating <span class="operator">=</span> <span class="number">10</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Syntax for <code>MAX</code> and <code>MIN</code>:</p>
+<ul>
+<li><p>E.g., Find the name and age of the oldest sailor</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> S.name, S.age</span><br><span class="line"><span class="keyword">FROM</span> Sailors S</span><br><span class="line"><span class="keyword">WHERE</span> S.age <span class="operator">=</span> (<span class="keyword">SELECT</span> <span class="built_in">MAX</span>(S2.age)</span><br><span class="line">                <span class="keyword">FROM</span> Sailors S2)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><font color="F54747">Noted: the following syntax is invalid</font></p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> S.name, <span class="built_in">MAX</span>(S.age)   <span class="comment">-- invalid</span></span><br><span class="line"><span class="keyword">FROM</span> Sailors S</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Examples:</p>
+<ol>
+<li><p>Count the number of sailors</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">FROM</span> Sailors</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Find the names of sailors who are older than the oldest sailor with a rating of 10</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> S.name</span><br><span class="line"><span class="keyword">FROM</span> Sailors S</span><br><span class="line"><span class="keyword">WHERE</span> S.age <span class="operator">&gt;</span> (<span class="keyword">SELECT</span> <span class="built_in">MAX</span>(S2.age)</span><br><span class="line">               <span class="keyword">FROM</span> Sailors S2</span><br><span class="line">               <span class="keyword">WHERE</span> S2.rating <span class="operator">=</span> <span class="number">10</span>)</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<h3 id="GROUP-BY-and-HAVING"><a href="#GROUP-BY-and-HAVING" class="headerlink" title="GROUP BY and HAVING"></a>GROUP BY and HAVING</h3><ul>
+<li><p><code>GROUP BY</code> is used to group rows based on the values in one or more columns with aggregate functions</p>
+</li>
+<li><p><code>HAVING</code> is used to filter the groups based on some criteria</p>
+<ul>
+<li><font color="F54747">Noted: </font>only the columns that appear in <code>GROUP BY</code> clause can appear in the <code>HAVING</code> clause</li>
+</ul>
+  <img src="https://p.ipic.vip/1boi8k.png" width="300px" />
+  
+<ul>
+<li><p>E.g., Find the average age of sailors for each rating level that has at least two sailors</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> S.sname, <span class="built_in">AVG</span>(S.age) <span class="keyword">AS</span> avgage</span><br><span class="line"><span class="keyword">FROM</span> Sailors S</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> S.rating</span><br><span class="line"><span class="keyword">HAVING</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="operator">&gt;=</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+  <img src="https://p.ipic.vip/aoksri.png" width="150px" />
+</li>
+<li><p>E.g., Find the average age of sailors who are <font color="F54747">at least 18 years old</font> for each rating level that has at least two sailors</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> S.sname, <span class="built_in">AVG</span>(S.age) <span class="keyword">AS</span> avgage</span><br><span class="line"><span class="keyword">FROM</span> Sailors S</span><br><span class="line"><span class="keyword">WHERE</span> S.age <span class="operator">&gt;=</span> <span class="number">18</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> S.rating</span><br><span class="line"><span class="keyword">HAVING</span> <span class="number">2</span> <span class="operator">&lt;=</span> (<span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>)    <span class="comment">-- !!!</span></span><br><span class="line">             <span class="keyword">FROM</span> Sailors S2</span><br><span class="line">             <span class="keyword">WHERE</span> S.rating <span class="operator">=</span> S2.rating)</span><br></pre></td></tr></table></figure>
+  <img src="https://p.ipic.vip/wnyr0a.png" width="150px" />
+</li>
+<li><p>E.g., Find the average age of sailors who are <font color="F54747">at least 18 years old</font> for each rating level that has at least <font color="F54747">such</font> two sailors</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> S.sname, <span class="built_in">AVG</span>(S.age) <span class="keyword">AS</span> avgage</span><br><span class="line"><span class="keyword">FROM</span> Sailors S</span><br><span class="line"><span class="keyword">WHERE</span> S.age <span class="operator">&gt;=</span> <span class="number">18</span>   <span class="comment">-- ?</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> S.rating</span><br><span class="line"><span class="keyword">HAVING</span> <span class="number">2</span> <span class="operator">&lt;=</span> (<span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>)</span><br><span class="line">             <span class="keyword">FROM</span> Sailors S2</span><br><span class="line">             <span class="keyword">WHERE</span> S.rating <span class="operator">=</span> S2.rating <span class="keyword">AND</span> S.age <span class="operator">&gt;=</span> <span class="number">18</span>)   <span class="comment">-- !!!</span></span><br></pre></td></tr></table></figure>
+  <img src="https://p.ipic.vip/igqoj0.png" width="150px" /></li>
+</ul>
+</li>
+<li><p><font color="F54747"><strong>Noted:</strong> Aggregate operations cannot be nested!!!</font></p>
+<ul>
+<li>E.g., Find those ratings for which the average age is the minimum over all ratings</li>
+<li>The following SQL is invalid:  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> S.rating</span><br><span class="line"><span class="keyword">FROM</span> Sailors S</span><br><span class="line"><span class="keyword">WHERE</span> S.age <span class="operator">=</span> (<span class="keyword">SELECT</span> <span class="built_in">MIN</span>(<span class="built_in">AVG</span>(S2.age))</span><br><span class="line">               <span class="keyword">FROM</span> Sailors S2</span><br><span class="line">               <span class="keyword">GROUP</span> <span class="keyword">BY</span> S2.rating)</span><br></pre></td></tr></table></figure></li>
+<li>Solution:  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Temp.rating, Temp.avgage</span><br><span class="line"><span class="keyword">FROM</span> (<span class="keyword">SELECT</span> S.rating, <span class="built_in">AVG</span>(S.age) <span class="keyword">AS</span> avgage</span><br><span class="line">      <span class="keyword">FROM</span> Sailors S</span><br><span class="line">      <span class="keyword">GROUP</span> <span class="keyword">BY</span> S.rating) <span class="keyword">AS</span> Temp</span><br><span class="line"><span class="keyword">WHERE</span> Temp.avgage <span class="operator">=</span> (<span class="keyword">SELECT</span> <span class="built_in">MIN</span>(Temp.avgage)</span><br><span class="line">                     <span class="keyword">FROM</span> Temp)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<!-- 
+<img src="" width="500px" />
+<font color="3A75EA">Blue</font>
+<font color="F54747">Red</font>
+--></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog">Donald Lam</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog/2023/03/10/2023/CSCI3170/2023-3-10-CSCI3170-SQL/">https://github.com/DonaldLamNL/myBlog/2023/03/10/2023/CSCI3170/2023-3-10-CSCI3170-SQL/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/myBlog/tags/CSCI3170/">CSCI3170</a><a class="post-meta__tags" href="/myBlog/tags/database/">database</a></div><div class="post_share"><div class="social-share" data-image="https://p.ipic.vip/ruvwfy.jpg" data-sites="facebook,twitter"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/myBlog/2023/03/11/2023/CSCI3170/2023-3-11-CSCI3170-DAD/"><img class="prev-cover" src="https://p.ipic.vip/ruvwfy.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">CSCI3170 - Database Application Development</div></div></a></div><div class="next-post pull-right"><a href="/myBlog/2023/02/26/2023/CSCI3180/2023-2-26-CSCI3180-DataTypes/"><img class="next-cover" src="https://p.ipic.vip/ruvwfy.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">CSCI3180 - Data Types</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/myBlog/2023/01/28/2023/CSCI3170/2023-1-28-CSCI3170-ERModel/" title="CSCI3170 - Entity-Relationship Model"><img class="cover" src="https://p.ipic.vip/ruvwfy.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-28</div><div class="title">CSCI3170 - Entity-Relationship Model</div></div></a></div><div><a href="/myBlog/2023/02/16/2023/CSCI3170/2023-2-16-CSCI3170-RelationalAlgebra/" title="CSCI3170 - Relational Algebra"><img class="cover" src="https://p.ipic.vip/ruvwfy.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-16</div><div class="title">CSCI3170 - Relational Algebra</div></div></a></div><div><a href="/myBlog/2023/02/15/2023/CSCI3170/2023-2-15-CSCI3170-RelationalModel/" title="CSCI3170 - Relational Model"><img class="cover" src="https://p.ipic.vip/ruvwfy.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-15</div><div class="title">CSCI3170 - Relational Model</div></div></a></div><div><a href="/myBlog/2023/03/11/2023/CSCI3170/2023-3-11-CSCI3170-DAD/" title="CSCI3170 - Database Application Development"><img class="cover" src="https://p.ipic.vip/ruvwfy.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-11</div><div class="title">CSCI3170 - Database Application Development</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="this.onerror=null;this.src='/myBlog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Donald Lam</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">45</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">13</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://donaldlamnl.github.io/myWeb/#/home"><i></i><span>My Personal Website</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DonaldLamNL" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:manholam8@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Basic-Query"><span class="toc-number">1.</span> <span class="toc-text">Basic Query</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Syntax"><span class="toc-number">1.1.</span> <span class="toc-text">Syntax</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Expressions-amp-Strings"><span class="toc-number">1.2.</span> <span class="toc-text">Expressions &amp; Strings</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Set-Manipulation"><span class="toc-number">2.</span> <span class="toc-text">Set Manipulation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Union"><span class="toc-number">2.1.</span> <span class="toc-text">Union</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Intersection"><span class="toc-number">2.2.</span> <span class="toc-text">Intersection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Except"><span class="toc-number">2.3.</span> <span class="toc-text">Except</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nested-Structure"><span class="toc-number">3.</span> <span class="toc-text">Nested Structure</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nested-Queries"><span class="toc-number">3.1.</span> <span class="toc-text">Nested Queries</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Correlated-Nested-Queries"><span class="toc-number">3.2.</span> <span class="toc-text">Correlated Nested Queries</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Comparsion-Operators"><span class="toc-number">4.</span> <span class="toc-text">Comparsion Operators</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Arithmetic-Comparison-Operators"><span class="toc-number">4.1.</span> <span class="toc-text">Arithmetic Comparison Operators</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Set-Comparsion-Operators"><span class="toc-number">4.2.</span> <span class="toc-text">Set Comparsion Operators</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Division"><span class="toc-number">5.</span> <span class="toc-text">Division</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Aggregate-Operations"><span class="toc-number">6.</span> <span class="toc-text">Aggregate Operations</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Five-Operations"><span class="toc-number">6.1.</span> <span class="toc-text">Five Operations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GROUP-BY-and-HAVING"><span class="toc-number">6.2.</span> <span class="toc-text">GROUP BY and HAVING</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/03/11/2023/CSCI3170/2023-3-11-CSCI3170-DAD/" title="CSCI3170 - Database Application Development"><img src="https://p.ipic.vip/ruvwfy.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="CSCI3170 - Database Application Development"/></a><div class="content"><a class="title" href="/myBlog/2023/03/11/2023/CSCI3170/2023-3-11-CSCI3170-DAD/" title="CSCI3170 - Database Application Development">CSCI3170 - Database Application Development</a><time datetime="2023-03-10T16:00:00.000Z" title="Created 2023-03-11 00:00:00">2023-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/03/10/2023/CSCI3170/2023-3-10-CSCI3170-SQL/" title="CSCI3170 - Structured Query Language"><img src="https://p.ipic.vip/ruvwfy.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="CSCI3170 - Structured Query Language"/></a><div class="content"><a class="title" href="/myBlog/2023/03/10/2023/CSCI3170/2023-3-10-CSCI3170-SQL/" title="CSCI3170 - Structured Query Language">CSCI3170 - Structured Query Language</a><time datetime="2023-03-09T16:00:00.000Z" title="Created 2023-03-10 00:00:00">2023-03-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/02/26/2023/CSCI3180/2023-2-26-CSCI3180-DataTypes/" title="CSCI3180 - Data Types"><img src="https://p.ipic.vip/ruvwfy.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="CSCI3180 - Data Types"/></a><div class="content"><a class="title" href="/myBlog/2023/02/26/2023/CSCI3180/2023-2-26-CSCI3180-DataTypes/" title="CSCI3180 - Data Types">CSCI3180 - Data Types</a><time datetime="2023-02-25T16:00:00.000Z" title="Created 2023-02-26 00:00:00">2023-02-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/02/25/2023/CSCI3180/2023-2-25-CSCI3180-Scope/" title="CSCI3180 - Scope"><img src="https://p.ipic.vip/ruvwfy.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="CSCI3180 - Scope"/></a><div class="content"><a class="title" href="/myBlog/2023/02/25/2023/CSCI3180/2023-2-25-CSCI3180-Scope/" title="CSCI3180 - Scope">CSCI3180 - Scope</a><time datetime="2023-02-24T16:00:00.000Z" title="Created 2023-02-25 00:00:00">2023-02-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/02/16/2023/CSCI3170/2023-2-16-CSCI3170-RelationalAlgebra/" title="CSCI3170 - Relational Algebra"><img src="https://p.ipic.vip/ruvwfy.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="CSCI3170 - Relational Algebra"/></a><div class="content"><a class="title" href="/myBlog/2023/02/16/2023/CSCI3170/2023-2-16-CSCI3170-RelationalAlgebra/" title="CSCI3170 - Relational Algebra">CSCI3170 - Relational Algebra</a><time datetime="2023-02-15T16:00:00.000Z" title="Created 2023-02-16 00:00:00">2023-02-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By Donald Lam</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/myBlog/js/utils.js"></script><script src="/myBlog/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/myBlog/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

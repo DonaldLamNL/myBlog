@@ -10186,7 +10186,7 @@ table th {
 </ul>
 </li>
 </ul>
-<h2 id="Function-Parameters"><a href="#Function-Parameters" class="headerlink" title="Function Parameters"></a>Function Parameters</h2><h3 id="Argument-Parameter-Correspondence"><a href="#Argument-Parameter-Correspondence" class="headerlink" title="Argument-Parameter Correspondence"></a>Argument-Parameter Correspondence</h3><ul>
+<h2 id="Correspondence"><a href="#Correspondence" class="headerlink" title="Correspondence"></a>Correspondence</h2><ol>
 <li><p><font color="3A75EA"><strong>Positional</strong></font></p>
 <ul>
 <li>the binding of arguments to parameters is by <font color="3A75EA">position</font></li>
@@ -10200,8 +10200,8 @@ table th {
 <li><strong>Disadvantage</strong>: users are able to know the parameter’s names</li>
 </ul>
 </li>
-</ul>
-<h3 id="Parameter-Default-Values"><a href="#Parameter-Default-Values" class="headerlink" title="Parameter Default Values"></a>Parameter Default Values</h3><ul>
+</ol>
+<h2 id="Parameter-Default-Values"><a href="#Parameter-Default-Values" class="headerlink" title="Parameter Default Values"></a>Parameter Default Values</h2><ul>
 <li>parameters can have default values if no argument is passed</li>
 <li><font color="3A75EA"><strong>Note</strong></font>: the default parameters must <font color="F54747">appear last</font>(because parameters are positionally associated)</li>
 <li><font color="F54747"><strong>Remind</strong></font>: the default parameters should be assign in subprogram declaration (if have)<ul>
@@ -10216,7 +10216,7 @@ table th {
 </ul>
 </li>
 </ul>
-<h3 id="Parameter-Passing-Methods"><a href="#Parameter-Passing-Methods" class="headerlink" title="Parameter Passing Methods"></a>Parameter Passing Methods</h3><h4 id="Passing-Value"><a href="#Passing-Value" class="headerlink" title="Passing Value"></a>Passing Value</h4><ol>
+<h2 id="Parameter-Passing-Methods"><a href="#Parameter-Passing-Methods" class="headerlink" title="Parameter Passing Methods"></a>Parameter Passing Methods</h2><h3 id="Passing-Value"><a href="#Passing-Value" class="headerlink" title="Passing Value"></a>Passing Value</h3><ol>
 <li><p><font color="3A75EA"><strong>Pass-by-Value</strong></font></p>
 <ul>
 <li>the value of the argument is used to initialize the corresponding parameter</li>
@@ -10242,7 +10242,7 @@ table th {
 </ul>
 </li>
 </ol>
-<h4 id="Passing-Object"><a href="#Passing-Object" class="headerlink" title="Passing Object"></a>Passing Object</h4><ol>
+<h3 id="Passing-Object"><a href="#Passing-Object" class="headerlink" title="Passing Object"></a>Passing Object</h3><ol>
 <li><p><font color="3A75EA"><strong>Pass-by-Reference</strong></font></p>
 <ul>
 <li>pass the reference to the argument variable (can be simulated in pass-by-value of pointers for languages that not support reference)<ul>
@@ -10283,6 +10283,153 @@ table th {
 </li>
 </ul>
 </li>
+</ul>
+<h2 id="Parameters"><a href="#Parameters" class="headerlink" title="Parameters"></a>Parameters</h2><h3 id="Multidimensional-Arrays"><a href="#Multidimensional-Arrays" class="headerlink" title="Multidimensional Arrays"></a>Multidimensional Arrays</h3><ul>
+<li><p>access an element in a multi-dimensional array, a <font color="F54747">storage mapping function</font> (address calculation) has to be built</p>
+<ul>
+<li><code>int a[4][2] = &#123;&#123;11,12&#125;, &#123;21,22&#125;, &#123;31,32&#125;, &#123;41,42&#125;&#125;;</code>  <table>
+  <tr>
+      <th colspan="9" style="text-align: center;">Memory Address (One-dimensional)</th>
+  </tr>
+  <tr>
+      <td style="text-align: center;">11</td>
+      <td style="text-align: center;">12</td>
+      <td style="text-align: center;">21</td>
+      <td style="text-align: center;">22</td>
+      <td style="text-align: center;">31</td>
+      <td style="text-align: center;">32</td>
+      <td style="text-align: center;">41</td>
+      <td style="text-align: center;">42</td>
+      <td style="text-align: center;">...</td>
+  </tr>
+  </table>
+
+<ul>
+<li>address of <code>a[3][1]</code> &#x3D; (address of <code>a[0][0]</code>) + (3 * 2 + 1) * (<code>sizeof int</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>C&#x2F;C++ Implementation</p>
+<ul>
+<li><strong>Porblems</strong>:<ol>
+<li><p>C&#x2F;C++ requires programmer to include the declared size of all (but not the first dimension) in the array parameter</p>
+<ul>
+<li>It is necessary for the programmer to declare the parameter like<br>  <code>void f(int a[2][3][8])</code> or <code>void f(int a[][3][8])</code>(but not the first dimension)</li>
+</ul>
+</li>
+<li><p><code>sizeof</code> array in a function</p>
+ <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">int</span> a[<span class="number">10</span>])</span></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="built_in">sizeof</span>(a) &lt;&lt; endl;  <span class="comment">// 8</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> a[<span class="number">10</span>] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    cout &lt;&lt; <span class="built_in">sizeof</span>(a) &lt;&lt; endl;  <span class="comment">// 40: 4 * 10</span></span><br><span class="line">    <span class="built_in">f</span>(a);   <span class="comment">// 8: sizeof the pointer instead of the array</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><strong>Solution</strong>:<ul>
+<li>We can use a <font color="F54747"><strong>flexible workaround</strong></font><ul>
+<li>pass a pointer to the array and the sizes of the dimensions as other parameters<br>  <code>void f(int* a, int firstDSize, int secondDSize, int thirdDSize)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Java&#x2F;C#&#x2F;Python Implementation</p>
+<ul>
+<li>Arrays are objects in those languages, so the multi-dimensional array is <font color="3A75EA">single-dimensioned</font><ul>
+<li><code>int a[][] = &#123;&#123;11&#125;, &#123;21,22,23&#125;, &#123;31,32&#125;&#125;;</code>  <table>
+  <tr>
+      <th colspan="7" style="text-align: center;">Memory Address (One-dimensional)</th>
+  </tr>
+  <tr>
+      <td style="text-align: center;">Array Object</td>
+      <td colspan="3" style="text-align: center;">Array Object</td>
+      <td colspan="2" style="text-align: center;">Array Object</td>
+      <td style="text-align: center;">...</td>
+  </tr>
+  <tr>
+      <td style="text-align: center;">11</td>
+      <td style="text-align: center;">21</td>
+      <td style="text-align: center;">22</td>
+      <td style="text-align: center;">23</td>
+      <td style="text-align: center;">31</td>
+      <td style="text-align: center;">32</td>
+      <td style="text-align: center;">...</td>
+  </tr>
+  </table></li>
+<li>Access the size of array:<ul>
+<li><code>l.length</code> in Java</li>
+<li><code>len(l)</code> in Python</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Subprograms"><a href="#Subprograms" class="headerlink" title="Subprograms"></a>Subprograms</h3><ul>
+<li><p>There are situations in which a subprogram is a parameter of another subprogram</p>
+</li>
+<li><p>C&#x2F;C++ Implementation</p>
+<ul>
+<li>functions can be passed as <font color="3A75EA">function pointers</font> <code>(*p)(...)</code>  <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> a, b, c;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;f() is called, &quot;</span> &lt;&lt; x &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">g</span><span class="params">(<span class="type">void</span> (*p)(<span class="type">int</span>), <span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="built_in">p</span>(x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">g</span>(f, <span class="number">3</span>);    <span class="comment">// f() is called, 3</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Python Implementation</p>
+<ul>
+<li>functions in Python are <font color="F54747">first-class citizens</font> and simply objects<br>  so it can be simply passed as parameter like any other Objects  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;f() is called,&quot;</span>, x)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">p</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;p() is called,&quot;</span>, x + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">g</span>(<span class="params">fun, x</span>):</span><br><span class="line">    fun(x)</span><br><span class="line"></span><br><span class="line">g(f, <span class="number">2</span>)     <span class="comment"># f() is called, 2</span></span><br><span class="line">g(p, <span class="number">2</span>)     <span class="comment"># p() is called, 3</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="Closures"><a href="#Closures" class="headerlink" title="Closures"></a>Closures</h3><ul>
+<li>it is a subprogram and the <a href="https://donaldlamnl.github.io/myBlog/2023/02/25/2023/CSCI3180/2023-2-25-CSCI3180-Scope/">referencing environment</a> where it was defined</li>
+<li>the referencing environment is needed if the subprogram can be called from any arbitrary place in the program</li>
+</ul>
+<ol>
+<li><p>A static-scoped language that <strong>does not permit nested subprograms</strong> doesn’t need closures</p>
+<ul>
+<li>Implementation in C++:   <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> global_var = <span class="number">4</span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>, b = <span class="number">2</span>, c = <span class="number">3</span>;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;f() is called, local = &quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot;, global = &quot;</span> &lt;&lt; global_var &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">g</span><span class="params">(<span class="type">void</span> (*p)())</span></span>&#123;</span><br><span class="line">    <span class="built_in">p</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">f</span>();        <span class="comment">// f() is called, local = 1, global = 4</span></span><br><span class="line">    <span class="built_in">g</span>(f);       <span class="comment">// f() is called, local = 1, global = 4</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>the referencing environment in f (<em>called from any arbitrary place in the program</em>) is the local variables (<code>a</code>, <code>b</code>, <code>c</code>) and the global variables which is <font color="F54747">same as directly calling</font>, so the static-scoped language that does not support <font color="3A75EA">nested programming</font> doesn’t need closures</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Closures are necessary for a subprogram that can access variables in the nesting scopes and it can called from abywhere</p>
+<ul>
+<li>Implementation in Python:   <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">adder</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">template_adder</span>(<span class="params">y</span>):     <span class="comment"># nested subprogram</span></span><br><span class="line">        <span class="keyword">return</span> x+y</span><br><span class="line">    <span class="keyword">return</span> template_adder</span><br><span class="line">    <span class="comment"># actually returning a closure that has the referencing environment as adder</span></span><br><span class="line"></span><br><span class="line">add_five = adder(<span class="number">5</span>) <span class="comment"># the closures (&lt;function adder.&lt;locals&gt;.template_adder at 0x55dec94ab020&gt;)</span></span><br><span class="line"><span class="built_in">print</span>(add_five(<span class="number">2</span>))  <span class="comment"># 7</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>the referencing environment of <code>template_adder</code> has <code>x</code> which is outside the definition of <code>template_adder</code>, but because Python supports closures, so <code>x</code> is also passed through to the <code>template_adder</code></li>
+<li>the clousre returned from <code>adder</code> is both the function and the referencing environment</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>closures actually <font color="F54747">extended lifetime</font> to some variables, in case, <code>x</code> is extended as the function <code>adder</code> has already ended</li>
+</ul>
+<h3 id="Lambdas"><a href="#Lambdas" class="headerlink" title="Lambdas"></a>Lambdas</h3><ul>
+<li>anonymous functions (which syntax is much more simplier and readable than defining a function) using the keyword <code>lambda</code><ul>
+<li>Implementation in Python:  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">adder</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">lambda</span> y: x + y</span><br><span class="line"></span><br><span class="line">add_five = adder(<span class="number">5</span>)</span><br><span class="line"><span class="built_in">print</span>(add_five(<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>In case, the function named <code>template_adder</code> is not important as it would be “rename” later<br>  (<code>add_five = adder(5)</code>: the function <code>template_adder</code> is actually renamed to <code>add_five</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Polymorphic-Subprograms"><a href="#Polymorphic-Subprograms" class="headerlink" title="Polymorphic Subprograms"></a>Polymorphic Subprograms</h2><ul>
+<li>Polymorphic subprograms are subprograms that can operate on different types of data</li>
+</ul>
+<ol>
+<li><p><strong>Adhoc Polymorphism</strong></p>
+<ul>
+<li>Overloaded subprograms provide a particular kind of polymorphism called adhoc polymorphism  <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">printType</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;int is the best!&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printType</span><span class="params">(<span class="type">float</span> x)</span></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;float is the best!&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">printType</span>(<span class="number">1</span>);       <span class="comment">// int is the best!</span></span><br><span class="line">    <span class="built_in">printType</span>(<span class="number">1.0f</span>);    <span class="comment">// float is the best!</span></span><br><span class="line">    <span class="built_in">printType</span>(<span class="literal">true</span>);    <span class="comment">// int is the best!</span></span><br><span class="line">    <span class="built_in">printType</span>(<span class="number">1.0</span>);     <span class="comment">// ERROR</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>Subtype Polymorphism</strong></p>
+</li>
+</ol>
+<ul>
+<li>A parameter of type X can take any object of type X or any type derived from X  <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Food</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Eating food.&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Apple</span> : <span class="keyword">public</span> Food &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Eating apple.&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Water</span> : <span class="keyword">public</span> Food &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">drink</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Drinking water.&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Food* food = <span class="keyword">new</span> <span class="built_in">Food</span>();</span><br><span class="line">    Food* apple = <span class="keyword">new</span> <span class="built_in">Apple</span>();</span><br><span class="line">    Food* water = <span class="keyword">new</span> <span class="built_in">Water</span>();</span><br><span class="line"></span><br><span class="line">    food-&gt;<span class="built_in">eat</span>();    <span class="comment">// Eating food.</span></span><br><span class="line">    apple-&gt;<span class="built_in">eat</span>();   <span class="comment">// Eating apple.</span></span><br><span class="line">    water-&gt;<span class="built_in">eat</span>();   <span class="comment">// Eating food. (since the Water class doesn&#x27;t override the eat() method)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <!-- 
 <font color="3A75EA">Blue</font>

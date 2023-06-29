@@ -5761,7 +5761,7 @@
       </tags>
   </entry>
   <entry>
-    <title>Statement-Level Control Structures</title>
+    <title>Statement - Level Control Structures</title>
     <url>/myBlog/2023/04/26/2023/CSCI3180/2023-4-26-CSCI3180-Statement-Level-Control-Structures/</url>
     <content><![CDATA[<h2 id="Two-Way-Selection-Statements"><a href="#Two-Way-Selection-Statements" class="headerlink" title="Two-Way Selection Statements"></a>Two-Way Selection Statements</h2><ul>
 <li><p>provides the means of choosing between two or more paths of execution</p>
@@ -10899,5 +10899,93 @@
       <tags>
         <tag>ajax</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Image Classification</title>
+    <url>/myBlog/2023/06/26/2023/CSCI3180/2023-6-26-CS231N-Image-Classification/</url>
+    <content><![CDATA[<h2 id="Semantic-Gap"><a href="#Semantic-Gap" class="headerlink" title="Semantic Gap"></a>Semantic Gap</h2><img  />
+
+
+
+
+<!-- 
+<img src="https://p.ipic.vip/1zz58f.png" width="500px" />
+<font color="3A75EA">Blue</font>
+<font color="F54747">Red</font>
+-->
+]]></content>
+      <categories>
+        <category>Computer Vision</category>
+      </categories>
+      <tags>
+        <tag>AI</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Weekly Paper Reading</title>
+    <url>/myBlog/2023/06/29/2023/Summer/2023-6-29-Weekly-Paper-Reading/</url>
+    <content><![CDATA[<h3 id="2023-06-29"><a href="#2023-06-29" class="headerlink" title="2023-06-29"></a>2023-06-29</h3><ul>
+<li><p><strong>Title:</strong> <a href="https://arxiv.org/abs/2306.04735">Soft-prompt Tuning for Large Language Models to Evaluate Bias</a> (arXiv 2023)</p>
+</li>
+<li><p><strong>Author:</strong> Jacob-Junqi Tian, David Emerson, Sevil Zanjani Miyandoab, Deval Pandya, Laleh Seyyed-Kalantari, Faiza Khan Khattak</p>
+</li>
+<li><p><strong>Summary:</strong><br>  Soft-prompt tuning is an automatic prompt optimization that can optimize the performance of LLM by training a small set of prompt token embeddings. In this paper, they utilize soft-prompt tuning to evaluate the bias in Open Pre-trained Transformers and Galactica language models by measuring the fairness metrics (accuracy Gap and FPR Gap) on two sentiment analysis tasks (<em>SemEval-2018</em> and <em>SST-5</em>).</p>
+</li>
+<li><p><strong>Methodology:</strong></p>
+<ul>
+<li><p>Example Prompts:</p>
+  <img src="https://p.ipic.vip/k0p2lc.png" width="350px" />
+</li>
+<li><p>The fairness FPR (False Positive Rate) Gap is measured using the metric M: </p>
+<p>  $$d_{M}(x) &#x3D; M(x) - \overline{M}$$</p>
+<p>  <strong>Positive FPR Gap</strong>: Evaluates the FPR for groups classified as negative or neutral but predicted as positive<br>  <strong>Negative FPR Gap</strong>: Evaluates the FPR for groups classified as positive or neutral but predicted as negative</p>
+</li>
+<li><p>Bias Evaluation (the sensitive attributes and respective protected groups):<br>  <strong>Age</strong>: {adult, old, young}, <strong>Sexuality</strong>: {asexual, bisexual, heterosexual, homosexual, other}</p>
+</li>
+<li><p>Model size:<br>  <strong>Open Pre-trained Transformer (OPT) models</strong> with parameter sizes of <em>350M</em>, <em>1.3B</em>, <em>2.7B</em>, <em>6.7B</em> and <em>13B</em><br>  <strong>Galactica language models</strong> with parameter sizes of <em>1.3B</em> and <em>6.7B</em></p>
+</li>
+</ul>
+</li>
+<li><p><strong>Soft-Prompt Tuning Procedure:</strong></p>
+  <img src="https://p.ipic.vip/0csf2e.png" width="500px" />
+
+<ol>
+<li>Orange depicted: the prompt tokens that are initialized as the beginning-of-sequence token embedding</li>
+<li>Adding a series of tokens T &#x3D; {t1, t2, …, tn} to the model input text X, to maximize the log-likelihood of the generative probability of a target token Y, P(Y|T;X)</li>
+</ol>
+<ul>
+<li>All weights of the model are frozen (to preserve the biases inherited from pretraining)</li>
+</ul>
+</li>
+<li><p><strong>Results Analysis (Main Concerns):</strong></p>
+  <img src="https://p.ipic.vip/gh0qnn.png" width="700px" />
+
+<ul>
+<li><p><strong>Sexuality:</strong></p>
+<ul>
+<li><em>asexual group</em>: a consistently lower positive FPR gap in both datasets (it benefits less from model mistakes and suffers a harmful error rate)</li>
+<li><em>homosexual group</em>: a consistently higher negative-class FPR in both datasets</li>
+</ul>
+</li>
+<li><p><strong>Age:</strong></p>
+<ul>
+<li><em>adult group</em>: a favorable increase on SST-5 and a lower negative error rate on SemEval</li>
+<li><em>old and young groups</em>: a higher probability of errors but no significant gaps</li>
+</ul>
+  <img src="https://p.ipic.vip/fxga87.png" width="250px" />
+
+<p>  Presents the concerned groups using a table of net number times gap, it suggests that there exists a potential harmful bias in <em>asexual</em> and <em>homosexual</em> groups. (<em><font color="F54747">Red indicates the harmful direction of significant gaps</font></em>)</p>
+</li>
+</ul>
+</li>
+<li><p><strong>Conclusion:</strong><br>  Soft-prompt tuning is an effective technique for addressing potential biases in LLMs. In this paper, they explored the possibility of using the soft-prompt tuning technique on LLMs’ sentiment classification. Results are analyzed in multi-dimensions: cross datasets, different prompt-tuning and fairness metrics measurement. They provided some future works, like more complex prompts and higher-quality datasets.</p>
+</li>
+</ul>
+<!-- 
+<img src="https://p.ipic.vip/1zz58f.png" width="500px" />
+<font color="3A75EA">Blue</font>
+<font color="F54747">Red</font>
+-->
+]]></content>
   </entry>
 </search>

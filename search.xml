@@ -1806,13 +1806,12 @@
     <title>Operating System - Persistence</title>
     <url>/myBlog/2022/10/14/2022/CSCI3150/2022-10-14-CSCI3150-Persistence/</url>
     <content><![CDATA[<h1 id="File-System-Implementation"><a href="#File-System-Implementation" class="headerlink" title="File System Implementation"></a>File System Implementation</h1><h2 id="Overall-Organization"><a href="#Overall-Organization" class="headerlink" title="Overall Organization"></a>Overall Organization</h2><ol>
-<li><strong>On-Disk Organization</strong><ul>
+<li><p><strong>On-Disk Organization</strong></p>
+<ul>
 <li>a series of blocks (e.g. size of each block is 4KB).</li>
 <li>the blocks are addressed from 0 to N-1.</li>
 </ul>
 </li>
-</ol>
-<ol>
 <li><p><strong>File System Organization</strong></p>
 <ol>
 <li><p><font color="#F54747"><strong>Metadata Region</strong></font>: tracks data and file system information</p>
@@ -1836,28 +1835,25 @@
 </li>
 </ol>
 </li>
+<li><p><font color="#F54747"><strong>Data Region</strong></font>: stores user data and occupies most space<br> <img src="https://p.ipic.vip/mvkrfc.png" width="500px" /></p>
+</li>
 </ol>
 </li>
 </ol>
-<pre><code>2. &lt;font color=&quot;#F54747&quot;&gt;**Data Region**&lt;/font&gt;: stores user data and occupies most space
-
-&lt;img src=&quot;https://p.ipic.vip/mvkrfc.png&quot; width=&quot;500px&quot; /&gt;
-</code></pre><h2 id="File-Organization"><a href="#File-Organization" class="headerlink" title="File Organization"></a>File Organization</h2><h3 id="Inode"><a href="#Inode" class="headerlink" title="Inode"></a>Inode</h3><ol>
-<li>Inode<ul>
+<h2 id="File-Organization"><a href="#File-Organization" class="headerlink" title="File Organization"></a>File Organization</h2><h3 id="Inode"><a href="#Inode" class="headerlink" title="Inode"></a>Inode</h3><ol>
+<li><p>Inode</p>
+<ul>
 <li>Contains all the information about a file.</li>
 <li>e.g. file type, size, protection information, time information, etc.</li>
 </ul>
 </li>
-</ol>
-<ol>
-<li><strong><font color="#F54747">Direct Pointers</font></strong>: points to a data block explicitly<ul>
+<li><p><strong><font color="#F54747">Direct Pointers</font></strong>: points to a data block explicitly</p>
+<ul>
 <li>Design of inode: <mark>How it refers to where data blocks are</mark>.</li>
 <li>File system calculate where the data block that the inode refers to.</li>
 <li>For example, given an inode number 32, calculate the offset into the inode region (32 $\times$ sizeof(inode)) = 8192. Then, adding the start address of the inode table (12KB) + inode region (8KB) = 20 KB and we can get the location of data block.<br><img src="https://p.ipic.vip/4m97x2.png" width="500px" /></li>
 </ul>
 </li>
-</ol>
-<ol>
 <li><p>Storage<br> <img src="https://p.ipic.vip/d854yi.png" width="500px" /></p>
 <ul>
 <li>The size of an inode is 60 bytes, and suppose each block number is 4 bytes, so we can store 15 blocks in total.<br>Suppose each data block is 4KB, the maximum file size is 15 $\times$ 4 = 60KB.</li>
@@ -1866,26 +1862,26 @@
 </li>
 </ol>
 <h3 id="Multi-Level-Index"><a href="#Multi-Level-Index" class="headerlink" title="Multi-Level Index"></a>Multi-Level Index</h3><ol>
-<li><strong><font color="#F54747">Indirect Pointer</font></strong>: points to a block that contains (multiple) pointers to data blocks<ul>
+<li><p><strong><font color="#F54747">Indirect Pointer</font></strong>: points to a block that contains (multiple) pointers to data blocks</p>
+<ul>
 <li>The maximum file size = (12 + 1024) $\times$ 4KB $\approx$ 4MB.</li>
 <li>Because each inode is 4 bytes and each block is 4KB, so we can hold 1024 inodes, then the file size is 1K $\times$ 4KB = 4MB.</li>
 </ul>
 </li>
-</ol>
-<ol>
-<li><strong><font color="#F54747">Double Indirect Pointer</font></strong>: points to pointers to indirect blocks<ul>
+<li><p><strong><font color="#F54747">Double Indirect Pointer</font></strong>: points to pointers to indirect blocks</p>
+<ul>
 <li>The maximum file size = (12 + 1024 $\times$ 1024) $\times$ 4KB $\approx$ 1 million 4KB blocks.</li>
 </ul>
 </li>
-</ol>
-<ol>
-<li><strong><font color="#F54747">Triple Indirect Pointer</font></strong>: points to pointers to pointers to indirect block<ul>
+<li><p><strong><font color="#F54747">Triple Indirect Pointer</font></strong>: points to pointers to pointers to indirect block</p>
+<ul>
 <li>The maximum file size = (12 + 1024 + 1024$^2$) $\times$ 4KB $\approx$ 4GB.</li>
 </ul>
 </li>
 </ol>
 <h2 id="Directory-Organization"><a href="#Directory-Organization" class="headerlink" title="Directory Organization"></a>Directory Organization</h2><ol>
-<li>Directory<ul>
+<li><p>Directory</p>
+<ul>
 <li>Directory contains a list of (entry name, inode number) pairs.</li>
 <li>Each directory has two extra file: <ul>
 <li><code>.</code> : current directory</li>
@@ -1895,9 +1891,8 @@
 <li>For example: <code>dir</code> has three files : <code>foo</code>, <code>bar</code>, <code>foobar_is_a_pretty_longname</code>.</li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>Free Space Management<ul>
+<li><p>Free Space Management</p>
+<ul>
 <li>File system track which inode and data block are free to use.</li>
 <li>Two simple bitmaps are used to manage the free space.<ul>
 <li>When file is newly created, it allocated the inode by searching the inode bitmap and update on-disk bitmap.</li>
@@ -1955,7 +1950,8 @@
 </li>
 </ul>
 <h2 id="Caching-amp-Buffering"><a href="#Caching-amp-Buffering" class="headerlink" title="Caching &amp; Buffering"></a>Caching &amp; Buffering</h2><ol>
-<li>Problems:<ul>
+<li><p>Problems:</p>
+<ul>
 <li>Reading and writing files are expensive because it incurs many I/Os.<ul>
 <li>For example, long pathname (<code>/dir1/dir2/.../dir100/file.txt</code>)</li>
 <li>It performs hundreds of reads in order to open the file (one to read the inode of the directory and at least one to read its data).</li>
@@ -1963,8 +1959,6 @@
 </li>
 </ul>
 </li>
-</ol>
-<ol>
 <li><p>Solutions:</p>
 <ol>
 <li><p>Read &amp; Cache</p>
@@ -2079,13 +2073,13 @@
 </ul>
 <p><img src="https://p.ipic.vip/wff0s5.png" width="600px"/></p>
 <h3 id="Direct-Memory-Access"><a href="#Direct-Memory-Access" class="headerlink" title="Direct Memory Access"></a>Direct Memory Access</h3><ol>
-<li>Problems:<ul>
+<li><p>Problems:</p>
+<ul>
 <li>CPU wastes a lot of time to copy a large chunk of data from memory to the device.<br><img src="https://p.ipic.vip/y3hdm9.png" width="600px"/></li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>Solution: Direct Memory Access DMA<ul>
+<li><p>Solution: Direct Memory Access DMA</p>
+<ul>
 <li>Copy data in memory by knowing the <font color="3A75EA">location of data in memory</font> and the <font color="3A75EA">number of data block need to copy</font>.</li>
 <li>When the copying finished, DMA raises an interrupt on the disk.<br><img src="https://p.ipic.vip/hj1xbw.png" width="600px"/></li>
 </ul>
@@ -2124,7 +2118,8 @@
 </li>
 </ul>
 <h2 id="Simple-IDE-Disk-Driver"><a href="#Simple-IDE-Disk-Driver" class="headerlink" title="Simple IDE Disk Driver"></a>Simple IDE Disk Driver</h2><h3 id="Registers"><a href="#Registers" class="headerlink" title="Registers"></a>Registers</h3><ol>
-<li>Control Register<ul>
+<li><p>Control Register</p>
+<ul>
 <li>Address <code>0x3F6 = 0X80 (0000 1RE0)</code>:<ul>
 <li><code>R</code> = reset</li>
 <li><code>E = 0</code> means “enable interrupt”</li>
@@ -2132,9 +2127,8 @@
 </li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>Command Block Registers<ul>
+<li><p>Command Block Registers</p>
+<ul>
 <li>Address <code>0x1F0</code> = Data Port</li>
 <li>Address <code>0x1F1</code> = Error</li>
 <li>Address <code>0x1F2</code> = Sector Count</li>
@@ -2145,9 +2139,8 @@
 <li>Address <code>0x1F7</code> = Command / Status</li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>Status Register (Address <code>0x1F7</code>):<ul>
+<li><p>Status Register (Address <code>0x1F7</code>):</p>
+<ul>
 <li><code>7</code> : <code>BUSY</code></li>
 <li><code>6</code> : <code>READY</code></li>
 <li><code>5</code> : <code>FAULT</code></li>
@@ -2158,9 +2151,8 @@
 <li><code>0</code> : <code>ERROR</code></li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>Error Register (Address <code>0x1F1</code>)<ul>
+<li><p>Error Register (Address <code>0x1F1</code>)</p>
+<ul>
 <li><code>7</code> : <code>BBK</code> (Bad Block)</li>
 <li><code>6</code> : <code>UNC</code> (Uncorrectable data error)</li>
 <li><code>5</code> : <code>MC</code> (Media Changed)</li>
@@ -2211,7 +2203,7 @@
         <category>CSCI3150</category>
       </categories>
       <tags>
-        <tag>Operating System</tag>
+        <tag>operating system</tag>
       </tags>
   </entry>
   <entry>
@@ -2260,12 +2252,11 @@
 </li>
 </ol>
 <h3 id="Process-Creation"><a href="#Process-Creation" class="headerlink" title="Process Creation"></a>Process Creation</h3><ol>
-<li>Load a program code into <font color="F54747">memory</font>, then build up an <font color="F54747">address space</font> for the process.<ul>
+<li><p>Load a program code into <font color="F54747">memory</font>, then build up an <font color="F54747">address space</font> for the process.</p>
+<ul>
 <li>The OS performs the loading process lazily, it loads the pieces of code or data <font color="3A75EA">only when they are needed</font> during the program execution.</li>
 </ul>
 </li>
-</ol>
-<ol>
 <li><p>Allocate the program’s run-time <font color="F54747">process stack</font> (store at the bottom of the address space)</p>
 <ul>
 <li><p>Used for <font color="3A75EA">local variables</font>, <font color="3A75EA">function parameters</font> and <font color="3A75EA">return address</font>.</p>
@@ -2274,16 +2265,14 @@
 </li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>Create the program’s <font color="F54747">heap</font> (store at the position that after the coding)<ul>
+<li><p>Create the program’s <font color="F54747">heap</font> (store at the position that after the coding)</p>
+<ul>
 <li>Used for <font color="3A75EA">requesting dynamically allocated data</font>.</li>
 <li>Program requests such space by calling <code>malloc()</code> and free it by calling <code>free()</code>.</li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>Do the initialization tasks<ul>
+<li><p>Do the initialization tasks</p>
+<ul>
 <li>Input / Output setup<ul>
 <li>each process has three open file descriptors in default</li>
 <li>standard input, output an error</li>
@@ -2291,25 +2280,23 @@
 </li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>Start the program running at the entry point (<code>main()</code>)</li>
+<li><p>Start the program running at the entry point (<code>main()</code>)</p>
+</li>
 </ol>
 <p><img src="https://p.ipic.vip/h01f63.png" width="500px"></p>
 <h3 id="Process-Status"><a href="#Process-Status" class="headerlink" title="Process Status"></a>Process Status</h3><ol>
-<li>Running<ul>
+<li><p>Running</p>
+<ul>
 <li>A process is running on a processor.</li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>Ready<ul>
+<li><p>Ready</p>
+<ul>
 <li>A process is ready to run but for some reason the OS has chosen <font color="3A75EA">not to run it</font> at the moment.</li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>Blocked<ul>
+<li><p>Blocked</p>
+<ul>
 <li>A process has performed some kind of operation.</li>
 <li>When a process initiates an I/O request to a disk, it becomes <font color="3A75EA">blocked</font> and thus some other process can use the processor.<br><img src="https://p.ipic.vip/n3v5i6.png" width="400px"></li>
 </ul>
@@ -2396,13 +2383,13 @@
 <li>Users can only call those system calls to get the services.</li>
 </ul>
 <ol>
-<li><strong>Trap Instuction</strong><ul>
+<li><p><strong>Trap Instuction</strong></p>
+<ul>
 <li>switch from user mode to kernel mode (raise the privilege level to kernel mode).</li>
 </ul>
 </li>
-</ol>
-<ol>
-<li><strong>Return-from-trap Instruction</strong><ul>
+<li><p><strong>Return-from-trap Instruction</strong></p>
+<ul>
 <li>return into the calling user program (reduce the privilege level to user mode).</li>
 </ul>
 </li>
@@ -2420,12 +2407,7 @@
      - The OS decides to run other tasks.
      - Application also transfers control to the OS when they do something illegal, such as, divide by zero.
  - <font color="F54747">Problem: a process may get stuck in an infinite loop, if this happened, we need to reboot the machine.</font>
-
-
-
 </li>
-</ol>
-<ol>
 <li><p><font color="3A75EA"><strong>Non-cooperative Approach: The OS takes control</strong></font> through a <font color="F54747"><strong>timer interrupt</strong></font>.</p>
 <ol>
 <li><p>During the boot sequence, the OS starts the <font color="3A75EA">timer</font>.</p>
@@ -2453,9 +2435,8 @@
 </li>
 <li><p><font color="3A75EA"><strong>Restore the register values</strong></font> for the soon-to-be-executing process from its kernel stack.</p>
 </li>
-</ol>
-<ol>
-<li><font color="3A75EA"><strong>Switch to the kernel stack</strong></font> for the soon-to-be-executing process.</li>
+<li><p><font color="3A75EA"><strong>Switch to the kernel stack</strong></font> for the soon-to-be-executing process.</p>
+</li>
 </ol>
 <ul>
 <li>Examples: If we want to switch from process A to process B<ol>
@@ -2539,10 +2520,10 @@
 <h4 id="Round-Robin-RR"><a href="#Round-Robin-RR" class="headerlink" title="Round Robin (RR)"></a>Round Robin (RR)</h4><ul>
 <li>Run a job for a <font color="3A75EA">time slice</font>, and switch to the next job in the <font color="3A75EA">run queue</font> until the jobs are finished.</li>
 <li>The length of the time slice must be a <font color="F54747">multiple of the timer-interrupt period</font>.</li>
-<li><font color="F54747">Noted</font>: RR is fair, but performs poorly on performance metrics like turnaround time.</li>
-</ul>
+<li><p><font color="F54747">Noted</font>: RR is fair, but performs poorly on performance metrics like turnaround time.</p>
+</li>
+<li><p>Example:</p>
 <ul>
-<li>Example:<ul>
 <li>A, B and C arrive at the same time and each of them run for 5 seconds.</li>
 <li>In SJF:<br>  <img src="https://p.ipic.vip/bkq1aw.png" width="400px"><script type="math/tex; mode=display">T_{average\,response} = \frac{0 + 5 + 10}{3} = 5s</script></li>
 </ul>
@@ -2568,8 +2549,6 @@
 </li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p><strong>Incorporating I/O</strong></p>
 <ul>
 <li>Relax the assumption 3 (All jobs only use the CPU).</li>
@@ -2623,22 +2602,21 @@
 </li>
 </ul>
 <h4 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h4><ol>
-<li><font color="3A75EA">Single</font> Long-Running Job<ul>
+<li><p><font color="3A75EA">Single</font> Long-Running Job</p>
+<ul>
 <li>A three-queue scheduler with time slice 10ms.<br><img src="https://p.ipic.vip/vor93v.png" width="350px"></li>
 <li>According to rule 4a, its priority will be reduce after one time slice.</li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>Along Came a Short Job<ul>
+<li><p>Along Came a Short Job</p>
+<ul>
 <li>Job A: a long-running CPU-intensive job</li>
 <li>Job B: a short-running interactive job, and arrives at time T = 100<br><img src="https://p.ipic.vip/r9pitc.png" width="350px"></li>
 <li>According to rule 3, when a new job enters the system, it is placed at the highest priority.</li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>I/O Request<ul>
+<li><p>I/O Request</p>
+<ul>
 <li>Job A: a long-running CPU-intensive job</li>
 <li>Job B: an intensive job that need the CPU only for 1ms before performing an I/O request<br><img src="https://p.ipic.vip/8t6xdj.png" width="350px"></li>
 <li>According to rule 4b, MLFQ approach keeps an interactive job at the highest priority.</li>
@@ -2646,20 +2624,19 @@
 </li>
 </ol>
 <h4 id="Problems-1"><a href="#Problems-1" class="headerlink" title="Problems"></a>Problems</h4><ol>
-<li>Starvation<ul>
+<li><p>Starvation</p>
+<ul>
 <li>If there are many interactive jobs in the system, the long-running jobs will never receive any CPU time.</li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>Game the schedule<ul>
+<li><p>Game the schedule</p>
+<ul>
 <li>After running 99% of a time slice, issue an I/O operation, and the job can gain a higher percentage of CPU time.</li>
 <li>i.e., A job will give up the CPU when it almost reach the time slice, so that it can keep the high priority.</li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>A program may change its behavior over time<ul>
+<li><p>A program may change its behavior over time</p>
+<ul>
 <li>i.e., CPU bound process → I/O bound process</li>
 </ul>
 </li>
@@ -2677,8 +2654,6 @@
 </li>
 </ul>
 </li>
-</ol>
-<ol>
 <li><p>Prevent gaming of scheduler</p>
 <ul>
 <li>Improvement on rule 4:</li>
@@ -2688,9 +2663,8 @@
 </li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>Tuning MLFQ<ul>
+<li><p>Tuning MLFQ</p>
+<ul>
 <li><font color="F54747">Lower Priority, Longer Quanta (time slice)</font></li>
 <li>The high-priority queues → Short time slice</li>
 <li>The low-priority queues → Longer time slice<br><img src="https://p.ipic.vip/jqklbl.png" width="350px"></li>
@@ -2715,19 +2689,17 @@
 </li>
 </ul>
 <h4 id="Lottery-Scheduling"><a href="#Lottery-Scheduling" class="headerlink" title="Lottery Scheduling"></a>Lottery Scheduling</h4><ol>
-<li>Tickets<ul>
+<li><p>Tickets</p>
+<ul>
 <li>Represent the share of a resource that a process should receive.</li>
 <li>The percentage of tickets represents its share of the system resource.</li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>Scheduling<ul>
+<li><p>Scheduling</p>
+<ul>
 <li>The scheduler picks a winning ticket, then, load the state of winning process and runs it.<br><img src="https://p.ipic.vip/jsrfi9.png" width="500px"></li>
 </ul>
 </li>
-</ol>
-<ol>
 <li><p>Ticket Mechanisms</p>
 <ol>
 <li><p>Ticket Currency</p>
@@ -2752,28 +2724,26 @@
         <category>CSCI3150</category>
       </categories>
       <tags>
-        <tag>Operating System</tag>
+        <tag>operating system</tag>
       </tags>
   </entry>
   <entry>
     <title>Operating System - Virtualizing Memory</title>
     <url>/myBlog/2022/11/18/2022/CSCI3150/2022-11-18-CSCI3150-Virtualizing-Memory/</url>
     <content><![CDATA[<h1 id="Address-Space"><a href="#Address-Space" class="headerlink" title="Address Space"></a>Address Space</h1><h2 id="Memory-Virtualization"><a href="#Memory-Virtualization" class="headerlink" title="Memory Virtualization"></a>Memory Virtualization</h2><ol>
-<li>Introduction<ul>
+<li><p>Introduction</p>
+<ul>
 <li>OS virtualizes its physical memory</li>
 <li>OS provides an illusion memory space per each process</li>
 </ul>
 </li>
-</ol>
+<li><p>Benefit</p>
 <ol>
-<li>Benefit<ol>
 <li>Ease to use in programming</li>
 <li>Memory efficiency in items of time and space</li>
 <li>Isolate the processes and OS, protect from <font color="3A75EA">errant accesses</font> of other processes</li>
 </ol>
 </li>
-</ol>
-<ol>
 <li><p>Multiprogramming and Time Sharing</p>
 <ul>
 <li><p>Load <font color="3A75EA">multiple processes</font> in memory</p>
@@ -3041,7 +3011,7 @@
         <category>CSCI3150</category>
       </categories>
       <tags>
-        <tag>Operating System</tag>
+        <tag>operating system</tag>
       </tags>
   </entry>
   <entry>
@@ -3225,22 +3195,22 @@
         <category>CSCI3150</category>
       </categories>
       <tags>
-        <tag>Operating System</tag>
+        <tag>operating system</tag>
       </tags>
   </entry>
   <entry>
     <title>Operating System - System Calls</title>
     <url>/myBlog/2022/09/17/2022/CSCI3150/2022-9-16-CSCI3150-System-Calls/</url>
     <content><![CDATA[<h1 id="Processes"><a href="#Processes" class="headerlink" title="Processes"></a>Processes</h1><h2 id="Process"><a href="#Process" class="headerlink" title="Process"></a>Process</h2><h3 id="Characteristics"><a href="#Characteristics" class="headerlink" title="Characteristics"></a>Characteristics</h3><ol>
-<li>A process contains:<ul>
+<li><p>A process contains:</p>
+<ul>
 <li>A unique ID</li>
 <li>A thread of control</li>
 <li>Some private data</li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>Parent-Child Links:<ul>
+<li><p>Parent-Child Links:</p>
+<ul>
 <li>parent process: executes the request for creation of a process</li>
 <li>child process: the created process</li>
 <li>Noted: A child process inherits <font color="f54747">all the properties of its parent</font> when it is created.</li>
@@ -3248,14 +3218,14 @@
 </li>
 </ol>
 <h3 id="Process-ID"><a href="#Process-ID" class="headerlink" title="Process ID"></a>Process ID</h3><ol>
-<li>Process ID (PID): <ul>
+<li><p>Process ID (PID): </p>
+<ul>
 <li>Each process has a unique ID number.</li>
 <li>It’s use to identify different processes.</li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>User ID (UID):<ul>
+<li><p>User ID (UID):</p>
+<ul>
 <li>Each user has a unique user ID.</li>
 <li>Each process is associated with the the owner of the process, the owner has privileges with respect to the process.</li>
 </ul>
@@ -3380,7 +3350,8 @@
 </li>
 </ul>
 <h2 id="Process-Termination"><a href="#Process-Termination" class="headerlink" title="Process Termination"></a>Process Termination</h2><h3 id="Two-Terminations"><a href="#Two-Terminations" class="headerlink" title="Two Terminations"></a>Two Terminations</h3><ol>
-<li><strong>Normal Process Termination</strong><ul>
+<li><p><strong>Normal Process Termination</strong></p>
+<ul>
 <li>A process terminates normally when,<ol>
 <li>a <code>return</code> from <code>main</code></li>
 <li>an implicit return from main</li>
@@ -3390,9 +3361,8 @@
 </li>
 </ul>
 </li>
-</ol>
-<ol>
-<li><strong>Abnormal Process Termination</strong><ul>
+<li><p><strong>Abnormal Process Termination</strong></p>
+<ul>
 <li>A process terminates abnormally when,<ol>
 <li>calling <code>abort</code>, causing the SIGABRT signal to be sent to the calling process.</li>
 <li>processing a signal that causes termination.</li>
@@ -3496,41 +3466,44 @@
 </li>
 </ul>
 <h2 id="Common-Error"><a href="#Common-Error" class="headerlink" title="Common Error"></a>Common Error</h2><h3 id="Forget-Memory-Allocation"><a href="#Forget-Memory-Allocation" class="headerlink" title="Forget Memory Allocation"></a>Forget Memory Allocation</h3><ul>
-<li>Description:<ul>
+<li><p>Description:</p>
+<ul>
 <li>created a pointer but forgot to allocate the memory</li>
 <li>if operating (e.g. <code>strcpy</code>) that pointer, then it reports an error</li>
 </ul>
 </li>
-</ul>
-<ul>
-<li>Incorrect Code (Error):  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* Incorrect Code */</span></span><br><span class="line"><span class="type">char</span> *src = <span class="string">&quot;hello&quot;</span>;    <span class="comment">// character string constant</span></span><br><span class="line"><span class="type">char</span> *dst;              <span class="comment">// unallocated</span></span><br><span class="line"><span class="built_in">strcpy</span>(dst, src);       <span class="comment">// segfault and die</span></span><br></pre></td></tr></table></figure>
-  <img src="https://p.ipic.vip/5lvhn0.png" height="250px"></li>
-</ul>
-<ul>
-<li>Correct Code:  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> *src = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line"><span class="type">char</span> *dst = <span class="built_in">malloc</span>(<span class="built_in">strlen</span>(src) + <span class="number">1</span>);    <span class="comment">// allocated</span></span><br><span class="line"><span class="built_in">strcpy</span>(dst, src);</span><br></pre></td></tr></table></figure>
-  <img src="https://p.ipic.vip/4vepuz.png" height="250px"></li>
+<li><p>Incorrect Code (Error):</p>
+  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* Incorrect Code */</span></span><br><span class="line"><span class="type">char</span> *src = <span class="string">&quot;hello&quot;</span>;    <span class="comment">// character string constant</span></span><br><span class="line"><span class="type">char</span> *dst;              <span class="comment">// unallocated</span></span><br><span class="line"><span class="built_in">strcpy</span>(dst, src);       <span class="comment">// segfault and die</span></span><br></pre></td></tr></table></figure>
+<p>  <img src="https://p.ipic.vip/5lvhn0.png" height="250px"></p>
+</li>
+<li><p>Correct Code:</p>
+  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> *src = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line"><span class="type">char</span> *dst = <span class="built_in">malloc</span>(<span class="built_in">strlen</span>(src) + <span class="number">1</span>);    <span class="comment">// allocated</span></span><br><span class="line"><span class="built_in">strcpy</span>(dst, src);</span><br></pre></td></tr></table></figure>
+<p>  <img src="https://p.ipic.vip/4vepuz.png" height="250px"></p>
+</li>
 </ul>
 <h3 id="Insufficient-Memory-Allocation"><a href="#Insufficient-Memory-Allocation" class="headerlink" title="Insufficient Memory Allocation"></a>Insufficient Memory Allocation</h3><ul>
-<li>Description:<ul>
+<li><p>Description:</p>
+<ul>
 <li>do not allocate the pointer with enough memory</li>
 <li>it works properly</li>
 </ul>
 </li>
-</ul>
-<ul>
-<li>Incorrect Code (but work properly):  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> *src = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line"><span class="type">char</span> *dst = <span class="built_in">malloc</span>(<span class="built_in">strlen</span>(src));    <span class="comment">// too small</span></span><br><span class="line"><span class="built_in">strcpy</span>(dst, src);</span><br></pre></td></tr></table></figure>
-  <img src="https://p.ipic.vip/tirikq.png" height="250px"></li>
+<li><p>Incorrect Code (but work properly):</p>
+  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> *src = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line"><span class="type">char</span> *dst = <span class="built_in">malloc</span>(<span class="built_in">strlen</span>(src));    <span class="comment">// too small</span></span><br><span class="line"><span class="built_in">strcpy</span>(dst, src);</span><br></pre></td></tr></table></figure>
+<p>  <img src="https://p.ipic.vip/tirikq.png" height="250px"></p>
+</li>
 </ul>
 <h3 id="Forget-Initialization"><a href="#Forget-Initialization" class="headerlink" title="Forget Initialization"></a>Forget Initialization</h3><ul>
-<li>Description:<ul>
+<li><p>Description:</p>
+<ul>
 <li>use an uninitialized the pointer</li>
 <li>it will <font colro="f54747">allocate with the value used before</font></li>
 </ul>
 </li>
-</ul>
-<ul>
-<li>Incorrect Code:  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> *x = (<span class="type">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="type">int</span>));   <span class="comment">// allocated</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;*x = %d\n&quot;</span>, *x);               <span class="comment">// uninitialized memory access</span></span><br></pre></td></tr></table></figure>
-  <img src="https://p.ipic.vip/ue92hb.png" height="250px"></li>
+<li><p>Incorrect Code:</p>
+  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> *x = (<span class="type">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="type">int</span>));   <span class="comment">// allocated</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;*x = %d\n&quot;</span>, *x);               <span class="comment">// uninitialized memory access</span></span><br></pre></td></tr></table></figure>
+<p>  <img src="https://p.ipic.vip/ue92hb.png" height="250px"></p>
+</li>
 </ul>
 <h3 id="Memory-Leak"><a href="#Memory-Leak" class="headerlink" title="Memory Leak"></a>Memory Leak</h3><ul>
 <li>Description:<ul>
@@ -3652,13 +3625,13 @@
 </li>
 </ol>
 <h2 id="I-O-Redirection"><a href="#I-O-Redirection" class="headerlink" title="I/O Redirection"></a>I/O Redirection</h2><h3 id="Redirection"><a href="#Redirection" class="headerlink" title="Redirection"></a>Redirection</h3><ol>
-<li>Redirection<ul>
+<li><p>Redirection</p>
+<ul>
 <li>it means that the process modifies its File Descriptor Table (FDT) entry so that it points to a different entry in the System File Table (SFT).</li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>Example<ul>
+<li><p>Example</p>
+<ul>
 <li>The command <code>cat</code> reads from a file and echoes to <font color="f54747">standard output</font></li>
 <li>Suppose the <code>myfile</code> contains “Hello World” content, <code>ls -l &gt; myfile</code> command redirects standard output to <code>myfile</code>:  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> myfile      <span class="comment"># output: Hello World</span></span><br><span class="line"><span class="built_in">ls</span> -l &gt; myfile</span><br><span class="line"><span class="built_in">cat</span> myfile      <span class="comment"># execute ls -l</span></span><br></pre></td></tr></table></figure></li>
 <li>Coding  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 6-2-redirection-exec */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">main()&#123;</span><br><span class="line">    <span class="type">char</span> *cmd = <span class="string">&quot;ls&quot;</span>;</span><br><span class="line">    <span class="type">char</span> *argv[<span class="number">5</span>];</span><br><span class="line">    argv[<span class="number">0</span>] = <span class="string">&quot;ls&quot;</span>;</span><br><span class="line">    argv[<span class="number">1</span>] = <span class="string">&quot;-l&quot;</span>;</span><br><span class="line">    argv[<span class="number">2</span>] = <span class="string">&quot;&gt;&quot;</span>;</span><br><span class="line">    argv[<span class="number">3</span>] = <span class="string">&quot;myfile&quot;</span>;</span><br><span class="line">    argv[<span class="number">4</span>] = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    execvp(cmd, argv);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -3667,23 +3640,21 @@
 </li>
 </ol>
 <h3 id="dup-System-Call"><a href="#dup-System-Call" class="headerlink" title="dup System Call"></a><code>dup</code> System Call</h3><ul>
-<li>Description:<br>  <code>dup</code> is a smart function that can duplicate (copy) the file descriptor <code>fd</code> to the lowest-numbered unused file descriptor in the File Descriptor Table (FDT).</li>
-</ul>
+<li><p>Description:<br>  <code>dup</code> is a smart function that can duplicate (copy) the file descriptor <code>fd</code> to the lowest-numbered unused file descriptor in the File Descriptor Table (FDT).</p>
+</li>
+<li><p>Syntax: <code>int dup(int fd)</code></p>
 <ul>
-<li>Syntax: <code>int dup(int fd)</code><ul>
 <li><code>fd</code>: file descriptor</li>
 </ul>
 </li>
-</ul>
+<li><p>Return:</p>
 <ul>
-<li>Return:<ul>
 <li>Success, return a new file descriptor</li>
 <li>Error, return <code>-1</code></li>
 </ul>
 </li>
-</ul>
+<li><p>Example:</p>
 <ul>
-<li>Example:<ul>
 <li>Redirects standard output  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 6-redirection */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">char</span> *cmd;</span><br><span class="line">    <span class="type">char</span> *argv[<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> fd = open(<span class="string">&quot;myfile&quot;</span>, O_CREAT |O_TRUNC |O_RDWR, S_IRUSR| S_IWUSR );</span><br><span class="line">    close(<span class="number">1</span>);		<span class="comment">// Close the stdout</span></span><br><span class="line">    dup(fd);		<span class="comment">// Duplicate fd</span></span><br><span class="line">    close(fd);</span><br><span class="line"></span><br><span class="line">    cmd = <span class="string">&quot;ls&quot;</span>;</span><br><span class="line">    argv[<span class="number">0</span>] = <span class="string">&quot;ls&quot;</span>;    </span><br><span class="line">    argv[<span class="number">1</span>] = <span class="string">&quot;-l&quot;</span>;     </span><br><span class="line">    argv[<span class="number">2</span>] = <span class="literal">NULL</span>;</span><br><span class="line">    execvp(cmd, argv); </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> myfile      <span class="comment"># execute ls -l</span></span><br></pre></td></tr></table></figure>
 </li>
@@ -3702,7 +3673,8 @@
 </li>
 </ul>
 <ul>
-<li>Situations:<ul>
+<li><p>Situations:</p>
+<ul>
 <li>If all file descriptors referring to the <font color="f54747">write end of a pipe have been closed</font>, then an attempt to <code>read()</code> from the pipe will see end-of-file.</li>
 <li>If all file descriptors referring to the <font color="f54747">read end of a pipe have been closed</font>, then a <code>write()</code> will cause a SIGPIPE signal to be generated for all the calling process.<ul>
 <li>If the calling process is ignoring the signal, then <code>write()</code> fails with the error EPIPE.</li>
@@ -3710,23 +3682,20 @@
 </li>
 </ul>
 </li>
-</ul>
+<li><p>Syntax: <code>int pipe(int* fd);</code></p>
 <ul>
-<li>Syntax: <code>int pipe(int* fd);</code><ul>
 <li><code>fd[0]</code>: the read end</li>
 <li><code>fd[1]</code>: the write end</li>
 </ul>
 </li>
-</ul>
+<li><p>Return:</p>
 <ul>
-<li>Return:<ul>
 <li>Success: return <code>0</code></li>
 <li>Error: return <code>-1</code></li>
 </ul>
 </li>
-</ul>
+<li><p>Example:</p>
 <ul>
-<li>Example:<ul>
 <li>counting the lines of output in executing <code>ls -l</code>  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 7-pipe */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">main()&#123;</span><br><span class="line">    <span class="type">int</span> fd[<span class="number">2</span>];</span><br><span class="line">    <span class="type">int</span> ret;</span><br><span class="line">    <span class="type">char</span> *cmd;</span><br><span class="line">    <span class="type">char</span> *argv[<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line">    pipe(fd);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ((ret=fork()) &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">            Parent Process</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">            We want to use parent process executes &quot;ls -l&quot;, so do redirection</span></span><br><span class="line"><span class="comment">            We want to redirect the standard output to the write end of pipe</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        close(<span class="number">1</span>);		<span class="comment">// close standard output</span></span><br><span class="line">        dup(fd[<span class="number">1</span>]);		<span class="comment">// fd[1] is duplicated to standard output</span></span><br><span class="line">        close(fd[<span class="number">0</span>]);</span><br><span class="line">        close(fd[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">        cmd = <span class="string">&quot;ls&quot;</span>;</span><br><span class="line">        argv[<span class="number">0</span>] = <span class="string">&quot;ls&quot;</span>;</span><br><span class="line">        argv[<span class="number">1</span>] = <span class="string">&quot;-l&quot;</span>;</span><br><span class="line">        argv[<span class="number">2</span>] = <span class="literal">NULL</span>;</span><br><span class="line">        execvp(cmd, argv);</span><br><span class="line"></span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(ret == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">            Child Process</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">            We want to use child process executes &quot;wc -l&quot;, so do redirection</span></span><br><span class="line"><span class="comment">            We want to redirect the standard input to the read end of pipe</span></span><br><span class="line"><span class="comment">                to get the input from the parent process</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        close(<span class="number">0</span>);		<span class="comment">// close standard input</span></span><br><span class="line">        dup(fd[<span class="number">0</span>]);		<span class="comment">// fd[0] is duplicated to standard input</span></span><br><span class="line">        close(fd[<span class="number">0</span>]);</span><br><span class="line">        close(fd[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">        cmd = <span class="string">&quot;wc&quot;</span>;</span><br><span class="line">        argv[<span class="number">0</span>] = <span class="string">&quot;wc&quot;</span>;</span><br><span class="line">        argv[<span class="number">1</span>] = <span class="string">&quot;-l&quot;</span>;</span><br><span class="line">        argv[<span class="number">2</span>] = <span class="literal">NULL</span>;</span><br><span class="line">        execvp(cmd, argv);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -3767,21 +3736,20 @@
 </li>
 </ul>
 <h2 id="Directories-Operations"><a href="#Directories-Operations" class="headerlink" title="Directories Operations"></a>Directories Operations</h2><ol>
-<li>Create Directories<ul>
+<li><p>Create Directories</p>
+<ul>
 <li><code>mkdir</code> system call</li>
 <li>Make an empty directory, which contains two entries: <code>.</code>(itself) and <code>..</code>(parent).</li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>Read Directories<ul>
+<li><p>Read Directories</p>
+<ul>
 <li><code>opendir</code> system call: open directory</li>
 <li><code>readdir</code> system call: read directory entries (similar to <code>ls</code>).</li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>Remove Directories<ul>
+<li><p>Remove Directories</p>
+<ul>
 <li><code>rmdir</code> system call</li>
 <li><font color="f54747">It requires the directory is empty</font>.</li>
 </ul>
@@ -3802,8 +3770,6 @@
 </li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>Syntax: </p>
 <ul>
 <li>system call: <code>link(char* &quot;oldpath&quot;, char* &quot;newpath&quot;);</code></li>
@@ -3818,22 +3784,21 @@
 </li>
 </ul>
 <h3 id="Symbolic-Links"><a href="#Symbolic-Links" class="headerlink" title="Symbolic Links"></a>Symbolic Links</h3><ul>
-<li>Description:<ul>
+<li><p>Description:</p>
+<ul>
 <li>It can create for a directory (hard link cannot).  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> foo</span><br><span class="line"><span class="built_in">ln</span> foo foo1     <span class="comment"># ln: foo: Is a directory</span></span><br><span class="line"><span class="built_in">ln</span> -s foo foo1</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
-</ul>
-<ul>
-<li>Difference:<ol>
+<li><p>Difference:</p>
+<ol>
 <li>File system knows that symbolic link is a <font color="f54747">third type</font> (different type), so <font color="f54747">symbolic link does just create a new file</font>.</li>
 <li>The size of symbolic link is <font color="f54747">4 bytes</font> <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -a</span><br><span class="line"><span class="comment"># -rw-r--r--   ...   6   file</span></span><br><span class="line"><span class="comment"># lrwxr-xr-x   ...   4   file2 -&gt; file</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
-</ul>
+<li><p>Remove File:</p>
 <ul>
-<li>Remove File:<ul>
 <li>When the original file was removed, symbolic link points nothing  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> hello &gt; file</span><br><span class="line"><span class="built_in">ln</span> -s file file2</span><br><span class="line"><span class="built_in">rm</span> file</span><br><span class="line"><span class="built_in">cat</span> file2           <span class="comment"># cat: file2: No such file or directory</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
@@ -3843,11 +3808,11 @@
         <category>CSCI3150</category>
       </categories>
       <tags>
-        <tag>Operating System</tag>
+        <tag>operating system</tag>
       </tags>
   </entry>
   <entry>
-    <title>Computer Vision - Image Classification</title>
+    <title>Image Classification</title>
     <url>/myBlog/2023/06/26/2023/CS231N/2023-6-26-CS231N-Image-Classification/</url>
     <content><![CDATA[<h2 id="Image-Processing"><a href="#Image-Processing" class="headerlink" title="Image Processing"></a>Image Processing</h2><h3 id="Challenges"><a href="#Challenges" class="headerlink" title="Challenges"></a>Challenges</h3><ol>
 <li><p><strong>Semantic Gap</strong><br> It is a problem for image classification because an image is just a big grid of numbers between 0 and 255<br> (<em>e.g., 800 x 600 x 3 channels RGB</em>), which is very difficult to distill the cat-ness from a batch of numbers. (There is a huge gap between the semantic idea of an object and the pixel values in computer)</p>
@@ -3920,7 +3885,7 @@
         <category>CS231N</category>
       </categories>
       <tags>
-        <tag>Computer Vision</tag>
+        <tag>computer vision</tag>
       </tags>
   </entry>
   <entry>
@@ -7835,7 +7800,7 @@
       </tags>
   </entry>
   <entry>
-    <title>Languages Principles - Scope</title>
+    <title>Scope</title>
     <url>/myBlog/2023/02/25/2023/CSCI3180/2023-2-25-CSCI3180-Scope/</url>
     <content><![CDATA[<h2 id="Scope"><a href="#Scope" class="headerlink" title="Scope"></a>Scope</h2><ul>
 <li><p>variables and functions declared in a particular scope are visible and accessible only within that scope and its nested scopes, but not outside of it</p>
@@ -8054,11 +8019,11 @@
         <category>CSCI3180</category>
       </categories>
       <tags>
-        <tag>Languages Principles</tag>
+        <tag>languages principles</tag>
       </tags>
   </entry>
   <entry>
-    <title>Languages Principles - Data Types</title>
+    <title>Data Types</title>
     <url>/myBlog/2023/02/26/2023/CSCI3180/2023-2-26-CSCI3180-DataTypes/</url>
     <content><![CDATA[<h2 id="Primitive-Data-Types"><a href="#Primitive-Data-Types" class="headerlink" title="Primitive Data Types"></a>Primitive Data Types</h2><ul>
 <li>The most basic data types available in a programming language</li>
@@ -8515,11 +8480,11 @@
         <category>CSCI3180</category>
       </categories>
       <tags>
-        <tag>Languages Principles</tag>
+        <tag>languages principles</tag>
       </tags>
   </entry>
   <entry>
-    <title>Languages Principles - Variables</title>
+    <title>Variables</title>
     <url>/myBlog/2023/02/08/2023/CSCI3180/2023-2-8-CSCI3180-Abstraction/</url>
     <content><![CDATA[<h2 id="Names-Design-Issues"><a href="#Names-Design-Issues" class="headerlink" title="Names Design Issues"></a>Names Design Issues</h2><ol>
 <li>Length<ul>
@@ -8773,11 +8738,11 @@
         <category>CSCI3180</category>
       </categories>
       <tags>
-        <tag>Languages Principles</tag>
+        <tag>languages principles</tag>
       </tags>
   </entry>
   <entry>
-    <title>Languages Principles - Statements (Expressions and Assignment)</title>
+    <title>Statements (Expressions and Assignment)</title>
     <url>/myBlog/2023/03/13/2023/CSCI3180/2023-3-13-CSCI3180-Statement-Expressions-Assignment/</url>
     <content><![CDATA[<h2 id="Arithmetic-Expressions"><a href="#Arithmetic-Expressions" class="headerlink" title="Arithmetic Expressions"></a>Arithmetic Expressions</h2><ul>
 <li>consist of <font color="3A75EA">operators</font>, <font color="3A75EA">operands</font> and <font color="3A75EA">parentheses</font></li>
@@ -8996,11 +8961,11 @@
         <category>CSCI3180</category>
       </categories>
       <tags>
-        <tag>Languages Principles</tag>
+        <tag>languages principles</tag>
       </tags>
   </entry>
   <entry>
-    <title>Languages Principles - Statements (Level-Control-Structures)</title>
+    <title>Statements (Level-Control-Structures)</title>
     <url>/myBlog/2023/04/26/2023/CSCI3180/2023-4-26-CSCI3180-Statement-Level-Control-Structures/</url>
     <content><![CDATA[<h2 id="Two-Way-Selection-Statements"><a href="#Two-Way-Selection-Statements" class="headerlink" title="Two-Way Selection Statements"></a>Two-Way Selection Statements</h2><ul>
 <li><p>provides the means of choosing between two or more paths of execution</p>
@@ -9190,11 +9155,11 @@
         <category>CSCI3180</category>
       </categories>
       <tags>
-        <tag>Languages Principles</tag>
+        <tag>languages principles</tag>
       </tags>
   </entry>
   <entry>
-    <title>Languages Principles - Subprogram</title>
+    <title>Subprogram</title>
     <url>/myBlog/2023/04/27/2023/CSCI3180/2023-4-27-CSCI3180-Subprogram/</url>
     <content><![CDATA[<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="Procedure-amp-Function"><a href="#Procedure-amp-Function" class="headerlink" title="Procedure &amp; Function"></a>Procedure &amp; Function</h3><ul>
 <li>Subprograms are collections of statements that define parameterized computations</li>
@@ -9537,7 +9502,7 @@
         <category>CSCI3180</category>
       </categories>
       <tags>
-        <tag>Languages Principles</tag>
+        <tag>languages principles</tag>
       </tags>
   </entry>
   <entry>
@@ -9800,7 +9765,7 @@
         <category>CSCI3180</category>
       </categories>
       <tags>
-        <tag>Languages Principles</tag>
+        <tag>languages principles</tag>
       </tags>
   </entry>
   <entry>
@@ -10038,7 +10003,7 @@
         <category>CSCI3180</category>
       </categories>
       <tags>
-        <tag>Languages Principles</tag>
+        <tag>languages principles</tag>
       </tags>
   </entry>
   <entry>
@@ -10247,7 +10212,7 @@ The hardest problem often turns out to be finding the frequent pairs of items $\
         <category>ESTR4300</category>
       </categories>
       <tags>
-        <tag>Data Science</tag>
+        <tag>big data</tag>
       </tags>
   </entry>
   <entry>
@@ -10383,7 +10348,7 @@ The hardest problem often turns out to be finding the frequent pairs of items $\
         <category>ESTR4300</category>
       </categories>
       <tags>
-        <tag>Cloud Computing</tag>
+        <tag>cloud computing</tag>
       </tags>
   </entry>
   <entry>
@@ -10539,34 +10504,358 @@ The hardest problem often turns out to be finding the frequent pairs of items $\
 <font color="880ED4">Purple</font>
 <font color="00A300">Green</font>
 -->
-<h1 id="MapReduce-Algorithm-Design"><a href="#MapReduce-Algorithm-Design" class="headerlink" title="MapReduce Algorithm Design"></a>MapReduce Algorithm Design</h1><ul>
-<li>Design patterns:<ul>
-<li>In-mapper combining</li>
-<li>Pairs and stripes</li>
-<li>Order inversion</li>
-<li>Value-to-key conversion<!-- 
+<h1 id="MapReduce-Algorithm-Design"><a href="#MapReduce-Algorithm-Design" class="headerlink" title="MapReduce Algorithm Design"></a>MapReduce Algorithm Design</h1><h2 id="Local-Aggregation"><a href="#Local-Aggregation" class="headerlink" title="Local Aggregation"></a>Local Aggregation</h2><ul>
+<li>In Hadoop, intermediate results (i.e., map outputs) are written to local disk before being sent over the network</li>
+<li>Local aggregation of intermediate results reduces the number of key-value pairs that need to be shuffled from the mappers to the reducers</li>
+<li><p><strong>Default combiner:</strong> Aggregate map outputs with the same key, acts like a mini-reducer</p>
+<p>  <img src="https://p.ipic.vip/vjihtf.png" width="350px" /></p>
+</li>
+</ul>
+<h3 id="In-mapper-Combiners"><a href="#In-mapper-Combiners" class="headerlink" title="In-mapper Combiners"></a>In-mapper Combiners</h3><ul>
+<li>Version 1:<br>  <img src="https://p.ipic.vip/isgzt5.png" width="300px" /><ul>
+<li>Emits a key-value pair for each unique term per document</li>
+</ul>
+</li>
+<li><p>Version 2:<br>  <img src="https://p.ipic.vip/i3r5nc.png" width="500px" /></p>
+<ul>
+<li>Recall a map object is created for each map task</li>
+<li>Aggregate all data appearing in the input block processed by the map task</li>
+</ul>
+</li>
+<li><p><strong><font color="880ED4">Advantages</font>:</strong></p>
+<ol>
+<li>Provide control over where and how local aggregation takes place.</li>
+<li>In-mapper combiners are applied inside the code. Default combiners are applied to the map outputs.</li>
+</ol>
+</li>
+<li><p><strong><font color="880ED4">Disadvantages</font>:</strong></p>
+<ol>
+<li>States are preserved within mappers → potentially <font color="F54747">large memory overhead</font>.</li>
+<li>Potential order-dependent bugs.</li>
+</ol>
+</li>
+</ul>
+<h3 id="Combiner-Design"><a href="#Combiner-Design" class="headerlink" title="Combiner Design"></a>Combiner Design</h3><ul>
+<li><p>Combiner and reducer must share the same signature</p>
+<ul>
+<li>Combiner is treated as mini-reducer</li>
+<li>Combiner <font color="F54747">input and output key-value types must match the reducer input key-value type</font></li>
+</ul>
+</li>
+<li><p>Combiner are <font color="F54747">optional optimizations</font></p>
+<ul>
+<li>With/without combiner should not affect algorithm correctness</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong><font color="00A300">Example:</font></strong> Computing the Mean</p>
+<ul>
+<li><p>Version 1 (Correct):<br>  <img src="https://p.ipic.vip/1xnm1v.png" width="350px" /></p>
+</li>
+<li><p><strong><font color="F54747">Notice:</font></strong> <font color="F54747">Mean of the means is not the original mean</font></p>
+</li>
+<li><p>Version 2 (WRONG):<br>  <img src="https://p.ipic.vip/1xnm1v.png" width="350px" /></p>
+  <font color="3A75EA">The output type of the mapper does not match the input type of the reducer</font>
+</li>
+<li><p>Version 3 (Correct):<br>  <img src="https://p.ipic.vip/ne2sak.png" width="350px" /></p>
+</li>
+<li><p>Version 4 (In-mapper combiners):<br>  <img src="https://p.ipic.vip/5eypsv.png" width="300px" /></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Pairs-and-Stripes"><a href="#Pairs-and-Stripes" class="headerlink" title="Pairs and Stripes"></a>Pairs and Stripes</h2><ul>
+<li>constructing complex keys and values improves the performance of computation</li>
+</ul>
+<h3 id="Co-occurrence-Matrix"><a href="#Co-occurrence-Matrix" class="headerlink" title="Co-occurrence Matrix"></a>Co-occurrence Matrix</h3><ul>
+<li><p><strong><font color="00A300">Example:</font></strong> building a word co-occurrence matrix over a text collection</p>
+<ul>
+<li><p>$M = n \times n$ matrix (n = number of unique words), $m_{ij} = $ number of times word $w_i$ co-occurs with word $w_j$ within a specific context</p>
+</li>
+<li><p>Challenge: Space requirement: $O(n^2)$</p>
+</li>
+<li>Approach: Mappers generate partial counts, Reducers aggregate partial counts</li>
+</ul>
+</li>
+<li><p><strong><font color="F54747">Pairs</font></strong></p>
+<ul>
+<li>Mapper:<ul>
+<li>Emits intermediate key-value pairs with each co-occurring word pair and integer 1</li>
+</ul>
+</li>
+<li><p>Reducer:</p>
+<ul>
+<li>Sums up all values associated with the same co-occurring word pair</li>
+<li>MapReduce execution framework guarantees that all values associated with the same key are brought together in the reduce</li>
+</ul>
+<p><img src="https://p.ipic.vip/b3nsq6.png" width="500px" /></p>
+</li>
+<li><p><strong><font color="880ED4">Advantages</font>:</strong></p>
+<ol>
+<li>Easy to understand and implement</li>
+</ol>
+</li>
+<li><strong><font color="880ED4">Disadvantages</font>:</strong><ol>
+<li>Generate many key-value pairs</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p><strong><font color="F54747">Stripes</font></strong></p>
+<ul>
+<li>Mapper:<ul>
+<li>For each particular word, stores co-occurrence information in an <font color="3A75EA">associative array</font></li>
+<li>Emits intermediate key-value pairs with words as keys and <font color="3A75EA">corresponding associative arrays as values</font></li>
+</ul>
+</li>
+<li><p>Reducer:</p>
+<ul>
+<li>Sums all the counts in the associative arrays</li>
+<li>MapReduce execution framework guarantees that all associative arrays with the same key are brought together in the reducer</li>
+</ul>
+<p><img src="https://p.ipic.vip/ov9bkl.png" width="500px" /><br><img src="https://p.ipic.vip/by9tnl.png" width="500px" /></p>
+</li>
+<li><p><strong><font color="880ED4">Advantages</font>:</strong></p>
+<ol>
+<li>Generate fewer key-value pairs</li>
+<li>Make better use of combiners</li>
+</ol>
+</li>
+<li><strong><font color="880ED4">Disadvantages</font>:</strong><ol>
+<li>Memory size of associative arrays in mappers could be huge</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p><strong>Stripes much faster than pairs</strong><br>  <img src="https://p.ipic.vip/hchp4r.png" width="400px" /></p>
+</li>
+</ul>
+<h3 id="Relative-Frequencies"><a href="#Relative-Frequencies" class="headerlink" title="Relative Frequencies"></a>Relative Frequencies</h3><ul>
+<li><p><strong>Stripes Approach</strong><br>  Similar to the approach of constructing co-occurrence matrix: Sum all the counts in the associative array for each word</p>
+<script type="math/tex; mode=display">f(B|A) = \frac{\text{count}(A,B)}{\text{count}(B)} = \frac{\text{count}(A,B)}{\sum_{B'}\text{count}(A, B')}</script></li>
+<li><p><strong>Pair Approach</strong><br>  <img src="https://p.ipic.vip/f8cr3u.png" width="500px" /></p>
+<ul>
+<li>Mapper emits <code>(a,*)</code> for every word being observed</li>
+<li>Mapper makes sure same word goes to the same reducer (use partitioner)</li>
+<li>Mapper makes sure <code>(a,*)</code> comes <font color="F54747">first</font>, before individual counts</li>
+<li>Reducer <font color="F54747">holds state to remember</font> the count of <code>(a,*)</code>, until all pairs with the word “a” have been computed</li>
+</ul>
+</li>
+</ul>
+<h2 id="Order-Inversion"><a href="#Order-Inversion" class="headerlink" title="Order Inversion"></a>Order Inversion</h2><ul>
+<li>Computing relative frequencies requires marginal counts because it cannot be computed until getting all counts<br>  For every pair, the mapper adds the count to the marginal count<br>  When all pairs are processed, the mapper also emits the marginal count<br>  Using order inversion, the marginal count arrives before the pairs at the reducer<br>  The reducer remembers the marginal count, and computes the relative frequency for each pair being observed</li>
+<li>Control the sort order of the intermediate key so that the marginal count comes before individual counts <code>job.setSortComparatorClass()</code></li>
+</ul>
+<h2 id="Secondary-Sort"><a href="#Secondary-Sort" class="headerlink" title="Secondary Sort"></a>Secondary Sort</h2><p>MapReduce sorts input to reducers by key, but values may be arbitrarily ordered. What if want to sort value also?<br>E.g., Sensors record temperature over time <code>(id, time t, temperature v)</code></p>
+<ul>
+<li><strong><font color="F54747">Value-to-key conversion</font></strong><br>  Each mapper emits <code>(id, t) → v</code>. Let execution framework do the sorting.<br>  Preserve state across multiple key-value pairs to handle processing.</li>
+</ul>
+<h2 id="Tools-for-Synchronization"><a href="#Tools-for-Synchronization" class="headerlink" title="Tools for Synchronization"></a>Tools for Synchronization</h2><ul>
+<li>Cleverly-constructed data structures<br>  Bring data together</li>
+<li>Sort order of intermediate keys<br>  Control order in which reducers process keys</li>
+<li>Partitioner<br>  Control which reducer processes which keys</li>
+<li>Preserving state in mappers and reducers<br>  Capture dependencies across multiple keys and values</li>
+</ul>
+<!-- 
 <img src="" width="500px" />
 <font color="3A75EA">Blue</font>
 <font color="F54747">Red</font>
 <font color="880ED4">Purple</font>
 <font color="00A300">Green</font>
 -->
-</li>
-</ul>
-</li>
-</ul>
 ]]></content>
       <categories>
         <category>CSCI4180</category>
       </categories>
       <tags>
-        <tag>Cloud Computing</tag>
+        <tag>cloud computing</tag>
       </tags>
   </entry>
   <entry>
     <title>MapReduce Applications</title>
     <url>/myBlog/2023/10/30/2023/CSCI4180/2023-10-30-CSCI4180-MapReduce-Applications/</url>
-    <content><![CDATA[<h2 id="Text-retrieval"><a href="#Text-retrieval" class="headerlink" title="Text retrieval"></a>Text retrieval</h2><h2 id="Graph-Algorithms"><a href="#Graph-Algorithms" class="headerlink" title="Graph Algorithms"></a>Graph Algorithms</h2><h3 id="Parallel-BFS"><a href="#Parallel-BFS" class="headerlink" title="Parallel BFS"></a>Parallel BFS</h3><h3 id="Parallel-Dijkstra’s-Algorithm"><a href="#Parallel-Dijkstra’s-Algorithm" class="headerlink" title="Parallel Dijkstra’s Algorithm"></a>Parallel Dijkstra’s Algorithm</h3><h3 id="Page-Rank"><a href="#Page-Rank" class="headerlink" title="Page Rank"></a>Page Rank</h3><p>Page rank is a measurement of web page quality, used by Google’s search algorithm. The idea is to rank the webpages by popularity which defined as the number of link that going from the other pages.</p>
+    <content><![CDATA[<h2 id="Text-retrieval"><a href="#Text-retrieval" class="headerlink" title="Text retrieval"></a>Text retrieval</h2><h3 id="Inverted-Indexes"><a href="#Inverted-Indexes" class="headerlink" title="Inverted Indexes"></a>Inverted Indexes</h3><ul>
+<li>A data structure that given a term provides access to the list of documents that contain the term (inverted means we treat the “word” as the key and documents are associated to this word)</li>
+<li>Retrieval engine uses the inverted index to score documents that contain the query terms based on some ranking model</li>
+</ul>
+<p><img src="https://p.ipic.vip/ugszf6.png" width="500px" /></p>
+<ul>
+<li><p><strong><font color="F54747">Posting:</font></strong> a tuple of <code>(document id, payload)</code> associated with a term</p>
+<ul>
+<li><strong>Document ID</strong><ul>
+<li>Assumed to be a unique integer from 1 to n, where n is the total number of documents</li>
+</ul>
+</li>
+<li><strong>Payload</strong><ul>
+<li>Could be empty for simple Boolean retrieval</li>
+<li>Could include term frequency (tf), the number of times the term occur in the document</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>GOAL:<br>  Given a query, retrieval involves fetching posting lists associated with query terms and traversing the postings to compute the result set.</p>
+<ul>
+<li>Retrieval:<ol>
+<li><strong>Boolean Retrieval</strong>: Apply union (OR) or intersection (AND) of posting lists to check whether two documents consists of the same key (word)</li>
+<li><strong>General Retrieval</strong>: Ranking of the document scores on the word / Returning top K documents</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Baseline-Implementation"><a href="#Baseline-Implementation" class="headerlink" title="Baseline Implementation"></a>Baseline Implementation</h4><p><img src="https://p.ipic.vip/npz7m1.png" width="500px" /></p>
+<ul>
+<li><p><strong>Construction:</strong> construct an inverted index given a document collection<br>  <img src="https://p.ipic.vip/sk2r7i.png" width="500px" /></p>
+<ul>
+<li><strong>Mapper Inputs:</strong><ol>
+<li>Document IDs (keys)</li>
+<li>Actual document content (values)</li>
+</ol>
+</li>
+<li><strong>Mapper Duties:</strong><ol>
+<li>Analyze each document and extract useful terms</li>
+<li>Compute term frequencies</li>
+<li>Emit</li>
+</ol>
+</li>
+<li><p><strong>Reducer:</strong></p>
+<ol>
+<li>Aggregates all observed postings for each term</li>
+<li>Construct the posting list</li>
+</ol>
+<p><img src="https://p.ipic.vip/5g8nz1.png" width="500px" /></p>
+</li>
+<li>Notice: The reducer first buffers all postings (line 5) and then performs an in-memory sort before writing the postings to disk, so we should assume the reducer has sufficient memory to hold all postings associated with the same term (in order to sort them).</li>
+</ul>
+</li>
+</ul>
+<h4 id="Revised-Implementation"><a href="#Revised-Implementation" class="headerlink" title="Revised Implementation"></a>Revised Implementation</h4><p>Instead of emitting <code>(term t, posting &lt;docid, f&gt;)</code>, Emit <code>(tuple &lt;t, docid&gt;, f)</code> (Value-to-key conversion).<br>Caution: a customized partitioner is necessary to ensure that all tuples with the same term are shuffled to the same reducer.<br>    <img src="https://p.ipic.vip/ihava3.png" width="300px" /></p>
+<h3 id="Retrieval"><a href="#Retrieval" class="headerlink" title="Retrieval"></a>Retrieval</h3><p>Response time needs to be very small for the retrieval phase.</p>
+<ul>
+<li><p>MapReduce is designed for large batch operations, and is a <font color="F54747">poor solution for retrieval</font> as many random seeks will be introduced and many round-trips in distributed file systems.</p>
+</li>
+<li><p>Overcome:</p>
+<ol>
+<li>Distributed Retrieval and partition indexes<ul>
+<li>Document partitioning<br>  Entire collection is partitioned into smaller sub-collections</li>
+<li>Term partitioning<br>  Each server handles a subset of terms for the entire collection</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="Graph-Algorithms"><a href="#Graph-Algorithms" class="headerlink" title="Graph Algorithms"></a>Graph Algorithms</h2><ul>
+<li><script type="math/tex; mode=display">G = (V,E)</script><ul>
+<li>V represents the set of vertices (nodes)</li>
+<li>E represents the set of edges (links)</li>
+<li>Both vertices and edges may contain additional information</li>
+</ul>
+</li>
+<li><p><strong>Challenging:</strong> Algorithms running on a single machine and putting the entire graph in memory are not scalable</p>
+</li>
+<li><p><strong>Key questions:</strong></p>
+<ul>
+<li>How do you represent graph data in MapReduce?</li>
+<li>How do you traverse a graph in MapReduce?</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>Graph Representations:</strong></p>
+<ol>
+<li><p>Adjacency matrix</p>
+<ul>
+<li><p><font color="880ED4">Advantages</font>:</p>
+<ul>
+<li>Easy to manipulate with linear algebra</li>
+<li>Easy algorithmic implementation</li>
+</ul>
+</li>
+<li><p><font color="880ED4">Disadvantage</font>:</p>
+<ul>
+<li>Large memory space, especially for sparse graphs (Many zeroes in the matrix)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Adjacency list</p>
+<ul>
+<li><p><font color="880ED4">Advantages</font>:</p>
+<ul>
+<li>Much more compact representation</li>
+<li>Easy to compute over out-links</li>
+</ul>
+</li>
+<li><p><font color="880ED4">Disadvantage</font>:</p>
+<ul>
+<li>Much more difficult to compute over in-links</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>However, the shuffle and sort mechanism in MapReduce provides an easy way to group edges by destination nodes, thus allowing us to compute over incoming edges in the reducerHowever, the shuffle and sort mechanism in MapReduce provides an easy way to group edges by destination nodes, thus allowing us to compute over incoming edges in the reducer.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Dijkstra’s-Algorithm"><a href="#Dijkstra’s-Algorithm" class="headerlink" title="Dijkstra’s Algorithm"></a>Dijkstra’s Algorithm</h3><p><img src="https://p.ipic.vip/28zp46.png" width="500px" /></p>
+<ul>
+<li>Dijkstra’s algorithm is designed as a sequential algorithm</li>
+<li>Priority queue that maintains a <font color="F54747">globally sorted list</font> of nodes by current distance, which is not possible in MapReduce, as it doesn’t provide a mechanism for exchanging global data</li>
+</ul>
+<p><img src="https://p.ipic.vip/i9blcp.png" width="350px" /></p>
+<h3 id="Parallel-BFS"><a href="#Parallel-BFS" class="headerlink" title="Parallel BFS"></a>Parallel BFS</h3><ul>
+<li><p><strong>Intuition:</strong></p>
+<ul>
+<li>Define b is reachable from a if b is on the adjacency list of a, the starting point <font color="3A75EA">DistanceTo(s) = 0</font></li>
+<li>For all nodes <font color="F54747">p reachable from s</font><ul>
+<li><font color="3A75EA">DistanceTo(p) = 1</font></li>
+</ul>
+</li>
+<li>For all nodes <font color="F54747">n reachable from some other set of nodes M</font><ul>
+<li><font color="3A75EA">DistanceTo(n) = 1 + min(DistanceTo(m), m in M)</font>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong><font color="3A75EA">Implementation</font></strong><br>  <img src="https://p.ipic.vip/u1lenz.png" width="600px" /></p>
+<ul>
+<li><p>Data Representation:</p>
+<ul>
+<li>Key: <code>node n</code></li>
+<li>Value: <code>d</code> (distance from start) and <code>AdjacencyList</code> (list of nodes reachable from n)</li>
+</ul>
+</li>
+<li><p>Mapper:</p>
+<ul>
+<li>For every m in adjacency list: <code>EMIT(m, d + 1)</code></li>
+</ul>
+</li>
+<li><p>Reducer:</p>
+<ul>
+<li>Select minimum distance path for each reachable node</li>
+<li>Additional bookkeeping needed to keep track of actual path</li>
+</ul>
+</li>
+<li><p>Iterations:</p>
+<ul>
+<li>Each iteration corresponds to a MapReduce job</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Convergence:</strong> (Stopping Criterion)</p>
+<ul>
+<li>Iterate the algorithm until all node distances are found (no <code>inf</code>)</li>
+<li>Maintain a counter inside the MapReduce program to count how many node distances are found</li>
+<li>Require a non-MapReduce driver program to submit a MapReduce job to iterate the algorithm</li>
+</ul>
+</li>
+</ul>
+<h2 id="Page-Rank"><a href="#Page-Rank" class="headerlink" title="Page Rank"></a>Page Rank</h2><p>Page rank is a measurement of web page quality, used by Google’s search algorithm. The idea is to rank the webpages by popularity which defined as the number of link that going from the other pages.</p>
 <p><img src="https://p.ipic.vip/eyo3b6.png" width="500px" /></p>
 <p>In this case, we want to compute the popularity of page X, which means how often is going to visit page X.</p>
 <ul>
@@ -10574,6 +10863,78 @@ The hardest problem often turns out to be finding the frequent pairs of items $\
 <li>$C(t)$: the out-degree of t</li>
 <li>$\alpha$: the probability of random jump</li>
 <li>$N$: the total number of nodes in the graph</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong><font color="3A75EA">Implementation</font></strong></p>
+<ul>
+<li><p>Initialization:</p>
+<ul>
+<li>Every node share the average mass ($\frac{1}{|G|}$)</li>
+</ul>
+<p><img src="https://p.ipic.vip/e5lfko.png" width="600px" /></p>
+</li>
+<li>Mapper Phase:<ul>
+<li>For each node, computes how much PageRank mass is emitted as value (<code>N.PageRank / |N.AdjacencyList|</code>)</li>
+</ul>
+</li>
+<li>Shuffle and Sort Phase<ul>
+<li>Group values passed along the graph edges by destination nodes</li>
+</ul>
+</li>
+<li><p>Reduce phase:</p>
+<ul>
+<li>PageRank mass contributions from all incoming edges are summed to arrive at the updated PageRank value for each node</li>
+</ul>
+<p><img src="https://p.ipic.vip/bqqf9z.png" width="500px" /></p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong><font color="F54747">Complete PageRank</font></strong></p>
+<ul>
+<li><p>Additional complexities:</p>
+<ol>
+<li>dangling nodes (Add the average missing mass back to every node)</li>
+<li>random jump factor $\alpha \neq 0$ (assign the average mass according to the factor $\alpha\frac{1}{|G|}$)</li>
+</ol>
+</li>
+<li><p><strong><font color="F54747">Solution</font></strong></p>
+<script type="math/tex; mode=display">p' = \alpha \frac{1}{|G|} + (1-\alpha)(\frac{m}{|G|} + p)</script><ul>
+<li>$\alpha$: the probability of random jump ($\alpha \neq 0$)</li>
+<li>$|G|$: the number of nodes in the graph</li>
+<li>$m$: the missing PageRank mass (dangling nodes)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Convergence:</strong> (Stopping Criterion)</p>
+<ul>
+<li>Iterate until PageRank values don’t change</li>
+<li>Iterate until PageRank rankings don’t change</li>
+<li>Fixed number of iterations</li>
+</ul>
+</li>
+</ul>
+<h1 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h1><ul>
+<li><p><strong>Motivations</strong></p>
+<ul>
+<li><p>For the MapReduce iterations:</p>
+<ul>
+<li>The communication within the iteration is the reducer would write the output to HDFS and the mapper would read the data from HDFS, which could be quite expensive</li>
+</ul>
+</li>
+<li><p>Store the data in memory</p>
+</li>
+<li><p><strong>Challenges:</strong> fault-tolerant and efficient</p>
+</li>
+</ul>
+</li>
+<li><p>Resilient Distributed Datasets (RDDs)</p>
+<ul>
+<li>RDD: a read-only, partitioned collection of records<br>  Can only be built through coarse-grained deterministic transformations (map, filter, join)</li>
 </ul>
 </li>
 </ul>
@@ -10589,51 +10950,491 @@ The hardest problem often turns out to be finding the frequent pairs of items $\
         <category>CSCI4180</category>
       </categories>
       <tags>
-        <tag>Cloud Computing</tag>
+        <tag>cloud computing</tag>
       </tags>
   </entry>
   <entry>
     <title>Key-Value Stores</title>
     <url>/myBlog/2023/11/13/2023/CSCI4180/2023-11-13-CSCI4180-Key-Value-Stores/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h2 id="Storage-Systems"><a href="#Storage-Systems" class="headerlink" title="Storage Systems"></a>Storage Systems</h2><ul>
+<li><p>Goal: understand how to manage big data in a systematic way</p>
+</li>
+<li><p>Motivation: how to provide real-time read/write random-access to big data?</p>
+<ul>
+<li>Data is organized in terms of many “records” and it us unlikely to fit on single machine (distributed)</li>
+<li>MapReduce is designed for batch processing rather than real-time access</li>
+<li>Database-like systems are needed to access data efficiently</li>
+</ul>
+</li>
+<li><p><strong>Commercial Relational Database Management Systems (RDBMS)</strong></p>
+<ul>
+<li>We don’t use the traditional relational-based databases because<ul>
+<li>the scale is too large for most RDBMS</li>
+<li>the cost could be very high</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Distributed RDBMS</strong></p>
+<ul>
+<li><strong><font color="F54747">Two-phase commit (2PC)</font></strong> (transactions on multiple machines)</li>
+<li><p>The client who <font color="3A75EA">initiated the computation</font> acts as <font color="3A75EA">coordinator</font>; processes <font color="F54747">required to commit</font> are the <font color="F54747">participants</font></p>
+<ul>
+<li><strong>Phase 1a</strong>: Coordinator sends VOTE-REQUEST to participants<br>  <img src="" width="500px" /></li>
+<li><strong>Phase 1b</strong>: When a participant receives VOTE-REQUEST, it returns either VOTE-COMMIT or VOTE-ABORT to coordinator. If it sends VOTE-ABORT, it aborts its local computation</li>
+<li><strong>Phase 2a</strong>: Coordinator collects all votes; if all are VOTE-COMMIT, it sends GLOBAL-COMMIT to all participants, otherwise it sends GLOBAL-ABORT</li>
+<li><p><strong>Phase 2b</strong>: Each participant waits for GLOBAL-COMMIT or GLOBAL- ABORT and handles accordingly</p>
+<p><img src="https://p.ipic.vip/tj8c03.png" width="400px" /></p>
+</li>
+</ul>
+</li>
+<li><p>Assumptions and Limitations</p>
+<ol>
+<li>Persistent storage and write-ahead log at every node because we may need to roll back to the previous states</li>
+<li>The coordinator is the bottleneck (what if the coordinator dies?)</li>
+<li>2PC is very slow</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Key-Value-Stores"><a href="#Key-Value-Stores" class="headerlink" title="Key-Value Stores"></a>Key-Value Stores</h2><ul>
+<li><p><strong>Data model</strong></p>
+<ul>
+<li>Stores associations between keys and values</li>
+<li>Keys are usually primitives (ints, strings, raw bytes, etc.)</li>
+<li>Values can be primitive or complex (JSON, HTML fragments, etc.)</li>
+</ul>
+</li>
+<li><p><strong>Operations</strong></p>
+<ol>
+<li><strong><font color="F54747">Get</font></strong>: fetch value associated with key</li>
+<li><strong><font color="F54747">Put</font></strong>: set value associated with key</li>
+</ol>
+<ul>
+<li>Optional: Multi-get, Multi-put, Range queries</li>
+</ul>
+</li>
+</ul>
+<h3 id="BigTable"><a href="#BigTable" class="headerlink" title="BigTable"></a>BigTable</h3><p>A distributed storage system for managing structured data<br>Designed to scale to a very large size (petabytes of data across thousands of servers)<br>Flexible and high-performance (for all of Google’s products)</p>
+<ul>
+<li><p><strong>Motivation:</strong> Lots of (semi-)structured data (<font color="880ED4">e.g., url, user data, Geographic locations</font>) and its scale is large</p>
+</li>
+<li><p><strong>Objective:</strong></p>
+<ol>
+<li>Want access to most current data at any time</li>
+<li>Very high read/write rates</li>
+<li>Efficient scans over all</li>
+<li>Efficient joins of large one-to-one and one-to-many datasets</li>
+<li>Examine data changes over time</li>
+</ol>
+</li>
+<li><p><strong>Data model</strong><br>Map indexed by a <font color="3A75EA">row key</font>, <font color="3A75EA">column key</font>, and a <font color="3A75EA">timestamp</font><br>  <img src="https://p.ipic.vip/tccuys.png" width="500px" /></p>
+<ul>
+<li><font color="00A300">Example</font><ul>
+<li>Row key: reverse URL (<font color="3A75EA">reverse: can easily group the webpages in the same domain</font>)</li>
+<li>Column keys: attributes of web page (Contents, and anchors that reference the page)</li>
+<li>Values: contents of web pages, and other information</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Rows</strong></p>
+<ul>
+<li>Each read or write of data under a single row key is atomic</li>
+<li>Maintained in sorted lexicographic order (for efficient row scans)</li>
+<li>Row ranges dynamically partitioned into tablets</li>
+</ul>
+</li>
+<li><p><strong>Columns</strong></p>
+<ul>
+<li>Grouped into column families</li>
+<li>Column key = family:qualifier</li>
+<li>Column families provide locality hints (E.g., anchor is a column family)</li>
+<li>Few column families, but unbounded number of columns</li>
+</ul>
+</li>
+<li><p><strong>Timestamp</strong></p>
+<ul>
+<li>64-bit integers (real time in microseconds)</li>
+</ul>
+</li>
+</ul>
+<h4 id="Organization"><a href="#Organization" class="headerlink" title="Organization"></a>Organization</h4><ol>
+<li>Google File System: The raw storage for storing logs and data files</li>
+<li>Chubby: A distributed lock manager to keep replicas consists in presence of failures</li>
+<li>SSTable: A file format for storing BigTable data</li>
+</ol>
+<ul>
+<li><p><strong>SSTable</strong></p>
+<ul>
+<li>Persistent, <font color="F54747">ordered</font> (the keys and values within the SSTable are stored) <font color="F54747">immutable</font> (unmodifiable, cannot change the content in the table) map from keys to values, <font color="3A75EA">the index traced the key range</font></li>
+<li>Sequence of blocks on disk plus an index for block lookup (for chasing design: sorted + range traced which can easily be chased efficiently <font color="00A300">BFI search</font>)<br><img src="https://p.ipic.vip/tfgwzx.png" width="250px" /></li>
+</ul>
+</li>
+<li><p><strong>Tablet</strong></p>
+<ul>
+<li>Multiple SSTables group together and build a Tablet</li>
+<li>Dynamically partitioned range of rows<br><img src="https://p.ipic.vip/uhgyyq.png" width="500px" /></li>
+</ul>
+</li>
+<li><p><strong>Table</strong></p>
+<ul>
+<li>Multiple tablets make up the table, <font color="880ED4">SSTables can be shared (see fig.)</font><br><img src="https://p.ipic.vip/qh40m2.png" width="400px" /></li>
+</ul>
+</li>
+</ul>
+<h4 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h4><p>Single-master, distributed storage architecture</p>
+<ul>
+<li><p><strong>BigTable master</strong></p>
+<ul>
+<li>Assigns tablets to tablet servers</li>
+<li>Detects addition and expiration of tablet servers</li>
+<li>Balances tablet server load</li>
+<li>Handles garbage collection</li>
+<li>Handles schema changes</li>
+</ul>
+</li>
+<li><p><strong>Tablet servers</strong></p>
+<ul>
+<li>Each tablet server manages a set of tablets<ul>
+<li>Typically between ten to a thousand tablets (each 100-200 MB by default)</li>
+</ul>
+</li>
+<li>Handles read and write requests to the tablets</li>
+<li>Splits tablets that have grown too large</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>Tablet Location</strong></p>
+<ul>
+<li>Given a key, search the location of tablet that stored the key-value pair</li>
+<li><p>Implementation: B+ Tree:</p>
+<ol>
+<li>1st level: root tablet contains location of all tablets</li>
+<li>2nd level: metadata tablet contains locations of user tablets</li>
+<li>3rd level: user tablets</li>
+</ol>
+<ul>
+<li><p><font color="00A300">Example</font>:<br>  Given $1\text{KB}$ ($1024 \text{bytes}$) key and $128\text{MB}$ ($128 \times 2^{20} \text{bytes}$) tablet size.<br>  Qs: how much data it can index at the 1st level: $2^{27} / 2^{10} = 2^{17}$ keys to meta-data tablets<br>  Qs: how many user tablet that can be represented at the 2nd level: $2^{17} \times 2^{17} = 2^{34}$ keys to user tablets<br>  Qs: # key-value pair that can be represented: $2^{34} \times 2^{27}  = 2^{61} \text{bytes}$ data (2048 petabytes)</p>
+<p><img src="https://p.ipic.vip/ewa01k.png" width="500px" /></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>Tablet Serving</strong><br>  <img src="https://p.ipic.vip/vdkfze.png" width="500px" /></p>
+<ol>
+<li><p><strong>Write</strong></p>
+<ol>
+<li>Updates committed to a commit log</li>
+<li>Recently committed updates are stored in memtable (The data will first store in the memtable until it’s full)</li>
+<li>Older updates are stored in a sequence of SSTables (It would be pushed into the SSTable Files with sorting proces)</li>
+</ol>
+</li>
+<li><p><strong>Read</strong></p>
+<ol>
+<li>form a merged view of SSTables and memtable</li>
+<li>read <code>&lt;key-value</code>&gt; pair</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p><strong>Compaction (Update)</strong></p>
+<ul>
+<li>Minor compaction<ul>
+<li>Converts the memtable into an SSTable</li>
+<li>Reduces memory usage and log traffic on restart</li>
+</ul>
+</li>
+<li>Merging compaction<ul>
+<li>Reads the contents of a few SSTables and the memtable, and writes out a new SSTable</li>
+<li>Reduces number of SSTables</li>
+</ul>
+</li>
+<li>Major compaction<ul>
+<li>Merging compaction that results in only one SSTable</li>
+<li>No deletion records, only live data</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h3><ul>
+<li><p>Open-source clone of BigTable<br><img src="https://p.ipic.vip/a2dmo2.png" width="500px" /></p>
+</li>
+<li><p><strong>Design</strong><br><strong><font color="F54747">HFile</font></strong>: Everything is managed in HFile, the actual storage file stored in HDFS, created to store HBase’s data fast and efficiently<br><img src="https://p.ipic.vip/tj471g.png" width="500px" /><br>Key value pair in low level byte array<br><img src="https://p.ipic.vip/s2jej5.png" width="500px" /></p>
+</li>
+<li><p><strong>Data Model</strong></p>
+<ul>
+<li>HBase stores data in tables<ul>
+<li>Rows and columns</li>
+<li>Row keys are identifiers, in the form of byte arrays</li>
+<li>Row columns are grouped in column families</li>
+<li>Tables are partitioned in regions</li>
+</ul>
+</li>
+<li>HBase uses Zookeeper for locking</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>Implementation:</strong> All similar to the BigTable</p>
+<ul>
+<li>HBase master, multiple regionserver slaves (tablet server)</li>
+<li>Operations<ul>
+<li>-ROOT- table holds the list of .META. table regions</li>
+<li>.META. table holds list of user-space regions</li>
+</ul>
+</li>
+<li>Writes are appended to a commit log and then cached in memstore</li>
+<li>Reads consult memstore first</li>
+</ul>
+</li>
+<li><p><strong>Operation Modes</strong></p>
+<ol>
+<li><p><font color="F54747">Standalone Mode</font></p>
+<ul>
+<li>Default mode</li>
+<li>Does not use HDFS, but uses local filesystem instead</li>
+</ul>
+</li>
+<li><p><font color="F54747">Distributed Mode</font></p>
+<ul>
+<li>Use HDFS for storage (pseudo-distributed and fully distributed)</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="Oriented"><a href="#Oriented" class="headerlink" title="Oriented"></a>Oriented</h4><ul>
+<li><strong>HBase</strong> is distributed and column-oriented (data is stored by columns)</li>
+<li><strong>RDBMS</strong> is fixed-schema and row-oriented (data is stored by rows)</li>
+</ul>
+<p><img src="https://p.ipic.vip/i4lil2.png" width="400px" /><br>Consider a query that processes only column 2, Row-oriented needs 4 reads (each for one row), while column-oriented only needs Needs 2 reads (each for one row split), which is frequently used in data analystic</p>
+<ul>
+<li><p><strong><font color="F54747">Row-oriented</font></strong></p>
+<ul>
+<li>Easy to read a particular row of records (but may read unnecessary columns)</li>
+</ul>
+</li>
+<li><p><strong><font color="F54747">Column-oriented</font></strong></p>
+<ul>
+<li>Good if reads only involve a few columns</li>
+<li>Efficient compression</li>
+<li>Efficient sorting and indexing on compressed data</li>
+</ul>
+</li>
+</ul>
+<h2 id="CAP-Theorem"><a href="#CAP-Theorem" class="headerlink" title="CAP Theorem"></a>CAP Theorem</h2><p>Any networked system providing shared data can provide only two of the three properties:</p>
+<ol>
+<li><p><strong><font color="F54747">C: consistency</font></strong> a shared and replicated data item appears as a single, up-to-date copy<br> e.g., 3 raplicas in Google File System and want to ensure that they all have the same values</p>
+</li>
+<li><p><strong><font color="F54747">A: availability</font></strong> the updates will always be eventually executed (have no idea when would the files be updated)</p>
+</li>
+<li><p><strong><font color="F54747">P: partition tolerance</font></strong> partitioning of nodes can be tolerated</p>
+</li>
+</ol>
+<ul>
+<li><p><strong>C &amp; P:</strong> Distributed database systems</p>
+<ol>
+<li>Consistency: when a user writes data, the same piece of data is written to all storage servers</li>
+<li>Partition tolerance: all storage nodes are guaranteed to have the same piece of data (even tgough part of the system is disconnected)</li>
+<li>Availability CANNOT HOLD: If partition tolerance is provided, but when partition happens, it cannot update all the replicas</li>
+</ol>
+</li>
+<li><p><strong>A &amp; P:</strong> DNS System</p>
+<ol>
+<li>Availability: every node in system will always be available, no matter the <code>&lt;IP-name&gt;</code> pairs is valid or not</li>
+<li>Partition tolerance: every user (or machine) has its own DNS server on its own network, so network partitioning is not a problem</li>
+<li>Consistency CANNOT HOLD: For a updated IP address, it would be propagate to all DNS servers, which would take some time to do it. Before all servers recieve the update, some servers may still hold the wrong mapping, which is not consistency</li>
+</ol>
+</li>
+<li><p><strong>C &amp; A:</strong> Single-node database</p>
+<ol>
+<li>Consistency: one copy, which is consistent</li>
+<li>Availability: only update one single copy, which is available</li>
+<li>Partition tolerance CANNOT HOLD: when partition occurs, cannot access the copy</li>
+</ol>
+</li>
+<li><p><strong><font color="F54747">CAP in Reality</font></strong></p>
+<ul>
+<li>Partitions are rare; no need to forfeit Consistency or Availability, shouldn’t just give up either C or A for partition tolerance</li>
+</ul>
+</li>
+</ul>
+<h3 id="Amazon-Dynamo"><a href="#Amazon-Dynamo" class="headerlink" title="Amazon Dynamo"></a>Amazon Dynamo</h3><ul>
+<li><p>Dynamo is designed as a highly available, key-value storage system</p>
+<ul>
+<li>Failure is the normal case but many services on Amazon’s platform only need <font color="F54747">primary-key</font> (item → content) access that RDBMS is unnecessary</li>
+</ul>
+</li>
+<li><p><strong>Assumptions and Requirements</strong></p>
+<ul>
+<li>Simple read/write operations, uniquely identified by keys (objects tend to be small)</li>
+<li>Notice: ACID (Atomicity, Consistency, Isolation, Durability), which ensure the correctness of all the replicas, gives poor availability</li>
+<li>User can choose weaker consistency (C) for higher availability</li>
+<li>No security issues</li>
+<li>Dynamo aims to be always writable</li>
+</ul>
+</li>
+<li><p><strong>Design Principles</strong></p>
+<ul>
+<li><font color="3A75EA">Incremental scalability</font><ul>
+<li>System should be able to grow by adding a storage host (node) at a time </li>
+</ul>
+</li>
+<li><font color="F54747">Symmetry</font> (mainly different from BigTable)<ul>
+<li>Every node has the same set of responsibilities</li>
+</ul>
+</li>
+<li>Decentralization<ul>
+<li>Favor decentralized techniques over central coordinators</li>
+</ul>
+</li>
+<li>Heterogeneity<ul>
+<li>Workload partitioning should be proportional to capabilities of servers</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong><font color="F54747">Comparison with BigTable:</font></strong></p>
+<ul>
+<li>BigTable has more complicated key-value store, which applied column-store (column families and columns within them)</li>
+<li>Bigtable: distrbute DB built on GFS, Dynamo: distributed hash table</li>
+<li>Dynamo would not reject the updates but BigTable would reject the updates due to ensure consistency if the replicas are difference</li>
+</ul>
+</li>
+</ul>
+<h4 id="Consistency-and-Availability"><a href="#Consistency-and-Availability" class="headerlink" title="Consistency and Availability"></a>Consistency and Availability</h4><p>Strong consistency and high availability cannot be achieved simultaneously with high performance</p>
+<ul>
+<li><p>Replication of objects is good as high availability and high read performance, but need to update all of them to maintain consistency</p>
+</li>
+<li><p><strong><font color="F54747">Eventual Consistency</font></strong></p>
+<ul>
+<li>Propagate updates to all replicas “eventually” (but it may take a long time)</li>
+<li><p>Trade weak consistency for availability and performance</p>
+</li>
+<li><p>Reads may return old data that is yet updated<br>  Let the data store or the application to decide which one be picked</p>
+<ul>
+<li>Data store can choose the “last write”</li>
+<li>Application can do application-aware conflict resolution as app can aware of the meaning of the data (timestamp), or even fall back on “last write wins”</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Storage"><a href="#Storage" class="headerlink" title="Storage"></a>Storage</h4><ul>
+<li>Key space of nodes = $\{ 0, 1, \dots, n-1 \}$</li>
+<li>Set of objects $\{ o_1, o_2, \dots, o_k \}$</li>
+<li>Distributed hash table: create a hash function <code>h(x)</code> that maps an element in $\{ o_1, o_2, \dots, o_k \}$ to number $i$, and the object $x$ would be stored in inode $i$</li>
+<li>Notice: <code>h(x)</code> should be <font color="3A75EA">Deterministic</font>, <font color="3A75EA">Efficient</font>, <font color="3A75EA">Evenly distributed</font> among all nodes</li>
+</ul>
+<ul>
+<li><font color="00A300">Example:</font> <code>h(x) = MD5(x) mod n</code>, MD5 can create a 128-bit identifier</li>
+<li><p><strong><font color="880ED4">Limitation: Scalability</font></strong> If a node is add into the system, it should modify the hash function from n to n+1 nodes, which means it needs to re-organize all the objects to the new nodes.</p>
+</li>
+<li><p><strong><font color="F54747">Consistent Hashing</font></strong><br><img src="https://p.ipic.vip/2xyxze.png" width="500px" /><br>First map the nodes to a hash ring (starting from 0 to a maximize value in the clockwise direction and each node is located in one position in the hash ring), then map the object to the location of the hash ring to determine which node would store that object.</p>
+<ul>
+<li><p>The <font color="880ED4">advantage</font> is when a new server is added, only the data of the successor node is affected</p>
+</li>
+<li><p><font color="00A300">For example:</font><br>  Node 26 is added, data from node 26 is migrated to node 26 and update the routing tables</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong><font color="F54747">Replication</font></strong><br>Stores an object to N storage servers:</p>
+<ol>
+<li>1st server is the one that is closest to h(x) in the clockwise direction, i.e., successor(h(x))</li>
+<li><p>N-1 more servers, who are the clockwise successors of successor(h(x)), will store a redundant copy of object x</p>
+<font color="00A300">e.g., h(x) = 15 and N = 3, 1st copy will stored in node 20, the former copies will be stored in node 30 and 40</font>
+
+
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p><strong><font color="F54747">Consistency</font></strong></p>
+<ul>
+<li><p>Challenge:</p>
+<ul>
+<li>To decide which storage server(s) to store a particular object, without choosing all servers.</li>
+<li>Choosing all servers implies strict consistency!</li>
+</ul>
+</li>
+<li><p><strong>Strict consistency</strong>:</p>
+<ul>
+<li>Any read on a data item x returns a value corresponding to the result of the most recent write on x</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong><font color="F54747">Client-Side Consistency</font></strong></p>
+<ol>
+<li><p><strong>Strong consistency (~Strict consistency)</strong></p>
+<ul>
+<li>After the update reports a finished update, all subsequent access returns the updated value</li>
+</ul>
+</li>
+<li><p><strong>Eventual consistency</strong></p>
+<ul>
+<li>After the update reports a finished update, the system may report the old value</li>
+<li>Nevertheless, the system will eventually report the updated value.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p><strong>Configurable parameters</strong></p>
+<ol>
+<li>N = the number of nodes that store replicas of the data</li>
+<li>W [1, N] = the number of replicas that need to <font color="F54747">acknowledge the receipt of update</font></li>
+<li>R [1, N] (read) = the number of replicas that are contacted when a data object is accessed, because there are a chance that some replicas may not been updated (choose the latest version)</li>
+</ol>
+<ul>
+<li><p><strong><font color="F54747">If W + R &gt; N, then it is strong consistency</font></strong></p>
+<font color="00A300">e.g., If N = 3, W = 2, and R = 2, what may happen?</font>
+  - <font color="3A75EA">If N = 3, W = 2, R = 2, at least 2 out of 3 replicas are acknowledged during writing. Regardless which 2 replicas be read, have at least 1 server that overlaps with write that have recieved the acknowledgement. So it can ensure that user must read the latest replica (ensure at least one of the reading server have recieved the acknowledgement).</font>
+</li>
+<li><p><strong><font color="F54747">If W + R &lt;= N, then it is eventual consistency</font></strong></p>
+<font color="00A300">e.g., If N = 3, W = 2, and R = 1</font>
+</li>
+<li><p>Dynamo’s Setting: Common (N,R,W) in Dynamo: (3,2,2)</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Partitions Handling</strong><ul>
+<li><strong><font color="F54747">Sloppy quorum</font></strong><br>  All reads/writes are performed on the first N healthy nodes from the preference list, which may not always be the first N nodes in the consistent hashing ring  <font color="00A300">e.g., if node A is down, a replica is sent to node A’</font></li>
+<li><strong><font color="F54747">Hinted handoff</font></strong><ul>
+<li>Node A’ receives a hint that the update is temporary</li>
+<li>A’ sends back the replica to A if A is recovered, and removes its replica</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- 
+<img src="" width="500px" />
+<font color="3A75EA">Blue</font>
+<font color="F54747">Red</font>
+<font color="880ED4">Purple</font>
+<font color="00A300">Green</font>
+-->]]></content>
       <categories>
         <category>CSCI4180</category>
       </categories>
       <tags>
-        <tag>Cloud Computing</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Duplication</title>
-    <url>/myBlog/2023/11/14/2023/CSCI4180/2023-11-14-CSCI4180-Duplication/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>CSCI4180</category>
-      </categories>
-      <tags>
-        <tag>Cloud Computing</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Facebook Photo Storage</title>
-    <url>/myBlog/2023/11/14/2023/CSCI4180/2023-11-25-CSCI4180-Facebook-Photo-Storage/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>CSCI4180</category>
-      </categories>
-      <tags>
-        <tag>Cloud Computing</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Zookeeper</title>
-    <url>/myBlog/2023/11/26/2023/CSCI4180/2023-11-26-CSCI4180-Zookeeper/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>CSCI4180</category>
-      </categories>
-      <tags>
-        <tag>Cloud Computing</tag>
+        <tag>cloud computing</tag>
       </tags>
   </entry>
   <entry>
@@ -10910,7 +11711,7 @@ The hardest problem often turns out to be finding the frequent pairs of items $\
         <category>CSCI4180</category>
       </categories>
       <tags>
-        <tag>Cloud Computing</tag>
+        <tag>cloud computing</tag>
       </tags>
   </entry>
   <entry>
@@ -11306,7 +12107,7 @@ The hardest problem often turns out to be finding the frequent pairs of items $\
         <category>Research</category>
       </categories>
       <tags>
-        <tag>Large Language Model</tag>
+        <tag>LLM</tag>
       </tags>
   </entry>
   <entry>
@@ -11428,7 +12229,7 @@ The hardest problem often turns out to be finding the frequent pairs of items $\
 ]]></content>
   </entry>
   <entry>
-    <title>Database - Entity-Relationship Model</title>
+    <title>Entity-Relationship Model</title>
     <url>/myBlog/2023/01/28/2023/CSCI3170/2023-1-28-CSCI3170-ERModel/</url>
     <content><![CDATA[<h2 id="Entity-Relationship-Diagrams"><a href="#Entity-Relationship-Diagrams" class="headerlink" title="Entity-Relationship Diagrams"></a>Entity-Relationship Diagrams</h2><p><img src="https://p.ipic.vip/y43qkp.jpg" width="500px" /></p>
 <ol>
@@ -11568,11 +12369,11 @@ The hardest problem often turns out to be finding the frequent pairs of items $\
         <category>CSCI3170</category>
       </categories>
       <tags>
-        <tag>Database</tag>
+        <tag>database</tag>
       </tags>
   </entry>
   <entry>
-    <title>Database - Relational Model</title>
+    <title>Relational Model</title>
     <url>/myBlog/2023/02/15/2023/CSCI3170/2023-2-15-CSCI3170-RelationalModel/</url>
     <content><![CDATA[<style>
 .block {
@@ -11899,11 +12700,11 @@ The hardest problem often turns out to be finding the frequent pairs of items $\
         <category>CSCI3170</category>
       </categories>
       <tags>
-        <tag>Database</tag>
+        <tag>database</tag>
       </tags>
   </entry>
   <entry>
-    <title>Database - Relational Algebra</title>
+    <title>Relational Algebra</title>
     <url>/myBlog/2023/02/16/2023/CSCI3170/2023-2-16-CSCI3170-RelationalAlgebra/</url>
     <content><![CDATA[<h2 id="Basic-Operations"><a href="#Basic-Operations" class="headerlink" title="Basic Operations"></a>Basic Operations</h2><h3 id="Select-sigma"><a href="#Select-sigma" class="headerlink" title="Select $\sigma$"></a>Select <font size="3px">$\sigma$</font></h3><ul>
 <li><p>specifies the tuples to retain through a <font color="3A75EA">selection condition</font> which is a Boolean combination</p>
@@ -12013,11 +12814,11 @@ The hardest problem often turns out to be finding the frequent pairs of items $\
         <category>CSCI3170</category>
       </categories>
       <tags>
-        <tag>Database</tag>
+        <tag>database</tag>
       </tags>
   </entry>
   <entry>
-    <title>Database - Structured Query Language</title>
+    <title>Structured Query Language</title>
     <url>/myBlog/2023/03/10/2023/CSCI3170/2023-3-10-CSCI3170-SQL/</url>
     <content><![CDATA[<h2 id="Basic-Query"><a href="#Basic-Query" class="headerlink" title="Basic Query"></a>Basic Query</h2><h3 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h3><ol>
 <li><code>SELECT</code> clause<ul>
@@ -12307,7 +13108,61 @@ The hardest problem often turns out to be finding the frequent pairs of items $\
         <category>CSCI3170</category>
       </categories>
       <tags>
-        <tag>Database</tag>
+        <tag>database</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Zookeeper</title>
+    <url>/myBlog/2023/12/15/2023/CSCI4180/2023-12-15-CSCI4180-Zookeeper/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>CSCI4180</category>
+      </categories>
+      <tags>
+        <tag>cloud computing</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Facebook Photo Storage</title>
+    <url>/myBlog/2023/11/30/2023/CSCI4180/2023-11-30-CSCI4180-Facebook-Photo-Storage/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>CSCI4180</category>
+      </categories>
+      <tags>
+        <tag>cloud computing</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Duplication</title>
+    <url>/myBlog/2023/11/25/2023/CSCI4180/2023-11-25-CSCI4180-Duplication/</url>
+    <content><![CDATA[<h2 id="Cloud-Storage"><a href="#Cloud-Storage" class="headerlink" title="Cloud Storage"></a>Cloud Storage</h2><h3 id="Cost-Model"><a href="#Cost-Model" class="headerlink" title="Cost Model"></a>Cost Model</h3><ul>
+<li><p>Commercial cloud storage providers charge by three components:</p>
+<ol>
+<li>Storage space</li>
+<li>Number of requests (e.g., PUT, GET, LIST, DELETE)</li>
+<li>Data transfer (outbound from the cloud)</li>
+</ol>
+</li>
+<li><p>Tiered pricing model:</p>
+  <font color="00A300">e.g., Amazon S3 cost per month = 1024GB * $0.0300 per GB + 49 * 1024GB * $0.0295 per GB</font>
+
+
+
+</li>
+</ul>
+<!-- 
+<img src="" width="500px" />
+<font color="3A75EA">Blue</font>
+<font color="F54747">Red</font>
+<font color="880ED4">Purple</font>
+<font color="00A300">Green</font>
+-->]]></content>
+      <categories>
+        <category>CSCI4180</category>
+      </categories>
+      <tags>
+        <tag>cloud computing</tag>
       </tags>
   </entry>
 </search>

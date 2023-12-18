@@ -1,13 +1,15 @@
-<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Key-Value Stores | myBlog</title><meta name="keywords" content="Cloud Computing"><meta name="author" content="Donald Lam,manholam8@gmail.com"><meta name="copyright" content="Donald Lam"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta property="og:type" content="article">
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Key-Value Stores | myBlog</title><meta name="keywords" content="cloud computing"><meta name="author" content="Donald Lam,manholam8@gmail.com"><meta name="copyright" content="Donald Lam"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Storage Systems Goal: understand how to manage big data in a systematic way  Motivation: how to provide real-time read&#x2F;write random-access to big data?  Data is organized in terms of many “records” an">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Key-Value Stores">
 <meta property="og:url" content="https://github.com/DonaldLamNL/myBlog/2023/11/13/2023/CSCI4180/2023-11-13-CSCI4180-Key-Value-Stores/index.html">
 <meta property="og:site_name" content="myBlog">
+<meta property="og:description" content="Storage Systems Goal: understand how to manage big data in a systematic way  Motivation: how to provide real-time read&#x2F;write random-access to big data?  Data is organized in terms of many “records” an">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://p.ipic.vip/ppekay.jpg">
 <meta property="article:published_time" content="2023-11-12T16:00:00.000Z">
 <meta property="article:modified_time" content="2023-11-12T16:00:00.000Z">
 <meta property="article:author" content="Donald Lam">
-<meta property="article:tag" content="Cloud Computing">
+<meta property="article:tag" content="cloud computing">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://p.ipic.vip/ppekay.jpg"><link rel="shortcut icon" href="/myBlog/img/favicon.png"><link rel="canonical" href="https://github.com/DonaldLamNL/myBlog/2023/11/13/2023/CSCI4180/2023-11-13-CSCI4180-Key-Value-Stores/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/myBlog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
   root: '/myBlog/',
@@ -50,7 +52,7 @@
   isPost: true,
   isHome: false,
   isHighlightShrink: false,
-  isToc: false,
+  isToc: true,
   postUpdate: '2023-11-13 00:00:00'
 }</script><noscript><style type="text/css">
   #nav {
@@ -140,7 +142,480 @@
       }
     }
     detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">57</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">13</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">11</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://p.ipic.vip/ppekay.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/myBlog/">myBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Key-Value Stores</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-11-12T16:00:00.000Z" title="Created 2023-11-13 00:00:00">2023-11-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-11-12T16:00:00.000Z" title="Updated 2023-11-13 00:00:00">2023-11-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/myBlog/categories/CSCI4180/">CSCI4180</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Key-Value Stores"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog">Donald Lam</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog/2023/11/13/2023/CSCI4180/2023-11-13-CSCI4180-Key-Value-Stores/">https://github.com/DonaldLamNL/myBlog/2023/11/13/2023/CSCI4180/2023-11-13-CSCI4180-Key-Value-Stores/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/myBlog/tags/Cloud-Computing/">Cloud Computing</a></div><div class="post_share"><div class="social-share" data-image="https://p.ipic.vip/ppekay.jpg" data-sites="facebook,twitter"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/myBlog/2023/11/14/2023/CSCI4180/2023-11-25-CSCI4180-Facebook-Photo-Storage/"><img class="prev-cover" src="https://p.ipic.vip/ppekay.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Facebook Photo Storage</div></div></a></div><div class="next-post pull-right"><a href="/myBlog/2023/10/30/2023/CSCI4180/2023-10-30-CSCI4180-MapReduce-Applications/"><img class="next-cover" src="https://p.ipic.vip/ppekay.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">MapReduce Applications</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/myBlog/2023/09/18/2023/ESTR4300/2023-9-18-ESTR4300-hadoop-clusters-setup/" title="Hadoop Cluster Setup"><img class="cover" src="https://p.ipic.vip/ppekay.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-18</div><div class="title">Hadoop Cluster Setup</div></div></a></div><div><a href="/myBlog/2023/10/15/2023/CSCI4180/2023-10-15-CSCI4180-MapReduce/" title="MapReduce Programming"><img class="cover" src="https://p.ipic.vip/ppekay.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-15</div><div class="title">MapReduce Programming</div></div></a></div><div><a href="/myBlog/2023/10/30/2023/CSCI4180/2023-10-30-CSCI4180-MapReduce-Applications/" title="MapReduce Applications"><img class="cover" src="https://p.ipic.vip/ppekay.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-30</div><div class="title">MapReduce Applications</div></div></a></div><div><a href="/myBlog/2023/11/14/2023/CSCI4180/2023-11-14-CSCI4180-Duplication/" title="Duplication"><img class="cover" src="https://p.ipic.vip/ppekay.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-14</div><div class="title">Duplication</div></div></a></div><div><a href="/myBlog/2023/11/14/2023/CSCI4180/2023-11-25-CSCI4180-Facebook-Photo-Storage/" title="Facebook Photo Storage"><img class="cover" src="https://p.ipic.vip/ppekay.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-14</div><div class="title">Facebook Photo Storage</div></div></a></div><div><a href="/myBlog/2023/11/26/2023/CSCI4180/2023-11-26-CSCI4180-Zookeeper/" title="Zookeeper"><img class="cover" src="https://p.ipic.vip/ppekay.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-26</div><div class="title">Zookeeper</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="this.onerror=null;this.src='/myBlog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Donald Lam</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">57</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">13</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://donaldlamnl.github.io/myWeb/#/home"><i></i><span>My Personal Website</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DonaldLamNL" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:manholam8@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/11/26/2023/CSCI4180/2023-11-26-CSCI4180-Zookeeper/" title="Zookeeper"><img src="https://p.ipic.vip/ppekay.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Zookeeper"/></a><div class="content"><a class="title" href="/myBlog/2023/11/26/2023/CSCI4180/2023-11-26-CSCI4180-Zookeeper/" title="Zookeeper">Zookeeper</a><time datetime="2023-11-25T16:00:00.000Z" title="Created 2023-11-26 00:00:00">2023-11-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/11/14/2023/CSCI4180/2023-11-14-CSCI4180-Duplication/" title="Duplication"><img src="https://p.ipic.vip/ppekay.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Duplication"/></a><div class="content"><a class="title" href="/myBlog/2023/11/14/2023/CSCI4180/2023-11-14-CSCI4180-Duplication/" title="Duplication">Duplication</a><time datetime="2023-11-13T16:00:00.000Z" title="Created 2023-11-14 00:00:00">2023-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/11/14/2023/CSCI4180/2023-11-25-CSCI4180-Facebook-Photo-Storage/" title="Facebook Photo Storage"><img src="https://p.ipic.vip/ppekay.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Facebook Photo Storage"/></a><div class="content"><a class="title" href="/myBlog/2023/11/14/2023/CSCI4180/2023-11-25-CSCI4180-Facebook-Photo-Storage/" title="Facebook Photo Storage">Facebook Photo Storage</a><time datetime="2023-11-13T16:00:00.000Z" title="Created 2023-11-14 00:00:00">2023-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/11/13/2023/CSCI4180/2023-11-13-CSCI4180-Key-Value-Stores/" title="Key-Value Stores"><img src="https://p.ipic.vip/ppekay.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Key-Value Stores"/></a><div class="content"><a class="title" href="/myBlog/2023/11/13/2023/CSCI4180/2023-11-13-CSCI4180-Key-Value-Stores/" title="Key-Value Stores">Key-Value Stores</a><time datetime="2023-11-12T16:00:00.000Z" title="Created 2023-11-13 00:00:00">2023-11-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/10/30/2023/CSCI4180/2023-10-30-CSCI4180-MapReduce-Applications/" title="MapReduce Applications"><img src="https://p.ipic.vip/ppekay.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="MapReduce Applications"/></a><div class="content"><a class="title" href="/myBlog/2023/10/30/2023/CSCI4180/2023-10-30-CSCI4180-MapReduce-Applications/" title="MapReduce Applications">MapReduce Applications</a><time datetime="2023-10-29T16:00:00.000Z" title="Created 2023-10-30 00:00:00">2023-10-30</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By Donald Lam</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/myBlog/js/utils.js"></script><script src="/myBlog/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/myBlog/js/search/local-search.js"></script><script>var preloader = {
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">57</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">13</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">11</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://p.ipic.vip/ppekay.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/myBlog/">myBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Key-Value Stores</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-11-12T16:00:00.000Z" title="Created 2023-11-13 00:00:00">2023-11-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-11-12T16:00:00.000Z" title="Updated 2023-11-13 00:00:00">2023-11-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/myBlog/categories/CSCI4180/">CSCI4180</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Key-Value Stores"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Storage-Systems"><a href="#Storage-Systems" class="headerlink" title="Storage Systems"></a>Storage Systems</h2><ul>
+<li><p>Goal: understand how to manage big data in a systematic way</p>
+</li>
+<li><p>Motivation: how to provide real-time read/write random-access to big data?</p>
+<ul>
+<li>Data is organized in terms of many “records” and it us unlikely to fit on single machine (distributed)</li>
+<li>MapReduce is designed for batch processing rather than real-time access</li>
+<li>Database-like systems are needed to access data efficiently</li>
+</ul>
+</li>
+<li><p><strong>Commercial Relational Database Management Systems (RDBMS)</strong></p>
+<ul>
+<li>We don’t use the traditional relational-based databases because<ul>
+<li>the scale is too large for most RDBMS</li>
+<li>the cost could be very high</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Distributed RDBMS</strong></p>
+<ul>
+<li><strong><font color="F54747">Two-phase commit (2PC)</font></strong> (transactions on multiple machines)</li>
+<li><p>The client who <font color="3A75EA">initiated the computation</font> acts as <font color="3A75EA">coordinator</font>; processes <font color="F54747">required to commit</font> are the <font color="F54747">participants</font></p>
+<ul>
+<li><strong>Phase 1a</strong>: Coordinator sends VOTE-REQUEST to participants<br>  <img src="" width="500px" /></li>
+<li><strong>Phase 1b</strong>: When a participant receives VOTE-REQUEST, it returns either VOTE-COMMIT or VOTE-ABORT to coordinator. If it sends VOTE-ABORT, it aborts its local computation</li>
+<li><strong>Phase 2a</strong>: Coordinator collects all votes; if all are VOTE-COMMIT, it sends GLOBAL-COMMIT to all participants, otherwise it sends GLOBAL-ABORT</li>
+<li><p><strong>Phase 2b</strong>: Each participant waits for GLOBAL-COMMIT or GLOBAL- ABORT and handles accordingly</p>
+<p><img src="https://p.ipic.vip/tj8c03.png" width="400px" /></p>
+</li>
+</ul>
+</li>
+<li><p>Assumptions and Limitations</p>
+<ol>
+<li>Persistent storage and write-ahead log at every node because we may need to roll back to the previous states</li>
+<li>The coordinator is the bottleneck (what if the coordinator dies?)</li>
+<li>2PC is very slow</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Key-Value-Stores"><a href="#Key-Value-Stores" class="headerlink" title="Key-Value Stores"></a>Key-Value Stores</h2><ul>
+<li><p><strong>Data model</strong></p>
+<ul>
+<li>Stores associations between keys and values</li>
+<li>Keys are usually primitives (ints, strings, raw bytes, etc.)</li>
+<li>Values can be primitive or complex (JSON, HTML fragments, etc.)</li>
+</ul>
+</li>
+<li><p><strong>Operations</strong></p>
+<ol>
+<li><strong><font color="F54747">Get</font></strong>: fetch value associated with key</li>
+<li><strong><font color="F54747">Put</font></strong>: set value associated with key</li>
+</ol>
+<ul>
+<li>Optional: Multi-get, Multi-put, Range queries</li>
+</ul>
+</li>
+</ul>
+<h3 id="BigTable"><a href="#BigTable" class="headerlink" title="BigTable"></a>BigTable</h3><p>A distributed storage system for managing structured data<br>Designed to scale to a very large size (petabytes of data across thousands of servers)<br>Flexible and high-performance (for all of Google’s products)</p>
+<ul>
+<li><p><strong>Motivation:</strong> Lots of (semi-)structured data (<font color="880ED4">e.g., url, user data, Geographic locations</font>) and its scale is large</p>
+</li>
+<li><p><strong>Objective:</strong></p>
+<ol>
+<li>Want access to most current data at any time</li>
+<li>Very high read/write rates</li>
+<li>Efficient scans over all</li>
+<li>Efficient joins of large one-to-one and one-to-many datasets</li>
+<li>Examine data changes over time</li>
+</ol>
+</li>
+<li><p><strong>Data model</strong><br>Map indexed by a <font color="3A75EA">row key</font>, <font color="3A75EA">column key</font>, and a <font color="3A75EA">timestamp</font><br>  <img src="https://p.ipic.vip/tccuys.png" width="500px" /></p>
+<ul>
+<li><font color="00A300">Example</font><ul>
+<li>Row key: reverse URL (<font color="3A75EA">reverse: can easily group the webpages in the same domain</font>)</li>
+<li>Column keys: attributes of web page (Contents, and anchors that reference the page)</li>
+<li>Values: contents of web pages, and other information</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Rows</strong></p>
+<ul>
+<li>Each read or write of data under a single row key is atomic</li>
+<li>Maintained in sorted lexicographic order (for efficient row scans)</li>
+<li>Row ranges dynamically partitioned into tablets</li>
+</ul>
+</li>
+<li><p><strong>Columns</strong></p>
+<ul>
+<li>Grouped into column families</li>
+<li>Column key = family:qualifier</li>
+<li>Column families provide locality hints (E.g., anchor is a column family)</li>
+<li>Few column families, but unbounded number of columns</li>
+</ul>
+</li>
+<li><p><strong>Timestamp</strong></p>
+<ul>
+<li>64-bit integers (real time in microseconds)</li>
+</ul>
+</li>
+</ul>
+<h4 id="Organization"><a href="#Organization" class="headerlink" title="Organization"></a>Organization</h4><ol>
+<li>Google File System: The raw storage for storing logs and data files</li>
+<li>Chubby: A distributed lock manager to keep replicas consists in presence of failures</li>
+<li>SSTable: A file format for storing BigTable data</li>
+</ol>
+<ul>
+<li><p><strong>SSTable</strong></p>
+<ul>
+<li>Persistent, <font color="F54747">ordered</font> (the keys and values within the SSTable are stored) <font color="F54747">immutable</font> (unmodifiable, cannot change the content in the table) map from keys to values, <font color="3A75EA">the index traced the key range</font></li>
+<li>Sequence of blocks on disk plus an index for block lookup (for chasing design: sorted + range traced which can easily be chased efficiently <font color="00A300">BFI search</font>)<br><img src="https://p.ipic.vip/tfgwzx.png" width="250px" /></li>
+</ul>
+</li>
+<li><p><strong>Tablet</strong></p>
+<ul>
+<li>Multiple SSTables group together and build a Tablet</li>
+<li>Dynamically partitioned range of rows<br><img src="https://p.ipic.vip/uhgyyq.png" width="500px" /></li>
+</ul>
+</li>
+<li><p><strong>Table</strong></p>
+<ul>
+<li>Multiple tablets make up the table, <font color="880ED4">SSTables can be shared (see fig.)</font><br><img src="https://p.ipic.vip/qh40m2.png" width="400px" /></li>
+</ul>
+</li>
+</ul>
+<h4 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h4><p>Single-master, distributed storage architecture</p>
+<ul>
+<li><p><strong>BigTable master</strong></p>
+<ul>
+<li>Assigns tablets to tablet servers</li>
+<li>Detects addition and expiration of tablet servers</li>
+<li>Balances tablet server load</li>
+<li>Handles garbage collection</li>
+<li>Handles schema changes</li>
+</ul>
+</li>
+<li><p><strong>Tablet servers</strong></p>
+<ul>
+<li>Each tablet server manages a set of tablets<ul>
+<li>Typically between ten to a thousand tablets (each 100-200 MB by default)</li>
+</ul>
+</li>
+<li>Handles read and write requests to the tablets</li>
+<li>Splits tablets that have grown too large</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>Tablet Location</strong></p>
+<ul>
+<li>Given a key, search the location of tablet that stored the key-value pair</li>
+<li><p>Implementation: B+ Tree:</p>
+<ol>
+<li>1st level: root tablet contains location of all tablets</li>
+<li>2nd level: metadata tablet contains locations of user tablets</li>
+<li>3rd level: user tablets</li>
+</ol>
+<ul>
+<li><p><font color="00A300">Example</font>:<br>  Given $1\text{KB}$ ($1024 \text{bytes}$) key and $128\text{MB}$ ($128 \times 2^{20} \text{bytes}$) tablet size.<br>  Qs: how much data it can index at the 1st level: $2^{27} / 2^{10} = 2^{17}$ keys to meta-data tablets<br>  Qs: how many user tablet that can be represented at the 2nd level: $2^{17} \times 2^{17} = 2^{34}$ keys to user tablets<br>  Qs: # key-value pair that can be represented: $2^{34} \times 2^{27}  = 2^{61} \text{bytes}$ data (2048 petabytes)</p>
+<p><img src="https://p.ipic.vip/ewa01k.png" width="500px" /></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>Tablet Serving</strong><br>  <img src="https://p.ipic.vip/vdkfze.png" width="500px" /></p>
+<ol>
+<li><p><strong>Write</strong></p>
+<ol>
+<li>Updates committed to a commit log</li>
+<li>Recently committed updates are stored in memtable (The data will first store in the memtable until it’s full)</li>
+<li>Older updates are stored in a sequence of SSTables (It would be pushed into the SSTable Files with sorting proces)</li>
+</ol>
+</li>
+<li><p><strong>Read</strong></p>
+<ol>
+<li>form a merged view of SSTables and memtable</li>
+<li>read <code>&lt;key-value</code>&gt; pair</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p><strong>Compaction (Update)</strong></p>
+<ul>
+<li>Minor compaction<ul>
+<li>Converts the memtable into an SSTable</li>
+<li>Reduces memory usage and log traffic on restart</li>
+</ul>
+</li>
+<li>Merging compaction<ul>
+<li>Reads the contents of a few SSTables and the memtable, and writes out a new SSTable</li>
+<li>Reduces number of SSTables</li>
+</ul>
+</li>
+<li>Major compaction<ul>
+<li>Merging compaction that results in only one SSTable</li>
+<li>No deletion records, only live data</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h3><ul>
+<li><p>Open-source clone of BigTable<br><img src="https://p.ipic.vip/a2dmo2.png" width="500px" /></p>
+</li>
+<li><p><strong>Design</strong><br><strong><font color="F54747">HFile</font></strong>: Everything is managed in HFile, the actual storage file stored in HDFS, created to store HBase’s data fast and efficiently<br><img src="https://p.ipic.vip/tj471g.png" width="500px" /><br>Key value pair in low level byte array<br><img src="https://p.ipic.vip/s2jej5.png" width="500px" /></p>
+</li>
+<li><p><strong>Data Model</strong></p>
+<ul>
+<li>HBase stores data in tables<ul>
+<li>Rows and columns</li>
+<li>Row keys are identifiers, in the form of byte arrays</li>
+<li>Row columns are grouped in column families</li>
+<li>Tables are partitioned in regions</li>
+</ul>
+</li>
+<li>HBase uses Zookeeper for locking</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>Implementation:</strong> All similar to the BigTable</p>
+<ul>
+<li>HBase master, multiple regionserver slaves (tablet server)</li>
+<li>Operations<ul>
+<li>-ROOT- table holds the list of .META. table regions</li>
+<li>.META. table holds list of user-space regions</li>
+</ul>
+</li>
+<li>Writes are appended to a commit log and then cached in memstore</li>
+<li>Reads consult memstore first</li>
+</ul>
+</li>
+<li><p><strong>Operation Modes</strong></p>
+<ol>
+<li><p><font color="F54747">Standalone Mode</font></p>
+<ul>
+<li>Default mode</li>
+<li>Does not use HDFS, but uses local filesystem instead</li>
+</ul>
+</li>
+<li><p><font color="F54747">Distributed Mode</font></p>
+<ul>
+<li>Use HDFS for storage (pseudo-distributed and fully distributed)</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="Oriented"><a href="#Oriented" class="headerlink" title="Oriented"></a>Oriented</h4><ul>
+<li><strong>HBase</strong> is distributed and column-oriented (data is stored by columns)</li>
+<li><strong>RDBMS</strong> is fixed-schema and row-oriented (data is stored by rows)</li>
+</ul>
+<p><img src="https://p.ipic.vip/i4lil2.png" width="400px" /><br>Consider a query that processes only column 2, Row-oriented needs 4 reads (each for one row), while column-oriented only needs Needs 2 reads (each for one row split), which is frequently used in data analystic</p>
+<ul>
+<li><p><strong><font color="F54747">Row-oriented</font></strong></p>
+<ul>
+<li>Easy to read a particular row of records (but may read unnecessary columns)</li>
+</ul>
+</li>
+<li><p><strong><font color="F54747">Column-oriented</font></strong></p>
+<ul>
+<li>Good if reads only involve a few columns</li>
+<li>Efficient compression</li>
+<li>Efficient sorting and indexing on compressed data</li>
+</ul>
+</li>
+</ul>
+<h2 id="CAP-Theorem"><a href="#CAP-Theorem" class="headerlink" title="CAP Theorem"></a>CAP Theorem</h2><p>Any networked system providing shared data can provide only two of the three properties:</p>
+<ol>
+<li><p><strong><font color="F54747">C: consistency</font></strong> a shared and replicated data item appears as a single, up-to-date copy<br> e.g., 3 raplicas in Google File System and want to ensure that they all have the same values</p>
+</li>
+<li><p><strong><font color="F54747">A: availability</font></strong> the updates will always be eventually executed (have no idea when would the files be updated)</p>
+</li>
+<li><p><strong><font color="F54747">P: partition tolerance</font></strong> partitioning of nodes can be tolerated</p>
+</li>
+</ol>
+<ul>
+<li><p><strong>C &amp; P:</strong> Distributed database systems</p>
+<ol>
+<li>Consistency: when a user writes data, the same piece of data is written to all storage servers</li>
+<li>Partition tolerance: all storage nodes are guaranteed to have the same piece of data (even tgough part of the system is disconnected)</li>
+<li>Availability CANNOT HOLD: If partition tolerance is provided, but when partition happens, it cannot update all the replicas</li>
+</ol>
+</li>
+<li><p><strong>A &amp; P:</strong> DNS System</p>
+<ol>
+<li>Availability: every node in system will always be available, no matter the <code>&lt;IP-name&gt;</code> pairs is valid or not</li>
+<li>Partition tolerance: every user (or machine) has its own DNS server on its own network, so network partitioning is not a problem</li>
+<li>Consistency CANNOT HOLD: For a updated IP address, it would be propagate to all DNS servers, which would take some time to do it. Before all servers recieve the update, some servers may still hold the wrong mapping, which is not consistency</li>
+</ol>
+</li>
+<li><p><strong>C &amp; A:</strong> Single-node database</p>
+<ol>
+<li>Consistency: one copy, which is consistent</li>
+<li>Availability: only update one single copy, which is available</li>
+<li>Partition tolerance CANNOT HOLD: when partition occurs, cannot access the copy</li>
+</ol>
+</li>
+<li><p><strong><font color="F54747">CAP in Reality</font></strong></p>
+<ul>
+<li>Partitions are rare; no need to forfeit Consistency or Availability, shouldn’t just give up either C or A for partition tolerance</li>
+</ul>
+</li>
+</ul>
+<h3 id="Amazon-Dynamo"><a href="#Amazon-Dynamo" class="headerlink" title="Amazon Dynamo"></a>Amazon Dynamo</h3><ul>
+<li><p>Dynamo is designed as a highly available, key-value storage system</p>
+<ul>
+<li>Failure is the normal case but many services on Amazon’s platform only need <font color="F54747">primary-key</font> (item → content) access that RDBMS is unnecessary</li>
+</ul>
+</li>
+<li><p><strong>Assumptions and Requirements</strong></p>
+<ul>
+<li>Simple read/write operations, uniquely identified by keys (objects tend to be small)</li>
+<li>Notice: ACID (Atomicity, Consistency, Isolation, Durability), which ensure the correctness of all the replicas, gives poor availability</li>
+<li>User can choose weaker consistency (C) for higher availability</li>
+<li>No security issues</li>
+<li>Dynamo aims to be always writable</li>
+</ul>
+</li>
+<li><p><strong>Design Principles</strong></p>
+<ul>
+<li><font color="3A75EA">Incremental scalability</font><ul>
+<li>System should be able to grow by adding a storage host (node) at a time </li>
+</ul>
+</li>
+<li><font color="F54747">Symmetry</font> (mainly different from BigTable)<ul>
+<li>Every node has the same set of responsibilities</li>
+</ul>
+</li>
+<li>Decentralization<ul>
+<li>Favor decentralized techniques over central coordinators</li>
+</ul>
+</li>
+<li>Heterogeneity<ul>
+<li>Workload partitioning should be proportional to capabilities of servers</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong><font color="F54747">Comparison with BigTable:</font></strong></p>
+<ul>
+<li>BigTable has more complicated key-value store, which applied column-store (column families and columns within them)</li>
+<li>Bigtable: distrbute DB built on GFS, Dynamo: distributed hash table</li>
+<li>Dynamo would not reject the updates but BigTable would reject the updates due to ensure consistency if the replicas are difference</li>
+</ul>
+</li>
+</ul>
+<h4 id="Consistency-and-Availability"><a href="#Consistency-and-Availability" class="headerlink" title="Consistency and Availability"></a>Consistency and Availability</h4><p>Strong consistency and high availability cannot be achieved simultaneously with high performance</p>
+<ul>
+<li><p>Replication of objects is good as high availability and high read performance, but need to update all of them to maintain consistency</p>
+</li>
+<li><p><strong><font color="F54747">Eventual Consistency</font></strong></p>
+<ul>
+<li>Propagate updates to all replicas “eventually” (but it may take a long time)</li>
+<li><p>Trade weak consistency for availability and performance</p>
+</li>
+<li><p>Reads may return old data that is yet updated<br>  Let the data store or the application to decide which one be picked</p>
+<ul>
+<li>Data store can choose the “last write”</li>
+<li>Application can do application-aware conflict resolution as app can aware of the meaning of the data (timestamp), or even fall back on “last write wins”</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Storage"><a href="#Storage" class="headerlink" title="Storage"></a>Storage</h4><ul>
+<li>Key space of nodes = $\{ 0, 1, \dots, n-1 \}$</li>
+<li>Set of objects $\{ o_1, o_2, \dots, o_k \}$</li>
+<li>Distributed hash table: create a hash function <code>h(x)</code> that maps an element in $\{ o_1, o_2, \dots, o_k \}$ to number $i$, and the object $x$ would be stored in inode $i$</li>
+<li>Notice: <code>h(x)</code> should be <font color="3A75EA">Deterministic</font>, <font color="3A75EA">Efficient</font>, <font color="3A75EA">Evenly distributed</font> among all nodes</li>
+</ul>
+<ul>
+<li><font color="00A300">Example:</font> <code>h(x) = MD5(x) mod n</code>, MD5 can create a 128-bit identifier</li>
+<li><p><strong><font color="880ED4">Limitation: Scalability</font></strong> If a node is add into the system, it should modify the hash function from n to n+1 nodes, which means it needs to re-organize all the objects to the new nodes.</p>
+</li>
+<li><p><strong><font color="F54747">Consistent Hashing</font></strong><br><img src="https://p.ipic.vip/2xyxze.png" width="500px" /><br>First map the nodes to a hash ring (starting from 0 to a maximize value in the clockwise direction and each node is located in one position in the hash ring), then map the object to the location of the hash ring to determine which node would store that object.</p>
+<ul>
+<li><p>The <font color="880ED4">advantage</font> is when a new server is added, only the data of the successor node is affected</p>
+</li>
+<li><p><font color="00A300">For example:</font><br>  Node 26 is added, data from node 26 is migrated to node 26 and update the routing tables</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong><font color="F54747">Replication</font></strong><br>Stores an object to N storage servers:</p>
+<ol>
+<li>1st server is the one that is closest to h(x) in the clockwise direction, i.e., successor(h(x))</li>
+<li><p>N-1 more servers, who are the clockwise successors of successor(h(x)), will store a redundant copy of object x</p>
+<font color="00A300">e.g., h(x) = 15 and N = 3, 1st copy will stored in node 20, the former copies will be stored in node 30 and 40</font>
+
+
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p><strong><font color="F54747">Consistency</font></strong></p>
+<ul>
+<li><p>Challenge:</p>
+<ul>
+<li>To decide which storage server(s) to store a particular object, without choosing all servers.</li>
+<li>Choosing all servers implies strict consistency!</li>
+</ul>
+</li>
+<li><p><strong>Strict consistency</strong>:</p>
+<ul>
+<li>Any read on a data item x returns a value corresponding to the result of the most recent write on x</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong><font color="F54747">Client-Side Consistency</font></strong></p>
+<ol>
+<li><p><strong>Strong consistency (~Strict consistency)</strong></p>
+<ul>
+<li>After the update reports a finished update, all subsequent access returns the updated value</li>
+</ul>
+</li>
+<li><p><strong>Eventual consistency</strong></p>
+<ul>
+<li>After the update reports a finished update, the system may report the old value</li>
+<li>Nevertheless, the system will eventually report the updated value.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p><strong>Configurable parameters</strong></p>
+<ol>
+<li>N = the number of nodes that store replicas of the data</li>
+<li>W [1, N] = the number of replicas that need to <font color="F54747">acknowledge the receipt of update</font></li>
+<li>R [1, N] (read) = the number of replicas that are contacted when a data object is accessed, because there are a chance that some replicas may not been updated (choose the latest version)</li>
+</ol>
+<ul>
+<li><p><strong><font color="F54747">If W + R &gt; N, then it is strong consistency</font></strong></p>
+<font color="00A300">e.g., If N = 3, W = 2, and R = 2, what may happen?</font>
+  - <font color="3A75EA">If N = 3, W = 2, R = 2, at least 2 out of 3 replicas are acknowledged during writing. Regardless which 2 replicas be read, have at least 1 server that overlaps with write that have recieved the acknowledgement. So it can ensure that user must read the latest replica (ensure at least one of the reading server have recieved the acknowledgement).</font>
+</li>
+<li><p><strong><font color="F54747">If W + R &lt;= N, then it is eventual consistency</font></strong></p>
+<font color="00A300">e.g., If N = 3, W = 2, and R = 1</font>
+</li>
+<li><p>Dynamo’s Setting: Common (N,R,W) in Dynamo: (3,2,2)</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Partitions Handling</strong><ul>
+<li><strong><font color="F54747">Sloppy quorum</font></strong><br>  All reads/writes are performed on the first N healthy nodes from the preference list, which may not always be the first N nodes in the consistent hashing ring  <font color="00A300">e.g., if node A is down, a replica is sent to node A’</font></li>
+<li><strong><font color="F54747">Hinted handoff</font></strong><ul>
+<li>Node A’ receives a hint that the update is temporary</li>
+<li>A’ sends back the replica to A if A is recovered, and removes its replica</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- 
+<img src="" width="500px" />
+<font color="3A75EA">Blue</font>
+<font color="F54747">Red</font>
+<font color="880ED4">Purple</font>
+<font color="00A300">Green</font>
+--></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog">Donald Lam</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog/2023/11/13/2023/CSCI4180/2023-11-13-CSCI4180-Key-Value-Stores/">https://github.com/DonaldLamNL/myBlog/2023/11/13/2023/CSCI4180/2023-11-13-CSCI4180-Key-Value-Stores/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/myBlog/tags/cloud-computing/">cloud computing</a></div><div class="post_share"><div class="social-share" data-image="https://p.ipic.vip/ppekay.jpg" data-sites="facebook,twitter"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/myBlog/2023/11/25/2023/CSCI4180/2023-11-25-CSCI4180-Duplication/"><img class="prev-cover" src="https://p.ipic.vip/ppekay.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Duplication</div></div></a></div><div class="next-post pull-right"><a href="/myBlog/2023/10/30/2023/CSCI4180/2023-10-30-CSCI4180-MapReduce-Applications/"><img class="next-cover" src="https://p.ipic.vip/ppekay.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">MapReduce Applications</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/myBlog/2023/09/18/2023/ESTR4300/2023-9-18-ESTR4300-hadoop-clusters-setup/" title="Hadoop Cluster Setup"><img class="cover" src="https://p.ipic.vip/ppekay.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-18</div><div class="title">Hadoop Cluster Setup</div></div></a></div><div><a href="/myBlog/2023/10/15/2023/CSCI4180/2023-10-15-CSCI4180-MapReduce/" title="MapReduce Programming"><img class="cover" src="https://p.ipic.vip/ppekay.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-15</div><div class="title">MapReduce Programming</div></div></a></div><div><a href="/myBlog/2023/10/30/2023/CSCI4180/2023-10-30-CSCI4180-MapReduce-Applications/" title="MapReduce Applications"><img class="cover" src="https://p.ipic.vip/ppekay.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-30</div><div class="title">MapReduce Applications</div></div></a></div><div><a href="/myBlog/2023/09/15/2023/CSCI4180/2023-9-15-CSCI4180-Hadoop/" title="Hadoop Overview"><img class="cover" src="https://p.ipic.vip/ppekay.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-15</div><div class="title">Hadoop Overview</div></div></a></div><div><a href="/myBlog/2023/12/15/2023/CSCI4180/2023-12-15-CSCI4180-Zookeeper/" title="Zookeeper"><img class="cover" src="https://p.ipic.vip/ppekay.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-15</div><div class="title">Zookeeper</div></div></a></div><div><a href="/myBlog/2023/11/30/2023/CSCI4180/2023-11-30-CSCI4180-Facebook-Photo-Storage/" title="Facebook Photo Storage"><img class="cover" src="https://p.ipic.vip/ppekay.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-30</div><div class="title">Facebook Photo Storage</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="this.onerror=null;this.src='/myBlog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Donald Lam</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">57</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">13</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://donaldlamnl.github.io/myWeb/#/home"><i></i><span>My Personal Website</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DonaldLamNL" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:manholam8@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Storage-Systems"><span class="toc-number">1.</span> <span class="toc-text">Storage Systems</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Key-Value-Stores"><span class="toc-number">2.</span> <span class="toc-text">Key-Value Stores</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BigTable"><span class="toc-number">2.1.</span> <span class="toc-text">BigTable</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Organization"><span class="toc-number">2.1.1.</span> <span class="toc-text">Organization</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Architecture"><span class="toc-number">2.1.2.</span> <span class="toc-text">Architecture</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HBase"><span class="toc-number">2.2.</span> <span class="toc-text">HBase</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Oriented"><span class="toc-number">2.2.1.</span> <span class="toc-text">Oriented</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CAP-Theorem"><span class="toc-number">3.</span> <span class="toc-text">CAP Theorem</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Amazon-Dynamo"><span class="toc-number">3.1.</span> <span class="toc-text">Amazon Dynamo</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Consistency-and-Availability"><span class="toc-number">3.1.1.</span> <span class="toc-text">Consistency and Availability</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Storage"><span class="toc-number">3.1.2.</span> <span class="toc-text">Storage</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/12/15/2023/CSCI4180/2023-12-15-CSCI4180-Zookeeper/" title="Zookeeper"><img src="https://p.ipic.vip/ppekay.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Zookeeper"/></a><div class="content"><a class="title" href="/myBlog/2023/12/15/2023/CSCI4180/2023-12-15-CSCI4180-Zookeeper/" title="Zookeeper">Zookeeper</a><time datetime="2023-12-14T16:00:00.000Z" title="Created 2023-12-15 00:00:00">2023-12-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/11/30/2023/CSCI4180/2023-11-30-CSCI4180-Facebook-Photo-Storage/" title="Facebook Photo Storage"><img src="https://p.ipic.vip/ppekay.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Facebook Photo Storage"/></a><div class="content"><a class="title" href="/myBlog/2023/11/30/2023/CSCI4180/2023-11-30-CSCI4180-Facebook-Photo-Storage/" title="Facebook Photo Storage">Facebook Photo Storage</a><time datetime="2023-11-29T16:00:00.000Z" title="Created 2023-11-30 00:00:00">2023-11-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/11/25/2023/CSCI4180/2023-11-25-CSCI4180-Duplication/" title="Duplication"><img src="https://p.ipic.vip/ppekay.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Duplication"/></a><div class="content"><a class="title" href="/myBlog/2023/11/25/2023/CSCI4180/2023-11-25-CSCI4180-Duplication/" title="Duplication">Duplication</a><time datetime="2023-11-24T16:00:00.000Z" title="Created 2023-11-25 00:00:00">2023-11-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/11/13/2023/CSCI4180/2023-11-13-CSCI4180-Key-Value-Stores/" title="Key-Value Stores"><img src="https://p.ipic.vip/ppekay.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Key-Value Stores"/></a><div class="content"><a class="title" href="/myBlog/2023/11/13/2023/CSCI4180/2023-11-13-CSCI4180-Key-Value-Stores/" title="Key-Value Stores">Key-Value Stores</a><time datetime="2023-11-12T16:00:00.000Z" title="Created 2023-11-13 00:00:00">2023-11-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/10/30/2023/CSCI4180/2023-10-30-CSCI4180-MapReduce-Applications/" title="MapReduce Applications"><img src="https://p.ipic.vip/ppekay.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="MapReduce Applications"/></a><div class="content"><a class="title" href="/myBlog/2023/10/30/2023/CSCI4180/2023-10-30-CSCI4180-MapReduce-Applications/" title="MapReduce Applications">MapReduce Applications</a><time datetime="2023-10-29T16:00:00.000Z" title="Created 2023-10-30 00:00:00">2023-10-30</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By Donald Lam</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/myBlog/js/utils.js"></script><script src="/myBlog/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/myBlog/js/search/local-search.js"></script><script>var preloader = {
   endLoading: () => {
     document.body.style.overflow = 'auto';
     document.getElementById('loading-box').classList.add("loaded")

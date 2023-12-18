@@ -13114,7 +13114,7 @@ The hardest problem often turns out to be finding the frequent pairs of items $\
   <entry>
     <title>Zookeeper</title>
     <url>/myBlog/2023/12/15/2023/CSCI4180/2023-12-15-CSCI4180-Zookeeper/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h2 id=""><a href="#" class="headerlink" title=" "></a> </h2>]]></content>
       <categories>
         <category>CSCI4180</category>
       </categories>
@@ -13125,7 +13125,345 @@ The hardest problem often turns out to be finding the frequent pairs of items $\
   <entry>
     <title>Facebook Photo Storage</title>
     <url>/myBlog/2023/11/30/2023/CSCI4180/2023-11-30-CSCI4180-Facebook-Photo-Storage/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h2 id="Photo-Search"><a href="#Photo-Search" class="headerlink" title="Photo Search"></a>Photo Search</h2><p>For each photo, four versions (called images) are stored and they are: <font color="3A75EA">large</font>, <font color="3A75EA">medium</font>, <font color="3A75EA">small</font>, and <font color="3A75EA">thumbnail</font></p>
+<ul>
+<li><p><strong>Challenges:</strong> Looking up a single file from a huge set of files</p>
+</li>
+<li><p><strong>Design Goals</strong></p>
+<ol>
+<li>High throughput and latency: Minimize disk I/Os</li>
+<li>Fault tolerant: Replicate photos in geographically distinct locations</li>
+<li>Cost effective: Cost per terabyte of usage must be kept low</li>
+<li>Simple: Straightforward to implement and maintain</li>
+</ol>
+</li>
+</ul>
+<h3 id="Typical-Design"><a href="#Typical-Design" class="headerlink" title="Typical Design"></a>Typical Design</h3><p><img src="https://p.ipic.vip/hibqyg.png" width="500px" /></p>
+<ul>
+<li><p><strong>CDN (content delivery network):</strong> is a network of nodes that cache contents.</p>
+<p>  For example, clients want to retrieve some photos on a website. First, it would provide a query to local DNS, if local DNS does not know the mapping, it would forward the query to higher-level DNS servers with more mapping. But “todaynic.com” DNS does not directly return the IP address for “hksimg.com”, it returns the host name for the CDN server. Then, the local DNS server would try to use the hostname to resolve the IP address and contact the AWS DNS to get the IP address.</p>
+<p>  <img src="https://p.ipic.vip/5noti4.png" width="500px" /></p>
+</li>
+<li><p>CDN serves a large-scale cache</p>
+<ul>
+<li><font color="880ED4">Pros</font>: world-wide scale deployment, fast response time</li>
+<li><font color="880ED4">Cons</font>: cannot control the content (DNS is also size limited, it would remove the old content if space insufficient)</li>
+</ul>
+</li>
+<li><p><strong><font color="880ED4">Limitations</font></strong><br>  Facebook (or social networking sites in general) has a very different access pattern from web sites that <font color="3A75EA">old contents are frequently visited</font> (<font color="00A300">e.g, friend’s album</font>)</p>
+</li>
+</ul>
+<!-- ### NFS-based Design
+The old photo infrastructure had several tiers:
+    - Upload tier receives users’ photo uploads, scales the original images and saves them on the NFS storage tier.
+    - Photo serving tier processes HTTP requests for images
+    - NFS storage tier built on top of commercial storage appliances.
+
+- An enormous amount of metadata is generated on the storage tier due to the namespace directories and file inodes.
+- The amount of metadata far exceeds the caching abilities of the NFS storage tier
+    - multiple disk I/Os per photo per upload/read request
+- High degree of reliance on CDNs = expensive -->
+<h2 id="Haystack"><a href="#Haystack" class="headerlink" title="Haystack"></a>Haystack</h2><p><img src="https://p.ipic.vip/9q6m5l.png" width="500px" /></p>
+<ul>
+<li><p><strong>User Operations</strong></p>
+<ol>
+<li><p>Web server forwards the request to the Haystack Directory</p>
+</li>
+<li><p>The Haystack Directory constructs URL for each photo</p>
+<ul>
+<li>http://<font color="F54747">&lt;CDN&gt;</font>/<font color="3A75EA">&lt;Cache&gt;</font>/<font color="00A300">&lt;Machine id&gt;</font>/<font color="880ED4">&lt;Logical volume,Photo&gt;</font></li>
+</ul>
+</li>
+<li><p>CDN looks up the photo internally</p>
+<ul>
+<li>If CDN lookup fails, the CDN strips the &lt;CDN&gt; part from the URL and contacts the Haystack Cache</li>
+<li>If Cache lookup fails, the Haystack Cache strips the &lt;Cache&gt; part from the URL and contacts the Haystack Store</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="Haystack-Directory"><a href="#Haystack-Directory" class="headerlink" title="Haystack Directory"></a>Haystack Directory</h3><ul>
+<li>Directory have a global view of the storage, similar to the namenode in HDFS</li>
+<li>Four main functions:<ol>
+<li>Provides a mapping from logical volumes to physical volumes</li>
+<li>Load balances writes across logical volumes</li>
+<li>Determines whether a photo request should be handled by the CDN or by the Haystack Cache</li>
+<li>Identifies logical volumes that are read-only</li>
+</ol>
+</li>
+</ul>
+<h3 id="Haystack-Cache"><a href="#Haystack-Cache" class="headerlink" title="Haystack Cache"></a>Haystack Cache</h3><ul>
+<li><p>Distributed hash table, uses photo’s id to locate cached data</p>
+</li>
+<li><p>Receives HTTP requests from CDNs and browsers</p>
+<ul>
+<li>If photo is in Cache, return the photo</li>
+<li>If photo is not in Cache, fetches photo from the Store and returns the photo</li>
+</ul>
+</li>
+<li><p>Add a photo to Cache if any one of two conditions are met:</p>
+<ol>
+<li><p>The request comes directly from a browser, not the CDN</p>
+<font color="F54747">Because if the photo is not in the Cache, the Cache will return the photo to the CDN, and CDN itself is also a Cache, so CDN supposely would cache the photo. It is needless to cache two copies of photo in different part of Caches.</font>
+</li>
+<li><p>The photo is fetched from a write-enabled Store machine</p>
+<font color="F54747">Because the photo fetched by a write-enabled Store machine is likely to be accessed very soon</font>
+
+
+
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="Haystack-Store"><a href="#Haystack-Store" class="headerlink" title="Haystack Store"></a>Haystack Store</h3><p>Haystack Store would pack the images together, each image is called needle, each needle consists of multiple fields<br><img src="https://p.ipic.vip/8bxm0h.png" width="500px" /></p>
+<ul>
+<li><p><strong>Haystack store file</strong></p>
+<ul>
+<li>A superblock file accompanied by many needles</li>
+<li>Log-structured format: <font color="3A75EA">append-only</font></li>
+</ul>
+</li>
+<li><p><strong>Haystack index file</strong></p>
+<ul>
+<li>provides minimal metadata required to locate a particular needle in the store</li>
+<li>Same order as store file</li>
+<li>A subset of store file, butwithout photo data</li>
+<li>For disaster recovery</li>
+<li>Less than 1% of store file</li>
+</ul>
+</li>
+<li><p><strong>Read</strong></p>
+<ul>
+<li>Each store machine maintains an in-memory index, which accessing in-memory does not count I/O</li>
+</ul>
+<ol>
+<li>Look up the in-memory index (0 I/O)<ul>
+<li>The offset in the Haystack store file is found (Assume store file is always opened)</li>
+</ul>
+</li>
+<li>Seek and read by moving the disk arm to the beginning of the needle (1 I/O)<ul>
+<li>Seek takes (1 I/O)</li>
+<li>Since the photo is sequentially written, no further I/O ops incurred</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><font color="F54747">In total, 1 I/O</font>
+
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>Write</strong></p>
+<ul>
+<li>Fault Tolerance: three replicas</li>
+</ul>
+<ol>
+<li>Append 4 images to the haystack store file<ul>
+<li>Seek to the end of file and sequentially write (1 I/O) [3 replicas, 3 I/Os]</li>
+</ul>
+</li>
+<li>Append 4 images to the haystack index file<br> Seek and then sequentially write (1 I/O)</li>
+<li>Update the in-memory index (0 I/O)</li>
+</ol>
+<ul>
+<li><font color="F54747">In total, 6 I/Os (2 I/Os * 3 replicas)</font>
+
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>Delete</strong></p>
+<ul>
+<li>Need to delete 3 replicas</li>
+</ul>
+<ol>
+<li>Remove the files in the in-memory index</li>
+<li>Mark the 4 images of file deleted (modify the flag of the needles)<ul>
+<li>Noice: these flags are located in different position, which cannot modify it by 1 I/O to update the flags in all 4 different places, and need to issue 4 non-sequential I/Os to update the files individually.</li>
+<li>4 seek-and-write for images</li>
+<li>another 4 for indexes</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><font color="F54747">In total, 24 I/Os (8 I/Os * 3 replicas)</font>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Contributions"><a href="#Contributions" class="headerlink" title="Contributions"></a>Contributions</h3><ul>
+<li>Reduced disk I/O<ul>
+<li>10 TB/node -&gt; 10 GB of metadata<ul>
+<li>~10 bytes per image, ~40 bytes per photo</li>
+<li>This amount is easily cacheable!</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Simplified metadata<ul>
+<li>No directory structures/file names<ul>
+<li>64-bit ID</li>
+</ul>
+</li>
+<li>Results in easier lookups</li>
+</ul>
+</li>
+<li>Single photo serving and storage layer<ul>
+<li>Direct I/O path between client and storage</li>
+<li>Results in higher bandwidth</li>
+</ul>
+</li>
+</ul>
+<h2 id="BLOB-Storage"><a href="#BLOB-Storage" class="headerlink" title="BLOB Storage"></a>BLOB Storage</h2><ul>
+<li>An important class of data that Facebook stores is <strong><font color="F54747">Binary Large OBjects (BLOBs)</font></strong></li>
+<li>BLOBs are <font color="F54747">immutable binary data</font> (Created once, read many times, never modified, may be deleted)</li>
+<li><font color="00A300">Examples of BLOBs: Photos, videos, documents, traces, heap dumps, and source code</font>
+
+<p>  <img src="https://p.ipic.vip/s2uerp.png" width="400px" /></p>
+<ul>
+<li><font color="3A75EA">There exist significant diversities in BLOB sizes for different types</font>
+
+
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Temperature-Zones-Exist"><a href="#Temperature-Zones-Exist" class="headerlink" title="Temperature Zones Exist"></a>Temperature Zones Exist</h3><ul>
+<li><strong>Temperatures (access frequency)</strong><ul>
+<li>Hot: BLOBs receive many requests</li>
+<li>Warm: BLOBs receive few requests</li>
+<li>Cold: BLOBs almost receive no requests<ul>
+<li>Need to be stored persistently</li>
+<li>Take days or hours to retrieve</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Strong correlation between age and temperature of a BLOB</p>
+<p>  <img src="https://p.ipic.vip/ojqtfa.png" width="600px" /></p>
+<ul>
+<li><font color="3A75EA">Request rates drop over time (temperature drop over time)</font></li>
+<li>But please notice that even the data is old, they may still regularly be accessed</li>
+</ul>
+</li>
+<li><p><strong>Warm Content is a Lot!</strong></p>
+<ul>
+<li>Warm cutoff: 1 month</li>
+<li><p>More than 80% of objects are warm of all types (Remaining 20% of objects are hot)</p>
+</li>
+<li><p>Applying <font color="3A75EA">replication</font> to warm content provides <font color="3A75EA">fault tolerance</font>, but introduces very <font color="F54747">high storage overhead</font></p>
+<ul>
+<li><strong>Haystack uses replication for fault tolerance, BUT it is not suitable for using Haystack for warm storage</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Facebook’s-BLOB-Storage"><a href="#Facebook’s-BLOB-Storage" class="headerlink" title="Facebook’s BLOB Storage"></a>Facebook’s BLOB Storage</h3><p><img src="https://p.ipic.vip/xqkjag.png" width="500px" /><br>Haystack and f4 are at the same layer, if the data is hot, they will be stored in Haystack, if they become warm, they will be moved and stored in f4</p>
+<h3 id="Haystack-Fault-Tolerance"><a href="#Haystack-Fault-Tolerance" class="headerlink" title="Haystack Fault Tolerance"></a>Haystack Fault Tolerance</h3><p>Replication Factor: to quantify the storage overhead.<br>Store x amount of data, in fact it is required to introduce some redundancy for fault torlarence, so the actual amount of data is y (&gt; 0). Replication Factor = y/x (min. = 1).</p>
+<ul>
+<li><p><font color="3A75EA">Triple replication</font> of data files + (10+2)-RAID-6 (those data would be stored in different racks or servers)</p>
+<ul>
+<li>In each host, the raid is attached which is a redundancy scheme that provides fault tolerance against failures (RAID-5: one disk failure, RAID-6: two disk failures)</li>
+<li><font color="3A75EA">(10+2)-RAID-6</font>: 10 disks are storing data, and two additional disks are storing the redundant data (parity)</li>
+</ul>
+</li>
+<li><p>Replication factor = 1.2 x 3 = 3.6x (minimum number of disk failures that cause data loss: 9)</p>
+</li>
+</ul>
+<h3 id="f4-Fault-Tolerance"><a href="#f4-Fault-Tolerance" class="headerlink" title="f4 Fault Tolerance"></a>f4 Fault Tolerance</h3><ul>
+<li>Goal: achieve storage-efficient fault tolerance</li>
+<li><p>Four types of failures:</p>
+<ol>
+<li>Drive failures, at a low single digit annual rate</li>
+<li>Host failures, periodically</li>
+<li>Rack failures, multiple time per year</li>
+<li>Datacenter failures, extremely rare and usually transient but potentially more disastrous</li>
+</ol>
+</li>
+<li><p>A datacenter is partitioned in cells, each using 14 racks of 15 hosts with 30 4TB drives per host</p>
+<ul>
+<li><font color="3A75EA">Each cell has 25PB raw storage</font>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Erasure-Coding"><a href="#Erasure-Coding" class="headerlink" title="Erasure Coding"></a>Erasure Coding</h2><ul>
+<li>Divide file to <strong>k</strong> <font color="F54747">data blocks</font></li>
+<li>Encode data blocks to additional <strong>n-k</strong> parity blocks (<font color="00A300">e.g., linear multiplication</font>)</li>
+<li>Distribute n data/parity blocks (a stripe) to n nodes</li>
+<li><p><font color="F54747">Fault tolerance</font>: <strong><font color="F54747">any k out of n blocks can recover file data</font></strong><br>  <img src="https://p.ipic.vip/jzylia.png" width="500px" /></p>
+<ul>
+<li>Redundancy Factor: $4/2 = 2\times$ (i.e., $n/k$)</li>
+</ul>
+</li>
+<li><p>Bitwise XOR:<br>  <img src="https://p.ipic.vip/cxudma.png" width="500px" /></p>
+</li>
+</ul>
+<h3 id="Reed-Solomon-codes"><a href="#Reed-Solomon-codes" class="headerlink" title="Reed-Solomon codes"></a>Reed-Solomon codes</h3><ul>
+<li>Support any n and k (provided that n &gt; k)</li>
+<li>Minimum storage redundancy to provide the fault tolerance against any n-k failures</li>
+<li><p>f4: (n, k) = (14, 10)</p>
+<ul>
+<li>any 10 of this 14 blocks can recover the original data</li>
+<li>Redundancy Factor: $14/10 = 1.4\times$ (i.e., $n/k$)</li>
+</ul>
+</li>
+<li><p><strong><font color="880ED4">Advantages:</font></strong></p>
+<ul>
+<li>Reduce storage space</li>
+<li>High fault tolerance</li>
+</ul>
+</li>
+<li><strong><font color="880ED4">Disadvantages:</font></strong><ul>
+<li>In general, k blocks needed to recover a lost block<br><font color="F54747">Expensive Repair Operarion (read amplification)</font>: It needs to read more data in order to recover some lost data. Any k out of n blocks can recover the data, so even if one block lost, still need to first read k blocks to recover the original data, in order to recover a particular block.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Erasure-Coding-in-f4"><a href="#Erasure-Coding-in-f4" class="headerlink" title="Erasure Coding in f4"></a>Erasure Coding in f4</h3><ul>
+<li>Consider a big Block size = 1GB<ul>
+<li>Each block contains multiple BLOBs</li>
+<li>Large block size reduces metadata management</li>
+</ul>
+</li>
+<li><p>Block layout in an f4 cell</p>
+<ul>
+<li>Distribute each <font color="3A75EA">RS(14,10)</font> stripe across 14 racks (10 blocks, generate 4 additional parity blocks, and distribute them into 14 nodes, each node is located in a distinct rack)</li>
+<li>Tolerate rack, host, and disk failures of an f4 cell (<font color="F54747">Up to 4 racks, up to 4 hosts and up to 4 disks</font> failures can be tolerate)<br><img src="https://p.ipic.vip/lpyz3a.png" width="500px" /></li>
+</ul>
+</li>
+<li><p>How to tolerate data <strong>center failures</strong>?</p>
+<ul>
+<li><strong><font color="F54747">Double replication</font></strong>: Replicating a stripe in two cells at two different data centers<ul>
+<li>Redundancy factor = 1.4 * 2 = 2.8x</li>
+</ul>
+</li>
+<li><strong><font color="F54747">Geo-distributed XOR coding</font></strong>: Add an XOR parity to two stripes<ul>
+<li>Redundancy factor = 1.4 * 1.5 = 2.1x<br><img src="https://p.ipic.vip/9wf1te.png" width="500px" /></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- 
+<img src="" width="500px" />
+<font color="3A75EA">Blue</font>
+<font color="F54747">Red</font>
+<font color="880ED4">Purple</font>
+<font color="00A300">Green</font>
+-->]]></content>
       <categories>
         <category>CSCI4180</category>
       </categories>

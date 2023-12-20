@@ -11596,7 +11596,11 @@ The hardest problem often turns out to be finding the frequent pairs of items $\
 <li><font color="F54747">Multiple datanode</font>: each manages storage attached to the nodes, and serves read/write data requests from clients.</li>
 </ul>
 </li>
-<li><p><strong>Data Blocks</strong><br>HDFS arranges data in blocks of very large size (128MB by default), which designed for very large files (a large block can minimize the cost of disk seeks — good for parallelization).</p>
+<li><p><strong>Data Blocks</strong><br>HDFS arranges data in blocks of very large size (128MB by default), which designed for very large files</p>
+<ul>
+<li>too small: increase management overhead + expensive in disk seeks</li>
+<li>too large: loss parallelism that cannot access the block parallelly by datanodes</li>
+</ul>
 </li>
 <li><p><strong>Namespace</strong><br>HDFS supports a traditional hierarchical file organization, one can create and remove files, move a file from one directory to another, or rename a file.</p>
 </li>
@@ -11699,6 +11703,15 @@ The hardest problem often turns out to be finding the frequent pairs of items $\
 </li>
 </ul>
 <h2 id="YARN"><a href="#YARN" class="headerlink" title="YARN"></a>YARN</h2><p>Yet Another Resource Negotiator (YARN) provides APIs for computing frameworks (e.g., MapReduce) to request and work with cluster resources (<font color="F54747">Goal: decouple programming model and resource management</font>).<br><img src="https://p.ipic.vip/3e4rai.png" width="500px" /></p>
+<ul>
+<li><strong>Workflow</strong><ol>
+<li>The client requests the resource manager for running an application master process</li>
+<li>The resource manager finds a node manager to launch the application master in a container</li>
+<li>The application master may request more resources if necessary</li>
+<li>The application master runs the requests in containers</li>
+</ol>
+</li>
+</ul>
 <!-- 
 <img src="" width="500px" />
 <font color="3A75EA">Blue</font>
@@ -13114,7 +13127,223 @@ The hardest problem often turns out to be finding the frequent pairs of items $\
   <entry>
     <title>Zookeeper</title>
     <url>/myBlog/2023/12/15/2023/CSCI4180/2023-12-15-CSCI4180-Zookeeper/</url>
-    <content><![CDATA[<h2 id=""><a href="#" class="headerlink" title=" "></a> </h2>]]></content>
+    <content><![CDATA[<!-- ## HBase
+HBase depends on ZooKeeper and by default it manages a ZooKeeper instance as the authority on cluster state.
+<img src="https://p.ipic.vip/kk46yy.png" width="400px" />
+ -->
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><ul>
+<li><p><font color="F54747">Zookeeper</font> is a highly-available, high-performance coordination service:</p>
+<ul>
+<li>Key features: scalable, distributed, configuration, consensus, group membership, leader election, naming</li>
+</ul>
+</li>
+<li><p>It basically keeps track of information that must be synchronized across your cluster</p>
+<ul>
+<li>Which node is the master?</li>
+<li>What tasks are assigned to which workers?</li>
+<li>Which workers are currently available?</li>
+</ul>
+</li>
+<li><p>It’s a tool that applications can use to recover from partial failures in your cluster</p>
+</li>
+<li><p><strong><font color="F54747">Zookeeper Guarantees</font></strong></p>
+<ol>
+<li>Clients will never detect old data</li>
+<li>Clients will get notified of a change to data they are watching within a bounded period of time</li>
+<li>All requests from a client will be processed in order</li>
+<li>All results received by a client will be consistent with results received by all other clients</li>
+</ol>
+</li>
+</ul>
+<h3 id="Primitive-Operations"><a href="#Primitive-Operations" class="headerlink" title="Primitive Operations"></a>Primitive Operations</h3><ul>
+<li>ZooKeeper uses a protocol called <strong>Zab</strong> that runs in two phases<ul>
+<li><strong><font color="F54747">Leader election</font></strong><ul>
+<li>Select a member called the <font color="F54747">leader</font> (master), and holds a “lock” on that data</li>
+<li>Other machines be <font color="F54747">followers</font> (cannot become leader until that lock is released)<br>This phase is finished once a majority (or quorum) of followers have synchronized their state with the leader</li>
+</ul>
+</li>
+<li><strong><font color="F54747">Atomic broadcast</font></strong><ul>
+<li>All write requests are forwarded to the leader, which broadcasts the update to the followers. The leader commits the update if a majority agree (either succeeds or fails)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://p.ipic.vip/zatc6n.png" width="500px" /></p>
+<ul>
+<li>All servers store a copy of the data (in memory)</li>
+<li>A <font color="F54747">leader is elected at startup</font></li>
+<li><font color="F54747">Followers service clients, all updates go through leader</font></li>
+<li>Update responses are sent when a majority of servers have persisted the change</li>
+</ul>
+<h2 id="Data-Model"><a href="#Data-Model" class="headerlink" title="Data Model"></a>Data Model</h2><p>A client can create a <strong><font color="F54747">znode</font></strong>, <font color="3A75EA">read and write data to znode</font> inside Zookeeper</p>
+<ul>
+<li>Znodes are organized in a directory-like structure<ul>
+<li>Call the intermediate nodes <font color="F54747">groups</font></li>
+<li>Call the leaf nodes <font color="F54747">group members</font><br><img src="https://p.ipic.vip/rjhz4s.png" width="200px" /></li>
+</ul>
+</li>
+</ul>
+<p>Znodes are not designed for general data storage. Instead, znodes map to <font color="F54747">abstractions of the client application</font> (<font color="00A300">e.g., metadata</font>)</p>
+<ul>
+<li><p>Zookeeper doesn’t use handles to access znodes</p>
+<ul>
+<li>Use absolute paths (e.g., <code>/zoo/cow</code>) directly</li>
+<li>Saves overhead of calling <code>open()</code> or <code>close()</code></li>
+</ul>
+</li>
+<li><p>Data access is <font color="F54747">atomic</font><br>  A client reading the data stored at a znode will <font color="F54747"><strong>never</strong> receive only <strong>some</strong> of the data</font>; either the data will be <font color="F54747"><strong>delivered in its entirety</strong>, or the read will <strong>fail</strong></font></p>
+</li>
+</ul>
+<h3 id="Types-of-znodes"><a href="#Types-of-znodes" class="headerlink" title="Types of znodes"></a>Types of znodes</h3><ol>
+<li><p><strong>Persistent (or regular) znodes</strong></p>
+<ul>
+<li>They remain stored until explicitly deleted</li>
+<li>Usually represent groups, or intermediate nodes (Client — Zookeeper)<br><font color="00A300">i.e., assignment of tasks to workers must persist even if master crashes</font><!-- - Clients manipulate persistent znodes by creating and deleting them explicitly -->
+</li>
+</ul>
+</li>
+<li><p><strong>Ephemeral znodes</strong></p>
+<ul>
+<li>They go away if the client that created it crashes or loses its connection to ZooKeeper ()</li>
+<li>Either delete them explicitly, or let the system remove them automatically when the session that creates them terminates</li>
+<li>Sessions have an associated timeout. Zookeeper considers a client faulty if it does not receive anything from its session for more than that timeout<font color="00A300">i.e., if the master crashes, it should release its lock on the znode that indicates which node is the master!</font></li>
+<li>Usually represent the existence of an client, i.e., <font color="F54747">leaf node</font></li>
+</ul>
+</li>
+</ol>
+<h3 id="Notifications-Watches"><a href="#Notifications-Watches" class="headerlink" title="Notifications/Watches"></a>Notifications/Watches</h3><ul>
+<li><p>A client can register for notifications on a znode, clients will reviece notifications when a znode changes</p>
+<ul>
+<li>Avoids continuous polling<font color="00A300">e.g., A client may wait on the creation of a znode. If the znode is created, the watch is triggered</font>
+</li>
+</ul>
+</li>
+<li><p>Watchers are <font color="F54747">triggered only once</font></p>
+<ul>
+<li>Clients need to <font color="3A75EA">reregister the watch</font> to receive multiple notifications</li>
+</ul>
+</li>
+</ul>
+<h3 id="Znode-creation"><a href="#Znode-creation" class="headerlink" title="Znode creation"></a>Znode creation</h3><ol>
+<li><p><code>PERSISTENT &amp; EPHEMERAL</code></p>
+<ul>
+<li>The naming of such znodes has to be <strong>specific</strong> and <strong>unique</strong>, if a client with a <strong>duplicated pathname</strong> is joining a group, it will be <font color="3A75EA">rejected</font></li>
+</ul>
+</li>
+<li><p><code>PERSISTENT_SEQUENTIAL &amp; EPHEMERAL_SEQUENTIAL</code></p>
+<ul>
+<li>The naming of such znodes contains a <font color="F54747">client-defined prefix</font> and the <strong>monotonic increasing</strong>, <strong>numerical postfix</strong>: generated by the Zookeeper service.</li>
+<li>E.g., <font color="00A300">Creating a sequential znode using the name <code>/zoo/fubar</code>, the resulting name will be: <code>/zoo/fubar001</code></font></li>
+<li>Another client using the same name <code>/zoo/fubar</code> to create a sequential znode <strong><font color="F54747">will not be rejected</font></strong>, and the resulting name will be <code>/zoo/fubar002</code></li>
+</ul>
+</li>
+</ol>
+<h2 id="Client-APIs"><a href="#Client-APIs" class="headerlink" title="Client APIs"></a>Client APIs</h2><ol>
+<li><p><code>create(path, data, flags)</code>:</p>
+<ul>
+<li>Creates a znode with pathname; flag specifies the type of znode</li>
+</ul>
+</li>
+<li><p><code>delete(path, version)</code>:</p>
+<ul>
+<li>Deletes the znode path if that znode is at the expected version</li>
+</ul>
+</li>
+<li><p><code>exists(path, watch)</code>:</p>
+<ul>
+<li>Returns true if the znode with pathname exists</li>
+</ul>
+</li>
+<li><p><code>getData(path, watch)</code> / <code>setData(path, data, version)</code>:</p>
+<ul>
+<li>Reads/writes data in the znode</li>
+</ul>
+</li>
+<li><p><code>getChildren(path, watch)</code>:</p>
+<ul>
+<li>Returns the set of names of the children of a znode</li>
+</ul>
+</li>
+<li><p><code>sync()</code>:</p>
+<ul>
+<li>Waits for all updates pending at the start of the operation to propagate to the server that the client is connected to</li>
+</ul>
+</li>
+</ol>
+<h2 id="Programming"><a href="#Programming" class="headerlink" title="Programming"></a>Programming</h2><ul>
+<li><strong><font color="F54747">Zookeeper object</font></strong><ul>
+<li>The main object controlling every aspect of Zookeeper</li>
+<li>Instantiate this object when connecting to Zookeeper.</li>
+<li>Using the object methods, you can: <font color="3A75EA">create</font> or <font color="3A75EA">delete</font> znodes, <font color="3A75EA">get</font> and <font color="3A75EA">set</font> znode data, <font color="3A75EA">query</font> a znode’s child list</li>
+</ul>
+</li>
+<li><strong><font color="F54747">Watcher interface</font></strong><ul>
+<li>It is the Zookeeper-specific event. It calls back when:<ul>
+<li>the concerned node is <font color="F54747">created/deleted</font></li>
+<li>the concerned node has its list of <font color="F54747">children changed</font></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Watcher-Interface"><a href="#Watcher-Interface" class="headerlink" title="Watcher Interface"></a>Watcher Interface</h3><ul>
+<li><p>Notification Mechanism<br>  <img src="https://p.ipic.vip/7xclo9.png" width="500px" /></p>
+</li>
+<li><p>Watch creation (install watches)</p>
+<ul>
+<li><code>zk.exists()</code></li>
+<li><code>zk.getChildren()</code></li>
+<li><code>zk.getData()</code><br>  <img src="https://p.ipic.vip/wy1crq.png" width="500px" /></li>
+<li>All functions are non-blocking calls, meaning that they <font color="3A75EA">return the answers immediately</font></li>
+<li>A separate thread will listen to the watcher and be triggered to execute <code>process()</code></li>
+</ul>
+</li>
+<li><p>Watch Triggers<br>  <img src="https://p.ipic.vip/8x4c1q.png" width="500px" /></p>
+</li>
+</ul>
+<h3 id="Distributed-Lock-Service"><a href="#Distributed-Lock-Service" class="headerlink" title="Distributed Lock Service"></a>Distributed Lock Service</h3><ul>
+<li><p>Lock and critical section:</p>
+<ul>
+<li>When I’m the first one who takes the lock, others should wait until I leave.</li>
+<li>Others will then race in order to get the lock.</li>
+</ul>
+</li>
+<li><p>Mapping to Zookeeper:</p>
+<ul>
+<li>When a client is the first one who creates an <font color="F54747">EPHEMERAL znode</font>, that means “client takes the lock”</li>
+<li>Other clients would fail to create such a znode. They attach a <font color="3A75EA">Watch to the created znode</font></li>
+<li>When the first client dies, all waiting clients will be triggered (EventType.NodeDeleted)</li>
+<li>They can race for the lock by creating the same <font color="F54747">EPHEMERAL znode</font><br><img src="https://p.ipic.vip/t8svwo.png" width="500px" /></li>
+</ul>
+</li>
+</ul>
+<h4 id="Herd-effect"><a href="#Herd-effect" class="headerlink" title="Herd effect"></a>Herd effect</h4><ul>
+<li><p>what if there are hundreds of clients waiting for the lock?</p>
+<ul>
+<li>Many notifications are sent</li>
+<li>Many clients awake and rush for the lock together</li>
+<li>Only one of them gets the lock</li>
+<li>The situation happens again and again…</li>
+</ul>
+</li>
+<li><p>Using a set of <font color="F54747">EPHEMERAL_SEQUENTIAL</font> clients!</p>
+<ul>
+<li>give up the property that a released lock will be randomly held by another client</li>
+<li>New property: the client with the (numerically) smallest pathname will hold the lock</li>
+<li>Using <code>exists()</code>, a client will only watch the deletion of the client that is just smaller than its pathname<br><img src="https://p.ipic.vip/b2mo4j.png" width="400px" /></li>
+</ul>
+</li>
+<li><p>lock without herd effect<br>  <img src="https://p.ipic.vip/mortvn.png" width="500px" /><br>  <img src="https://p.ipic.vip/zv0scx.png" width="500px" /></p>
+</li>
+</ul>
+<!-- 
+<img src="" width="500px" />
+<font color="3A75EA">Blue</font>
+<font color="F54747">Red</font>
+<font color="880ED4">Purple</font>
+<font color="00A300">Green</font>
+-->]]></content>
       <categories>
         <category>CSCI4180</category>
       </categories>
@@ -13986,5 +14215,21 @@ The old photo infrastructure had several tiers:
       <tags>
         <tag>cloud computing</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>final</title>
+    <url>/myBlog/2022/12/15/2023/CSCI4180/final/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="65fc54eea889f86379185a47096b4eccad8dd9f2268566d51c136df8bbba4f0a">04e3ea985460fce0846acaec947c8d09b6cb224400923df741cec85a690bc633b036a5d1d58bd6f99e2c49e86ec3a78d91a47a2aca1973456f44583ab5ddcda4194e18ec5378d98cac2210202b58648f756d8f81aac5ed0be761420d0821ff2e751edff7f9870a2e83f4bfb9ce89691d238ba264d0d912106e969130d11f94771e44b1f1730b8c16c728589725a23c96109bcac5ce78e8194ef8eee496f6d52d78711cf3b9bdedd77d56f95ca4c03e990e42db615f535e20b24241a2c7aa29ae6377266c6a5ba3697df26659555044b3639879f88c7ba65128bb11b90904e04c90154bf4435f0a899b92b759f85481b50898dd97ec3c9e06e812717ade471059f924182bce897ccfcf8de16d14c4a665a08dd22494b8e7a555c6daa14a89571832953984753b5282524105567dc8302c91d570e95e790b9a0d44465d9969c670af88bb46bd5c138ab678564718ae7225cd8d92278b9b5c43221bf5040386112de93992ef0f8a3caefcf9ae414bd7e05c80f362d96a6c5aa6e441d0ec2e60db5d93f1a9720a8f45138a40d988490fc91d371a4601117a21a0b94ff1a07c56013bd7dbd0a87dbd781de2a1153589118d48513de55f4d8f5870ef717120f4538f4ae381130a42bb604eb417d511833ea7526e05717566e012a19c1d3be510f0a22ee2bb821d10fd3e8d245117bb5ca5759bb2e20693c2313c85e8da8cf845d20aeee1e29efe37577ab2af34db57696b4f4367d4bda87f1dbd13df19268bbbb9bcf447c7880144f017ab80bd8efc9e9107dfa26d26851996fb455e51a6e13091fe29de92e628a0ac03dbb0adc31492bc1294c799195803e4b630e64e2a039c91fc08ced3581647d2ef49706edce9c398212803639bef82ba691f977b58164c10caeef5210e26e7d46d600bb9a44aa96c7ece55e498092a0cba5e9f1c7a46a5b558709d243741bb15bafeafa2ba2d401ee24e6193501563672ee2f47fedbe81c91a157f658c3e705f055563e29297545791ad53f7f9f39b33da5a92b0a2693cda9f90236ae9ce355929563d8039aadd58e2df4d6115a5880fd35c4b194894754c534b4c7e2ffdfb372deb4a8f9fdcfd287b51dcf7b13fffb53c28ccaa668cbb093cae590e59d6b66ab3e4c0c42b77ef8145ab410b839dcb44b43b7e78eea28936e830986dc7b2a076ef380e61b0c7e5b5eb2db41b319129c18208dba73dc6e7d2e48f6a9df11444c37cf489ed9af9c690a4d9d7a678ef18fc45366497ce5415965c882ff0039ff128721bfa760f1e653921a674c739cae07a7f9a1d897bc985b67b2a86fc9ae357172c09d6341d265b939dc1b51cfcea112e795e6b1e112a79b4183a8632d3b701569853f8fda3eaeaaea0f32ee2e2c40b80e843b5c099a1ad1702bf33dd285761bcb3534f75d2f90c511f69e7e6a5d853d52e39c4d7b2dd2d555ce2bed1a1d04e04d957ab2023f46a02a2d94840c1f82f3136869b21114a48e30a982a812b39ec441d41fed0331746ba8d61b49efffbf444790ad961c51388810643f5d36d4550ae2cdeec0b3a9ab8c77d3da90962d9b490c42cc1bb0c956503e03043b2209abfed7f947dd2a693599b7a689b84dd752b29444d403aba20277c0e618c7bba2633b34835db234010abb477bf9a412d97695bd97daf5f253974df661f85c593bf46173daf8897b23b97951d50742da3d5699ae27096586dc8bad4def41e540dbaf1fa5329205b7f2bdde96781242236152096a760ea5a95e7fa11b792c46b2a7959c58f8686db4fe7e679c694a5c2b70b2bdb1775c4ebb1dba90ee2d4cb941044bb1f27277c60c14d07822ba5331830e4c3a79dde781d9df74ee3c7b5e7e5244253ad70f60975dcdeb49aaf3e10003fbea9bfc9ae817003b46eecebc42628d107c6d971b09c4fd00fe2599a3dd078023078e0c40ecc75de300d3cb1d7a922d45d7049c75e0e37da18a30195a764a20646bef4c1d0ad445616e782c61c2bec48829a8882042d35856ce994fe8d08ddc48b4c02552cb5ee96ff2cfb4e46458827e98b8d12d2f7df37bfb192ef462d4b1a4c7ef1243174011cbcbe5821a81db3e1660b377e312c0b64ac82c5e8efdd11f7a163c427276cd097a3b93198391f4546c21ba453f38dfcd141263d82a318a3246acef7fcf77195e88f60295a5466c33cdf48951d9b332bcf8c0c35f1c17d3508500f61cc66291ec805ac32f8b5c855d61794a5c9fb53854739a46e4847700f6ca266d2c6841898e85ac8ccb698df08040bad2a87adc28d423b55c7ac2d7acf1c3902d1534ad3a6bc6665478ab918e130edc7312a31e814e970af0b5a6a6479c275e98737df14e2d7d60786a8f52b692067d963fbe226de968764916ea35902dc267da8296d2b6f02d8b693cad28dee0ee00aade3e1c852b7016eb491a9846c71be81f58eb4f17212c1a63811dc892f0f4a53a87da3bb6d448ead402524103ab8bea84440a2b27364fdbcfb9196efdbbe6ac973b300e697279f10b31027ee7d9bd33a38e38166f5a00f4aecd9fca9af741bb400b74fe2acc242728c2fadb3927deccbdd06f9058e9626a695916c4964d91edb96005a3bc7da942ae4037a596ee7b75f47825a7ba20b818abc963bb3c02cd8b5d14b1eaf9478ac9859b86d5bedc16485f08508c2afc8135e47112f9270218fdf81b09d5ef3383484de3a60341df713649a8761b9485453fe8a1e881927e9a88f7e7ef95f468e56ee27d5a6aba290fc41a850df72d3adf8f199d31b2f2ca3899cc23a8685c1c0e8e72429d16a11e0ef614e03da4085821746f07b44140f85eba8319f5fa0c797929c772990d853fb529b0b064973369b86a67967cf9ac91710aaa68d895a3b4db95e50569543fd303b2a43cc7b9ea20516fe6749c4c2847661ca6f1e55163fad7a6325a1fdcf25fc350ce92a6e1765de75043cddfdfb7cb4f92985255765f1a410131abed97e35be3042da4165be648aea8792b3f12a661055e79da2eeda317694f95bfbc69c9ee92ba935ccf9b6f73df6cfe84373acee0c9cb478893ef045c88cc28bf7e9a8c4a327e7f90e48b9625ef7c25db54a5bf90e733cb259e63eb36bd73c195ff80e839867f80d363a15af3130bb86a0b678ebbc5beb508982de285d7cb88c0a08bf6e7fed5cbd066c49c0910e8dc69e28a880867f17c695e626b60167f6a8b3e1676e6e6069134ad8a083fdbf5d5726621cc3f57398b22113215683493c431aba9f86005c2e37274c78ffb79a6ae1c66b705008398a16551c5068fafadc6105497efb8e47399761a0edacf7285103080e33496e3e47afa53809e3c5e299bbd5e691ca68b24f0bb86ffd9bb8b8b2a12a2acffcd1f7d1d900618f151550f5773a36a36dda48428743d6252683068c07378990bdcf5a614968398db071e92e599dc2f8a61fa985c9704a986a94b0df6cef8d7998ddcef99fe7efd8fc860e219af6436593fd73603c378faa734017b5cb044aee09cd8f7057066ac79a09284d26509853a423f1ad373d1b763d03dee4607fbba73be52708ff2d57d4cf34579d2009843e62ea3de9d00753745cbe25e84e5cb7f426f0d5f1277c84e6cf3a30b50ff4dc444e7dc155c40309e8771e48abeea08d3aa9218dcd506fcf6f9a044dd5b2736942c5d3b4bbe28d6f92062d1d7bd54ee2bb2b43b9df5bd51a89378b7127251d61e6ed60a2086e6768e5795ef8340a9022156ddda69fd41d608132899d078d573eaaceea7b7537a505a45ea954d58dc6c980c910f18c6fc22f3654a1614a921ce6984c1895405791f5a85996fc13a86e2f7cbd7f8a429309ea508c298e9d08a10629d595128562ccfa58f7c117c23beabfa9559bba3fa5b8653d77ac789feb8bb0a537c5787bf70f41e84e6b5c8a43b175fc4fa04c3476195df3b184873ea0fd94c0d5505eca3ccd3d97e28519b956c68c19681bbccc7e3f5d3754afb82240c06e40c80d13e557914ae3cdc2ef2f3e1f03b54f2fd92753f46f6343911a2438225c52f2cf304b7def5be8740e28dc97e8241fe8a671d2139150afdf11a2e7c870cced3c878d9539c2252c6d6aa7f857858808b6c13af76a77b22f8e563d0c3674527cf405485346bb3e4ffdf9808a0757f39ad1538868456070d170a567b16b124a866d3b3625d215f86e601878906c4c3d84df9f5ec0e8af00caaf9a78488467d43223a95e330e4db9c0e5e8014d70d8f69e9c3aae97916e1a8f57e6ebde412f1d2d7809f9e8bdbc4e01f39f9f1a1e78fc5bbb9ceb0c03919a8e06536f341a3fcf3cd6580ac575b8b682e3063d796632c8437370ced235f90c7eeed26ea6645c2299ad030ef0ecc11d325ed40335a755f795872c6a1bc89c162ff2d314eb763b8f12a1e0ddd8a4e86f07e3c298ed3c8b8c466e6802e2d38b99a53f6573f79e5cb74c6bdf7aa2d168eec35691a2ff9a9eaf303b29ed94c270667d7db23916bc3d5720505629b8d8a64a97f973a0ea5aa7310b2b11b7ca5de59dc399581021ce70ee53e414624f519b2ea7e53d51f0d7024d6ba719b4d076b2999a26784650a8bb8d4988db2e9ecad62ffe52765cb1db49792554cd959de5e01ba381dacb4d9f6af0ef0dc45b9eb6e30b7e2567378a2e686b01f685b4442f390656a9ff4f90845a5f6c534cc3fddef806fe0e875de27d5412e6c3d7c3c21e02f19aa67e0a36d7f2eabd07a399fe348148234952ff3b823546551e81c6c854e3c2f0e9b3389068ebcf33858eb933feaf50ef67feb0f9461015bb536777ca65148d1a4ccf87caa988e9a7a0eb6d2cb3f3d90f8d9fa300b32c905e2cbef13e8e161a682cf872c5b3587cde5590664930dd51cabd52bcb638c1ee2495251600e1c02f56a47987ea1063f6d536f6f43976dfb907b397d28adde21097f90570a6c3379cc622794fcdbcd06458593637537f514aa584de07163a8b6a238a536ceac911ae2491838b3f5a7da8a91843bcdd3a744135cf7866ac4c664d260c9ae4070dea0e533756ee03f37c4769eba2400f4369c6085d7fff74276f319fd76e59603548410397cf9f1eb41032f816a65a02d8aae1db2d60dfaf7c1419f3368f6b3796410f784010c7780ab37ede249e9d0a6eda7849c48ddcfaba135ec1bc4d3143b535ab5a3f331232826aae412ce0b8355e932e91c6ec76dd936b632ec535b9ea7bd60ed470cbb6b483df76b3cb0e028457ea86f1634618b0ff0567e10157ba2a3161440b6a6b5027749851b483be44d66de643eb1b86ad6731f14c848f00379bf13e7545c7906880066cf9d07225298d319c7cda97a4789fbd83e1c7fef06ca6baab87952d9215214aed253fa9b23670425e4f6c4662bef74f185ae09ed46dfb385edf9ee9b94cfb79611c542ab11c9a23ed3f426fb29e1a735c438acbdd6e39f684460b3af70f54ff4a30c2563064e8ef0ba77c22c67c82d04a13d89f62730ddda75e50f61ffc2445ba3250780a4facf880f542ea042cf585b5f0280bcf48a2ca4b53bfdde6e94af2d4d1eb4221badb9d2e22bc9db6c62e716ce4651748848b3aa84aae12db77aeb9b65eff12213c41802d8989616fcbf9aa6224989189dffbd94f9a06fb36e5a9dfc6dfc0fc85decf0114ced331f7dda9837f01c368c19d570e0e1926368ab4cecd592cac68469da529566ab542e0cfe909065d37cab322889c5e3f235be7377a15ee06bc2bda7e5632b5236e9633a80fc6838ba5092986ce1d0832d7fb37c76763222e08e520e548f4ff417b8746da6e43f302e1c47865f64abe0ec5bf46bd38d42c16d9bca1963a22a3ce184b3597a325b96a885325eec8bb9834ee8fa48d1a70a5758ebd44c81ec13ef19d519431d86a28a8534688b003510cec027f0c0dbe78a589e86a42db4fb773580a2f5d3dc07c5740846d0bbd8a0d84f4997a8cf4503969be29188bf23cb515f9373889b10ef3704f48cd74d972d9e44e4b1178b8da79bbb5bd09dfc25b7c5199e4ae824c878ca8047964aec4efe44058001e7652184f5ee947f4978aee5a42af8a700d7f17e4a231bab33e190943c75a09feed5d1d5eac3e0d8e7ae2eff72acd12c121630ad74e8d7f210fffc268046cb90ca98141829fe9f98281fa969a62c076757bdadc49d3f9d12c39b83648c2a6bb8da315b6d9345ab83d41d727720382cb224930c9ee70e31b7ded7976506ddcd13a2fdb344725054dc43dee2f9c6c9017a4fa71a8395d21</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/myBlog/lib/hbe.js"></script><link href="/myBlog/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
   </entry>
 </search>

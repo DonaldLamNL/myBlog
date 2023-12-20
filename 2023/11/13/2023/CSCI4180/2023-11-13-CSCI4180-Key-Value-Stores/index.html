@@ -318,7 +318,7 @@
 <ol>
 <li>Updates committed to a commit log</li>
 <li>Recently committed updates are stored in memtable (The data will first store in the memtable until it’s full)</li>
-<li>Older updates are stored in a sequence of SSTables (It would be pushed into the SSTable Files with sorting proces)</li>
+<li>Older updates are stored in a sequence of SSTables (It would be pushed into the SSTable Files with sorting process)</li>
 </ol>
 </li>
 <li><p><strong>Read</strong></p>
@@ -572,7 +572,7 @@
 <li><p><strong>Eventual consistency</strong></p>
 <ul>
 <li>After the update reports a finished update, the system may report the old value</li>
-<li>Nevertheless, the system will eventually report the updated value.</li>
+<li>Nevertheless, the system will eventually report the updated value</li>
 </ul>
 </li>
 </ol>
@@ -587,11 +587,17 @@
 </ol>
 <ul>
 <li><p><strong><font color="F54747">If W + R &gt; N, then it is strong consistency</font></strong></p>
-<font color="00A300">e.g., If N = 3, W = 2, and R = 2, what may happen?</font>
-  - <font color="3A75EA">If N = 3, W = 2, R = 2, at least 2 out of 3 replicas are acknowledged during writing. Regardless which 2 replicas be read, have at least 1 server that overlaps with write that have recieved the acknowledgement. So it can ensure that user must read the latest replica (ensure at least one of the reading server have recieved the acknowledgement).</font>
+<ul>
+<li><font color="00A300">e.g., If N = 3, W = 2, and R = 2, what may happen?</font></li>
+<li><font color="3A75EA">If N = 3, W = 2, R = 2, at least 2 out of 3 replicas are acknowledged during writing. Regardless which 2 replicas be read, have at least 1 server that overlaps with write that have received the acknowledgement. So it can ensure that user must read the latest replica (ensure at least one of the reading server have received the acknowledgement).</font>
+</li>
+</ul>
 </li>
 <li><p><strong><font color="F54747">If W + R &lt;= N, then it is eventual consistency</font></strong></p>
-<font color="00A300">e.g., If N = 3, W = 2, and R = 1</font>
+<ul>
+<li><font color="00A300">e.g., If N = 3, W = 2, and R = 1</font>
+</li>
+</ul>
 </li>
 <li><p>Dynamo’s Setting: Common (N,R,W) in Dynamo: (3,2,2)</p>
 </li>

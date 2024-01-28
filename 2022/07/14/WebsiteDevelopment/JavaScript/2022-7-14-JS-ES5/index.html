@@ -1,0 +1,583 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>JavaScript - ES5 | myBlog</title><meta name="keywords" content="JavaScript"><meta name="author" content="Donald Lam,manholam8@gmail.com"><meta name="copyright" content="Donald Lam"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="數組方法 forEach()方法 作用：遍歷數組 語法：  1234&#x2F;&#x2F; 參數一、value: 數組當前的值&#x2F;&#x2F; 參數二、index: 數組當前的索引&#x2F;&#x2F; 參數三、arr: 數組對象本身array.forEach(function(currentValue, index, arr))      filter()方法  作用：創建一個新的數組，新數組中的元素是通過檢查指定數組中符合條件的所有元素，主">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript - ES5">
+<meta property="og:url" content="https://github.com/DonaldLamNL/myBlog/2022/07/14/WebsiteDevelopment/JavaScript/2022-7-14-JS-ES5/index.html">
+<meta property="og:site_name" content="myBlog">
+<meta property="og:description" content="數組方法 forEach()方法 作用：遍歷數組 語法：  1234&#x2F;&#x2F; 參數一、value: 數組當前的值&#x2F;&#x2F; 參數二、index: 數組當前的索引&#x2F;&#x2F; 參數三、arr: 數組對象本身array.forEach(function(currentValue, index, arr))      filter()方法  作用：創建一個新的數組，新數組中的元素是通過檢查指定數組中符合條件的所有元素，主">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://p.ipic.vip/09h6nq.webp">
+<meta property="article:published_time" content="2022-07-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-08-21T16:00:00.000Z">
+<meta property="article:author" content="Donald Lam">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p.ipic.vip/09h6nq.webp"><link rel="shortcut icon" href="/myBlog/img/favicon.png"><link rel="canonical" href="https://github.com/DonaldLamNL/myBlog/2022/07/14/WebsiteDevelopment/JavaScript/2022-7-14-JS-ES5/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/myBlog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/myBlog/',
+  algolia: undefined,
+  localSearch: {"path":"/myBlog/search.xml","preload":true,"languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'JavaScript - ES5',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-22 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">13</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">13</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://p.ipic.vip/09h6nq.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/myBlog/">myBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">JavaScript - ES5</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-07-13T16:00:00.000Z" title="Created 2022-07-14 00:00:00">2022-07-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-08-21T16:00:00.000Z" title="Updated 2022-08-22 00:00:00">2022-08-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/myBlog/categories/Web-FrontEnd/">Web FrontEnd</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="JavaScript - ES5"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="數組方法"><a href="#數組方法" class="headerlink" title="數組方法"></a>數組方法</h2><ol>
+<li><code>forEach()</code>方法<ul>
+<li>作用：遍歷數組</li>
+<li>語法：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 參數一、value: 數組當前的值</span></span><br><span class="line"><span class="comment">// 參數二、index: 數組當前的索引</span></span><br><span class="line"><span class="comment">// 參數三、arr: 數組對象本身</span></span><br><span class="line">array.<span class="title function_">forEach</span>(<span class="keyword">function</span>(<span class="params">currentValue, index, arr</span>))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p><code>filter()</code>方法</p>
+<ul>
+<li><p>作用：創建一個新的數組，新數組中的元素是通過檢查指定數組中符合條件的所有元素，<font color="#f54747">主要用於篩選數組</font></p>
+  <font color="#f54747">注意：它直接返回一個新的數組</font>
+</li>
+<li><p>語法：</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 參數一、value: 數組當前的值</span></span><br><span class="line"><span class="comment">// 參數二、index: 數組當前的索引</span></span><br><span class="line"><span class="comment">// 參數三、arr: 數組對象本身</span></span><br><span class="line"><span class="keyword">var</span> newArr = arr.<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params">value, index, arr</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> (value % <span class="number">2</span> === <span class="number">0</span>)    <span class="comment">// 篩選條件</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><code>some()</code>方法<ul>
+<li>作用：用於檢測數組中的元素是否滿足指定條件，並返回一個 boolean值</li>
+<li>備註：如果找到一個滿足條件的元素，則終止循環，不再繼續查找</li>
+<li>語法：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 參數一、value: 數組當前的值</span></span><br><span class="line"><span class="comment">// 參數二、index: 數組當前的索引</span></span><br><span class="line"><span class="comment">// 參數三、arr: 數組對象本身</span></span><br><span class="line"><span class="keyword">var</span> flag = arr.<span class="title function_">some</span>(<span class="keyword">function</span>(<span class="params">value, index, arr</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> value &gt;= <span class="number">20</span>      <span class="comment">// 條件</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p>遍歷問題</p>
+<ol>
+<li><p>遍歷規則：</p>
+<ul>
+<li><code>forEach()</code>方法如果遇到<code>return true</code>不會終止遍歷</li>
+<li><code>filter()</code>方法如果遇到<code>return true</code>也不會終止遍歷</li>
+<li><code>some()</code>方法如果遇到<code>return true</code>就會終止遍歷</li>
+</ul>
+</li>
+<li><p><code>return</code>問題：</p>
+<ul>
+<li><code>return true</code>是為了表示尋找到該元素，就會終止遍歷</li>
+<li><code>return false</code>則表示沒有找到該元素，因此會繼續遍歷</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="字符串方法"><a href="#字符串方法" class="headerlink" title="字符串方法"></a>字符串方法</h2><ol>
+<li><code>trim()</code>方法<ul>
+<li>作用：用於刪除一個字符串兩端的空白字符串</li>
+<li>備註：返回的是一個新的字符串，不影響原字符串本身</li>
+<li>語法：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str.<span class="title function_">trim</span>()</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="對象方法"><a href="#對象方法" class="headerlink" title="對象方法"></a>對象方法</h2><ol>
+<li><code>Object.keys()</code>方法<ul>
+<li>作用：用於獲取對象自身所有的屬性名，返回一個由屬性名組成的數組</li>
+<li>語法：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Object</span>.<span class="title function_">keys</span>(obj)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><code>Object.defineProperty()</code>方法<ul>
+<li>作用：定義對象中新屬性 或 修改原有的屬性</li>
+<li>語法：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 參數一、obj: 目標對象</span></span><br><span class="line"><span class="comment">// 參數二、prop: 需定義或修改的屬性名</span></span><br><span class="line"><span class="comment">// 參數三、descriptor&#123;&#125;: 目標屬性所擁有的特性</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(obj, prop, &#123;</span><br><span class="line">    <span class="attr">value</span>: <span class="string">&#x27;xxx&#x27;</span>,</span><br><span class="line">    <span class="attr">writable</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">enumerable</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">configurable</span>: <span class="literal">false</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li><code>descriptor&#123;&#125;</code>的說明：<ol>
+<li><code>value</code><ul>
+<li>設置屬性的值</li>
+<li>默認<code>undefined</code></li>
+</ul>
+</li>
+<li><code>writable</code><ul>
+<li>值是否可重寫（對象裡有些屬性是不允許隨便修改，例如<code>id</code>）</li>
+<li>默認不可被重寫<code>false</code></li>
+</ul>
+</li>
+<li><code>enumerable</code><ul>
+<li>目標屬性是否可以被枚舉</li>
+<li>默認不可被枚舉<code>false</code></li>
+</ul>
+</li>
+<li><code>configurable</code><ul>
+<li>目標屬性是否可以被刪除</li>
+<li>是否可以在此修改<font color="#f54747">特性</font></li>
+<li>默認不可被刪除<code>false</code></li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="函數"><a href="#函數" class="headerlink" title="函數"></a>函數</h2><ol>
+<li>通過<code>function</code>關鍵字聲明函數（命名函數） <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">fun</span>(<span class="params"></span>)&#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li>通過函數表達式（匿名函數） <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fun = <span class="keyword">function</span>(<span class="params"></span>)&#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li>通過對象寫法<ul>
+<li>簡介：由於<code>Function</code>是屬於對象，所有函數都是<code>Function</code>的實例對象，因此可以用<code>new Function()</code>定義</li>
+<li>語法：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fun = <span class="keyword">new</span> <span class="title class_">Function</span>(<span class="string">&#x27;參數&#x27;</span>, ... , <span class="string">&#x27;函數體&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li>注意：<code>Function</code>裡面的參數與函數體必需是字符串格式</li>
+</ul>
+</li>
+</ol>
+<h2 id="函數的種類"><a href="#函數的種類" class="headerlink" title="函數的種類"></a>函數的種類</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函數類型</th>
+<th style="text-align:left">調用方法</th>
+<th style="text-align:left">this的指向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">普通函數調用</td>
+<td style="text-align:left"><code>funct()</code> / <code>funct.call()</code></td>
+<td style="text-align:left"><code>window</code></td>
+</tr>
+<tr>
+<td style="text-align:left">構造函數調用</td>
+<td style="text-align:left"><code>obj.funct()</code></td>
+<td style="text-align:left">實例對象<code>obj</code></td>
+</tr>
+<tr>
+<td style="text-align:left">對象方法調用</td>
+<td style="text-align:left"><code>xxx = new Person()</code></td>
+<td style="text-align:left">該方法所屬對象<code>xxx</code></td>
+</tr>
+<tr>
+<td style="text-align:left">事件綁定方法</td>
+<td style="text-align:left"><code>btn.onclick = function()&#123;...&#125;</code></td>
+<td style="text-align:left">綁定事件的對象<code>btn</code></td>
+</tr>
+<tr>
+<td style="text-align:left">定時器函數</td>
+<td style="text-align:left"><code>setInterval(function()&#123;...&#125;, 1000)</code></td>
+<td style="text-align:left"><code>window</code></td>
+</tr>
+<tr>
+<td style="text-align:left">立即執行函數</td>
+<td style="text-align:left"><code>(function()&#123;...&#125;)()</code></td>
+<td style="text-align:left"><code>window</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="改變函數this指向"><a href="#改變函數this指向" class="headerlink" title="改變函數this指向"></a>改變函數this指向</h2><ol>
+<li><code>call()</code>方法<ul>
+<li>作用：<ol>
+<li>調用函數</li>
+<li>修改<code>this</code>的指向</li>
+</ol>
+</li>
+<li>語法：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 參數一、thisAug: this的指向</span></span><br><span class="line"><span class="comment">// 參數二、args: 傳遞的參數</span></span><br><span class="line">funct.<span class="title function_">call</span>(thisAug, args...)</span><br></pre></td></tr></table></figure></li>
+<li>主要應用：實現繼承</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><code>apply()</code>方法<ul>
+<li>作用：<ol>
+<li>調用函數</li>
+<li>修改<code>this</code>的指向</li>
+</ol>
+</li>
+<li>語法：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 參數一、thisAug: this的指向</span></span><br><span class="line"><span class="comment">// 參數二、argsArray: 傳遞的參數，必須包含在數組裡</span></span><br><span class="line">funct.<span class="title function_">apply</span>(thisAug, [argsArray])</span><br></pre></td></tr></table></figure></li>
+<li>主要應用：借用數組以外的內置對象函數<ol>
+<li>利用 apply 借助於數學內置對象求最大值 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> max = <span class="title class_">Math</span>.<span class="property">max</span>.<span class="title function_">apply</span>(<span class="title class_">Math</span>, arr)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><code>bind()</code>方法<ul>
+<li>作用：<ol>
+<li>修改<code>this</code>的指向</li>
+<li><font color="#f54747">不會調用函數</font></li>
+<li>返回值：原函數修改完<code>this</code>指向之後的<font color="#f54747">新函數</font></li>
+</ol>
+</li>
+<li>語法：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 參數一、thisAug: this的指向</span></span><br><span class="line"><span class="comment">// 參數二、args: 傳遞的參數</span></span><br><span class="line">funct.<span class="title function_">call</span>(thisAug, args...)</span><br></pre></td></tr></table></figure></li>
+<li>主要應用：不需要立即調用，但又希望改變函數的內部<code>this</code>指向<ol>
+<li>有一個按鈕，點擊後禁用按鈕幾秒鐘 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">btn.<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">disabled</span> = <span class="literal">true</span></span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">disabled</span> = <span class="literal">false</span></span><br><span class="line">    &#125;.<span class="title function_">bind</span>(<span class="variable language_">this</span>), <span class="number">3000</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>如果希望保留內部<code>this</code>的指向，可以通過參數傳遞其他指向 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">    btn.<span class="property">onclick</span> = funct.<span class="title function_">bind</span>(btn, <span class="variable language_">this</span>)     <span class="comment">// btn指向button對象，this指向實例對象</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">funct</span>(<span class="params">that</span>)&#123;&#125;    <span class="comment">// 接收this(實例對象)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="嚴格模式"><a href="#嚴格模式" class="headerlink" title="嚴格模式"></a>嚴格模式</h2><ol>
+<li>簡介：<ul>
+<li>ES5提供了嚴格模式(strict mode)</li>
+<li>嚴格模式具有限制性，即在嚴格的條件下運行JS代碼</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>對JS語義的更改：<ol>
+<li>消除了JS語法的一些不合理、不嚴謹之處，減少怪異行為</li>
+<li>消除代碼運行的不安全之處，保證代碼運行的安全</li>
+<li>提高編譯器效率，增加運行速度</li>
+<li>禁用了 ECMAScript 的未來版本中可能會定義的一些語法，為未來新版本的 JavaScript 做好鋪墊<br> 例如：一些保留字 class, enum, export, extends, import, super 不能作為變量名</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li>為腳本開啟嚴格模式：<ul>
+<li>寫法：<font color="#f54747">在所有語句之前放一個特定語句<code>&#39;use strict&#39;;</code></font>  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"><span class="meta"></span></span></span><br><span class="line"><span class="meta"><span class="language-javascript">    &#x27;use strict&#x27;</span>    <span class="comment">// 開啟嚴格模式</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>為函數開啟嚴格模式：<ul>
+<li>寫法：<font color="#f54747">把<code>&#39;use strict&#39;;</code>聲明放在函數體所有語句之前</font>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">funct</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="string">&#x27;use strict&#x27;</span>    <span class="comment">// 開啟嚴格模式</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="嚴格模式的變化"><a href="#嚴格模式的變化" class="headerlink" title="嚴格模式的變化"></a>嚴格模式的變化</h3><ol>
+<li><p>變量規定：</p>
+<ol>
+<li><p>函數賦值：</p>
+<ul>
+<li>正常模式下，如果一個變量沒有聲明就賦值，默認是全局變量</li>
+<li>嚴格模式下，這種用法是禁止的，所有變量必須先聲明再使用  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num = <span class="number">10</span>;   <span class="comment">// !!!語法錯誤</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>刪除變量</p>
+<ul>
+<li>正常模式下，允許刪除已聲明的變量</li>
+<li>嚴格模式下，則嚴禁刪除變量  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> num      <span class="comment">// !!!語法錯誤</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li><p><code>this</code>的指向問題：</p>
+<ol>
+<li><p>全局作用於指向：</p>
+<ul>
+<li>正常模式下，全局作用域函數中的<code>this</code>指向<code>window</code>對象</li>
+<li>嚴格模式下，全局作用域函數中的<code>this</code>是<code>undefined</code>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">f</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>)   <span class="comment">// undefined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>構造函數調用：</p>
+<ul>
+<li>正常模式下，構造函數不加<code>new</code>關鍵字也能調用，<code>this</code>指向全局對象</li>
+<li>嚴格模式下，構造函數必須是使用<code>new</code>關鍵字調用，否則<code>this</code>指向<code>undefined</code>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">num</span> = <span class="number">10</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Person</span>()    <span class="comment">// !!!語法錯誤，因為this指向undefined</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>定時器的<code>this</code>指向仍然是<code>window</code></p>
+</li>
+<li><p>事件、對象還是指向調用者</p>
+</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li><p>函數的變化：</p>
+<ol>
+<li><p>函數不能有重名的參數</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">f</span>(<span class="params">x, x</span>)&#123;&#125;  <span class="comment">// !!!語法錯誤</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函數必須聲明在頂層</p>
+<ul>
+<li>新版的JS會引入「塊級作用域」，為了與新版本接軌，不允許在非函數代碼塊內聲明函數<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span></span><br><span class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">f</span>(<span class="params"></span>)&#123;&#125;  <span class="comment">// !!!語法錯誤</span></span><br><span class="line">    <span class="title function_">f</span>()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)&#123;</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">f</span>(<span class="params"></span>)&#123;&#125;  <span class="comment">// !!!語法錯誤</span></span><br><span class="line">    <span class="title function_">f</span>()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">bze</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">eit</span>(<span class="params"></span>)&#123;&#125;    <span class="comment">// 合法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="高階函數"><a href="#高階函數" class="headerlink" title="高階函數"></a>高階函數</h2><ul>
+<li>由於函數也是一種數據類型，同樣可以作為參數，傳遞給另一個函數使用（例如回調函數）</li>
+<li><p>對其他函數進行操作的函數就稱為<font color="#f54747">高階函數</font></p>
+<ol>
+<li><p>接收函數作為參數</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params">callback</span>)&#123;</span><br><span class="line">    callback &amp;&amp; <span class="title function_">callback</span>()</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">fn</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;<span class="title function_">alert</span>(<span class="string">&#x27;Hello&#x27;</span>)&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>將函數作為返回值操作</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">fn</span>()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="閉包Closure"><a href="#閉包Closure" class="headerlink" title="閉包Closure"></a>閉包Closure</h2><ol>
+<li>變量作用域：<ul>
+<li>函數內部可以使用全局變量</li>
+<li>函數外部不可以使用局部變量</li>
+<li>當函數執行完畢，本作用域內的局部變量就會銷毀</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>閉包的簡介：<ul>
+<li>指有權訪問另一個函數作用域中變量的<font color="#f54747">函數</font>。</li>
+<li>就是一個作用域可以訪問另一個作用域內部的局部變量，閉包就產生  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> num = <span class="number">10</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">fun</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(num)    <span class="comment">// fun函數作用域 訪問了另一個函數fn裡面的局部變量num</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">fun</span>()</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">fn</span>()</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>閉包的作用：<ul>
+<li><font color="#f54747">延長變量的作用範圍</font>，因為後面有別的函數要調用此變量  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> num = <span class="number">10</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(num)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 實現 fn 外部的作用域訪問 fn 內部的局部變量</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="title function_">fun</span>()</span><br><span class="line"><span class="title function_">f</span>()</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p>閉包的應用：</p>
+<ul>
+<li><p>案例一、點擊獲取索引號</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 動態添加方式</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; lis.<span class="property">length</span>; i++)&#123;</span><br><span class="line">    lis[i].<span class="property">index</span> = i</span><br><span class="line">    lis[i].<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">index</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 閉包方式</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; lis.<span class="property">length</span>; i++)&#123;</span><br><span class="line">    <span class="comment">// 立即執行函數也稱為一個小閉包，因為立即執行函數裡面任何一個函數都可以使用它的i變量</span></span><br><span class="line">    (<span class="keyword">function</span>(<span class="params">i</span>)&#123;</span><br><span class="line">        lis[i].<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)(i)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>案例二、3秒後打印元素內容</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; lis.<span class="property">length</span>; i++)&#123;</span><br><span class="line">    (<span class="keyword">function</span>(<span class="params">i</span>)&#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(lis[i].<span class="property">innerHTML</span>);</span><br><span class="line">        &#125;, <span class="number">3000</span>);</span><br><span class="line">    &#125;)(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="遞歸Recursion"><a href="#遞歸Recursion" class="headerlink" title="遞歸Recursion"></a>遞歸Recursion</h2><ol>
+<li>簡介：<ul>
+<li>一個函數在內部可以調用其本身，這個函數就稱為遞歸函數</li>
+<li>由於遞歸很容易發生「棧溢出」錯誤(stack overflow)，所以必須要加<font color="#f54747">退出條件return</font></li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p>遞歸應用：</p>
+<ul>
+<li><p>應用一、階乘 Factorial</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">factorial</span>(<span class="params">n</span>)&#123;</span><br><span class="line">    <span class="keyword">switch</span>(n)&#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="attr">default</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="title function_">factorial</span>(n - <span class="number">1</span>) * n</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>應用二、斐波那契數列 Fibonacci</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">fibonacci</span>(<span class="params">n</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">1</span> || n == <span class="number">2</span>) <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">fibonacci</span>(n-<span class="number">1</span>) + <span class="title function_">fibonacci</span>(n-<span class="number">2</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="對象拷貝"><a href="#對象拷貝" class="headerlink" title="對象拷貝"></a>對象拷貝</h2><ol>
+<li>淺拷貝 Shallow Copy<ul>
+<li>淺拷貝只是拷貝一層，更深層次對象級別只拷貝地址值</li>
+<li>圖示：<br>  <img src="https://p.ipic.vip/v7v66h.png" width="600px"/></li>
+<li>ES6實現淺拷貝方法：<ul>
+<li>語法：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 參數一、target: 賦予給誰</span></span><br><span class="line"><span class="comment">// 參數二、source: 要拷貝的對象</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">assign</span>(target, source)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>深拷貝 Deep Copy<ul>
+<li>深拷貝就是拷貝多層，每一層的數據都會拷貝</li>
+<li>圖示：<br>  <img src="https://p.ipic.vip/s72c3s.png" width="600px"/></li>
+<li>實現方式：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">deepCopy</span>(<span class="params">newObj, oldObj</span>)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> k <span class="keyword">in</span> oldObj)&#123;</span><br><span class="line">        <span class="keyword">var</span> item = oldObj[k]</span><br><span class="line">        <span class="comment">// 由於Array也屬於Object，因此需要在Object之前篩選出去</span></span><br><span class="line">        <span class="keyword">if</span>(item <span class="keyword">instanceof</span> <span class="title class_">Array</span>)&#123;</span><br><span class="line">            newObj[k] = []</span><br><span class="line">            <span class="title function_">deepCopy</span>(newObj[k], item)</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(item <span class="keyword">instanceof</span> <span class="title class_">Object</span>)&#123;</span><br><span class="line">            newObj[k] = &#123;&#125;</span><br><span class="line">            <span class="title function_">deepCopy</span>(newObj[k], item)</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            newObj[k] = item</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog">Donald Lam</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog/2022/07/14/WebsiteDevelopment/JavaScript/2022-7-14-JS-ES5/">https://github.com/DonaldLamNL/myBlog/2022/07/14/WebsiteDevelopment/JavaScript/2022-7-14-JS-ES5/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/myBlog/tags/JavaScript/">JavaScript</a></div><div class="post_share"><div class="social-share" data-image="https://p.ipic.vip/09h6nq.webp" data-sites="facebook,twitter"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/myBlog/2022/07/22/WebsiteDevelopment/JavaScript/2022-7-22-JS-RegularExpression/"><img class="prev-cover" src="https://p.ipic.vip/09h6nq.webp" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">JavaScript - Regular Expression</div></div></a></div><div class="next-post pull-right"><a href="/myBlog/2022/07/11/WebsiteDevelopment/JavaScript/2022-7-11-JS-ConstructFunction/"><img class="next-cover" src="https://p.ipic.vip/09h6nq.webp" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">JavaScript - Construct Function</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/myBlog/2022/07/11/WebsiteDevelopment/JavaScript/2022-7-11-JS-ConstructFunction/" title="JavaScript - Construct Function"><img class="cover" src="https://p.ipic.vip/09h6nq.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-11</div><div class="title">JavaScript - Construct Function</div></div></a></div><div><a href="/myBlog/2022/07/22/WebsiteDevelopment/JavaScript/2022-7-22-JS-RegularExpression/" title="JavaScript - Regular Expression"><img class="cover" src="https://p.ipic.vip/09h6nq.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-22</div><div class="title">JavaScript - Regular Expression</div></div></a></div><div><a href="/myBlog/2022/07/23/WebsiteDevelopment/JavaScript/2022-7-23-JS-ES6/" title="JavaScript - ES6"><img class="cover" src="https://p.ipic.vip/09h6nq.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-23</div><div class="title">JavaScript - ES6</div></div></a></div><div><a href="/myBlog/2022/07/25/WebsiteDevelopment/JavaScript/2022-7-25-JS-ES6DataTypes/" title="JavaScript - ES6 Data Types"><img class="cover" src="https://p.ipic.vip/09h6nq.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-25</div><div class="title">JavaScript - ES6 Data Types</div></div></a></div><div><a href="/myBlog/2022/07/09/WebsiteDevelopment/JavaScript/2022-7-9-JS-Class&Object/" title="JavaScript - Class &amp; Object"><img class="cover" src="https://p.ipic.vip/09h6nq.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-09</div><div class="title">JavaScript - Class &amp; Object</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="this.onerror=null;this.src='/myBlog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Donald Lam</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">13</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">13</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://donaldlamnl.github.io/myWeb/#/home"><i></i><span>My Personal Website</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DonaldLamNL" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:manholam8@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B8%E7%B5%84%E6%96%B9%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">數組方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">字符串方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8D%E8%B1%A1%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">對象方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B8"><span class="toc-number">4.</span> <span class="toc-text">函數</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B8%E7%9A%84%E7%A8%AE%E9%A1%9E"><span class="toc-number">5.</span> <span class="toc-text">函數的種類</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%B9%E8%AE%8A%E5%87%BD%E6%95%B8this%E6%8C%87%E5%90%91"><span class="toc-number">6.</span> <span class="toc-text">改變函數this指向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9A%B4%E6%A0%BC%E6%A8%A1%E5%BC%8F"><span class="toc-number">7.</span> <span class="toc-text">嚴格模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9A%B4%E6%A0%BC%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%AE%8A%E5%8C%96"><span class="toc-number">7.1.</span> <span class="toc-text">嚴格模式的變化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E9%9A%8E%E5%87%BD%E6%95%B8"><span class="toc-number">8.</span> <span class="toc-text">高階函數</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%96%89%E5%8C%85Closure"><span class="toc-number">9.</span> <span class="toc-text">閉包Closure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%9E%E6%AD%B8Recursion"><span class="toc-number">10.</span> <span class="toc-text">遞歸Recursion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8D%E8%B1%A1%E6%8B%B7%E8%B2%9D"><span class="toc-number">11.</span> <span class="toc-text">對象拷貝</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/01/25/CUHK/ESTR4316/2024-1-25-ESTR4316-Kubernates/" title="No title"><img src="https://p.ipic.vip/ruvwfy.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/myBlog/2024/01/25/CUHK/ESTR4316/2024-1-25-ESTR4316-Kubernates/" title="No title">No title</a><time datetime="2024-01-25T11:24:54.480Z" title="Created 2024-01-25 19:24:54">2024-01-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/01/18/CUHK/ESTR4316/2024-1-18-ESTR4316-Introduction/" title="Introduction"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Introduction"/></a><div class="content"><a class="title" href="/myBlog/2024/01/18/CUHK/ESTR4316/2024-1-18-ESTR4316-Introduction/" title="Introduction">Introduction</a><time datetime="2024-01-17T16:00:00.000Z" title="Created 2024-01-18 00:00:00">2024-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/01/18/LeetCode/2024-1-28-LeetCode/" title="LeetCode - Array"><img src="https://p.ipic.vip/vfdink.png" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="LeetCode - Array"/></a><div class="content"><a class="title" href="/myBlog/2024/01/18/LeetCode/2024-1-28-LeetCode/" title="LeetCode - Array">LeetCode - Array</a><time datetime="2024-01-17T16:00:00.000Z" title="Created 2024-01-18 00:00:00">2024-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/12/20/CUHK/CSCI4180/2023-12-15-CSCI4180-Tail-Tolerance/" title="Tail Tolerance"><img src="https://p.ipic.vip/ppekay.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Tail Tolerance"/></a><div class="content"><a class="title" href="/myBlog/2023/12/20/CUHK/CSCI4180/2023-12-15-CSCI4180-Tail-Tolerance/" title="Tail Tolerance">Tail Tolerance</a><time datetime="2023-12-19T16:00:00.000Z" title="Created 2023-12-20 00:00:00">2023-12-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/12/15/CUHK/CSCI4180/2023-12-20-CSCI4180-Zookeeper/" title="Zookeeper"><img src="https://p.ipic.vip/ppekay.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Zookeeper"/></a><div class="content"><a class="title" href="/myBlog/2023/12/15/CUHK/CSCI4180/2023-12-20-CSCI4180-Zookeeper/" title="Zookeeper">Zookeeper</a><time datetime="2023-12-14T16:00:00.000Z" title="Created 2023-12-15 00:00:00">2023-12-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By Donald Lam</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/myBlog/js/utils.js"></script><script src="/myBlog/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/myBlog/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,655 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Data Types | myBlog</title><meta name="keywords" content="Languages Principles"><meta name="author" content="Donald Lam,manholam8@gmail.com"><meta name="copyright" content="Donald Lam"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Primitive Data Types The most basic data types available in a programming language Reflections of the hardware are directly related to how the computer’s hardware processes and stores data primitive d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Data Types">
+<meta property="og:url" content="https://github.com/DonaldLamNL/myBlog/2023/02/26/CUHK/CSCI3180/2023-2-26-CSCI3180-DataTypes/index.html">
+<meta property="og:site_name" content="myBlog">
+<meta property="og:description" content="Primitive Data Types The most basic data types available in a programming language Reflections of the hardware are directly related to how the computer’s hardware processes and stores data primitive d">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://p.ipic.vip/q43a7n.png">
+<meta property="article:published_time" content="2023-02-25T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-25T16:00:00.000Z">
+<meta property="article:author" content="Donald Lam">
+<meta property="article:tag" content="Languages Principles">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p.ipic.vip/q43a7n.png"><link rel="shortcut icon" href="/myBlog/img/favicon.png"><link rel="canonical" href="https://github.com/DonaldLamNL/myBlog/2023/02/26/CUHK/CSCI3180/2023-2-26-CSCI3180-DataTypes/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/myBlog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/myBlog/',
+  algolia: undefined,
+  localSearch: {"path":"/myBlog/search.xml","preload":true,"languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Data Types',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-02-26 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">13</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">13</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://p.ipic.vip/q43a7n.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/myBlog/">myBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Data Types</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-02-25T16:00:00.000Z" title="Created 2023-02-26 00:00:00">2023-02-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-02-25T16:00:00.000Z" title="Updated 2023-02-26 00:00:00">2023-02-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/myBlog/categories/CSCI3180/">CSCI3180</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Data Types"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Primitive-Data-Types"><a href="#Primitive-Data-Types" class="headerlink" title="Primitive Data Types"></a>Primitive Data Types</h2><ul>
+<li>The most basic data types available in a programming language</li>
+<li>Reflections of the hardware<ul>
+<li>are directly related to how the computer’s hardware processes and stores data</li>
+<li>primitive data types are designed to map directly to the underlying hardware of a computer (i.e., allow programs to interact with the hardware in an efficient way)</li>
+</ul>
+</li>
+</ul>
+<h3 id="Integer"><a href="#Integer" class="headerlink" title="Integer"></a>Integer</h3><ul>
+<li><p>An exact reflection of the hardware</p>
+</li>
+<li><p>Integer sizes: platform-independent</p>
+<ul>
+<li><code>Java</code> signed integer sizes: <code>byte</code>(1 bytes), <code>short</code>(2 bytes), <code>int</code>(4 bytes), <code>long</code>(8 bytes)</li>
+<li><code>C</code>/<code>C++</code> signed integer sizes are not fixed</li>
+<li><code>Python</code>: arbitrary sizes</li>
+</ul>
+</li>
+</ul>
+<h3 id="Floating-Point"><a href="#Floating-Point" class="headerlink" title="Floating Point"></a>Floating Point</h3><ul>
+<li>Mordelling real numbers, but just approximations</li>
+<li>IEEE Floating-Point Standard 754</li>
+<li>Languages support at least 2 floating-point types: <code>float</code> (32 bits), <code>double</code> (64 bits)</li>
+</ul>
+<h3 id="Complex"><a href="#Complex" class="headerlink" title="Complex"></a>Complex</h3><ul>
+<li>Some languages support a complex type (e.g., <code>Python</code>, <code>C99</code>)  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="number">1</span>+<span class="number">4j</span>) <span class="comment"># (1+4j)</span></span><br><span class="line"><span class="built_in">print</span>((<span class="number">1</span>+<span class="number">4j</span>)*(<span class="number">1</span>+<span class="number">4j</span>))    <span class="comment"># (-15+8j)</span></span><br><span class="line"><span class="built_in">print</span>(j)    <span class="comment"># not complex</span></span><br><span class="line"><span class="built_in">print</span>(j*j)  <span class="comment"># not complex</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">1j</span>*<span class="number">1j</span>)    <span class="comment"># (-1+0j)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Decimal"><a href="#Decimal" class="headerlink" title="Decimal"></a>Decimal</h3><ul>
+<li>For business applications which involve money (e.g., <code>COBOL</code>~ essential, <code>C#</code>, <code>Python</code>)</li>
+<li>It stores a fixed number of decimal digits in <font color="3A75EA">binary coded decimal</font></li>
+<li><strong>Advantages</strong>:<ol>
+<li>Accuracy</li>
+</ol>
+</li>
+<li><strong>Disadvantages</strong>:<ol>
+<li>Limited range</li>
+<li>Memory waste</li>
+</ol>
+</li>
+</ul>
+<h3 id="Boolean"><a href="#Boolean" class="headerlink" title="Boolean"></a>Boolean</h3><ul>
+<li><p><code>true</code>, <code>false</code></p>
+</li>
+<li><p><code>C99</code> and <code>C++</code> allow numeric expressions to be used as Boolean, but <code>Java</code> and <code>C#</code> do not because of the reliability</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(j = <span class="number">1</span>)&#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;GG&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Advantages</strong>:</p>
+<ol>
+<li>Readability</li>
+<li>Reliability</li>
+</ol>
+</li>
+</ul>
+<h3 id="Character"><a href="#Character" class="headerlink" title="Character"></a>Character</h3><ul>
+<li>Stored as <font color="3A75EA">numeric codings</font> (ASCII standard and Unicode not standard)</li>
+<li><font color="F54747">Noted</font>: <code>Python</code> does not have Character type (it is a string of one length)</li>
+</ul>
+<h3 id="Character-String-Types"><a href="#Character-String-Types" class="headerlink" title="Character String Types"></a>Character String Types</h3><ul>
+<li><p>A sequences of characters</p>
+</li>
+<li><p><strong>Typical Operations</strong>:</p>
+<ol>
+<li>Assignment and copying</li>
+<li>Comparasion (ascending/descending)</li>
+<li>Concatenation</li>
+<li>Substring reference</li>
+<li>Pattern matching</li>
+</ol>
+</li>
+<li><p><strong>String Types in Languages</strong>:</p>
+<ol>
+<li><p><code>C</code> and <code>C++</code></p>
+<ul>
+<li>Not primitive, use char arrays and a library of functions provides operation</li>
+</ul>
+</li>
+<li><p><code>Java</code> and <code>C#</code></p>
+<ul>
+<li>Not primitive, use the String class</li>
+</ul>
+</li>
+<li><p><code>Fortran</code> and <code>Python</code></p>
+<ul>
+<li>Primitive type with assignment and serveral operations</li>
+</ul>
+</li>
+<li><p><code>Perl</code> and <code>JavaScript</code></p>
+<ul>
+<li>Provide built-in pattern matching (regular expression)</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p><strong>String Length Options</strong>:</p>
+<ul>
+<li><p><font color="3A75EA">Static length</font> in <code>Python</code>, <code>Java</code> String class</p>
+<ul>
+<li>It only need a <font color="F54747">compile-time descriptor</font> for the length</li>
+</ul>
+</li>
+<li><p><font color="3A75EA">Limited dynamic length</font> in <code>C</code> and <code>C++</code> char arrays (<code>\0</code> indicates the end of string)</p>
+<ul>
+<li>It may need a <font color="F54747">run-time descriptor</font> for the length and maximum length  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">char</span> s1[<span class="number">3</span>] = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">    std::cout &lt;&lt; s1 &lt;&lt; std::endl;   <span class="comment">// dangerous</span></span><br><span class="line">    <span class="type">char</span> s2[<span class="number">4</span>] = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;\0&#x27;</span>&#125;;</span><br><span class="line">    std::cout &lt;&lt; s2 &lt;&lt; std::endl;   <span class="comment">// safe</span></span><br><span class="line">    <span class="type">char</span> s3[] = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line">    std::cout &lt;&lt; s3 &lt;&lt; std::endl;   <span class="comment">// safe</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Limited dynamic length</span></span><br><span class="line">    <span class="type">char</span> s4[<span class="number">20</span>] = <span class="string">&quot;hahahaha&quot;</span>;</span><br><span class="line">    std::cout &lt;&lt; s4 &lt;&lt; std::endl;   <span class="comment">// hahahaha</span></span><br><span class="line">    s4[<span class="number">8</span>] = <span class="string">&#x27;!&#x27;</span>;</span><br><span class="line">    std::cout &lt;&lt; s4 &lt;&lt; std::endl;   <span class="comment">// hahahaha!</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><font color="3A75EA">Unlimited dynamic length</font> in <code>Perl</code></p>
+<ul>
+<li>It must need a <font color="F54747">run-time descriptor</font> for the length and maximum length<ol>
+<li>Linked-list</li>
+<li>Adjacent storage cells</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Ordinal-Types"><a href="#Ordinal-Types" class="headerlink" title="Ordinal Types"></a>Ordinal Types</h3><ul>
+<li>It represents values that have a natural ordering among them</li>
+<li>It is the range of possible discrete values can be easily associated with the set of integers</li>
+<li>Primitive Ordinal Types:<ul>
+<li><code>int</code></li>
+<li><code>char</code></li>
+<li><code>boolean</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="Enumeration-Types"><a href="#Enumeration-Types" class="headerlink" title="Enumeration Types"></a>Enumeration Types</h2><ul>
+<li>It allows programmers to define a set of named constants as a type</li>
+<li><p>Examples:</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Day</span> &#123;MON, TUE, WED, THU, FRI, SAT, SUN&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Day d = MON;</span><br><span class="line">    <span class="keyword">if</span>(d == MON)&#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Monday&quot;</span> &lt;&lt; std::endl; <span class="comment">// Monday</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Issues</strong>: </p>
+<ol>
+<li><p>Are enumeration values coerced to other types (<code>int</code>)?</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Day</span> &#123;MON, TUE, WED, THU, FRI, SAT, SUN&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Day d = SUN;</span><br><span class="line">    <span class="comment">// does the addition make sence? coerced to integer type</span></span><br><span class="line">    std::cout &lt;&lt; d + <span class="number">1</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Any other type coerced to an enumeration type?</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Day</span> &#123;MON, TUE, WED, THU, FRI, SAT, SUN&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Day d = SUN;</span><br><span class="line">    <span class="comment">// can we assign integer to Day? coerced to enumeration type</span></span><br><span class="line">    d = <span class="number">123</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p><strong>Evaluation</strong>:</p>
+<ol>
+<li><p>Aid to readability</p>
+<ul>
+<li>No need to code the Day, Color as a number</li>
+</ul>
+</li>
+<li><p>Aid to reliability</p>
+<ul>
+<li>No enumeration variable can be assigned a value outside its defined range, so make it as compilation error</li>
+<li>No invalid operations</li>
+<li>No invalid coercion (<code>Java</code>, <code>C#</code> does not coerced to integer type)</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><ul>
+<li>Indexing<ul>
+<li>It is a mapping from indices to elements<ul>
+<li>array_name (index_value_list) → one or more elements</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Index Types<ol>
+<li>Typically integers only</li>
+<li>Usually starts with 0<ul>
+<li><code>R</code> starts with 1</li>
+</ul>
+</li>
+<li>Range checking<ul>
+<li>In <code>Java</code>, <code>C#</code>, <code>Python</code></li>
+<li>Not in <code>C</code>, <code>C++</code></li>
+</ul>
+</li>
+<li>Some languages allow negative indices<ul>
+<li><code>Python</code>: reverse</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p>Initialization</p>
+<ul>
+<li><p>Character strings in <code>C</code> and <code>C++</code></p>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> name[] = <span class="string">&quot;Doge&quot;</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Array of strings in <code>C</code> and <code>C++</code></p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>* animals [] = &#123;<span class="string">&quot;Dog&quot;</span>, <span class="string">&quot;Cat&quot;</span>, <span class="string">&quot;Pig&quot;</span>&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>String object in <code>Java</code></p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String[] animals = &#123;<span class="string">&quot;Dog&quot;</span>, <span class="string">&quot;Cat&quot;</span>, <span class="string">&quot;Pig&quot;</span>&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Python</code> - list comprehension</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a_list = [x**<span class="number">2</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>) <span class="keyword">if</span> x%<span class="number">2</span> == <span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Array Operations<ul>
+<li><code>Python</code> supports lots of operations, access for <a target="_blank" rel="noopener" href="https://donaldlamnl.github.io/myBlog/2022/08/30/2022/2022-8-30-Python-List/">details</a>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Array-Types"><a href="#Array-Types" class="headerlink" title="Array Types"></a>Array Types</h3><ol>
+<li>Heterogeneous Array<ul>
+<li>the elements in an array need not be of the same type  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myArray = [<span class="string">&quot;Hello&quot;</span>, <span class="number">42</span>, <span class="literal">true</span>,</span><br><span class="line">    &#123;<span class="attr">name</span>: <span class="string">&quot;John&quot;</span>, <span class="attr">age</span>: <span class="number">30</span>&#125;,</span><br><span class="line">    <span class="keyword">function</span>(<span class="params"></span>) &#123;<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello from a function!&quot;</span>)&#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">my_list = [<span class="string">&quot;hello&quot;</span>, <span class="number">42</span>, <span class="literal">True</span>,</span><br><span class="line">    &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;John&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">30</span>&#125;,</span><br><span class="line">    <span class="keyword">lambda</span>: <span class="built_in">print</span>(<span class="string">&quot;Hello from a lambda!&quot;</span>)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>Rectangular array:<ul>
+<li>the arrays with multiple dimensions and each dimension has the same number of elements  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> rectangular_array[<span class="number">3</span>][<span class="number">4</span>] = &#123;&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;, &#123;<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>&#125;, &#123;<span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>&#125;&#125;;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[][] rectangularArray = &#123;&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;, &#123;<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>&#125;, &#123;<span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>&#125;&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>Jagged array:<ul>
+<li>the arrays with multiple dimensions but each dimension can have a different number of elements  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jagged_array = [[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>], [<span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]]</span><br></pre></td></tr></table></figure>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; jagged_array = &#123;&#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;, &#123;<span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>&#125;&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="Array-Binding"><a href="#Array-Binding" class="headerlink" title="Array Binding"></a>Array Binding</h3><ol>
+<li><p>Static:</p>
+<ul>
+<li>the size of array is fixed at compiler-time</li>
+<li>the array is allocated a fixed memory location at compiler-time</li>
+<li><strong>Advantage</strong>: time efficiency (finish binding at compiler-time)</li>
+<li><strong>Disadvantage</strong>: inflexibility (cannot change the size at runtime)</li>
+</ul>
+</li>
+<li><p>Fixed stack-dynamic:</p>
+<ul>
+<li>the size of array is determined at runtime</li>
+<li>the array is allocated on the stack (the memory for the array is freed when the function is returned)</li>
+<li><strong>Advantage</strong>: space efficiency (the memory for the array is allocated on the stack)</li>
+<li><strong>Disadvantage</strong>: inflexibility (cannot change the size at runtime)</li>
+</ul>
+</li>
+<li><p>Fixed heap-dynamic:</p>
+<ul>
+<li>the size of array is dynamically bound (but fixed onece the allocation is done) <code>malloc</code></li>
+<li>the array is allocated on the heap at runtime</li>
+<li><strong>Advantage</strong>: flexibility (the array is allocated on the heap)</li>
+<li><strong>Disadvantage</strong>: inflexibility (cannot change the size at runtime)</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>Heap-dynamic:<ul>
+<li>the size of array is dynamically bound</li>
+<li>the array is allocated on the heap at runtime</li>
+<li><strong>Advantage</strong>: highest flexibility (the size of array can be changed in runtime)</li>
+<li><strong>Disadvantage</strong>: low efficiency</li>
+</ul>
+</li>
+</ol>
+<h3 id="Implementation-of-Array"><a href="#Implementation-of-Array" class="headerlink" title="Implementation of Array"></a>Implementation of Array</h3><ul>
+<li><p>Access function for single-dimensioned arrays:</p>
+<script type="math/tex; mode=display">\text{address}(a[i]) = \text{address}(a[\text{lowest_bound}]) + (i - \text{lower_bound}) \times \text{sizeof}(a[i])</script><ul>
+<li>Here are total 3 calculation operations</li>
+</ul>
+</li>
+<li><p>Access multi-dimensional arrays:</p>
+<script type="math/tex; mode=display">
+  \begin{array}{ccc}
+  a_{11} & a_{12} & a_{13} \\\\
+  a_{21} & a_{22} & a_{23} \\\\
+  a_{31} & a_{32} & a_{33}
+  \end{array}</script><ul>
+<li><p>Access function:</p>
+<script type="math/tex; mode=display">
+  \begin{aligned}
+  \text{address}(a[i,j]) = & \space \text{address}(a[\text{lbr}, \text{lbc}]) + \\\\
+                      &(i-\text{lbr}) \times (\text{ubc}-\text{lbc}+1) \times \text{sizeof}(a[i,j]) + \\\\
+                      &(j-\text{lbc}) \times \text{sizeof}(a[i, j]) \\\\
+  \end{aligned}</script><ul>
+<li>$\text{lbr}$: lower-bound row index</li>
+<li>$\text{lbc}$: lower-bound column index</li>
+<li>$\text{ubr}$: upper-bound row index</li>
+<li><p>$\text{ubc}$: upper-bound column index</p>
+<p>&lt;!— - $\text{lbr: lower-bound row index}$</p>
+</li>
+<li>$\text{lbc: lower-bound column index}$</li>
+<li>$\text{ubr: upper-bound row index}$</li>
+<li>$\text{ubc: upper-bound column index}$ —&gt;</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>Row major (Most languages):<script type="math/tex; mode=display">
+ \begin{array}{ccc}
+ a_{11} & a_{12} & a_{13} &
+ a_{21} & a_{22} & a_{23} &
+ a_{31} & a_{32} & a_{33}
+ \end{array}</script></li>
+</ol>
+</li>
+</ul>
+<pre><code>2. Column major (Fortran):
+    $$
+    \begin&#123;array&#125;&#123;ccc&#125;
+    a_&#123;11&#125; &amp; a_&#123;21&#125; &amp; a_&#123;22&#125; &amp;
+    a_&#123;12&#125; &amp; a_&#123;22&#125; &amp; a_&#123;32&#125; &amp;
+    a_&#123;13&#125; &amp; a_&#123;23&#125; &amp; a_&#123;33&#125;
+    \end&#123;array&#125;
+    $$
+</code></pre><h3 id="Associative-Arrays"><a href="#Associative-Arrays" class="headerlink" title="Associative Arrays"></a>Associative Arrays</h3><ul>
+<li><p>In Python:</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Dictionary</span></span><br><span class="line">doge = &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;Kabosu&quot;</span>, <span class="string">&quot;gender&quot;</span>: <span class="string">&quot;Female&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">16</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Access</span></span><br><span class="line">doge[<span class="string">&quot;name&quot;</span>] <span class="comment"># Kabosu</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Subscripting</span></span><br><span class="line">doge[<span class="string">&quot;age&quot;</span>] = doge[<span class="string">&quot;age&quot;</span>] + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Remove elemen</span></span><br><span class="line"><span class="keyword">del</span> doge[<span class="string">&quot;age&quot;</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>In Perl:</p>
+  <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Hash begins with %</span></span><br><span class="line">%temps = (<span class="string">&quot;Mon&quot;</span> =&gt; <span class="number">27</span>, <span class="string">&quot;Tue&quot;</span> =&gt; <span class="number">29</span>, <span class="string">&quot;Wed&quot;</span> =&gt; <span class="number">25</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment"># Access</span></span><br><span class="line">$temps&#123;<span class="string">&quot;Wed&quot;</span>&#125;;  <span class="comment"># 25</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Subscripting</span></span><br><span class="line">$temps&#123;<span class="string">&quot;Wed&quot;</span>&#125; = $temps&#123;<span class="string">&quot;Wed&quot;</span>&#125; + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Remove elemen</span></span><br><span class="line"><span class="keyword">delete</span> $temps&#123;<span class="string">&quot;Tue&quot;</span>&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Tuples"><a href="#Tuples" class="headerlink" title="Tuples"></a>Tuples</h2><ul>
+<li>a data type similar to a heterogeneous array, but it is immutable 不可改變的  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Declaration and Assignment</span></span><br><span class="line">t = (<span class="number">3.1415</span>, <span class="string">&quot;XD&quot;</span>, <span class="number">678</span>)</span><br><span class="line"></span><br><span class="line">t[<span class="number">0</span>] = <span class="number">3</span>  <span class="comment"># error! it is immutable</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Creating the new tuple</span></span><br><span class="line">t = t + (<span class="number">2</span>,)  <span class="comment"># (3.1415, &quot;XD&quot;, 678, 2)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>it is used in <code>Python</code>, <code>F#</code> to allow functions to return multiple values  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">a,b</span>):</span><br><span class="line">    c = a + <span class="number">1</span></span><br><span class="line">    d = b * <span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span>(c,d)</span><br><span class="line"></span><br><span class="line">c, d = f(<span class="number">4</span>, <span class="number">6</span>)</span><br><span class="line"><span class="built_in">print</span>(c, d)  <span class="comment"># 5, 12</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>Return multiple values in <code>C++</code></p>
+<ul>
+<li><p>the following code can be executed but have a potential error</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span>* <span class="title">f2</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> result[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span>* result = <span class="built_in">f2</span>(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">    std::cout &lt;&lt; result[<span class="number">0</span>] &lt;&lt; result[<span class="number">1</span>] &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>When the array is returned, it would be decated to a pointer, but the <code>result</code> array is allocated on the stack, so the array is already destoried when the function is returned and the pointer returned by the function points to invalid memory.</li>
+</ul>
+</li>
+<li><p>Solution: using the dynamic heap variables</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span>* <span class="title">f2</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span>* result = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span>* result = <span class="built_in">f2</span>(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">    std::cout &lt;&lt; result[<span class="number">0</span>] &lt;&lt; result[<span class="number">1</span>] &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">delete</span>[] result;  <span class="comment">// remember to delete the pointer</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Solution: using <code>std::pair</code> class</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;utility&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">std::pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; <span class="title">f3</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="function">pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; <span class="title">result</span><span class="params">(a * <span class="number">3</span>, a + b)</span></span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; result = <span class="built_in">f3</span>(<span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">    std::cout &lt;&lt; result.first &lt;&lt; result.second &lt;&lt; std::endl;  <span class="comment">// 9 7</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Records"><a href="#Records" class="headerlink" title="Records"></a>Records</h2><ul>
+<li>a data structure that is used to store a collection of related values</li>
+<li><p>the individual elements are identified by names</p>
+</li>
+<li><p>In languages that support OOP, <font color="3A75EA">data classes</font> or <font color="3A75EA">record classes</font> serve as records</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">record</span> <span class="title class_">Person</span><span class="params">(String name, <span class="type">int</span> age)</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">Person</span> <span class="variable">john</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;John&quot;</span>, <span class="number">30</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(john.name() + <span class="string">&quot; &quot;</span> + john.age); <span class="comment">// John 30</span></span><br></pre></td></tr></table></figure></li>
+<li>In <code>C</code>, <code>C++</code>, <code>C#</code>, records are supported with <code>struct</code> data type  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> std::string;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Nice</span>&#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="type">float</span> f;</span><br><span class="line">    string s;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Nice n&#123;<span class="number">1</span>, <span class="number">1.2</span>, <span class="string">&quot;haha&quot;</span>&#125;;</span><br><span class="line">    std::cout &lt;&lt; n.i &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; n.f &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; n.s &lt;&lt; std::endl;  <span class="comment">// 1 1.2 haha</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Implement-of-Records"><a href="#Implement-of-Records" class="headerlink" title="Implement of Records"></a>Implement of Records</h3><h2 id="Unions"><a href="#Unions" class="headerlink" title="Unions"></a>Unions</h2><ul>
+<li>user-defined data type in programming that allows storing multiple data types in the same memory location</li>
+<li><p>uses the same memory location for all its members, which means that modifying one member can affect the other members</p>
+</li>
+<li><p>Examples:</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span> <span class="title class_">VariantNumber</span>&#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="type">float</span> f;</span><br><span class="line">    <span class="type">double</span> d;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">union</span> <span class="title class_">VariantNumber</span> num;</span><br><span class="line">    num.i = <span class="number">9</span>;</span><br><span class="line">    std::cout &lt;&lt; num.i &lt;&lt; std::endl;  <span class="comment">// 9</span></span><br><span class="line">    num.f = <span class="number">3.14</span>;</span><br><span class="line">    std::cout &lt;&lt; num.f &lt;&lt; std::endl;  <span class="comment">// 3.14</span></span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; num.i &lt;&lt; std::endl;  <span class="comment">// unexpected value</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Evaluation of Unions:</p>
+<ol>
+<li>Free unions are unsafe (do not allow type checking)</li>
+<li><code>Java</code> and <code>C#</code> do not support because of the safety issues</li>
+</ol>
+</li>
+</ul>
+<h2 id="Heap-Management"><a href="#Heap-Management" class="headerlink" title="Heap Management"></a>Heap Management</h2><h3 id="Pointer"><a href="#Pointer" class="headerlink" title="Pointer"></a>Pointer</h3><ul>
+<li>it stores the memory address of another variable or object in the program</li>
+<li>it provides a power of <font color="3A75EA">indirect addressing</font> and a possibility of <font color="3A75EA">heap memory management</font></li>
+</ul>
+<ul>
+<li>Lifetime<ul>
+<li>a pointer is declared as a local variable within a function, then it is stored on the stack and destoried when the function is returned</li>
+<li>a heap-dynamic variable is declared at runtime and remains valid until it is deallocated through <code>delete</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Pointer arithmetic<ul>
+<li>the process of performing arithmetic operations on pointers  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>* c = <span class="keyword">new</span> <span class="type">char</span>[<span class="number">5</span>];</span><br><span class="line">std::cout &lt;&lt; (<span class="type">void</span>*)(c) &lt;&lt; std::endl;       <span class="comment">// 0x1c39eb0</span></span><br><span class="line">std::cout &lt;&lt; (<span class="type">void</span>*)(c + <span class="number">1</span>) &lt;&lt; std::endl;   <span class="comment">// 0x1c39eb1 (+1)</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span>* p = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">5</span>]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line">std::cout &lt;&lt; (p) &lt;&lt; std::endl;      <span class="comment">// 0x1c39ed0</span></span><br><span class="line">std::cout &lt;&lt; (p + <span class="number">1</span>) &lt;&lt; std::endl;  <span class="comment">// 0x1c39ed4 (+4)</span></span><br><span class="line">std::cout &lt;&lt; *(p + <span class="number">1</span>) &lt;&lt; std::endl; <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Problems</strong><ol>
+<li>dangling pointers<ul>
+<li>a pointer points to a heap-dynamic variable that has been deallocated <a target="_blank" rel="noopener" href="https://donaldlamnl.github.io/myBlog/2022/09/18/2022/CSCI3150/2022-9-17-CSCI3150-SystemCall-Memory/">others</a>  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Dog</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">char</span>* name;</span><br><span class="line">    <span class="built_in">Dog</span>()&#123; name = <span class="keyword">new</span> <span class="type">char</span>[<span class="number">5</span>]&#123;<span class="string">&quot;doge&quot;</span>&#125;; &#125;</span><br><span class="line">    <span class="comment">// solution: override the copy construction</span></span><br><span class="line">    ~<span class="built_in">Dog</span>()&#123; <span class="keyword">delete</span> [] name; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Dog* a = <span class="keyword">new</span> Dog;</span><br><span class="line">    Dog* b = <span class="keyword">new</span> <span class="built_in">Dog</span>(*a);   <span class="comment">// it is a shallow copy of a</span></span><br><span class="line">    <span class="keyword">delete</span> a;</span><br><span class="line">    std::cout &lt;&lt; b-&gt;name &lt;&lt; std::endl;  <span class="comment">// the name has already been deallocated</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<pre><code>2. lost heap-dynamic variable
+    - an allocated heap-dynamic variable that is no longer accessible (it would lead to memory leak)
+        <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>* p = <span class="keyword">new</span> <span class="type">int</span>;</span><br><span class="line">p = <span class="keyword">new</span> <span class="type">int</span>;    <span class="comment">// create a new int and force p points to it</span></span><br><span class="line"><span class="keyword">delete</span> p;   <span class="comment">// cannot delete the new int that declared on the top</span></span><br></pre></td></tr></table></figure>
+</code></pre><ul>
+<li><p><strong>Solutions</strong> for dangling pointers</p>
+<ol>
+<li><p>Tombstone</p>
+<ul>
+<li><p>adding an extra heap cell (a pointer) to the heap-dynamic variable</p>
+<p><img src="https://p.ipic.vip/1zz58f.png" width="500px" /></p>
+</li>
+</ul>
+<ol>
+<li>the actual pointer variable points only at the tombstone (a middleware among the variable and pointers)</li>
+<li>when a heap-dynamic variable is deallocated, the tombstone remains but points to null</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<pre><code>2. Locks-and-keys
+    - the pointer values are represents as (key, address) and the heap-dynamic variables are represents as (key, values)
+    &lt;img src=&quot;https://p.ipic.vip/phxapn.png&quot; width=&quot;500px&quot; /&gt;
+    1. when a heap-dynamic variable is allocated and assigned to a pointer, a unique value is created and assigned to both pointer&#39;s and variable&#39;s key
+    2. when we use the pointer to access the corresponding variable, it would compare the key value first to check whether the access is legal or not
+    3. when the heap-dynamic variable is deallocated, the lock value is cleared to an illegal lock value to make sure it won&#39;t be access
+</code></pre><h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li>reference type variable is similar to pointer but it only <font color="3A75EA">refers to an object</font> in memory instead of an address  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">a</span> <span class="operator">=</span> <span class="string">&quot;haha&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">b</span> <span class="operator">=</span> a;</span><br><span class="line"><span class="type">String</span> <span class="variable">c</span> <span class="operator">=</span> <span class="string">&quot;hehe&quot;</span>;</span><br><span class="line">b = c;  <span class="comment">// it would not change the value of a</span></span><br><span class="line">System.out.println(a);  <span class="comment">// haha</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="type">int</span>&amp; b = a;</span><br><span class="line"><span class="type">int</span> c = <span class="number">2</span>;</span><br><span class="line">b = c;  <span class="comment">// it does change the value of a</span></span><br><span class="line">std::cout &lt;&lt; a &lt;&lt; std::endl;  <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Implicit-Heap-Management"><a href="#Implicit-Heap-Management" class="headerlink" title="Implicit Heap Management"></a>Implicit Heap Management</h3><ol>
+<li>Reference Counter<ul>
+<li>maintain a reference counter in every cell, which stores the number of pointers currently pointing at the cell</li>
+<li>when a pointer is disconnect from the cell, the counter is decreased by one and check for the zero value</li>
+<li>if the counter value is 0 which means no pointers are pointing to it, then it would deallocate the memory</li>
+</ul>
+</li>
+</ol>
+<!-- 
+<font color="3A75EA">Blue</font>
+<font color="F54747">Red</font>
+-->
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog">Donald Lam</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog/2023/02/26/CUHK/CSCI3180/2023-2-26-CSCI3180-DataTypes/">https://github.com/DonaldLamNL/myBlog/2023/02/26/CUHK/CSCI3180/2023-2-26-CSCI3180-DataTypes/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/myBlog/tags/Languages-Principles/">Languages Principles</a></div><div class="post_share"><div class="social-share" data-image="https://p.ipic.vip/q43a7n.png" data-sites="facebook,twitter"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/myBlog/2023/03/10/CUHK/CSCI3170/2023-3-10-CSCI3170-SQL/"><img class="prev-cover" src="https://p.ipic.vip/jk28ki.avif" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Structured Query Language</div></div></a></div><div class="next-post pull-right"><a href="/myBlog/2023/02/25/CUHK/CSCI3180/2023-2-25-CSCI3180-Scope/"><img class="next-cover" src="https://p.ipic.vip/q43a7n.png" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Scope</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/myBlog/2023/02/25/CUHK/CSCI3180/2023-2-25-CSCI3180-Scope/" title="Scope"><img class="cover" src="https://p.ipic.vip/q43a7n.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-25</div><div class="title">Scope</div></div></a></div><div><a href="/myBlog/2023/02/08/CUHK/CSCI3180/2023-2-8-CSCI3180-Abstraction/" title="Variables"><img class="cover" src="https://p.ipic.vip/q43a7n.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-08</div><div class="title">Variables</div></div></a></div><div><a href="/myBlog/2023/03/13/CUHK/CSCI3180/2023-3-13-CSCI3180-Statement-Expressions-Assignment/" title="Statements (Expressions and Assignment)"><img class="cover" src="https://p.ipic.vip/q43a7n.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-13</div><div class="title">Statements (Expressions and Assignment)</div></div></a></div><div><a href="/myBlog/2023/04/26/CUHK/CSCI3180/2023-4-26-CSCI3180-Statement-Level-Control-Structures/" title="Statements (Level-Control-Structures)"><img class="cover" src="https://p.ipic.vip/q43a7n.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-26</div><div class="title">Statements (Level-Control-Structures)</div></div></a></div><div><a href="/myBlog/2023/04/27/CUHK/CSCI3180/2023-4-27-CSCI3180-Subprogram/" title="Subprogram"><img class="cover" src="https://p.ipic.vip/q43a7n.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-27</div><div class="title">Subprogram</div></div></a></div><div><a href="/myBlog/2023/04/28/CUHK/CSCI3180/2023-4-28-CSCI3180-Logic-Programming/" title="Logic Programming"><img class="cover" src="https://p.ipic.vip/q43a7n.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-28</div><div class="title">Logic Programming</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="this.onerror=null;this.src='/myBlog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Donald Lam</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">13</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">13</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://donaldlamnl.github.io/myWeb/#/home"><i></i><span>My Personal Website</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DonaldLamNL" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:manholam8@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Primitive-Data-Types"><span class="toc-number">1.</span> <span class="toc-text">Primitive Data Types</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Integer"><span class="toc-number">1.1.</span> <span class="toc-text">Integer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Floating-Point"><span class="toc-number">1.2.</span> <span class="toc-text">Floating Point</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complex"><span class="toc-number">1.3.</span> <span class="toc-text">Complex</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Decimal"><span class="toc-number">1.4.</span> <span class="toc-text">Decimal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boolean"><span class="toc-number">1.5.</span> <span class="toc-text">Boolean</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Character"><span class="toc-number">1.6.</span> <span class="toc-text">Character</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Character-String-Types"><span class="toc-number">1.7.</span> <span class="toc-text">Character String Types</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ordinal-Types"><span class="toc-number">1.8.</span> <span class="toc-text">Ordinal Types</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enumeration-Types"><span class="toc-number">2.</span> <span class="toc-text">Enumeration Types</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Array"><span class="toc-number">3.</span> <span class="toc-text">Array</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Array-Types"><span class="toc-number">3.1.</span> <span class="toc-text">Array Types</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Array-Binding"><span class="toc-number">3.2.</span> <span class="toc-text">Array Binding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implementation-of-Array"><span class="toc-number">3.3.</span> <span class="toc-text">Implementation of Array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Associative-Arrays"><span class="toc-number">3.4.</span> <span class="toc-text">Associative Arrays</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tuples"><span class="toc-number">4.</span> <span class="toc-text">Tuples</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Records"><span class="toc-number">5.</span> <span class="toc-text">Records</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-of-Records"><span class="toc-number">5.1.</span> <span class="toc-text">Implement of Records</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unions"><span class="toc-number">6.</span> <span class="toc-text">Unions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Heap-Management"><span class="toc-number">7.</span> <span class="toc-text">Heap Management</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pointer"><span class="toc-number">7.1.</span> <span class="toc-text">Pointer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#References"><span class="toc-number">7.2.</span> <span class="toc-text">References</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implicit-Heap-Management"><span class="toc-number">7.3.</span> <span class="toc-text">Implicit Heap Management</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/01/25/CUHK/ESTR4316/2024-1-25-ESTR4316-Kubernates/" title="No title"><img src="https://p.ipic.vip/ruvwfy.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/myBlog/2024/01/25/CUHK/ESTR4316/2024-1-25-ESTR4316-Kubernates/" title="No title">No title</a><time datetime="2024-01-25T11:24:54.480Z" title="Created 2024-01-25 19:24:54">2024-01-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/01/18/CUHK/ESTR4316/2024-1-18-ESTR4316-Introduction/" title="Introduction"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Introduction"/></a><div class="content"><a class="title" href="/myBlog/2024/01/18/CUHK/ESTR4316/2024-1-18-ESTR4316-Introduction/" title="Introduction">Introduction</a><time datetime="2024-01-17T16:00:00.000Z" title="Created 2024-01-18 00:00:00">2024-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/01/18/LeetCode/2024-1-28-LeetCode/" title="LeetCode - Array"><img src="https://p.ipic.vip/vfdink.png" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="LeetCode - Array"/></a><div class="content"><a class="title" href="/myBlog/2024/01/18/LeetCode/2024-1-28-LeetCode/" title="LeetCode - Array">LeetCode - Array</a><time datetime="2024-01-17T16:00:00.000Z" title="Created 2024-01-18 00:00:00">2024-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/12/20/CUHK/CSCI4180/2023-12-15-CSCI4180-Tail-Tolerance/" title="Tail Tolerance"><img src="https://p.ipic.vip/ppekay.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Tail Tolerance"/></a><div class="content"><a class="title" href="/myBlog/2023/12/20/CUHK/CSCI4180/2023-12-15-CSCI4180-Tail-Tolerance/" title="Tail Tolerance">Tail Tolerance</a><time datetime="2023-12-19T16:00:00.000Z" title="Created 2023-12-20 00:00:00">2023-12-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/12/15/CUHK/CSCI4180/2023-12-20-CSCI4180-Zookeeper/" title="Zookeeper"><img src="https://p.ipic.vip/ppekay.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Zookeeper"/></a><div class="content"><a class="title" href="/myBlog/2023/12/15/CUHK/CSCI4180/2023-12-20-CSCI4180-Zookeeper/" title="Zookeeper">Zookeeper</a><time datetime="2023-12-14T16:00:00.000Z" title="Created 2023-12-15 00:00:00">2023-12-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By Donald Lam</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/myBlog/js/utils.js"></script><script src="/myBlog/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/myBlog/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

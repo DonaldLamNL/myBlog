@@ -1,0 +1,525 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Relational Model | myBlog</title><meta name="keywords" content="Database"><meta name="author" content="Donald Lam,manholam8@gmail.com"><meta name="copyright" content="Donald Lam"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content=".block {     width: 80px; }   SQLRelations Relation Schema the column heads for the table which contains name of each field and the domain of each field e.g. Students( sid: string, name: string, logi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Relational Model">
+<meta property="og:url" content="https://github.com/DonaldLamNL/myBlog/2023/02/15/CUHK/CSCI3170/2023-2-15-CSCI3170-RelationalModel/index.html">
+<meta property="og:site_name" content="myBlog">
+<meta property="og:description" content=".block {     width: 80px; }   SQLRelations Relation Schema the column heads for the table which contains name of each field and the domain of each field e.g. Students( sid: string, name: string, logi">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://p.ipic.vip/jk28ki.avif">
+<meta property="article:published_time" content="2023-02-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-14T16:00:00.000Z">
+<meta property="article:author" content="Donald Lam">
+<meta property="article:tag" content="Database">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p.ipic.vip/jk28ki.avif"><link rel="shortcut icon" href="/myBlog/img/favicon.png"><link rel="canonical" href="https://github.com/DonaldLamNL/myBlog/2023/02/15/CUHK/CSCI3170/2023-2-15-CSCI3170-RelationalModel/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/myBlog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/myBlog/',
+  algolia: undefined,
+  localSearch: {"path":"/myBlog/search.xml","preload":true,"languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Relational Model',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-02-15 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">13</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">13</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://p.ipic.vip/jk28ki.avif')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/myBlog/">myBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Relational Model</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-02-14T16:00:00.000Z" title="Created 2023-02-15 00:00:00">2023-02-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-02-14T16:00:00.000Z" title="Updated 2023-02-15 00:00:00">2023-02-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/myBlog/categories/CSCI3170/">CSCI3170</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Relational Model"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><style>
+.block {
+    width: 80px;
+}
+</style>
+
+<h2 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h2><h3 id="Relations"><a href="#Relations" class="headerlink" title="Relations"></a>Relations</h3><ol>
+<li>Relation Schema<ul>
+<li>the column heads for the table which contains <font color="3A75EA">name of each field</font> and the <font color="3A75EA">domain of each field</font><ul>
+<li>e.g. Students( <ins>sid</ins>: <code>string</code>, name: <code>string</code>, login: <code>string</code>, age: <code>integer</code>, gpa: <code>real</code> )<br>| <ins>sid</ins> | name | login | age | gpa |<br>| :—-: | :—-: | :—-: | :—-: | :—-: |</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p>Relation Instance</p>
+<ul>
+<li><p>a table with rows and columns </p>
+<ul>
+<li>e.g.<br>| <ins>sid</ins> | name | login | age | gpa |<br>| :—-: | :—-: | :—-: | :—-: | :—-: |<br>| 50000 | Dave | dave@cs | 19 | 3.3 |<br>| 53666 | Jones | jones@cs | 18 | 3.4 |<br>| 53688 | Smith | smith#@ee | 18 | 3.2 |<br>| 53650 | Smith | smith@math | 19 | 3.8 |<br>| 53831 | Madayan | madayan@music | 11 | 1.8 |<br>| 53832 | Guldu | guldu@music | 20 | 2.0 |</li>
+</ul>
+</li>
+<li><p>Reminder:</p>
+<ol>
+<li><font color="F54747">no two rows are identical</font></li>
+<li>the order in the rows and fields are listed is not important</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>Definitions:<ol>
+<li><font color="3A75EA">degree</font>: the number of fields</li>
+<li><font color="3A75EA">cardinality</font>: the number of tuples (records)</li>
+<li><font color="3A75EA">relational database</font>: a collection of relations with distinct relation names</li>
+<li><font color="3A75EA">relational database schema</font>: the collection of schemas for the relations in the database</li>
+<li><font color="3A75EA">instance</font> of relational database: a collection of relation instances</li>
+</ol>
+</li>
+</ol>
+<h3 id="Data-Definition-Language"><a href="#Data-Definition-Language" class="headerlink" title="Data Definition Language"></a>Data Definition Language</h3><ol>
+<li>Create<ul>
+<li>create the Student relation  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Create</span> <span class="keyword">table</span> Students(</span><br><span class="line">    sid    <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    name   <span class="type">CHAR</span>(<span class="number">30</span>),</span><br><span class="line">    login  <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    age    <span class="type">INTEGER</span>,</span><br><span class="line">    gpa    <span class="type">REAL</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>Insert<ul>
+<li>insert a single tuple  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Insert</span></span><br><span class="line"><span class="keyword">into</span>        Students (sid, name, login, age, gpa)</span><br><span class="line"><span class="keyword">Values</span>      (<span class="number">53688</span>, <span class="string">&#x27;Smith&#x27;</span>, <span class="string">&#x27;smith@ee&#x27;</span>, <span class="number">18</span>, <span class="number">3.2</span>)</span><br></pre></td></tr></table></figure></li>
+<li><font color="3A75EA">Noted</font>: it is not necessary to list out the name of fields, but make sure to <font color="F54747">match the order</font>
+
+
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>Delete<ul>
+<li>delete tuples  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span></span><br><span class="line"><span class="keyword">From</span>    Students S</span><br><span class="line"><span class="keyword">WHERE</span>   S.name <span class="operator">=</span> <span class="string">&#x27;Smith&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>Update<ul>
+<li>modify the column values in an existing row  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span>  Students S</span><br><span class="line"><span class="keyword">SET</span>     S.age <span class="operator">=</span> S.age <span class="operator">+</span> <span class="number">1</span>, S.gpa <span class="operator">=</span> S.gpa <span class="operator">-</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">WHERE</span>   S.sid <span class="operator">=</span> <span class="number">53688</span></span><br></pre></td></tr></table></figure></li>
+<li><font color="3A75EA">Noted</font>: it would identify all satisfied records then update them</li>
+<li>e.g.  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span>  Students S</span><br><span class="line"><span class="keyword">SET</span>     S.gpa <span class="operator">=</span> S.gpa <span class="operator">-</span> <span class="number">0.1</span></span><br><span class="line"><span class="keyword">WHERE</span>   S.gpa <span class="operator">&gt;=</span> <span class="number">3.3</span></span><br></pre></td></tr></table></figure>
+  | <ins>sid</ins> | name | login | age | gpa |<br>  | :—-: | :—-: | :—-: | :—-: | :—-: |<br>  | 50000 | Dave | dave@cs | 19 | <font color="F54747">3.2</font> |<br>  | 53666 | Jones | jones@cs | 18 | <font color="F54747">3.3</font> |<br>  | 53688 | Smith | smith#@ee | 18 | 3.2 |<br>  | 53650 | Smith | smith@math | 19 | <font color="F54747">3.7</font> |<br>  | 53831 | Madayan | madayan@music | 11 | 1.8 |<br>  | 53832 | Guldu | guldu@music | 20 | 2.0 |</li>
+</ul>
+</li>
+</ol>
+<h3 id="Key-Constraint"><a href="#Key-Constraint" class="headerlink" title="Key Constraint"></a>Key Constraint</h3><ul>
+<li>certain minimal subset of the fields, which is a <font color="F54747">unique identifier</font> for a tuple, declare by <code>UNIQUE</code> command</li>
+<li>designer can also identify a <font color="F54747">primary key</font> by <code>PRIMARY KEY</code>  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Create</span> <span class="keyword">table</span> Students(</span><br><span class="line">    sid    <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    name   <span class="type">CHAR</span>(<span class="number">30</span>),</span><br><span class="line">    login  <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    age    <span class="type">INTEGER</span>,</span><br><span class="line">    gpa    <span class="type">REAL</span>,</span><br><span class="line">    <span class="keyword">UNIQUE</span>(name, age),     <span class="comment">-- a key: not allow two records have the same name and age</span></span><br><span class="line">    <span class="keyword">CONSTRAINT</span> StudentsKey <span class="keyword">PRIMARY</span> KEY (sid)    <span class="comment">-- a primary key</span></span><br><span class="line">)   <span class="comment">-- the constraint name StudentsKey is not necessary to be set</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Foreign-Key"><a href="#Foreign-Key" class="headerlink" title="Foreign Key"></a>Foreign Key</h3><ul>
+<li><p>a set of fields in one relation r that is used to <font color="F54747">refer</font> to a tuple in another relation s</p>
+<ul>
+<li><p>e.g.<br>  | <ins>cid</ins> | grade | sid |<br>  | :—-: | :—-: | :—-: |<br>  | CSC101 | D | 53831 |<br>  | ERG202 | B | 53832 |<br>  | IEE321 | A | 53650 |<br>  | PSY203 | B | 53666 |</p>
+</li>
+<li><p>In this case, <font color="3A75EA">sid</font> would be the <font color="3A75EA">foreign key</font></p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Enrolled&#123;</span><br><span class="line">    sid     <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    cid     <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    grade   <span class="type">CHAR</span>(<span class="number">10</span>),</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (sid, cid),</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (sid) <span class="keyword">REFERENCES</span> Students</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>Noted:<ol>
+<li>Cannot insert <code>&lt;55555, ART104, A&gt;</code> because there is no tuple in <code>Students</code> with <code>sid = 55555</code>.</li>
+<li>Cannot delete <code>&lt;53666, Jones, ...&gt;</code> because there is a tuple from <code>Enrolled</code> with <code>sid = 53666</code>.</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Foreign-key-violations"><a href="#Foreign-key-violations" class="headerlink" title="Foreign key violations"></a>Foreign key violations</h3><ol>
+<li><p>Insert:</p>
+<ul>
+<li>insert a row to <code>Enrolled</code> with a sid value that does not appear in <code>Students</code></li>
+<li>The <code>INSERT</code> is <font color="F54747">reject</font></li>
+</ul>
+</li>
+<li><p>Delete &amp; Update:</p>
+<ul>
+<li>Delete or update a <code>Students</code> row, the row in <code>Enrolled</code> refer to the target can have following operations:<ol>
+<li>Delete <font color="F54747">all rows</font> in <code>Enrolled</code> that refer to the delete <code>Students</code> row</li>
+<li>Disallow the deletion</li>
+<li>Set the sid column in <code>Enrolled</code> row that refers to it to <code>default</code></li>
+<li>Set the sid column in <code>Enrolled</code> row that refers to it to <code>null</code></li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>Operations:</p>
+<ol>
+<li><p><code>NO ACTION</code> (default)</p>
+<ul>
+<li>The action (<code>DELETE</code> or <code>UPDATE</code>) is to be rejected</li>
+</ul>
+</li>
+<li><p><code>CASCADE</code></p>
+<ul>
+<li>If <code>Students</code> row is deleted, all <code>Enrolled</code> rows that refer to it are deleted</li>
+</ul>
+</li>
+<li><p><code>SET DEFAULT</code></p>
+<ul>
+<li>Switch the <code>Enrolled</code> row to a <code>DEFAULT</code> student</li>
+</ul>
+</li>
+<li><p><code>SET NULL</code></p>
+<ul>
+<li>Allow the use of <code>NULL</code> as the <code>DEFAULT</code> value</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Enrolled&#123;</span><br><span class="line">    sid     <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    cid     <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    grade   <span class="type">CHAR</span>(<span class="number">10</span>),</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (sid, cid),</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (sid) <span class="keyword">REFERENCES</span> Students</span><br><span class="line">                        <span class="keyword">ON</span> <span class="keyword">DELETE</span> CASCADE</span><br><span class="line">                        <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">NO</span> ACTION</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="Logical-Database-Design"><a href="#Logical-Database-Design" class="headerlink" title="Logical Database Design"></a>Logical Database Design</h2><h3 id="Entity-Sets"><a href="#Entity-Sets" class="headerlink" title="Entity Sets"></a>Entity Sets</h3><p><img src="https://p.ipic.vip/fd10un.png" width="250px"/></p>
+<ol>
+<li><p>Attributes:</p>
+<ul>
+<li>all attributes of that entity</li>
+</ul>
+</li>
+<li><p>Keys:</p>
+<ul>
+<li>the primary key and condidate keys (if exist)</li>
+</ul>
+</li>
+<li><p>Entity Set:</p>
+<ul>
+<li><p><strong>Employees</strong>: <ins>id</ins>, name, lot</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Employees(</span><br><span class="line">    id      <span class="type">CHAR</span>(<span class="number">11</span>),</span><br><span class="line">    name    <span class="type">CHAR</span>(<span class="number">30</span>),</span><br><span class="line">    lot     <span class="type">INTEGER</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY(id)     <span class="comment">-- primary key &#123;id&#125;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="Relationship-Sets"><a href="#Relationship-Sets" class="headerlink" title="Relationship Sets"></a>Relationship Sets</h3><p><img src="https://p.ipic.vip/49vkub.png" width="400px" /></p>
+<ol>
+<li><p>Attributes:</p>
+<ul>
+<li>the primary key attributes of each participating entity set</li>
+<li>its own attribute</li>
+<li>the descriptive attribute</li>
+</ul>
+</li>
+<li><p>Keys:</p>
+<ul>
+<li><font color="F54747">primary key</font>: the group of primary keys of each participating entity</li>
+<li>the foreign keys</li>
+</ul>
+</li>
+<li><p>Entity Table:</p>
+<ul>
+<li><strong>Employees</strong>: <ins>id</ins>, name, lot</li>
+<li><strong>Departments</strong>: <ins>did</ins>, dname, budget</li>
+<li><strong>Locations</strong>: <ins>address</ins>, capacity</li>
+</ul>
+</li>
+<li><p>Relationship Table:</p>
+<ul>
+<li><p><strong>Work_In2</strong>: id, did, address, since (<font color="F54747">primary key</font>: <code>&#123;id, did, address&#125;</code>)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Work_In2(</span><br><span class="line">    <span class="comment">-- primary key of each participating entity set</span></span><br><span class="line">    id      <span class="type">CHAR</span>(<span class="number">11</span>),</span><br><span class="line">    did     <span class="type">INTEGER</span>,</span><br><span class="line">    address <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    <span class="comment">-- its own attribute</span></span><br><span class="line">    since   <span class="type">DATE</span>,</span><br><span class="line">    <span class="comment">-- primary key (cannot be null)</span></span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (id, did, address),  <span class="comment">-- the group of primary keys of each entity</span></span><br><span class="line">    <span class="comment">-- foreign keys</span></span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (id) <span class="keyword">REFERENCES</span> Employees,</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (did) <span class="keyword">REFERENCES</span> Departments,</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (address) <span class="keyword">REFERENCES</span> Locations</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>demonstrating on descriptive attributes</p>
+<p>  <img src="https://p.ipic.vip/yhhwjs.png" width="250px" /></p>
+</li>
+</ul>
+<ol>
+<li><p>Entity Table:</p>
+<ul>
+<li><strong>Employees</strong>: <ins>id</ins>, name, lot</li>
+</ul>
+</li>
+<li><p>Relationship Table:</p>
+<ul>
+<li><p><strong>Reoports_To</strong>: supervisor_id, subordinate_id (<font color="F54747">primary key</font>: <code>&#123;supervisor_id, subordinate_id&#125;</code>)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Reoports_To(</span><br><span class="line">    <span class="comment">-- the descriptive attributes</span></span><br><span class="line">    supervisor_id   <span class="type">CHAR</span>(<span class="number">11</span>),</span><br><span class="line">    subordinate_id  <span class="type">CHAR</span>(<span class="number">11</span>),</span><br><span class="line">    <span class="comment">-- primary key</span></span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (supervisor_id, subordinate_id),    <span class="comment">-- the group of attributes</span></span><br><span class="line">    <span class="comment">-- foreign keys (relate the descriptive attributes to the associated attribute)</span></span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (supervisor_id) <span class="keyword">REFERENCES</span> Employees(id),</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (subordinate_id) <span class="keyword">REFERENCES</span> Employees(id),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="Relationship-Sets-Key-Constraints"><a href="#Relationship-Sets-Key-Constraints" class="headerlink" title="Relationship Sets (Key Constraints)"></a>Relationship Sets (<font color="3A75EA">Key Constraints</font>)</h3><p><img src="https://p.ipic.vip/h6bfwe.png" width="400px" /></p>
+<ul>
+<li>each department has <font color="3A75EA">at most one</font> manager (i.e., no two tuples can have same <code>did</code> but can have same <code>id</code> in <code>Managers</code> table)</li>
+<li><code>did</code> is the primary / candidate key but <code>&#123;id, did&#125;</code> is not as it is not minimal</li>
+</ul>
+<ol>
+<li><p>Attributes:</p>
+<ul>
+<li>all attributes of the entity set with the candidate key</li>
+<li>the primary key attributes of each participating entity set</li>
+<li>its own attributes</li>
+</ul>
+</li>
+<li><p>Keys:</p>
+<ul>
+<li><font color="F54747">primary key</font>: the only required primary key</li>
+<li>the foreign keys</li>
+</ul>
+</li>
+<li><p>Entity Table:</p>
+<ul>
+<li><strong>Employees</strong>: <ins>id</ins>, name, lot</li>
+<li><strong>Departments</strong>: <ins>did</ins>, dname, budget</li>
+</ul>
+</li>
+<li><p>Relationship Table:</p>
+<ul>
+<li><strong>Managers</strong>: <ins>did</ins>, dname, budget, id, since (<font color="F54747">primary key</font>: <code>&#123;did&#125;</code>)</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>Cons: if a lot of departments have no manager, it is wasting space</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Managers(</span><br><span class="line">    <span class="comment">-- all attributes of the entity set with the candidate key</span></span><br><span class="line">    did     <span class="type">INTEGER</span>,</span><br><span class="line">    dname   <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    budget  <span class="type">REAL</span>,</span><br><span class="line">    <span class="comment">-- primary key of each entity set</span></span><br><span class="line">    id      <span class="type">CHAR</span>(<span class="number">11</span>),</span><br><span class="line">    <span class="comment">-- its own attributes</span></span><br><span class="line">    since   <span class="type">DATE</span>,</span><br><span class="line">    <span class="comment">-- primary key (not the set of primary keys in entity sets)</span></span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (did),</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (id) <span class="keyword">REFERENCES</span> Employees</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Relationship-Sets-Participation-Constraints"><a href="#Relationship-Sets-Participation-Constraints" class="headerlink" title="Relationship Sets (Participation Constraints)"></a>Relationship Sets (<font color="3A75EA">Participation Constraints</font>)</h3><p><img src="https://p.ipic.vip/kay8v8.png" width="400px" /></p>
+<ul>
+<li><p>each department has <font color="3A75EA">exactly one one</font> manager (i.e., <code>id</code> cannot set to be <code>DELETE</code>)</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Managers(</span><br><span class="line">    did     <span class="type">INTEGER</span>,</span><br><span class="line">    dname   <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    budget  <span class="type">REAL</span>,</span><br><span class="line">    id      <span class="type">CHAR</span>(<span class="number">11</span>),</span><br><span class="line">    since   <span class="type">DATE</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (did),</span><br><span class="line">    <span class="comment">-- must have one manager (turn on cannot DELETE)</span></span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (id) <span class="keyword">REFERENCES</span> Employees <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">NO</span> ACTION     </span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Week-Entity-Sets"><a href="#Week-Entity-Sets" class="headerlink" title="Week Entity Sets"></a>Week Entity Sets</h3><p><img src="https://p.ipic.vip/sr2epq.png" width="400px" /></p>
+<ul>
+<li><p>The weak entity set always</p>
+<ul>
+<li>participates in a one-to-many binary relationship</li>
+<li>has a key constraint</li>
+<li>has total participation</li>
+</ul>
+</li>
+<li><p>Primary key: <code>&#123;id, pname&#125;</code> as <code>Dependents</code> is a weak entity</p>
+</li>
+</ul>
+<ol>
+<li><p>Attributes:</p>
+<ul>
+<li>all attributes of the entity set with the candidate key</li>
+<li>the primary key attributes of each participating entity set</li>
+<li>its own attributes</li>
+</ul>
+</li>
+<li><p>Keys:</p>
+<ul>
+<li><font color="F54747">primary key</font>: the group of primary key in participating entity</li>
+<li>the foreign keys</li>
+</ul>
+</li>
+<li><p>Entity Table:</p>
+<ul>
+<li><strong>Employees</strong>: <ins>id</ins>, name, lot</li>
+<li><strong>Departments</strong>: <ins>did</ins>, dname, budget</li>
+</ul>
+</li>
+<li><p>Relationship Table:</p>
+<ul>
+<li><p><strong>Managers</strong>: did, dname, budget, id, since (<font color="F54747">primary key</font>: <code>&#123;id, pname&#125;</code>)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Policy(</span><br><span class="line">    <span class="comment">-- all attributes of the entity set</span></span><br><span class="line">    pname   <span class="type">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">    age     <span class="type">INTEGER</span>,</span><br><span class="line">    <span class="comment">-- the primary key of each participating entity</span></span><br><span class="line">    id      <span class="type">CHAR</span>(<span class="number">11</span>),</span><br><span class="line">    <span class="comment">-- its own attributes</span></span><br><span class="line">    cost    <span class="type">REAL</span>,</span><br><span class="line">    <span class="comment">-- primary key</span></span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (pname,id),</span><br><span class="line">    <span class="comment">-- ensure that information about employee&#x27;s policy and dependents is deleted</span></span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (id) <span class="keyword">REFERENCES</span> Employees <span class="keyword">ON</span> <span class="keyword">DELETE</span> CASCADE</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="Class-Hierarchies"><a href="#Class-Hierarchies" class="headerlink" title="Class Hierarchies"></a>Class Hierarchies</h3><p><img src="https://p.ipic.vip/d3y6w4.png" width="450px" /></p>
+<ol>
+<li>Entity Table:<ul>
+<li><strong>Employees</strong>: <ins>id</ins>, name, lot</li>
+<li><strong>Hourly-Emps</strong>: <ins>id</ins>, hour_worked, hour_wages</li>
+<li><strong>Contract-Emps</strong>: <ins>id</ins>, contract_id</li>
+</ul>
+</li>
+</ol>
+<h3 id="Aggregation"><a href="#Aggregation" class="headerlink" title="Aggregation"></a>Aggregation</h3><p><img src="https://p.ipic.vip/hz86ip.png" width="500px" /></p>
+<ol>
+<li><p>Entity Table:</p>
+<ul>
+<li><strong>Employees</strong>: <ins>id</ins>, name, lot</li>
+<li><strong>Departments</strong>: <ins>did</ins>, dname, budget</li>
+<li><strong>Projects</strong>: <ins>pid</ins>, started-on, pbudget</li>
+</ul>
+</li>
+<li><p>Relationship Table:</p>
+<ul>
+<li><strong>Monitors</strong>: id, pid, did, until (<font color="F54747">primary key</font>: <code>&#123;id, pid, did&#125;</code>)</li>
+<li><strong>Sponsors</strong>: pid, did, since (<font color="F54747">primary key</font>: <code>&#123;pid, did&#125;</code>)</li>
+</ul>
+</li>
+</ol>
+<!-- 
+<font color="3A75EA">Blue</font>
+<font color="F54747">Red</font>
+--></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog">Donald Lam</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog/2023/02/15/CUHK/CSCI3170/2023-2-15-CSCI3170-RelationalModel/">https://github.com/DonaldLamNL/myBlog/2023/02/15/CUHK/CSCI3170/2023-2-15-CSCI3170-RelationalModel/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/myBlog/tags/Database/">Database</a></div><div class="post_share"><div class="social-share" data-image="https://p.ipic.vip/jk28ki.avif" data-sites="facebook,twitter"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/myBlog/2023/02/16/CUHK/CSCI3170/2023-2-16-CSCI3170-RelationalAlgebra/"><img class="prev-cover" src="https://p.ipic.vip/jk28ki.avif" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Relational Algebra</div></div></a></div><div class="next-post pull-right"><a href="/myBlog/2023/02/08/CUHK/CSCI3180/2023-2-8-CSCI3180-Abstraction/"><img class="next-cover" src="https://p.ipic.vip/q43a7n.png" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Variables</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/myBlog/2023/01/28/CUHK/CSCI3170/2023-1-28-CSCI3170-ERModel/" title="Entity-Relationship Model"><img class="cover" src="https://p.ipic.vip/jk28ki.avif" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-28</div><div class="title">Entity-Relationship Model</div></div></a></div><div><a href="/myBlog/2023/03/10/CUHK/CSCI3170/2023-3-10-CSCI3170-SQL/" title="Structured Query Language"><img class="cover" src="https://p.ipic.vip/jk28ki.avif" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-10</div><div class="title">Structured Query Language</div></div></a></div><div><a href="/myBlog/2023/02/16/CUHK/CSCI3170/2023-2-16-CSCI3170-RelationalAlgebra/" title="Relational Algebra"><img class="cover" src="https://p.ipic.vip/jk28ki.avif" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-16</div><div class="title">Relational Algebra</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="this.onerror=null;this.src='/myBlog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Donald Lam</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">13</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">13</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://donaldlamnl.github.io/myWeb/#/home"><i></i><span>My Personal Website</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DonaldLamNL" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:manholam8@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL"><span class="toc-number">1.</span> <span class="toc-text">SQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Relations"><span class="toc-number">1.1.</span> <span class="toc-text">Relations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Definition-Language"><span class="toc-number">1.2.</span> <span class="toc-text">Data Definition Language</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Key-Constraint"><span class="toc-number">1.3.</span> <span class="toc-text">Key Constraint</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Foreign-Key"><span class="toc-number">1.4.</span> <span class="toc-text">Foreign Key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Foreign-key-violations"><span class="toc-number">1.5.</span> <span class="toc-text">Foreign key violations</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Logical-Database-Design"><span class="toc-number">2.</span> <span class="toc-text">Logical Database Design</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Entity-Sets"><span class="toc-number">2.1.</span> <span class="toc-text">Entity Sets</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Relationship-Sets"><span class="toc-number">2.2.</span> <span class="toc-text">Relationship Sets</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Relationship-Sets-Key-Constraints"><span class="toc-number">2.3.</span> <span class="toc-text">Relationship Sets (Key Constraints)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Relationship-Sets-Participation-Constraints"><span class="toc-number">2.4.</span> <span class="toc-text">Relationship Sets (Participation Constraints)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-Entity-Sets"><span class="toc-number">2.5.</span> <span class="toc-text">Week Entity Sets</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Class-Hierarchies"><span class="toc-number">2.6.</span> <span class="toc-text">Class Hierarchies</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Aggregation"><span class="toc-number">2.7.</span> <span class="toc-text">Aggregation</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/01/25/CUHK/ESTR4316/2024-1-25-ESTR4316-Kubernates/" title="No title"><img src="https://p.ipic.vip/ruvwfy.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/myBlog/2024/01/25/CUHK/ESTR4316/2024-1-25-ESTR4316-Kubernates/" title="No title">No title</a><time datetime="2024-01-25T11:24:54.480Z" title="Created 2024-01-25 19:24:54">2024-01-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/01/18/CUHK/ESTR4316/2024-1-18-ESTR4316-Introduction/" title="Introduction"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Introduction"/></a><div class="content"><a class="title" href="/myBlog/2024/01/18/CUHK/ESTR4316/2024-1-18-ESTR4316-Introduction/" title="Introduction">Introduction</a><time datetime="2024-01-17T16:00:00.000Z" title="Created 2024-01-18 00:00:00">2024-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/01/18/LeetCode/2024-1-28-LeetCode/" title="LeetCode - Array"><img src="https://p.ipic.vip/vfdink.png" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="LeetCode - Array"/></a><div class="content"><a class="title" href="/myBlog/2024/01/18/LeetCode/2024-1-28-LeetCode/" title="LeetCode - Array">LeetCode - Array</a><time datetime="2024-01-17T16:00:00.000Z" title="Created 2024-01-18 00:00:00">2024-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/12/20/CUHK/CSCI4180/2023-12-15-CSCI4180-Tail-Tolerance/" title="Tail Tolerance"><img src="https://p.ipic.vip/ppekay.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Tail Tolerance"/></a><div class="content"><a class="title" href="/myBlog/2023/12/20/CUHK/CSCI4180/2023-12-15-CSCI4180-Tail-Tolerance/" title="Tail Tolerance">Tail Tolerance</a><time datetime="2023-12-19T16:00:00.000Z" title="Created 2023-12-20 00:00:00">2023-12-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2023/12/15/CUHK/CSCI4180/2023-12-20-CSCI4180-Zookeeper/" title="Zookeeper"><img src="https://p.ipic.vip/ppekay.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Zookeeper"/></a><div class="content"><a class="title" href="/myBlog/2023/12/15/CUHK/CSCI4180/2023-12-20-CSCI4180-Zookeeper/" title="Zookeeper">Zookeeper</a><time datetime="2023-12-14T16:00:00.000Z" title="Created 2023-12-15 00:00:00">2023-12-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By Donald Lam</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/myBlog/js/utils.js"></script><script src="/myBlog/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/myBlog/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

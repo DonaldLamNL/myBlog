@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Neural Network | myBlog</title><meta name="keywords" content="Deep Learning"><meta name="author" content="Donald Lam,manholam8@gmail.com"><meta name="copyright" content="Donald Lam"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Here&#39;s something encrypted, password is required to continue reading.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Neural Network">
+<meta property="og:url" content="https://github.com/DonaldLamNL/myBlog/2024/01/28/CUHK/AIST4010/2024-1-28-AIST4010-Neural-Network%20copy/index.html">
+<meta property="og:site_name" content="myBlog">
+<meta property="og:description" content="Here&#39;s something encrypted, password is required to continue reading.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://p.ipic.vip/llqylk.jpg">
+<meta property="article:published_time" content="2024-01-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-27T16:00:00.000Z">
+<meta property="article:author" content="Donald Lam">
+<meta property="article:tag" content="Deep Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p.ipic.vip/llqylk.jpg"><link rel="shortcut icon" href="/myBlog/img/favicon.png"><link rel="canonical" href="https://github.com/DonaldLamNL/myBlog/2024/01/28/CUHK/AIST4010/2024-1-28-AIST4010-Neural-Network%20copy/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/myBlog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/myBlog/',
+  algolia: undefined,
+  localSearch: {"path":"/myBlog/search.xml","preload":true,"languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Neural Network',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-28 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">65</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">14</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://p.ipic.vip/llqylk.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/myBlog/">myBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Neural Network</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-01-27T16:00:00.000Z" title="Created 2024-01-28 00:00:00">2024-01-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-01-27T16:00:00.000Z" title="Updated 2024-01-28 00:00:00">2024-01-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/myBlog/categories/AIST4010/">AIST4010</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Neural Network"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="92399af4c8fe5ce14b22702162b040b8a42cdf7fbc2b33af7ef428e631b74d02">abf34c89afd1e1960b1ff6e014464c9c31da934e071da9d649cb0bd9bfc4251b3223f3009312b26c4c89e44a82b6ff72ac924a9a2172a0312a152a9fa03967188c4bf096796bddac3b14f0b3183552f139a8a84faa551ff299f92b44b2dbf9a9baad2b7779e694bd2d2b04390ffe444d2e02d747ed8eca4dc5b3c381f1d6ac6cfa4da6e67a7111621bdca8de073dd417357af22d548fd67b71bba2731522a3efe7cf2ff5b3394cb20c932e444a079479e99197e553e26bae1cff995efa2778023fdea56400dbdf211fde8050ed33ea4dd69050153d610f65a388c2e77e1610c946cf8226855caeeaffeb520b14838d6113448139b9ae3befd9d365d05b799c09d0fba070532acc77ab352ed608defab5836e437bd0067038f81b19726d9e0b941cd89dbf8b9d0d41c74b9e4d4af2bb65b3c74be39cc980f2b60fe36d6ea53f4de0e9c221cb5e36029f2ad50bf4a06833359b615802545aa87fe00f3b955d044a871f4e1638779ecd2cebb6cd0c362fb72e9850ff193adc441c1329c4d3e6e8c73a4c2b0d32e87e5cf4c6220111433e4454c8a9fe73c4599f081e787b37d952e757db2e698f26460e31117f4d407c883e99788930770871e1be6bb8641085bc66733828f4f6accbdff863776cacd00f5a677daa039ebc2128837a50805f14674ca3c48daecd2770467faa4bd9540f26bfecc3abffb2918e4a24b072d9539f498b95eb88743d156c33693019483901e94a526a0c40903ccee48e9311e07943bc653065941259122de61a4d7f945b7df0ccd687a52eb3eef949a18eb83a6d910c5a88b8b0809849f91658e0df284cc765197cfd07317278ffa5bbed8382a10477e8d8a96b581da7d587c8d587085a4121677b47c8524cec8e3dd448396f4b3911385b3da84a0fb110b65d66aa74c7070df37c9aa1de734cd1ed6104eb351b4e02d6db3f73a1baa649491c78bbfb2bd2ba7171ae4e0b4202ea6317b27e10c5cfe1e0e2e63bfbb3ad9f6c732a8d156adc8f085a36741703b3b91e0dd88a9c1d4e0bd2f4410e9eac78e278d4cce8f633c6124555e0eeb061d0bf650da36c9cdd3d35c874d431552ec65ac76f97d2f042a0f316d5d7a33d64a22d56ea086d057bb663843517503f6926fd531978ec6ac1735f2e2cb06384c306eac61e681a0c86d1b844b2434a8501381d7705f5557f4e394f4a6a433e7429ac72063ca2c4b5555c9abe81c49ca2f9589293b7fe3b8bd966a86f3af59c3d232797777b521d8aa84a3f656acfa07e6e125a2b5158f15d0590e2aead103eaaed37b275c8cdfcd680ee51b6878f7183737cd31974b7b5b2ccb906fbe000d38c5349c74a3a8d85ff253880ff8986044494e981f8c0e28497379ba72eae2957dfee9834ac291f9f154a51f80f7beb6b0b2bc1914bec4bc8f58775306599e391ce396a0000f1794273f6d6627a8af1871794de4baca20f3b3a2a4e9cfffd618c3696eb55774b3d54ee05293e3b66b7afa307c085060bc2e3ac62520f4262f37600bcbddf17b03f11e1b0f7ec7f07a52aea7488766468cce8894d7b47e6561d3337233f4654bd9fed3e3fe7fa46a51189e97e5a56facb27eb5ce6daff924f7cb202d0b092f4d40399325ffc226608f3a75dd36656567eb79813958957793b75be2476577b83660b25e36c041705add0ced9b001f9855d6806ca19eebab545173fae5afbdfc08e226d693b9b7bd6798dd1009c93bb74aac158545fc4a81ad0ca4fae4c9a1fcaa19cbcb708def64ff1de0b5c1655c850a9f1442a1a2ea03bb851c7340899a9f18270b090246f6097b087196f253c823fdfb30c7e56fa4cb4aa3198e7c33dc99dd07ae7963430c30aecf5c11619d90bee2ca3eb38dba83d0cf89c3830b3c70174667e867a432fb7a4a8ba4086da9575b31d34a225a8104dd829f9fd838db6441d8c4857d3648c2b23782e9a9b04449625755691aee9f850d9bce6e6b407414e9073913698ae5ce897c8feacd12c695728ea1c33e6708f64b66be6c81a1b60c9939d4171b4ba9051a62d9806b1c807679d2a6defeef858c62b8914fbc539f4bf4e0d9ca96d606ef938ee2cbdf4ea79cbdccd84e3a67b1d3db9af9b6e1301adf8ae263558433a47a250783d85b3d9cd5ecf511f041fca2bd3ee162c3c3ce59ac4e9ba3a319b75565309bee9da101bc7f252ac30bfb2e9a754e09069ebdfbc6d37ea2a78986f549f99f062d6921c6b78459beaf29d75980de65e07d2a6a96e2b432d320e0236796f195e0778d5994c017d3292e4ebd1944ae7e1b9ed2b1e461751dcf16d5b095b3636623a5121eb436b3a83e228fbd0da99ba4600834bf2539df5272e966e2792eb6e6bd0242dc6d2200b963ee0f630558ff2fb81c3a09b7693eedf185e6946f0003ab60aa5b3e90915d5553955adb49188a4fe735ea0a971ab73e6dfab656f3ef95696fb5ad7a506391ce00f6686a31a6628015c71d5609cd69d92c813c29ae97513596cc0af49511c504c3576df49adf0bc54073c0cacca9d4229dfe41d2c6b3ae13816a8e6edf0087a121149fdcf29a1637328fa50b6156c4d2b6412d7b5a736e7a48b57091e286c563d452e9bba9253ecf77270428e0dc8a74901538dac7529a7be8cf615882ca043f7aedc643617b0788d339160e62420ea542d95d1920802a608ce3175d551023525badc910fde10c66f5ab1e6c6b703a4d77624d29ce978982eb57232b0f98d4f4bee5a698254c9bf9f2e83eb16c0f7cffbaf7b1dba469b0a7866c9d11c612f2cfb445ac2832659246e1e53a9d36a769b19e0b038208eaaff629ed2eaa4663244623dce75a178a7d6c2575008fec01ce3ce77c9b19d29435d1213237d0e56a3eb1ed7ee43a3fec09b7f500eb10ca8b9d8f998f5b54d9ff18347fe03133c3c886e5467058a6f37e5bf48066b4c829215c53bf65220f94a80534edb2f711e66d68bd813c6423db535635cd214ab6eb5bd0240b271bd23d703e5393ab5e60197a8df3f677ecda25b125c538640f459f997130b9d3a5d39bba3025c8889444697adb6ccff5073c083f1aef0f9fda121490644d8ffa179b2a9829d07666c303d5bb5d51e4f17ad890a41ac88b51fa1211d0b30b98cce3875d9bf7e86b22923e2b834e7e189806b5f005a113d3ab9c497efe513c1c84ad2784f5cf835270f01fc6883909ad6550482e105db2d6f2b6d7610b0b61ac833050e7b205c5528e2b2048e35397ca7321fd4c41e71cbb1b639a824203337802799affe0ed03a1767ff8782216cdafdef313617a1116d5e39a8536e9bac5ffe1d948b60efafdc0858c9ad863162c6bf91498773fbbdf5e0d7b277a41874896c6e0ad55156505a67089c3f395ed634ccfa87811bf1d783a0717aec0938fdc072004353445bef5ae9555a40489f616183e46e6be424fa48daa522a22a24b50c9297d402e7ffee1de23d2c1815b951e0b889c55ca4a8583f3ed05a7d9f2f406fcd0172d844d1282d10793559e8f36f0d10fad4fe3c4387e89f826083ccf6a901289f6692006286177afc9fa8b4676bb5e24618b64b7f9f11783f9fd5f3fbce2c398aac7233ee7e38cd22a03c0f01bb59c50dab2c0c2b6dd4aab8adc01a385e7316a82a566d5fb518a9a7a48441a359f0ed084119328e8458992ba60e3090bf1793b2f7900f432f0e098638d08b84a4520668f107d3334122a9c78c0568dcfee23447c8b34ac19f953795fa27bdce0df5f33a6ed35b58571002e68927c6628cd8b6c2dac6c0a3b043558f6b51ff6e14e2c20423fa890ca479de19407ed888c37a735b54af2546af74c82fc07dadacbcb7048871767e7a65a444c6379cf9b75c56e84bfa895ee1013a224285d3824b2d6465c226fa60c57f4bba63e7177feca4343520ab595afe31c43f1b4331db6bb1218738df0f3f7617fdde1f6fa0d506de3ea76e1769a4acc3e8127b5778ae476d15a78ca17d264309c0fe1090e02d4a1146dda3ed9d5a2d5f1a42d152bd397b1c30a52bc27eebde74a1e9def5d49bfd599117e9f84bc85db285a572e7da42633cf515eb153937a0f2e66e6cb7741976c7bd364b7e5be0106bae9221d9abdf6f59ff1039f843e387c27756327b86d8260cc32f9f771e8fbe7007b3283cd9ed1ab59e8b98f72c8cae5da96797b078e76904a3e9a0319b7c3edaa46062524f9ff5fc08d4bcfab6cae8a36602953cb12e0bb1b32b8fc49efc8f0972671dcd9ee2e14d6bec468f49cb76d00aa8178bd63df56ea92b815a91666687f77122791ec117722849ef71e3c325f5e0977a423173eacd0bb4b3a3ef88e8335a4a3e484cd77c9d7752e327179e5134bc366f3eb5d36879edd24b707b97184feb22367c4b30285b85f7e3e10423f99e15d70203f84a6c04ad623530ec5dd44a58300e641fdc43c7e68a8ba7a047f7ca2bbebbaf61b1aaa5fae58914e8f4063e9b1df3f5792fc06b64bc6b548cab84ef42d7c0525da5ba44b1a078da1018913252778eb31dcabfde09cb4ff1c343ffc2aeba47af060216ac12b2cfc23ad5316cd5c8e02a533e2977e035c46eb01339af171c0d9069501f36b97c1a87de33ca93eb4430d9c3615d6f3f520785360ea26800e3b87e99f95b8a33f4b564b746cc7aae404be65afb6b66d00cdfc6d71e27ed7e5768a615c06ccdd39ec63fc4dea245691ec4fc665f346cf759eac3e33213098b87fef893a0c907bf5c3bb78908ba1fb7fe80950ec986c528b5730b7b0d73e295245b1ca4e39f9fe7664a235a4703fa27bed7905f85ddd69de6924d9d921864c715a4ba64761d85b615fbabb545c778fc966b9cfa4fd2a1bb22df58f882c6afc06c8904dd52faa3b6e21cb452297c0bd53dd12f3121249fd68c51f88a23427a33b525052f1853e7cbac82cd82f813eac973ef7e61461d20528865f4474e51eaf486212266eca331c4355e697a00ffb393e9568ad6a2c3a1b240420647367b874f924addc28ca7b0cb98584973514f330d213211911d1e13fc413dcd57bd54b3ceeed678ce825939da80a049f494ebef8d4052de447917cb15be67f8967dabb60983f98e9c948936e81fe629ffc0d63f52fa9326cb76477cdab3ae04a6bcdb41f33b97f817810ebb9e75e4a36b8d00a177debd9b391b6568e00dcd8fd75c90a71ad4f65fb30929a75cc3afbd15639e86546e3dfa439aae88557c8a217d92c76df497e7b1fb93525022abe0d67b75b843063493c2875de2ec8997dd3309abcbb4484d4b9676c03d081fad7eaae929a8cfd3bfa3f0807c1f490eae9db5e58f1cae1c4c57ac7eca69dda31d61e9220798db4f171b3dd57722493fcba267c6b054bc65e46e3af10238dccdd21f0de5d41d7d73ff53b13583fa59f56d0e55106204ab2f0858774fc663514dd536681c820ca81eebf9077c9271ab58a474aae3349ca25b063bac83df22309c35f894552cfe8d14870b51d24d8eba2ded768ced07594dac8a7667d86f8f16c59bdfb6d73ba5132a1f9bd122901bae9954b2118491d4493fa0daa80ea34ae8bf785014cdb9f17fd3de442b6dcce791c657c618fb719a7ca43c9bc3ccf1e7dad94c253a5d57e2377638c65ae89fd3d6d5a4bfce0efc13605ae1cc441936b90839c5b92095e701ad6aaf052b45a2a177a18dfae56001ebcde5a4962dc3c71cfc26746cae69fc0b55c9412e12cca8fb71c2ed74498568ada5a06d233beeaecca9a7e3637431a20af596c30b8aeb4ae07fd684630e91789d71d7c6381ac3315a529efdc53195d8e8d3ee5a639464e43b69b0a899a3cc2e1fb5987899db63e44e7701ad6072da831d4963a1b82896ed6fdc26883b7e847541e594aa19995fa25132978fe0c27b0be2f25a0b46dd20dd371626724059ea5d329c8aa8a8f6f77f45fed194c1bbcec2dc21840ba247a10f56f98d4c2e52c4ccdb95379ab5b86cc6fdbab29988acc4b45ff9568fb4528c53e1c4f1057ad6b7b253455e319388a1dd86067d0f671e8f5f791a1c2e88fc143d91331346566b20a8a31c9392126b9b26ec25d8f6832345f3c48a3bf68e41fe6e8ce5b00b6b587256cd0f13b006bb9fa4b51d2c34c7bf52cb40814bd812b3c4ddf30f861cad15acfaa773e3c621a5e2ebad58bed480c51efe4cfeb873b5a1ae2ec88c0cd5ed76e9250b7555a6aa3b0f9d726c3de740c802465ff0e69c06b48cca3ec19709d18132152c01d1fec3f683d550dc4622d8e6b230c29e20dfb6261287921e6162be0a0e934ff2caf2b37e451becc1e7cd902572992180f45665b01052076fd0accd12a2575a1c4caaa7038dca6f2872467815710c1607426ad17aeaaeef32abab298d90a8adf6b7588aa61c9972216c99eb7843d50b3761ebf2cb98736929f814e93d1519f1fd599763267adf117aa48e3c6cfce6a1b8afd8ece1f5203a6c561f4233b92b28528cbdc7c4be733038f725f9efcab249257c24dac888e02768d5ea85eafe8df0b4bbc9c5a94ed03757576e3ef880f77ca4ae118c1b81e7c4d094f8578f896fbcd0b6d85c9cbd330810ee8dcb4dcd68eeab25bd532c48728ea37195426c118df39765b5db3f9b1be5cc9de8d69996eb9fd7485fdc2403b6d0ba5806dc898d29fe2a8673aafa9fbd22ba8b7955575e0aedd3ebed460f81029d7fcb601cf6e467a97dfd97e44959be566634ab448a3fd38fdb7596d7d70ec8bce2aa2d9174c15d7444899c62f7d1c4a97e30e4af2d9f2d48ce6fb8e8407e34dd578d077cfd98690e1aedf58bf257ea8c5ef1844bcffaae2e2d687bf12eb2bcbe4484b502e211b9d8fd87d5261c065696bcfdcd131541717a312bfdf052be2219f4df153537b7d9234c7f97547d01e6c557fbb177920807842306321efd5e450457c3e10173f7f31da366cdd499054118f169aff766a21af309bf247f5f5f007c4f216f3ab81e59e6d03bc6e0c314998544fc148f27787276dd19d8f30f48e3653fa42e782a42705991ee94bb2823e0180cca5a7e3f9acd587672f0de4ec5c8ac2aec77dd6689829db597bc064671070fd2598b680ab1ba0fd49a8d2152cff475e76d7a5fd40d2e5086bb338b7e3b42314c3258e3ba924e1da58c6e1ac89d0fa1f1a180bebd1e4d28e832c046412cdb6b21ce34d1d93bbfef24ff059fdc26e8e4489bd4afd1e5a2a265267dbe5518dbac392836b33331bca8ff334143d33b10629bad5e5c64511f5e705f9c97264443e294875584d409f38fd1195fe0e12b2e638eae7ee1eeb1d4fa63db3f3880cad0be79929f43c619745f6019a605b5bfbee107f84faa29d4f82a2cda1464f1587eaa512c799a4ac4f47f4241ae8865c33a2c263ddb1bb37c80f4e3f8ae3bcad0d65e88cbaa686c1c00ae38bcd96b95c07303d956dae6c9739d1ddd4bd7ff8bd31468d6b1b83b1186cea1ddc7e67a0b4033c84942276230369bd18e385bd9a16e0084fcbbd0814890648e1784694ba30e24314f4bedad495cdcba8b06ce6427180af270c792398b81426e6cdad766a2d625b2cc640c50ee1cd50f7e4f760f9e3d6eeafed5bf9a37d9fa251017009928ce254b3cbab4cdab110a9d89a86905df38c80ea186f1016f71678248abdbf9614dd6217a5823a67adf86862c11b4fa64942cbbe86835dd22376ef6188b06f02177bf7522b0238868dacb2fdbc19660305dc94df747c0d6b80d784bb591c9532edcb1ef0544aa6d8eb5a730cab8b6064e47d24624137ce2e21a04856f69d3d144061acd0c864db15dc78226796c195aa721b08cb0fcc9fc84140fc113fc6c9089cdfc52b2c31bb59f7ce1eeac9266809174078501cb4030135f9a382c2d6ad62f463e8a6a99dd1926f75ef688e6e07f9202c20c63197f7dfacb307273568ae59ee463e9b34dae564df4e09e13228609e00ec20fdf57239eed4dc18e3d35cd0e42e9360d5a7a892b32cde5ff05179d7948c6a6d0fb92d448c262a6a22a444f1c73abf019f4ef5943ceebc6d839f6b82c2ea1662dcee29d62ebbee804443e15ea206bc792b0f95b58dff6c1a1f20a42a7e339ecba849fa5d33e0bd29ccc9cb4f4130aaedfb3531fd3b3a5ccbcce8940e305b596086143e7a4e3fbd6cacaa15e7019e8b14c7c05e9590ebb84bc28691667a91777a0cb54af4af3461e794d3d4346ddab8ecc773e2529ba75f28b1593f38a378c3c42273f8f4d65e9cdf7472f613c70eb10f8ff5268e459b449f07ffa5dc3d8f8a96dadb3baff42bbe92fb1b7b637d7bfb409d2a39546703f8db38d31cc4dd613f9a36b01a04b0a2039b7ddebec427046cc242adabb3e2e8f727f0eb4ce58846c73306fe0acccf6ad24587ceac882b12c7ad0ff5e630a9713371df8c2a670472eebc972cf6dae9cc1458e4741af15520c3b3e82bf1a4c440af359c3343e4c2ac07d4a0c291056c85cea21adae23d62e6ea07ad71224790368c81b9914275f95003d1e6b0df9ec221c6eb4e2bc9abcbe10b21bad6240e91cf2e6651996faab03ea6fb6b46a454894e1a16f7053b91bd30cea505628b1d9b66e4aa4f06cc9d218af6847f89801958405f554c395680d7aa98c0582053d75011bd8b9c52f134acf20ce419481395542a3cf9d024e98121195e0eb9b49ba2ab42f51e013710ac2362b6665a8f17a8b1d6cbcca4e1853414b4771e319ae480a065714cb1e9026c62769994625bdf93957f06a2a5ad036c5c06bf28cdd3412538ff873d010c3b3f06347925476309adeb9f170e51975e77278328bd1b0c7cec05a348fc2ea089b5d199fdb53663b08c7327e6e6c60156391bdad44bf82b35faa11dd68f441af7fdcfc607d0a7076b1fdfa16be9a74dafd6d78d29d9c0237a0924d47e051ac99b90d27afef6347805f22e291b58ed20e7601d31c1f82dcdc6d77f16ed7a3f1c768c5cb4799e15316657c4344dc777c024fd4bae5e7442cc1039132ae188f6b2b84e8663c680e43e187b569f54f13f063bbafb1ac6240730260da348fb5cbca315e16379126a3f7648fc36196045b9f88f1109b56a4cfe6a730c8643896d0f0c7d2970b90a9e9e4b8ad21d350b1b74c4be974b2bf5c08b2ec56b76e10cd32bfef0ba489058eec0824e153be1dc2afb966c3ef00b626a4ae1be9f9667d043f356979d95b13dd52eeb5cfc7529d7cb84d153edc02cb16054b365b5de41e4e8e4e3a7b2cc02070354c39925b553fd5cea59464173528f76e1668408c590d87df483e26b72a75071bfa22fe05c857b61b178f774aed1323867ec97b19144766957dcb91c06a893646f2e7b62dfb39a15a68de23398db7d68735904d900227060b699a47bc6c8f0e970bccd3f7bc5c880e99cabb6b2b086d687833cb7ecfdc6c1ab8c80b5ffd0e6173c4a760c2d7461288336ea26b9de71c02d2ba3e071fd541f9850e92b50b664aa09acbadd3023911bc3a1eb8b38391eab17c862a34f27df33dd2ebf5fddbbe24601a8da95b6bdbed8d66c960719023f419826a36c0eb756d81cb231b7518eb48a12cbfd5f1069c47bea26248bec0859c5c01864de8ddd529dfb05502e80f8dca30702e9ed21502fe81fb60e3252f0749668bc1088e63f88c119a56378e6f5fc92a1688a451354d1db06b6246af4e06a725006ab74587398b0815c0cd8e791ad1be32a2a9b045c54733e2a06c7d6033b2846975411aa12fab404581fb53408269281362ecb5958659ddf3ea9a174f4f8a1b6108751c0475253a5a80300a4f45eb880ae4bb2946130ebff2259d3d26ad26e79839b2828ff9cbc93d183e624c67cee6cd7efd866238e559031c84cf1a1dbbfa58f0915da8da49289c3415b8b45fb4d82cbaf52f71b128aafa2b732c5ba4204ad31baf42dc5dc35e046dd8512e0902f74568c97e0a2cae78b1313ca1e02e44d7940073a830cf77c40db3f2c5a5cc24e856a39ea2c954d5ce565a9d01af086092ab2a2c65f58ba85b890538d85628e5cc04580ae525a87edf4846afd7fad6b316654b978a3ca8c5c140e1d49019eb15114f2f02d91d28c1008aba4c4f7e4baf7aeb44be01836249e47fdeeff6efd28745d44cda67194611a179e9e9d8f86075d720243448397ad37c1acaa05207523a4c3a85abf0f2c7413faa54f1d34d80922bc36ce10d4fc5f8d02c5b24462679dff8b6b18ebd77f1ee4310488b059f7f0fc23f63cdd1dd7a534f6c9942f414a78f2011a1cb7dd7b73b9610b0ca8b766898f46fcecc405f6c1102f5302129d290277d41d8568354f21e51cc93eaff57d56d32ee62339e3362e209c213ec1e242fb45a7f697f998ec911c44af5a4997a7e0ccc152889793dfaea65a5e39f8dba3c591ab311e14408327043ef75124b88cb80d4513e63044e457421b654</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/myBlog/lib/hbe.js"></script><link href="/myBlog/css/hbe.style.css" rel="stylesheet" type="text/css"></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog">Donald Lam</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog/2024/01/28/CUHK/AIST4010/2024-1-28-AIST4010-Neural-Network%20copy/">https://github.com/DonaldLamNL/myBlog/2024/01/28/CUHK/AIST4010/2024-1-28-AIST4010-Neural-Network%20copy/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/myBlog/tags/Deep-Learning/">Deep Learning</a></div><div class="post_share"><div class="social-share" data-image="https://p.ipic.vip/llqylk.jpg" data-sites="facebook,twitter"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/myBlog/2024/01/29/CUHK/AIST4010/2024-1-29-AIST4010-Convolutional-Neural-Network/"><img class="prev-cover" src="https://p.ipic.vip/llqylk.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Convolutional Neural Network</div></div></a></div><div class="next-post pull-right"><a href="/myBlog/2024/01/18/CUHK/ESTR4316/2024-1-18-ESTR4316-Introduction/"><img class="next-cover" src="https://p.ipic.vip/hwdr0p.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Resource Management and Infrastructure</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/myBlog/2023/06/26/CUHK/AIST4010/2023-6-26-CS231N-Image-Classification/" title="Image Classification"><img class="cover" src="https://p.ipic.vip/y8a6p2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-26</div><div class="title">Image Classification</div></div></a></div><div><a href="/myBlog/2024/01/29/CUHK/AIST4010/2024-1-29-AIST4010-Convolutional-Neural-Network/" title="Convolutional Neural Network"><img class="cover" src="https://p.ipic.vip/llqylk.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-29</div><div class="title">Convolutional Neural Network</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="this.onerror=null;this.src='/myBlog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Donald Lam</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">65</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">14</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://donaldlamnl.github.io/myWeb/#/home"><i></i><span>My Personal Website</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DonaldLamNL" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:manholam8@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content toc-div-class" style="display:none"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Logistic-Regression"><span class="toc-number">1.</span> <span class="toc-text">Logistic Regression</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Loss-Function"><span class="toc-number">1.1.</span> <span class="toc-text">Loss Function</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Mean-squared-error"><span class="toc-number">1.1.1.</span> <span class="toc-text">Mean squared error</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cross-entropy-loss"><span class="toc-number">1.1.2.</span> <span class="toc-text">Cross-entropy loss</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradient-Descent"><span class="toc-number">1.2.</span> <span class="toc-text">Gradient Descent</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Performance-Evaluation"><span class="toc-number">2.</span> <span class="toc-text">Performance Evaluation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ROC-Curve"><span class="toc-number">2.1.</span> <span class="toc-text">ROC Curve</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Neural-Network"><span class="toc-number">3.</span> <span class="toc-text">Neural Network</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/01/29/CUHK/AIST4010/2024-1-29-AIST4010-Convolutional-Neural-Network/" title="Convolutional Neural Network"><img src="https://p.ipic.vip/llqylk.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Convolutional Neural Network"/></a><div class="content"><a class="title" href="/myBlog/2024/01/29/CUHK/AIST4010/2024-1-29-AIST4010-Convolutional-Neural-Network/" title="Convolutional Neural Network">Convolutional Neural Network</a><time datetime="2024-01-28T16:00:00.000Z" title="Created 2024-01-29 00:00:00">2024-01-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/01/28/CUHK/AIST4010/2024-1-28-AIST4010-Neural-Network%20copy/" title="Neural Network"><img src="https://p.ipic.vip/llqylk.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Neural Network"/></a><div class="content"><a class="title" href="/myBlog/2024/01/28/CUHK/AIST4010/2024-1-28-AIST4010-Neural-Network%20copy/" title="Neural Network">Neural Network</a><time datetime="2024-01-27T16:00:00.000Z" title="Created 2024-01-28 00:00:00">2024-01-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/01/18/CUHK/ESTR4316/2024-1-18-ESTR4316-Introduction/" title="Resource Management and Infrastructure"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Resource Management and Infrastructure"/></a><div class="content"><a class="title" href="/myBlog/2024/01/18/CUHK/ESTR4316/2024-1-18-ESTR4316-Introduction/" title="Resource Management and Infrastructure">Resource Management and Infrastructure</a><time datetime="2024-01-17T16:00:00.000Z" title="Created 2024-01-18 00:00:00">2024-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/01/18/CUHK/ESTR4316/2024-1-25-ESTR4316-Kubernates/" title="Hadoop over Kubernetes"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Hadoop over Kubernetes"/></a><div class="content"><a class="title" href="/myBlog/2024/01/18/CUHK/ESTR4316/2024-1-25-ESTR4316-Kubernates/" title="Hadoop over Kubernetes">Hadoop over Kubernetes</a><time datetime="2024-01-17T16:00:00.000Z" title="Created 2024-01-18 00:00:00">2024-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/01/18/LeetCode/2024-1-28-LeetCode/" title="LeetCode - Array"><img src="https://p.ipic.vip/vfdink.png" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="LeetCode - Array"/></a><div class="content"><a class="title" href="/myBlog/2024/01/18/LeetCode/2024-1-28-LeetCode/" title="LeetCode - Array">LeetCode - Array</a><time datetime="2024-01-17T16:00:00.000Z" title="Created 2024-01-18 00:00:00">2024-01-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By Donald Lam</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/myBlog/js/utils.js"></script><script src="/myBlog/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/myBlog/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

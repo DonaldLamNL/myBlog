@@ -1,0 +1,315 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>CNN++ (Model Architectures) | myBlog</title><meta name="keywords" content="Deep Learning"><meta name="author" content="Donald Lam,manholam8@gmail.com"><meta name="copyright" content="Donald Lam"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Fully-Connected NN A general function approximator  Problems:  Storage Running time Hard to train Prior knowledge is ignored Overfitting    LeNet Architectures: 2 convolution layers + 2 pooling layers">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CNN++ (Model Architectures)">
+<meta property="og:url" content="https://github.com/DonaldLamNL/myBlog/2024/02/03/CUHK/AIST4010/2024-2-3-AIST4010-CNN-Model-Architectures/index.html">
+<meta property="og:site_name" content="myBlog">
+<meta property="og:description" content="Fully-Connected NN A general function approximator  Problems:  Storage Running time Hard to train Prior knowledge is ignored Overfitting    LeNet Architectures: 2 convolution layers + 2 pooling layers">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://p.ipic.vip/llqylk.jpg">
+<meta property="article:published_time" content="2024-02-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-02-02T16:00:00.000Z">
+<meta property="article:author" content="Donald Lam">
+<meta property="article:tag" content="Deep Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p.ipic.vip/llqylk.jpg"><link rel="shortcut icon" href="/myBlog/img/favicon.png"><link rel="canonical" href="https://github.com/DonaldLamNL/myBlog/2024/02/03/CUHK/AIST4010/2024-2-3-AIST4010-CNN-Model-Architectures/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/myBlog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/myBlog/',
+  algolia: undefined,
+  localSearch: {"path":"/myBlog/search.xml","preload":true,"languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CNN++ (Model Architectures)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-02-03 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">71</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">14</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://p.ipic.vip/llqylk.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/myBlog/">myBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">CNN++ (Model Architectures)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-02-02T16:00:00.000Z" title="Created 2024-02-03 00:00:00">2024-02-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-02-02T16:00:00.000Z" title="Updated 2024-02-03 00:00:00">2024-02-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/myBlog/categories/AIST4010/">AIST4010</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="CNN++ (Model Architectures)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Fully-Connected-NN"><a href="#Fully-Connected-NN" class="headerlink" title="Fully-Connected NN"></a>Fully-Connected NN</h2><ul>
+<li><p>A general function approximator<br><img src="https://p.ipic.vip/k2eku7.png" width="400px" alt="" /></p>
+</li>
+<li><p><strong>Problems:</strong></p>
+<ol>
+<li>Storage</li>
+<li>Running time</li>
+<li>Hard to train</li>
+<li>Prior knowledge is ignored</li>
+<li>Overfitting</li>
+</ol>
+</li>
+</ul>
+<h2 id="LeNet"><a href="#LeNet" class="headerlink" title="LeNet"></a>LeNet</h2><ul>
+<li><p><strong>Architectures:</strong> 2 convolution layers + 2 pooling layers + 2 fully-connected layers = (6+2) different layers<br><img src="https://p.ipic.vip/06vdi7.png" width="600px" alt="" /></p>
+</li>
+<li><p><strong>Translation invariance and Locality:</strong> It ables to capture the patch information and the local regions information and do the aggregation later</p>
+</li>
+<li><p><strong><font color="3A75EA">Further Improvement:</font></strong> We can improve the model by making it deeper (more convolution layers, channels, modules)</p>
+</li>
+</ul>
+<h2 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h2><ul>
+<li><p>An advanced version of LeNet, a groundbreaking CNN model for image classification (had high performance in ILSVRC)<br><img src="https://p.ipic.vip/m1fsdw.png" width="500px" alt="" /></p>
+</li>
+<li><p><strong><font color="3A75EA">Further Improvement:</font></strong> Add more layers</p>
+</li>
+</ul>
+<h2 id="blocks-VGG"><a href="#blocks-VGG" class="headerlink" title="blocks-VGG"></a>blocks-VGG</h2><p><img src="https://p.ipic.vip/k1w0xx.png" width="500px" alt="" /></p>
+<ul>
+<li><p><strong>Modulization:</strong> using VGG Block which is easier to make the model deeper and maintain (only fine-tune a block)<br>  It consists of multiple (3x3 + pad 1) convolutional layers, which would not change the dimension of inputs, and a final MaxPool layer, which changes the dimension to aggregate the information</p>
+</li>
+<li><p><strong>Dimension:</strong> all convolutional layers do not change the dimension of the inputs</p>
+</li>
+<li><p><strong>Visual Geometry Group (VGG)</strong><br>  It consists of serval modules (VGG blocks)</p>
+</li>
+<li><p><strong><font color="3A75EA">Further Improvement:</font></strong> Add more filters (increase the channel and kernel)</p>
+</li>
+</ul>
+<h2 id="GoogLeNet"><a href="#GoogLeNet" class="headerlink" title="GoogLeNet"></a>GoogLeNet</h2><ul>
+<li><p><strong>Modulization:</strong><br>  <img src="https://p.ipic.vip/ds8pox.png" width="400px" alt="" /></p>
+</li>
+<li><p><strong>Dimension:</strong> all convolution operations do not change the dimension of the inputs</p>
+</li>
+<li><p><strong>Concatenation:</strong> concatenate along the channel dimension (feature dimension)<br>  <img src="https://p.ipic.vip/t6p7q5.png" width="300px" alt="" /></p>
+</li>
+</ul>
+<h2 id="Performance-Degradation"><a href="#Performance-Degradation" class="headerlink" title="Performance Degradation"></a>Performance Degradation</h2><p>The problem of adding more layers further<br><img src="https://p.ipic.vip/moi0lp.png" width="500px" alt="" /></p>
+<ul>
+<li><p><strong><font color="F54747">Notice:</font></strong> No matter the training or testing errors, the 56-layer model, with more parameters and model complexity, is higher than that of the 20-layer model. It implies that there exists some <font color="F54747">optimization</font> problem other than the <font color="F54747">generalization</font> problem. </p>
+</li>
+<li><p><font color="F54747">If the problem is overfitting</font>, the training error of the 56-layer model should be lower than that of the 20-layer model (<font color="EE60DA">pink line</font>), and the testing error of the 56-layer model should be higher than that of the 20-layer model (just like shown). Therefore, <font color="F54747">the problem is not just overfitting</font>.</p>
+</li>
+</ul>
+<h3 id="Gradient-Vanishing-Explosion"><a href="#Gradient-Vanishing-Explosion" class="headerlink" title="Gradient Vanishing / Explosion"></a>Gradient Vanishing / Explosion</h3><p><img src="https://p.ipic.vip/05ygpe.png" width="700px" alt="" /></p>
+<p>Notice that</p>
+<script type="math/tex; mode=display">y_j^{(N-1)} = f_{N-1}\big( z_j^{(N-1)} \big) \text{, } \quad z_{j}^{(N)} = \sum_{i} w_{ij}^{(N-1)}y_i^{(N-1)} \quad \text{ and } \quad y^{(N)} = f_N\big( z^{(N)} \big)</script><p>When the model consists of many layers, value of $y$ will <font color="F54747">vanish</font> or <font color="F54747">explode</font></p>
+<script type="math/tex; mode=display">y_1^{15} = 0.6^{15} = 0.00047 \approx 0 \quad \text{ and } \quad y_1^{15} = 1.6^{15} = 287.47 >> 1</script><p>However, the value of $y$ affects the derviative of $w_{ij}$ in back-propagation</p>
+<script type="math/tex; mode=display">\frac{\partial Div}{\partial w_{ij}^{(N)}} = \frac{\partial Div}{\partial z_j^{(N)}} \cdot \frac{\partial z_j^{(N)}}{\partial w_{ij}^{(N)}} = \frac{\partial Div}{\partial z_j^{(N)}} \cdot y_i^{(N-1)}</script><ul>
+<li><p><strong>Solution 1: Make the optimization step be more stable</strong></p>
+<ol>
+<li><strong>Use ReLU activation function</strong></li>
+<li><p><strong>Weight initialization</strong>: such that the weights are not far away from 1</p>
+<script type="math/tex; mode=display">\mu = 0, \delta = \sqrt{\frac{1}{n_{l-1}}}</script></li>
+<li><p><strong>Gradient clipping:</strong> limiting the gradient</p>
+<script type="math/tex; mode=display">\nabla \in [\min, \max]</script></li>
+</ol>
+</li>
+<li><p><strong>Solution 2: Increase the performance of models</strong></p>
+<ol>
+<li><strong>Shortcut Connection</strong></li>
+<li><strong>Batch Normalization</strong></li>
+</ol>
+</li>
+</ul>
+<h3 id="Residual-Networks"><a href="#Residual-Networks" class="headerlink" title="Residual Networks"></a>Residual Networks</h3><ul>
+<li><p>Function view:<br>  Instead of learning the function directly, we want to learn the function residual. i.e., We want a deep learning model to fit the $f(x)$ in previous networks, We want the deep learning model to fit the $f(x) - x$ in residual networks.<br>  <img src="https://p.ipic.vip/kva6sk.png" width="350px" alt="" /></p>
+</li>
+<li><p>Neural Network view:<br>  In the residual networks, there exists a shortcut from the input directly to the layer that contacts the residual network block. The dimension of inputs would not change within the residual network block for the pointwise operations.<br>  <img src="https://p.ipic.vip/nacxq5.png" width="500px" alt="" /></p>
+</li>
+<li><p>With residual network block, the network can be very deep<br>  <img src="https://p.ipic.vip/gfucn0.png" width="500px" alt="" /></p>
+</li>
+<li><p><strong>Evaluation:</strong><br>  The performance of Residual Networks is improved<br>  <img src="https://p.ipic.vip/zcyzvn.png" width="500px" alt="" /><br>  <img src="https://p.ipic.vip/t79i8j.png" width="600px" alt="" /></p>
+</li>
+</ul>
+<h3 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="Batch Normalization"></a>Batch Normalization</h3><p>The reason for performing normalization is the units for the features are different, and the attributes (features) are not on a similar level of measurement (<font color="00A300">e.g. the unit of height is m, but the unit of weight is kg</font>). If we don’t perform normalization, the (evaluate) distance is dominated by the weight. It is important to normalize (<font color="F54747">mean of 0, variance of 1</font>) the data for the inputs of every layer, which also prevents the gradient vanishing/explosion problems that may affect the distribution.<br>Besides, the data should be stored in the GPU, but due to the limitation of GPU memory, the model can only normalize the inputs for each batch.</p>
+<script type="math/tex; mode=display">BN(x) = \gamma \odot \frac{x - \hat{\mu}_B}{\hat{\sigma}_B} + \beta</script><ul>
+<li>$\gamma$: Scale parameter</li>
+<li>$\beta$: Shift parameter</li>
+<li>$\hat{\mu}_B$: Batch mean (only based on the training data, test data is not included)</li>
+<li><p>$\hat{\sigma}_B$: Batch variance (only based on the training data, test data is not included)</p>
+</li>
+<li><p><strong>Direction</strong></p>
+<ol>
+<li>For fully-connected layers, it calculates the batch mean and variance for each node</li>
+<li>For convolutional layers, it calculates the batch mean and variance for each channel</li>
+</ol>
+</li>
+</ul>
+<h2 id="Inception-ResNet"><a href="#Inception-ResNet" class="headerlink" title="Inception-ResNet"></a>Inception-ResNet</h2><p><img src="https://p.ipic.vip/0vskf3.png" width="500px" alt="" /></p>
+<h2 id="DenseNet"><a href="#DenseNet" class="headerlink" title="DenseNet"></a>DenseNet</h2><p><img src="https://p.ipic.vip/tivi85.png" width="500px" alt="" /></p>
+<p>Densely Neural Networks connect different layers by concatenation, not summation. The network consists of many shortcuts which are implemented as the outputs of the layer will concatenate with the outputs of other layers <font color="F54747">along the channel dimensions</font>. Therefore, the outputs of the last layer have a large number of channels (<font color="3A75EA">Small image size but a large number of channels</font>).</p>
+<p><img src="https://p.ipic.vip/y2plih.png" width="700px" alt="" /></p>
+<!-- 
+<img src="" width="500px" alt="" />
+<font color="3A75EA">Blue</font>
+<font color="F54747">Red</font>
+<font color="880ED4">Purple</font>
+<font color="00A300">Green</font>
+<font color="EE60DA">Pink</font>
+-->
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog">Donald Lam</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog/2024/02/03/CUHK/AIST4010/2024-2-3-AIST4010-CNN-Model-Architectures/">https://github.com/DonaldLamNL/myBlog/2024/02/03/CUHK/AIST4010/2024-2-3-AIST4010-CNN-Model-Architectures/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/myBlog/tags/Deep-Learning/">Deep Learning</a></div><div class="post_share"><div class="social-share" data-image="https://p.ipic.vip/llqylk.jpg" data-sites="facebook,twitter"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/myBlog/2024/02/04/CUHK/AIST4010/2024-2-4-AIST4010-CNN-Increase-dimension/"><img class="prev-cover" src="https://p.ipic.vip/llqylk.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">CNN++ (Increase Dimension)</div></div></a></div><div class="next-post pull-right"><a href="/myBlog/2024/01/30/CUHK/AIST4010/2024-1-30-AIST4010-Convolutional-Neural-Network/"><img class="next-cover" src="https://p.ipic.vip/llqylk.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Convolutional Neural Network</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/myBlog/2023/06/26/CUHK/AIST4010/2023-6-26-CS231N-Image-Classification/" title="Image Classification"><img class="cover" src="https://p.ipic.vip/y8a6p2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-26</div><div class="title">Image Classification</div></div></a></div><div><a href="/myBlog/2024/01/27/CUHK/AIST4010/2024-1-27-AIST4010-Logistic-Regression/" title="Logistic Regression"><img class="cover" src="https://p.ipic.vip/llqylk.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-27</div><div class="title">Logistic Regression</div></div></a></div><div><a href="/myBlog/2024/01/28/CUHK/AIST4010/2024-1-28-AIST4010-Neural-Network%20copy/" title="Neural Network"><img class="cover" src="https://p.ipic.vip/llqylk.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-28</div><div class="title">Neural Network</div></div></a></div><div><a href="/myBlog/2024/01/29/CUHK/AIST4010/2024-1-29-AIST4010-Overfitting/" title="Overfitting"><img class="cover" src="https://p.ipic.vip/llqylk.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-29</div><div class="title">Overfitting</div></div></a></div><div><a href="/myBlog/2024/01/30/CUHK/AIST4010/2024-1-30-AIST4010-Convolutional-Neural-Network/" title="Convolutional Neural Network"><img class="cover" src="https://p.ipic.vip/llqylk.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-30</div><div class="title">Convolutional Neural Network</div></div></a></div><div><a href="/myBlog/2024/02/17/CUHK/AIST4010/2024-2-17-AIST4010-Optimization/" title="Optimization"><img class="cover" src="https://p.ipic.vip/llqylk.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-02-17</div><div class="title">Optimization</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="this.onerror=null;this.src='/myBlog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Donald Lam</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">71</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">14</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://donaldlamnl.github.io/myWeb/#/home"><i></i><span>My Personal Website</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DonaldLamNL" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:manholam8@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Fully-Connected-NN"><span class="toc-number">1.</span> <span class="toc-text">Fully-Connected NN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LeNet"><span class="toc-number">2.</span> <span class="toc-text">LeNet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AlexNet"><span class="toc-number">3.</span> <span class="toc-text">AlexNet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#blocks-VGG"><span class="toc-number">4.</span> <span class="toc-text">blocks-VGG</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GoogLeNet"><span class="toc-number">5.</span> <span class="toc-text">GoogLeNet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Performance-Degradation"><span class="toc-number">6.</span> <span class="toc-text">Performance Degradation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradient-Vanishing-Explosion"><span class="toc-number">6.1.</span> <span class="toc-text">Gradient Vanishing &#x2F; Explosion</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Residual-Networks"><span class="toc-number">6.2.</span> <span class="toc-text">Residual Networks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Batch-Normalization"><span class="toc-number">6.3.</span> <span class="toc-text">Batch Normalization</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Inception-ResNet"><span class="toc-number">7.</span> <span class="toc-text">Inception-ResNet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DenseNet"><span class="toc-number">8.</span> <span class="toc-text">DenseNet</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/03/11/CUHK/AIST4010/2024-3-11-AIST4010-Attention/" title="Attention"><img src="https://p.ipic.vip/llqylk.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Attention"/></a><div class="content"><a class="title" href="/myBlog/2024/03/11/CUHK/AIST4010/2024-3-11-AIST4010-Attention/" title="Attention">Attention</a><time datetime="2024-03-10T16:00:00.000Z" title="Created 2024-03-11 00:00:00">2024-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/02/28/CUHK/AIST4010/2024-2-28-AIST4010-Recurrent-Neural-Networks/" title="Recurrent Neural Networks"><img src="https://p.ipic.vip/llqylk.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Recurrent Neural Networks"/></a><div class="content"><a class="title" href="/myBlog/2024/02/28/CUHK/AIST4010/2024-2-28-AIST4010-Recurrent-Neural-Networks/" title="Recurrent Neural Networks">Recurrent Neural Networks</a><time datetime="2024-02-27T16:00:00.000Z" title="Created 2024-02-28 00:00:00">2024-02-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/02/25/CUHK/AIST4010/2024-2-25-AIST4010-Text-Processing/" title="Text Processing"><img src="https://p.ipic.vip/llqylk.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Text Processing"/></a><div class="content"><a class="title" href="/myBlog/2024/02/25/CUHK/AIST4010/2024-2-25-AIST4010-Text-Processing/" title="Text Processing">Text Processing</a><time datetime="2024-02-24T16:00:00.000Z" title="Created 2024-02-25 00:00:00">2024-02-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/02/18/CUHK/AIST4010/2024-2-18-AIST4010-Hyper-paramater/" title="Hyper-paramater"><img src="https://p.ipic.vip/llqylk.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Hyper-paramater"/></a><div class="content"><a class="title" href="/myBlog/2024/02/18/CUHK/AIST4010/2024-2-18-AIST4010-Hyper-paramater/" title="Hyper-paramater">Hyper-paramater</a><time datetime="2024-02-17T16:00:00.000Z" title="Created 2024-02-18 00:00:00">2024-02-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/02/17/CUHK/AIST4010/2024-2-17-AIST4010-Optimization/" title="Optimization"><img src="https://p.ipic.vip/llqylk.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Optimization"/></a><div class="content"><a class="title" href="/myBlog/2024/02/17/CUHK/AIST4010/2024-2-17-AIST4010-Optimization/" title="Optimization">Optimization</a><time datetime="2024-02-16T16:00:00.000Z" title="Created 2024-02-17 00:00:00">2024-02-17</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By Donald Lam</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/myBlog/js/utils.js"></script><script src="/myBlog/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/myBlog/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

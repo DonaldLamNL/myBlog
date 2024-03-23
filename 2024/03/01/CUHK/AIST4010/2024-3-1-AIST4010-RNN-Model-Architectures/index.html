@@ -1,0 +1,334 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>RNN++ (Model Architectures) | myBlog</title><meta name="keywords" content="Deep Learning"><meta name="author" content="Donald Lam,manholam8@gmail.com"><meta name="copyright" content="Donald Lam"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Modify RNNNote that text can be long, the early observation may be very important. However, truncation may miss such important information, or it may also decay in the long sequence. Therefore, we can">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RNN++ (Model Architectures)">
+<meta property="og:url" content="https://github.com/DonaldLamNL/myBlog/2024/03/01/CUHK/AIST4010/2024-3-1-AIST4010-RNN-Model-Architectures/index.html">
+<meta property="og:site_name" content="myBlog">
+<meta property="og:description" content="Modify RNNNote that text can be long, the early observation may be very important. However, truncation may miss such important information, or it may also decay in the long sequence. Therefore, we can">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://p.ipic.vip/llqylk.jpg">
+<meta property="article:published_time" content="2024-02-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-02-29T16:00:00.000Z">
+<meta property="article:author" content="Donald Lam">
+<meta property="article:tag" content="Deep Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p.ipic.vip/llqylk.jpg"><link rel="shortcut icon" href="/myBlog/img/favicon.png"><link rel="canonical" href="https://github.com/DonaldLamNL/myBlog/2024/03/01/CUHK/AIST4010/2024-3-1-AIST4010-RNN-Model-Architectures/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/myBlog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/myBlog/',
+  algolia: undefined,
+  localSearch: {"path":"/myBlog/search.xml","preload":true,"languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'RNN++ (Model Architectures)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-01 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">72</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">14</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://p.ipic.vip/llqylk.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/myBlog/">myBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">RNN++ (Model Architectures)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-02-29T16:00:00.000Z" title="Created 2024-03-01 00:00:00">2024-03-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-02-29T16:00:00.000Z" title="Updated 2024-03-01 00:00:00">2024-03-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/myBlog/categories/AIST4010/">AIST4010</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="RNN++ (Model Architectures)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Modify-RNN"><a href="#Modify-RNN" class="headerlink" title="Modify RNN"></a>Modify RNN</h2><p>Note that text can be long, the early observation may be very important. However, truncation may miss such important information, or it may also decay in the long sequence. Therefore, we can use a memory cell to remember all the important information.<br>Besides, some information is meaningless, such as the HTML tags, we can simply skip such meaningless tokens.<br>Furthermore, text may consists of some logic break, such as a new chapter, to separate those chapters we want to reset the hidden state.</p>
+<p><img src="https://p.ipic.vip/jyc7j5.png" width="500px" alt="" /></p>
+<script type="math/tex; mode=display">\mathbf{H}_t = \phi(\mathbf{X}_t\mathbf{W}_{xh} + \mathbf{H}_{t-1}\mathbf{W}_{hh} + \mathbf{b}_h)</script><p>We need some gates to turn the information on or off</p>
+<ul>
+<li><strong>Memorize:</strong> Memorize the early observation</li>
+<li><strong>Skip:</strong> Skip the current input $\mathbf{H}_t = w\mathbf{H}_{t-1} + 0 \times X_t$</li>
+<li><strong>Reset:</strong> Reset all previous states $\mathbf{H}_t = 0 \times \mathbf{H}_{t-1} + wX_t$</li>
+</ul>
+<p><img src="https://p.ipic.vip/z30o53.png" width="400px" alt="" /></p>
+<ol>
+<li>Add the <strong>reset</strong> operation: <script type="math/tex; mode=display">\mathbf{H}_t = \phi\big(\mathbf{X}_t \mathbf{W}_{xh} + (\mathbf{R}_t \odot  \mathbf{H}_{t-1})\mathbf{W}_{hh} + \mathbf{b}_h\big)</script><ul>
+<li><strong>Reset:</strong> $\mathbf{R}_t$: Binary vector (values are either 0 or 1)</li>
+</ul>
+</li>
+<li>Add the <strong>skip</strong> operation:<script type="math/tex; mode=display">\mathbf{H}_t = \phi\big((\mathbf{Z}_t \odot \mathbf{X}_t)\mathbf{W}_{xh} + (\mathbf{R}_t \odot  \mathbf{H}_{t-1})\mathbf{W}_{hh} + \mathbf{b}_h\big)</script><ul>
+<li><strong>Skip:</strong> $\mathbf{Z}_t$: Binary vector (values are either 0 or 1)</li>
+</ul>
+</li>
+<li>Add the <strong>memorize</strong> operation: we hope the current value is almost the same as the previous value<br> The optimal memorize case: $\mathbf{H}_{t} = \mathbf{H}_{t-1}$, $\mathbf{H}_{t-1} = \mathbf{H}_{t-2}$, …, $\mathbf{H}_{2} = \mathbf{H}_{1}$, such that $\mathbf{H}_{t} = \mathbf{H}_{1}$<script type="math/tex; mode=display">\mathbf{H}_t = \phi\big((\mathbf{Z}_t \odot \mathbf{X}_t)\mathbf{W}_{xh} + (\mathbf{R}_t \odot  \mathbf{H}_{t-1})\mathbf{W}_{hh} + \mathbf{b}_h\big) + \mathbf{P}_t \odot \mathbf{H}_{t-1}</script><ul>
+<li><strong>Skip:</strong> $\mathbf{P}_t$: Binary vector (values are either 0 or 1)</li>
+</ul>
+</li>
+<li>Note that if $\mathbf{P}_t$ is 1, all other terms should be zero to achieve the purpose of memorization<script type="math/tex; mode=display">\mathbf{H}_t = (1-\mathbf{Z}_t) \phi\big(\mathbf{X}_t\mathbf{W}_{xh} + (\mathbf{R}_t \odot  \mathbf{H}_{t-1})\mathbf{W}_{hh} + \mathbf{b}_h\big) + \mathbf{Z}_t \odot \mathbf{H}_{t-1}</script></li>
+</ol>
+<h3 id="Gated-Recurrent-Units"><a href="#Gated-Recurrent-Units" class="headerlink" title="Gated Recurrent Units"></a>Gated Recurrent Units</h3><p><img src="https://p.ipic.vip/hqnjft.png" width="500px" alt="" /></p>
+<p>The update $\mathbf{H}_t$ is either come from the candidate hidden state $\widetilde{\mathbf{H}}_t$ or the previous hidden state $\mathbf{H}_{t-1}$</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+& \mathbf{H}_t = (1-\mathbf{Z}_t) \odot \widetilde{\mathbf{H}}_t + \mathbf{Z}_t \odot \mathbf{H}_{t-1} \\
+& \widetilde{\mathbf{H}}_t = \tanh \big( \mathbf{X}_t\mathbf{W}_{xh} + (\mathbf{R}_t \odot \mathbf{H}_{t-1})\mathbf{W}_{hh} + \mathbf{b}_h \big) \\
+& \mathbf{R}_t = \delta(\mathbf{X}_t\mathbf{W}_{xr} + \mathbf{H}_{t-1}\mathbf{W}_{hr} + \mathbf{b}_{r}) \\
+& \mathbf{Z}_t = \delta(\mathbf{X}_t\mathbf{W}_{xz} + \mathbf{H}_{t-1}\mathbf{W}_{hz} + \mathbf{b}_{z}) \\
+\end{align*}</script><ul>
+<li>$\mathbf{R}_t$ and $\mathbf{Z}_t$ are binary vectors (values are either 0 or 1)</li>
+<li><font color="F54747">Reset gates $\mathbf{R}_t$</font> helps capture <font color="F54747">short-term dependencies in sequences</font>
+
+<p>  It controls the information from the previous hidden state $\mathbf{H}_{t-1}$. If the reset gate $\mathbf{R}_t$ is set to be 0, then all the information from the previous hidden state $\mathbf{H}_{t-1}$ will be deleted. The output state $\mathbf{H}_t$ only depends on the current input $\mathbf{X}_t$. Thus, it captures the <font color="F54747">short-term dependencies in sequences</font>.</p>
+</li>
+<li><font color="3A75EA">Update gates $\mathbf{Z}_t$</font> helps capture <font color="3A75EA">long-term dependencies in sequences</font>
+
+<p>  It controls the information from the input state $\mathbf{X}_{t}$. If the update gate $\mathbf{Z}_t$ is set to be 0, then all the information from the input state $\mathbf{X}_{t}$ will be deleted. The output state $\mathbf{H}_t$ only depends on the previous hidden state $\mathbf{H}_{t-1}$. Thus, it captures the <font color="3A75EA">long-term dependencies in sequences</font>.</p>
+</li>
+</ul>
+<h3 id="Long-Short-Term-Memory"><a href="#Long-Short-Term-Memory" class="headerlink" title="Long Short-Term Memory"></a>Long Short-Term Memory</h3><p><img src="https://p.ipic.vip/3mbhxs.png" width="500px" alt="" /></p>
+<ul>
+<li><strong>Forget gate:</strong> controls how much we should forget in the memory cell</li>
+<li><strong>Input gate:</strong> controls how much information from the candidate memory will be stored in the new memory<br>  The design does not contain the skip gate, because the input gate can replace with the skip gate by setting the input gate to 0, so the input would not be incorporated into the candidate memory</li>
+<li><strong>Candidate memory:</strong> combines the information from current input and the hidden state</li>
+<li><strong>Output gate:</strong> extracts the information from the memory cell and gets the observation for the hidden state in the next time step</li>
+</ul>
+<p><img src="https://p.ipic.vip/oqhfsd.png" width="500px" alt="" /></p>
+<ul>
+<li><strong>Memory cell:</strong> is similar to the hidden state but stores the long-term information which is another level of abstraction from the hidden state<script type="math/tex; mode=display">
+\begin{align*}
+& \mathbf{H}_t = \mathbf{O}_t \odot \tanh(\mathbf{C}_t) \\
+& \mathbf{C}_t = \mathbf{F}_t \odot \mathbf{C}_{t-1} + \mathbf{I}_t \odot \widetilde{\mathbf{C}}_t \\
+& \widetilde{\mathbf{C}}_t = \tanh(\mathbf{X}_t\mathbf{W}_{xc} + \mathbf{H}_{t-1}\mathbf{W}_{hc} + \mathbf{b}_c) \\
+& \mathbf{I}_t = \delta(\mathbf{X}_t \mathbf{W}_{xi} + \mathbf{H}_{t-1}\mathbf{W}_{hi} + \mathbf{b}_i) \\
+& \mathbf{F}_t = \delta(\mathbf{X}_t \mathbf{W}_{xf} + \mathbf{H}_{t-1}\mathbf{W}_{hf} + \mathbf{b}_f) \\
+& \mathbf{O}_t = \delta(\mathbf{X}_t \mathbf{W}_{xo} + \mathbf{H}_{t-1}\mathbf{W}_{ho} + \mathbf{b}_o) \\
+\end{align*}</script></li>
+</ul>
+<p>GRU and LSTM: The gates can be implemented using the logistic regression function, the update gate in GRU and memory cell in LSTM enhance the model’s ability in handling long-term dependence. The traditional RNN is a special case of GRU (when $\mathbf{Z}_t$ is 0 and  $\mathbf{R}_t$ is 1, the GRU is equivalent to the traditional RNN). </p>
+<h3 id="Bidirectional-Model"><a href="#Bidirectional-Model" class="headerlink" title="Bidirectional Model"></a>Bidirectional Model</h3><p>Given the improved version of RNNs with larger model capacity by adding more hidden layers (not hidden states).<br><img src="https://p.ipic.vip/gxi8hn.png" width="300px" alt="" /></p>
+<script type="math/tex; mode=display">
+\begin{align*}
+& \mathbf{H}_t^{(l)} = \phi_l \big( \mathbf{H}_t^{(l-1)}\mathbf{W}_{xh}^{(l)} + \mathbf{H}_{t-1}^{(l)} \mathbf{W}_{hh}^{(l)} + \mathbf{b}_h^{(l)} \big) \\
+& \mathbf{O}_t = \delta \big( \mathbf{H}_t^{(L)} \mathbf{W}_{ho} + \mathbf{b}_o \big)
+\end{align*}</script><p><strong>Further improvement:</strong> Considering the sequential inputs, the hidden state can not just depend on the current input state and the previous hidden state, it can also consider the further input states. For example, the hidden state $\mathbf{H}_2^{(1)}$ can also take the information from $\mathbf{X}_1$ and $\mathbf{X}_3$, such that the current hidden state does not just depend on the previous and current information but also the future information. <font color="00A300">Exmaple: I am __ hungry</font>, the generation can also depend on the downstream and future information which is also very helpful. <font color="00A300">Exmaple: I am __ hungry, and I can eat half a pig</font>.</p>
+<p><img src="https://p.ipic.vip/xt7soe.png" width="350px" alt="" /></p>
+<script type="math/tex; mode=display">
+\begin{align*}
+& \overrightarrow{\mathbf{H}}_t = \phi \big( \mathbf{X}_t \mathbf{W}_{xh}^{(f)} + \overrightarrow{\mathbf{H}}_{t-1} \mathbf{W}_{hh}^{(f)} + \mathbf{b}_h^{(f)} \big) \\
+& \overleftarrow{\mathbf{H}}_t = \phi \big( \mathbf{X}_t \mathbf{W}_{xh}^{(f)} + \overleftarrow{\mathbf{H}}_{t+1} \mathbf{W}_{hh}^{(f)} + \mathbf{b}_h^{(f)} \big) \\
+& \mathbf{O}_t = \delta \big( cat(\overrightarrow{\mathbf{H}}_t, \overleftarrow{\mathbf{H}}_t) \mathbf{W}_{ho} + \mathbf{b}_o \big)
+\end{align*}</script><p>Such that the final output will depend on all the information within the sentence.<br><strong><font color="880ED4">Problems and Limitations:</font></strong></p>
+<ol>
+<li><strong><font color="880ED4">Inefficient:</font></strong> Forward propagation requires both forward and backward recursions, for example the output in time step 1, it depends on $\overrightarrow{\mathbf{H}}_1$ in the forward and $\overleftarrow{\mathbf{H}}_1$ in the backward while the $\overleftarrow{\mathbf{H}}_1$ depends on the $\overleftarrow{\mathbf{H}}_T$ in the backward. Thus, the entire model is very slow</li>
+<li><strong><font color="880ED4">Poor performance:</font></strong> Training with information of both direction, testing only one direction. </li>
+</ol>
+<h2 id="Sequence-to-sequence-Model"><a href="#Sequence-to-sequence-Model" class="headerlink" title="Sequence-to-sequence Model"></a>Sequence-to-sequence Model</h2><h3 id="Machine-Translation"><a href="#Machine-Translation" class="headerlink" title="Machine Translation"></a>Machine Translation</h3><p>An automatic translation of a sequence from one language to another language</p>
+<ul>
+<li><strong>Observations:</strong> Sequences of different lengths (implies that there is no direct mapping from word to word)</li>
+</ul>
+<p><img src="https://p.ipic.vip/pywve4.png" width="500px" alt="" /></p>
+<ul>
+<li><strong>Encoder:</strong> transform the input into a state with a <font color="3A75EA">fixed shape</font></li>
+<li><strong>Decoder:</strong> map the encoded state to a variable-length sequence</li>
+</ul>
+<h3 id="Model-Architecture"><a href="#Model-Architecture" class="headerlink" title="Model Architecture"></a>Model Architecture</h3><p><img src="https://p.ipic.vip/zy09q5.png" width="500px" alt="" /></p>
+<p><strong>Encoder:</strong> </p>
+<script type="math/tex; mode=display">
+\begin{align*}
+& h_t = f(x_t, h_{t-1}) \quad c = q(h_1,\dots, h_T)
+\end{align*}</script><p><strong>Decoder:</strong> </p>
+<script type="math/tex; mode=display">
+s_{t'} = g(y_{t'}, c, s_{t'-1})</script><p><strong>Loss function:</strong> For each of the position, we can treat it as a classification task using the cross-entropy loss</p>
+<p><strong>Prediction:</strong> The prediction is completed when it is predicting <code>&lt;eos&gt;</code> </p>
+<p><strong>Evaluation:</strong> <strong>Bilingual Evaluation Understudy (BLEU)</strong></p>
+<ul>
+<li><p>Precision of n-grams:</p>
+<script type="math/tex; mode=display">p_n = \frac{\text{Number of match n-grams}}{\text{Number of n-grams in predicted seq}}</script></li>
+<li><p>Example:<br>  The target sequence is “ABCDEF” and the predicted sequence is “ABBCD”</p>
+<ul>
+<li>$p_1 = \frac{|\{\text{A,B,C,D}\}|}{|\{\text{A,B,B,C,D}\}|} = \frac{4}{5}$</li>
+<li>$p_2 = \frac{|\{\text{AB,BC,CD}\}|}{|\{\text{AB,BB,BC,CD}\}|} = \frac{3}{4}$</li>
+<li>$p_3 = \frac{|\{\text{BCD}\}|}{|\{\text{ABB,BBC,BCD}\}|} = \frac{1}{3}$</li>
+<li>$p_4 = \frac{|\phi|}{|\{\text{ABBCD}\}|} = 0$<script type="math/tex; mode=display">
+\text{BLEU} = \exp\big(\min(0, 1-\frac{len_\text{target}}{len_\text{pred}})\big) \prod_{n=1}^k p_n^{\frac{1}{2^n}}</script></li>
+</ul>
+</li>
+</ul>
+<p><strong>Problems:</strong> Note that for example we are using softmax function to do the prediction, it picks the choice with the maximum probability, but the future results depend on the current choice, which implies that it is actually a greedy search algorithm that take the local maximum chance. However, greedy algorithm does not guarantee an optimal solution</p>
+<p><img src="https://p.ipic.vip/0urfpo.png" width="400px" alt="Left: greedy search; Right: truth search" /></p>
+<p>Due to the efficiency problem, if we use exhaustive search, the computational cost would be very high</p>
+<p><strong>Beam search:</strong> An improved version of greedy search, given a beam size $k$, select $k$ candidates from $k|D|$ possible choices at the beginning (time step 0)<br><img src="https://p.ipic.vip/ljb5ec.png" width="500px" alt="" /></p>
+<p><strong><font color="880ED4">Problems and Limitations:</font></strong> Note that hidden state in very important within a model, but sequence-to-sequence model only has one hidden state to aggregate the information of the input, which implies that the hidden state flows across the sentence that cannot ensure the representation for each word is proper</p>
+<h2 id="Questions"><a href="#Questions" class="headerlink" title="Questions"></a>Questions</h2><ul>
+<li>Although the bidirectional model is slower than the corresponding RNN model, it usually has better generalization power than the unidirectional model (<font color="3A75EA">false: poor performance problem of bidirectional model, in most of the situations, if the testing data do not have the future information, it may not guarantee a better generalization</font>)</li>
+<li>The later layer of the deep RNN model will learn the high-level trend in the input sequences (<font color="3A75EA">false</font>)</li>
+<li>The time complexity of beam search is higher than greedy search but lower than exhaustive search (<font color="3A75EA">true</font>)</li>
+<li>With the help of the <code>&lt;eos&gt;</code> token, we can generate sequences with variant lengths (<font color="3A75EA">false</font>)</li>
+</ul>
+<!-- 
+<img src="" width="500px" alt="" />
+<font color="3A75EA">Blue</font>
+<font color="F54747">Red</font>
+<font color="880ED4">Purple</font>
+<font color="00A300">Green</font>
+--></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog">Donald Lam</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog/2024/03/01/CUHK/AIST4010/2024-3-1-AIST4010-RNN-Model-Architectures/">https://github.com/DonaldLamNL/myBlog/2024/03/01/CUHK/AIST4010/2024-3-1-AIST4010-RNN-Model-Architectures/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/myBlog/tags/Deep-Learning/">Deep Learning</a></div><div class="post_share"><div class="social-share" data-image="https://p.ipic.vip/llqylk.jpg" data-sites="facebook,twitter"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/myBlog/2024/03/11/CUHK/AIST4010/2024-3-11-AIST4010-Attention/"><img class="prev-cover" src="https://p.ipic.vip/llqylk.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Attention</div></div></a></div><div class="next-post pull-right"><a href="/myBlog/2024/02/28/CUHK/AIST4010/2024-2-28-AIST4010-Recurrent-Neural-Networks/"><img class="next-cover" src="https://p.ipic.vip/llqylk.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Recurrent Neural Networks</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/myBlog/2023/06/26/CUHK/AIST4010/2023-6-26-CS231N-Image-Classification/" title="Image Classification"><img class="cover" src="https://p.ipic.vip/y8a6p2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-26</div><div class="title">Image Classification</div></div></a></div><div><a href="/myBlog/2024/01/27/CUHK/AIST4010/2024-1-27-AIST4010-Logistic-Regression/" title="Logistic Regression"><img class="cover" src="https://p.ipic.vip/llqylk.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-27</div><div class="title">Logistic Regression</div></div></a></div><div><a href="/myBlog/2024/01/28/CUHK/AIST4010/2024-1-28-AIST4010-Neural-Network%20copy/" title="Neural Network"><img class="cover" src="https://p.ipic.vip/llqylk.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-28</div><div class="title">Neural Network</div></div></a></div><div><a href="/myBlog/2024/01/29/CUHK/AIST4010/2024-1-29-AIST4010-Overfitting/" title="Overfitting"><img class="cover" src="https://p.ipic.vip/llqylk.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-29</div><div class="title">Overfitting</div></div></a></div><div><a href="/myBlog/2024/02/17/CUHK/AIST4010/2024-2-17-AIST4010-Optimization/" title="Optimization"><img class="cover" src="https://p.ipic.vip/llqylk.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-02-17</div><div class="title">Optimization</div></div></a></div><div><a href="/myBlog/2024/01/30/CUHK/AIST4010/2024-1-30-AIST4010-Convolutional-Neural-Network/" title="Convolutional Neural Network"><img class="cover" src="https://p.ipic.vip/llqylk.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-30</div><div class="title">Convolutional Neural Network</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="this.onerror=null;this.src='/myBlog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Donald Lam</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">72</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">14</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://donaldlamnl.github.io/myWeb/#/home"><i></i><span>My Personal Website</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DonaldLamNL" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:manholam8@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Modify-RNN"><span class="toc-number">1.</span> <span class="toc-text">Modify RNN</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Gated-Recurrent-Units"><span class="toc-number">1.1.</span> <span class="toc-text">Gated Recurrent Units</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Long-Short-Term-Memory"><span class="toc-number">1.2.</span> <span class="toc-text">Long Short-Term Memory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bidirectional-Model"><span class="toc-number">1.3.</span> <span class="toc-text">Bidirectional Model</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sequence-to-sequence-Model"><span class="toc-number">2.</span> <span class="toc-text">Sequence-to-sequence Model</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Machine-Translation"><span class="toc-number">2.1.</span> <span class="toc-text">Machine Translation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Model-Architecture"><span class="toc-number">2.2.</span> <span class="toc-text">Model Architecture</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Questions"><span class="toc-number">3.</span> <span class="toc-text">Questions</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/03/11/CUHK/AIST4010/2024-3-11-AIST4010-Attention/" title="Attention"><img src="https://p.ipic.vip/llqylk.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Attention"/></a><div class="content"><a class="title" href="/myBlog/2024/03/11/CUHK/AIST4010/2024-3-11-AIST4010-Attention/" title="Attention">Attention</a><time datetime="2024-03-10T16:00:00.000Z" title="Created 2024-03-11 00:00:00">2024-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/03/01/CUHK/AIST4010/2024-3-1-AIST4010-RNN-Model-Architectures/" title="RNN++ (Model Architectures)"><img src="https://p.ipic.vip/llqylk.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="RNN++ (Model Architectures)"/></a><div class="content"><a class="title" href="/myBlog/2024/03/01/CUHK/AIST4010/2024-3-1-AIST4010-RNN-Model-Architectures/" title="RNN++ (Model Architectures)">RNN++ (Model Architectures)</a><time datetime="2024-02-29T16:00:00.000Z" title="Created 2024-03-01 00:00:00">2024-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/02/28/CUHK/AIST4010/2024-2-28-AIST4010-Recurrent-Neural-Networks/" title="Recurrent Neural Networks"><img src="https://p.ipic.vip/llqylk.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Recurrent Neural Networks"/></a><div class="content"><a class="title" href="/myBlog/2024/02/28/CUHK/AIST4010/2024-2-28-AIST4010-Recurrent-Neural-Networks/" title="Recurrent Neural Networks">Recurrent Neural Networks</a><time datetime="2024-02-27T16:00:00.000Z" title="Created 2024-02-28 00:00:00">2024-02-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/02/25/CUHK/AIST4010/2024-2-25-AIST4010-Text-Processing/" title="Text Processing"><img src="https://p.ipic.vip/llqylk.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Text Processing"/></a><div class="content"><a class="title" href="/myBlog/2024/02/25/CUHK/AIST4010/2024-2-25-AIST4010-Text-Processing/" title="Text Processing">Text Processing</a><time datetime="2024-02-24T16:00:00.000Z" title="Created 2024-02-25 00:00:00">2024-02-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/02/18/CUHK/AIST4010/2024-2-18-AIST4010-Hyper-paramater/" title="Hyper-paramater"><img src="https://p.ipic.vip/llqylk.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Hyper-paramater"/></a><div class="content"><a class="title" href="/myBlog/2024/02/18/CUHK/AIST4010/2024-2-18-AIST4010-Hyper-paramater/" title="Hyper-paramater">Hyper-paramater</a><time datetime="2024-02-17T16:00:00.000Z" title="Created 2024-02-18 00:00:00">2024-02-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By Donald Lam</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/myBlog/js/utils.js"></script><script src="/myBlog/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/myBlog/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

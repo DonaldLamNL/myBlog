@@ -1,0 +1,784 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Spark and BDAS | myBlog</title><meta name="keywords" content="Big Data Systems"><meta name="author" content="Donald Lam,manholam8@gmail.com"><meta name="copyright" content="Donald Lam"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Introduction Motivation: Many of the previous cluster programming models are based on directed acyclic data flow  from stable storage to stable storage, e.g. MapReduce, Dryad, Tez, SQL Benefits of dat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark and BDAS">
+<meta property="og:url" content="https://github.com/DonaldLamNL/myBlog/2024/03/09/CUHK/ESTR4316/2024-3-9-ESTR4316-Spark/index.html">
+<meta property="og:site_name" content="myBlog">
+<meta property="og:description" content="Introduction Motivation: Many of the previous cluster programming models are based on directed acyclic data flow  from stable storage to stable storage, e.g. MapReduce, Dryad, Tez, SQL Benefits of dat">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://p.ipic.vip/hwdr0p.jpg">
+<meta property="article:published_time" content="2024-03-08T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-03-08T16:00:00.000Z">
+<meta property="article:author" content="Donald Lam">
+<meta property="article:tag" content="Big Data Systems">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p.ipic.vip/hwdr0p.jpg"><link rel="shortcut icon" href="/myBlog/img/favicon.png"><link rel="canonical" href="https://github.com/DonaldLamNL/myBlog/2024/03/09/CUHK/ESTR4316/2024-3-9-ESTR4316-Spark/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/myBlog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/myBlog/',
+  algolia: undefined,
+  localSearch: {"path":"/myBlog/search.xml","preload":true,"languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Spark and BDAS',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-09 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">83</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">14</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://p.ipic.vip/hwdr0p.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/myBlog/">myBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Spark and BDAS</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-03-08T16:00:00.000Z" title="Created 2024-03-09 00:00:00">2024-03-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-03-08T16:00:00.000Z" title="Updated 2024-03-09 00:00:00">2024-03-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/myBlog/categories/ESTR4316/">ESTR4316</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Spark and BDAS"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ul>
+<li><strong>Motivation:</strong> Many of the previous cluster programming models are based on <font color="3A75EA">directed acyclic data flow</font>  <font color="F54747">from stable storage to stable storage</font>, e.g. MapReduce, Dryad, Tez, SQL</li>
+<li><strong>Benefits of data flow</strong>: runtime can decide where to run tasks and can <font color="F54747">automatically recover from failures</font></li>
+<li><p><strong>However</strong>, although Acyclic data flow is a powerful abstraction, it is <font color="F54747">NOT efficient</font> for applications that repeatedly reuse a Working-Set of data:</p>
+<ul>
+<li>Iterative algorithms (machine learning)</li>
+<li>Interactive data mining tools (R, Excel, Python)</li>
+</ul>
+</li>
+<li><p><strong>Data Sharing:</strong></p>
+<ul>
+<li>MapReduce: Sharing via Disk I/O</li>
+<li>Spark: In-memory Sharing (Fast Disk-based sharing as well)</li>
+</ul>
+</li>
+</ul>
+<h2 id="Functional-Programming"><a href="#Functional-Programming" class="headerlink" title="Functional Programming"></a>Functional Programming</h2><p>Functional programming is a good fit for <font color="3A75EA">Parallel, Concurrent, and Fault-Tolerant Computing</font> because the states of every step are traceable due to the properties of functional programming; the function must provide the same output if giving the same input</p>
+<ul>
+<li><strong>The Root of The Problem</strong><ul>
+<li>Non-determinism caused by the concurrent threads accessing shared mutable state</li>
+<li>It helps to encapsulate state in actors or transactions but the fundamental problem stays the same<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">0</span></span><br><span class="line"><span class="keyword">async</span> &#123;x = x + <span class="number">1</span>&#125;</span><br><span class="line"><span class="keyword">async</span> &#123;x = x * <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// It can give 0, 1, 2</span></span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">\text{non-determinisim = parallel processing + multable state}</script></li>
+<li>Functional programming can avoid the multable state</li>
+</ul>
+</li>
+</ul>
+<h3 id="Quick-Tour-of-Scala"><a href="#Quick-Tour-of-Scala" class="headerlink" title="Quick Tour of Scala"></a>Quick Tour of Scala</h3><ol>
+<li><p>Declaring Variables:</p>
+ <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Constant</span></span><br><span class="line"><span class="keyword">var</span> x: <span class="type">Int</span> = <span class="number">7</span>;</span><br><span class="line"><span class="keyword">var</span> x = <span class="number">7</span>   <span class="comment">// type inferred</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Variable</span></span><br><span class="line"><span class="keyword">val</span> y = <span class="string">&quot;hi&quot;</span>    <span class="comment">// read-only</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Functions:</p>
+ <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">square</span></span>(x: <span class="type">Int</span>): <span class="type">Int</span> = x * x</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">square</span></span>(x: <span class="type">Int</span>): <span class="type">Int</span> = &#123;</span><br><span class="line">    x * x</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">announce</span></span>(text: <span class="type">String</span>) &#123;</span><br><span class="line">    println(text)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Generic Types and Indexing:</p>
+ <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="type">Array</span>[<span class="type">Int</span>](<span class="number">8</span>)</span><br><span class="line"><span class="keyword">var</span> lst = <span class="type">List</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">arr(<span class="number">5</span>) = <span class="number">7</span></span><br><span class="line">println(lst(<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="Scala-Closure-Syntax"><a href="#Scala-Closure-Syntax" class="headerlink" title="Scala Closure Syntax"></a>Scala Closure Syntax</h3><ul>
+<li><p>List Operations:</p>
+  <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> list = <span class="type">List</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">list.foreach(x =&gt; println(x))   <span class="comment">// prints 1, 2, 3</span></span><br><span class="line">list.foreach(println)           <span class="comment">// same</span></span><br><span class="line"></span><br><span class="line">list.map(x =&gt; x + <span class="number">2</span>)    <span class="comment">// =&gt; List(3, 4, 5)</span></span><br><span class="line">list.map(_ + <span class="number">2</span>)         <span class="comment">// same, with placeholder notation</span></span><br><span class="line"></span><br><span class="line">list.filter(x =&gt; x % <span class="number">2</span> == <span class="number">1</span>)    <span class="comment">// =&gt; List(1, 3)</span></span><br><span class="line">list.filter(_ % <span class="number">2</span> == <span class="number">1</span>)         <span class="comment">// same</span></span><br><span class="line"></span><br><span class="line">list.reduce((x, y) =&gt; x + y)    <span class="comment">// =&gt; 6</span></span><br><span class="line">list.reduce(_ + _)              <span class="comment">// same</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Add 2 Operations:</p>
+  <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(x: <span class="type">Int</span>) =&gt; x + <span class="number">2</span>   <span class="comment">// full version</span></span><br><span class="line">x =&gt; x + <span class="number">2</span>          <span class="comment">// type inferred</span></span><br><span class="line">_ + <span class="number">2</span>               <span class="comment">// when each argument is used exactly once</span></span><br><span class="line">x =&gt; &#123;              <span class="comment">// when body is a block of code</span></span><br><span class="line">    <span class="keyword">val</span> numberToAdd = <span class="number">2</span></span><br><span class="line">    x + numberToAdd</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// If the closure is too long, we can pass a function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">addTwo</span></span>(x: <span class="type">Int</span>): <span class="type">Int</span> = x + <span class="number">2</span></span><br><span class="line">list.map(addTwo)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Other Scala Collection Methods:</p>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>Method</strong></th>
+<th style="text-align:center"><strong>Expanation</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>map(f: T =&gt; U): Seq[U]</code></td>
+<td style="text-align:center">Pass each element through f</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>flatMap(f: T =&gt; Seq[U]): Seq[U]</code></td>
+<td style="text-align:center">One-to-many map</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>filter(f: T =&gt; Boolean): Seq[T]</code></td>
+<td style="text-align:center">Keep elements passing f</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>exists(f: T =&gt; Boolean): Boolean</code></td>
+<td style="text-align:center">True if one element passes</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>forall(f: T =&gt; Boolean): Boolean</code></td>
+<td style="text-align:center">True if all element pass</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>reduve(f: (T, T) =&gt; T): T</code></td>
+<td style="text-align:center">Merge elements using f</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>groupBy(f: T =&gt; K): Map[K, List[T]]</code></td>
+<td style="text-align:center">Group elements by f(element)</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>sortBy(f: T =&gt; K): Seq[T]</code></td>
+<td style="text-align:center">Sort elements by f(element)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Resilient-Distributed-Datasets"><a href="#Resilient-Distributed-Datasets" class="headerlink" title="Resilient Distributed Datasets"></a>Resilient Distributed Datasets</h2><ul>
+<li><p><strong>Key Ideas behind Spark’s Solution:</strong> Data Flow Model + <strong><font color="F54747">Resilient Distributed Datasets (RDDs)</font></strong></p>
+<ul>
+<li>Augment Data Flow model with <strong><font color="F54747">Resilient Distributed Datasets</font></strong><br>  <img src="https://p.ipic.vip/hlog0p.png" width="500px" /><ul>
+<li><strong>Resilient:</strong> Remember the source information so it can be reconstructed. If we want to prevent many transformers from being lost, we can save the data in the disk within the execution</li>
+<li><strong>Lazy:</strong> It would not run the transformations unless the user activates (outputs) it</li>
+</ul>
+</li>
+<li>Combine Data Flow with RDDs to unify many cluster programming models</li>
+<li>Spark makes Working Datasets a first-class concept to efficiently support <font color="F54747">In-memory Data-Sharing</font> across (different iterations/ stages of ) apps</li>
+<li>Retain the attractive properties of MapReduce: <ul>
+<li>Fault tolerance (for crashes &amp; stragglers)</li>
+<li>Data locality</li>
+<li>Scalability</li>
+</ul>
+</li>
+<li>Enhance programmability:<ul>
+<li>Integrate into Scala programming language</li>
+<li>Allow interactive use from Scala interpreter</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong><font color="F54747">Resilient Distributed Datasets (RDDs)</font></strong></p>
+<ul>
+<li>RDDs are <font color="F54747">immutable (i.e., become read-only once they are created)</font> collects <font color="3A75EA">partitioned across cluster that can be rebuilt if a partition is lost</font></li>
+<li>Created by transforming data in <font color="3A75EA">stable storage</font> using data flow operations (<code>map</code>, <code>filter</code>, <code>group-by</code>, …)</li>
+<li>The elements of an RDD need not exist in physical storage<ul>
+<li>a handle to an RDD contains enough information (aka lineage info) to compute the RDD starting from data in reliable storage.</li>
+<li><font color="3A75EA">RDDs can always be reconstructed if nodes fail</font></li>
+</ul>
+</li>
+<li>RDDs can <font color="F54747">be cached (persist) in RAM</font> across parallel operations and to shared by different Apps</li>
+<li>User can control the Partitioning of an RDD (e.g., one comprised of <code>&lt;key, value&gt;</code> pairs based on hash or range of the key)<ul>
+<li>Once partitioned, Spark will remember the way an RDD is partitioned and use the info to reduce unnecessary data shuffling when operating on RDDs (optimization)<ul>
+<li>e.g. Functions that benefit from partitioning include: <code>cogroup()</code>, <code>groupWith()</code>, <code>join()</code>, <code>groupByKey()</code>, <code>reduceByKey()</code>, <code>combineByKey()</code>, <code>lookup()</code></li>
+</ul>
+</li>
+<li>Spark knows internally which operations may affect partitioning, and will automatically set the partitioner of an RDD</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="RDD-Types"><a href="#RDD-Types" class="headerlink" title="RDD Types"></a>RDD Types</h3><ol>
+<li><p><strong>Parallelized Collections:</strong><br> By calling SparkContext’s <code>parallelize</code> method on an existing Scala collection. Once created, the distributed dataset can be operated on in parallel.<br> <img src="https://p.ipic.vip/rwlrsp.png" width="500px" /></p>
+</li>
+<li><p><strong>Hadoop Datasets:</strong><br> Spark supports text files, SequenceFiles, and any other Hadoop inputFormat</p>
+ <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> distFiles = sc.textFile(<span class="type">URI</span>)</span><br><span class="line"><span class="keyword">val</span> distFile = sc.hadoopRDD(<span class="type">URI</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="Programming-Model"><a href="#Programming-Model" class="headerlink" title="Programming Model"></a>Programming Model</h2><p>The programming model of Spark uses Resilient Distributed Datasets (RDDs) as basic building blocks and perform Parallel Operations on RDDs</p>
+<ul>
+<li>Transformations <font color="F54747">(Lazy), Only compute when an action requires</font>: Operations to create new RDD(s) from existing ones, e.g. <code>map</code>, <code>filter</code>, <code>groupBy</code>, <code>join</code></li>
+<li>Actions: Return a result (value) to a driver program after running the computation on the RDD or write it to storage, e.g. <code>reduce</code>, <code>collect</code>, <code>count</code>, <code>save</code>, …</li>
+</ul>
+<p><img src="https://p.ipic.vip/s7hh42.png" width="500px" /></p>
+<ul>
+<li>Transformations and Actions</li>
+</ul>
+<p><img src="https://p.ipic.vip/cje98s.png" width="500px" /></p>
+<h3 id="Transformations"><a href="#Transformations" class="headerlink" title="Transformations"></a>Transformations</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Transformation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>map(func)</code></td>
+<td>return a new distributed dataset formed by passing each element of the source through a function <code>func</code></td>
+</tr>
+<tr>
+<td><code>filter(func)</code></td>
+<td>return a new dataset formed by selecting those elements of the source on which <code>func</code> returns true</td>
+</tr>
+<tr>
+<td><code>flatMap(func)</code></td>
+<td>similar to map, but each input item can be mapped to 0 or more output items (so <code>func</code> should return a Seq rather than a single item)</td>
+</tr>
+<tr>
+<td><code>sample(withReplacement, fraction, seed)</code></td>
+<td>sample a fraction <code>fraction</code> of the data, with or without replacement, using a given random number generator seed</td>
+</tr>
+<tr>
+<td><code>union(otherDataset)</code></td>
+<td>return a new dataset that contains the union of the elements in the source dataset and the argument</td>
+</tr>
+<tr>
+<td><code>distinct([numTasks])</code></td>
+<td>return a new dataset that contains the distinct elements of the source dataset</td>
+</tr>
+<tr>
+<td><code>groupByKey([numTasks])</code></td>
+<td>when called on a dataset of (K, V) pairs, returns a dataset of (K, Seq[V]) pairs</td>
+</tr>
+<tr>
+<td><code>reduceByKey(func, [numTasks])</code></td>
+<td>when called on a dataset of (K, V) pairs, returns a dataset of (K, V) pairs where the values for each key are aggregated using the given reduce function</td>
+</tr>
+<tr>
+<td><code>sortByKey(ascending, [numTasks])</code></td>
+<td>when called on a dataset of (K, V) pairs where K implements Ordered, returns a dataset of (K, V) pairs sorted by keys in ascending or descending order, as specified in the boolean ascending argument</td>
+</tr>
+<tr>
+<td><code>join(otherDataset, [numTasks])</code></td>
+<td>when called on datasets of type (K, V) and (K, W), returns a dataset of (K, (V, W)) pairs with all pairs of elements for each key</td>
+</tr>
+<tr>
+<td><code>cogroup(otherDataset, [numTasks])</code></td>
+<td>when called on datasets of type (K, V) and (K, W), returns a dataset of (K, Seq[V], Seq[W]) tuples – also called groupWith</td>
+</tr>
+<tr>
+<td><code>cartesian(otherDataset)</code></td>
+<td>when called on datasets of types T and U, returns a dataset of (T, U) pairs (all pairs of elements)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Basic RDD transformations on two RDDs containing <code>rdd = &#123;1, 2, 3&#125;</code> and <code>other = &#123;4, 5, 6&#125;</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Function name</th>
+<th>Purpose</th>
+<th>Example</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>map()</code></td>
+<td>Apply a function to each element in the RDD and return an RDD of the result.</td>
+<td><code>rdd.map(x =&gt; x + 1)</code></td>
+<td><code>&#123;2, 3, 4, 4&#125;</code></td>
+</tr>
+<tr>
+<td><code>flatMap()</code></td>
+<td>Apply a function to each element in the RDD and return an RDD of the contents of the iterators returned. Often used to extract words.</td>
+<td><code>rdd.flatMap(x =&gt; x.to(3))</code></td>
+<td><code>&#123;1, 2, 3, 2, 3, 3&#125;</code></td>
+</tr>
+<tr>
+<td><code>filter()</code></td>
+<td>Return an RDD consisting of only elements that pass the condition passed to filter().</td>
+<td><code>rdd.filter(x =&gt; x != 1)</code></td>
+<td><code>&#123;2, 3, 3&#125;</code></td>
+</tr>
+<tr>
+<td><code>distinct()</code></td>
+<td>Remove duplicates.</td>
+<td><code>rdd.distinct()</code></td>
+<td><code>&#123;1, 2, 3&#125;</code></td>
+</tr>
+<tr>
+<td><code>sample(withReplacement, fraction, [seed])</code></td>
+<td>Sample an RDD, with or without replacement.</td>
+<td><code>rdd.sample(false, 0.5)</code></td>
+<td>Nondeterministic</td>
+</tr>
+<tr>
+<td><code>union()</code></td>
+<td>Produce an RDD containing elements from both RDDs.</td>
+<td><code>rdd.union(other)</code></td>
+<td><code>&#123;1, 2, 3, 3, 4, 5&#125;</code></td>
+</tr>
+<tr>
+<td><code>intersection()</code></td>
+<td>RDD containing only elements found in both RDDs.</td>
+<td><code>rdd.intersection(other)</code></td>
+<td><code>&#123;3&#125;</code></td>
+</tr>
+<tr>
+<td><code>subtract()</code></td>
+<td>Remove the contents of one RDD (e.g., remove training data).</td>
+<td><code>rdd.subtract(other)</code></td>
+<td><code>&#123;1, 2&#125;</code></td>
+</tr>
+<tr>
+<td><code>cartesian()</code></td>
+<td>Cartesian product with the other RDD.</td>
+<td><code>rdd.cartesian(other)</code></td>
+<td><code>&#123;(1, 3), (1, 4), ..., (3, 5)&#125;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Actions"><a href="#Actions" class="headerlink" title="Actions"></a>Actions</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>reduce(func)</code></td>
+<td>Aggregate the elements of the dataset using a function <code>func</code> (which takes two arguments and returns one), and should also be commutative and associative so that it can be computed correctly in parallel</td>
+</tr>
+<tr>
+<td><code>collect()</code></td>
+<td>Return all the elements of the dataset as an array at the driver program – usually useful after a filter or other operation that returns a sufficiently small subset of the data</td>
+</tr>
+<tr>
+<td><code>count()</code></td>
+<td>Return the number of elements in the dataset</td>
+</tr>
+<tr>
+<td><code>first()</code></td>
+<td>Return the first element of the dataset – similar to <code>take(1)</code></td>
+</tr>
+<tr>
+<td><code>take(n)</code></td>
+<td>Return an array with the first n elements of the dataset – currently not executed in parallel, instead the driver program computes all the elements</td>
+</tr>
+<tr>
+<td><code>takeSample(withReplacement, fraction, seed)</code></td>
+<td>Return an array with a random sample of num elements of the dataset, with or without replacement, using the given random number generator seed</td>
+</tr>
+<tr>
+<td><code>saveAsTextFile(path)</code></td>
+<td>Write the elements of the dataset as a text file (or set of text files) in a given directory in the local filesystem, HDFS or any other Hadoop-supported file system. Spark will call <code>toString</code> on each element to convert it to a line of text in the file</td>
+</tr>
+<tr>
+<td><code>saveAsSequenceFile(path)</code></td>
+<td>Write the elements of the dataset as a Hadoop SequenceFile in a given path in the local filesystem, HDFS or any other Hadoop-supported file system. Only available on RDDs of key-value pairs that either implement Hadoop’s Writable interface or are implicitly convertible to Writable (Spark includes conversions for basic types like Int, Double, String, etc.)</td>
+</tr>
+<tr>
+<td><code>countByKey()</code></td>
+<td>Only available on RDDs of type (K, V). Returns a <code>Map</code> of (K, Int) pairs with the count of each key</td>
+</tr>
+<tr>
+<td><code>foreach(func)</code></td>
+<td>Run a function <code>func</code> on each element of the dataset – usually done for side effects such as updating an accumulator variable or interacting with external storage systems</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Basic RDD transformations on an RDD containing <code>rdd = &#123;1, 2, 3, 3&#125;</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Function name</th>
+<th>Purpose</th>
+<th>Example</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>collect()</code></td>
+<td>Return all elements from the RDD.</td>
+<td><code>rdd.collect()</code></td>
+<td><code>&#123;1, 2, 3, 3&#125;</code></td>
+</tr>
+<tr>
+<td><code>count()</code></td>
+<td>Number of elements in the RDD.</td>
+<td><code>rdd.count()</code></td>
+<td><code>4</code></td>
+</tr>
+<tr>
+<td><code>countByValue()</code></td>
+<td>Number of times each element occurs in the RDD.</td>
+<td><code>rdd.countByValue()</code></td>
+<td><code>&#123;(1, 1), (2, 1), (3, 2)&#125;</code></td>
+</tr>
+<tr>
+<td><code>take(num)</code></td>
+<td>Return num elements from the RDD.</td>
+<td><code>rdd.take(2)</code></td>
+<td><code>&#123;1, 2&#125;</code></td>
+</tr>
+<tr>
+<td><code>top(num)</code></td>
+<td>Return the top num elements the RDD.</td>
+<td><code>rdd.top(2)</code></td>
+<td><code>&#123;3, 3&#125;</code></td>
+</tr>
+<tr>
+<td><code>takeOrdered(num, ordering)</code></td>
+<td>Return num elements based on provided ordering.</td>
+<td><code>rdd.takeOrdered(2, myOrdering)</code></td>
+<td><code>&#123;3, 3&#125;</code></td>
+</tr>
+<tr>
+<td><code>takeSample(withReplacement, num, [seed])</code></td>
+<td>Return num elements at random.</td>
+<td><code>rdd.takeSample(false, 1)</code></td>
+<td>Nondeterministic</td>
+</tr>
+<tr>
+<td><code>reduce(func)</code></td>
+<td>Combine the elements of the RDD together in parallel (e.g., sum).</td>
+<td><code>rdd.reduce((x, y) =&gt; x + y)</code></td>
+<td><code>9</code></td>
+</tr>
+<tr>
+<td><code>fold(zero)(func)</code></td>
+<td>Same as reduce() but with the provided zero value.</td>
+<td><code>rdd.fold(0)((x, y) =&gt; x + y)</code></td>
+<td><code>9</code></td>
+</tr>
+<tr>
+<td><code>aggregate(zeroValue)(seqOp, combOp)</code></td>
+<td>Similar to reduce() but used to return a different type.</td>
+<td><code>rdd.aggregate((0, 0))((x, y) =&gt; (x._1 + y, x._2 + 1), (x, y) =&gt; (x._1 + y._1, x._2 + y._2))</code></td>
+<td><code>(9, 4)</code></td>
+</tr>
+<tr>
+<td><code>foreach(func)</code></td>
+<td>Apply the provided function to each element of the RDD.</td>
+<td><code>rdd.foreach(func)</code></td>
+<td>Nothing</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Parallel-Operations"><a href="#Parallel-Operations" class="headerlink" title="Parallel Operations"></a>Parallel Operations</h3><ol>
+<li><strong>reduce</strong>: Combines dataset elements using an associative function to produce a result at the driver program.</li>
+<li><strong>collect</strong>: Sends all elements of the dataset to the driver program.</li>
+</ol>
+<ul>
+<li>Example: Log Mining w/ Spark in Scala - Load error messages from a log into memory, then interactively search for various patterns  <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Base RDD</span></span><br><span class="line">lines = spark.textFile(<span class="string">&quot;hdfs://...&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Transformed RDD</span></span><br><span class="line">errors = lines.filter(_.startsWith(<span class="string">&quot;ERROR&quot;</span>))    </span><br><span class="line">messages = errors.map(_.split(&#x27;\t&#x27;)(<span class="number">2</span>))</span><br><span class="line">cachedMsgs = messages.cache()   <span class="comment">// Cached RDD</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Parallel operation</span></span><br><span class="line">cachedMsgs.filter(_.contains(<span class="string">&quot;foo&quot;</span>)).count()</span><br><span class="line">cachedMsgs.filter(_.contains(<span class="string">&quot;bar&quot;</span>)).count()</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Key-Value-Pairs"><a href="#Key-Value-Pairs" class="headerlink" title="Key-Value Pairs"></a>Key-Value Pairs</h3><p>Spark’s “distributed reduce” transformations operate on RDDs of key-value pairs<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> pair = (a, b)</span><br><span class="line">    pair._1 <span class="comment">// =&gt; a</span></span><br><span class="line">    pair._2 <span class="comment">// =&gt; b</span></span><br></pre></td></tr></table></figure></p>
+<p>Basic RDD transformations on two RDDs containing <code>rdd = &#123;(1, 2), (3, 4), (3, 6)&#125;</code> and <code>other = &#123;(3, 9)&#125;</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Function name</th>
+<th>Purpose</th>
+<th>Example</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>reduceByKey(func)</code></td>
+<td>Combine values with the same key.</td>
+<td><code>rdd.reduceByKey((x, y) =&gt; x + y)</code></td>
+<td><code>&#123;(1, 2), (3, 10)&#125;</code></td>
+</tr>
+<tr>
+<td><code>groupByKey()</code></td>
+<td>Group values with the same key.</td>
+<td><code>rdd.groupByKey()</code></td>
+<td><code>&#123;(1, [2]), (3, [4, 6])&#125;</code></td>
+</tr>
+<tr>
+<td><code>mapValues(func)</code></td>
+<td>Apply a function to each value of a pair RDD without changing the key.</td>
+<td><code>rdd.mapValues(x =&gt; x+1)</code></td>
+<td><code>&#123;(1, 3), (3, 5), (3, 7)&#125;</code></td>
+</tr>
+<tr>
+<td><code>flatMapValues(func)</code></td>
+<td>Apply a function that returns an iterator to each value of a pair RDD, and for each element returned, produce a key/value entry with the old key. Often used for tokenization.</td>
+<td><code>rdd.flatMapValues(x =&gt; x.to(5))</code></td>
+<td><code>&#123;(1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (3, 4), (3, 5)&#125;</code></td>
+</tr>
+<tr>
+<td><code>keys()</code></td>
+<td>Return an RDD of just the keys.</td>
+<td><code>rdd.keys()</code></td>
+<td><code>&#123;1, 3, 3&#125;</code></td>
+</tr>
+<tr>
+<td><code>values()</code></td>
+<td>Return an RDD of just the values.</td>
+<td><code>rdd.values()</code></td>
+<td><code>&#123;2, 4, 6&#125;</code></td>
+</tr>
+<tr>
+<td><code>sortByKey()</code></td>
+<td>Return an RDD sorted by the key.</td>
+<td><code>rdd.sortByKey()</code></td>
+<td><code>&#123;(1, 2), (3, 4), (3, 6)&#125;</code></td>
+</tr>
+<tr>
+<td><code>combineByKey(createCombiner, mergeValue, mergeCombiners, partitioner)</code></td>
+<td>Combine values with the same key using a different result type.</td>
+<td><code>rdd.combineByKey(...)</code></td>
+<td>See specific example</td>
+</tr>
+<tr>
+<td><code>subtractByKey</code></td>
+<td>Remove elements with a key present in the other RDD.</td>
+<td><code>rdd.subtractByKey(other)</code></td>
+<td><code>&#123;(1, 2)&#125;</code></td>
+</tr>
+<tr>
+<td><code>join</code></td>
+<td>Perform an inner join between two RDDs.</td>
+<td><code>rdd.join(other)</code></td>
+<td><code>&#123;(3, (4, 9)), (3, (6, 9))&#125;</code></td>
+</tr>
+<tr>
+<td><code>rightOuterJoin</code></td>
+<td>Perform a join between two RDDs where the key must be present in the first RDD.</td>
+<td><code>rdd.rightOuterJoin(other)</code></td>
+<td><code>&#123;(3, (Some(4), 9)), (3, (Some(6), 9))&#125;</code></td>
+</tr>
+<tr>
+<td><code>leftOuterJoin</code></td>
+<td>Perform a join between two RDDs where the key must be present in the other RDD.</td>
+<td><code>rdd.leftOuterJoin(other)</code></td>
+<td><code>&#123;(1, (2, None)), (3, (4, Some(9))), (3, (6, Some(9)))&#125;</code></td>
+</tr>
+<tr>
+<td><code>cogroup</code></td>
+<td>Group data from both RDDs sharing the same key.</td>
+<td><code>rdd.cogroup(other)</code></td>
+<td><code>&#123;(1, ([2], [])), (3, ([4, 6], [9]))&#125;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h4><ul>
+<li><p><strong>Filtering on Values of a Pair-RDD</strong></p>
+  <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pairs.filter&#123;<span class="keyword">case</span>(key, value) =&gt; value.length &lt; <span class="number">20</span>&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = pairs.<span class="built_in">filter</span>&#123;<span class="keyword">lambda</span> keyValue: <span class="built_in">len</span>(keyValue[<span class="number">1</span>]) &lt; <span class="number">20</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>  <img src="https://p.ipic.vip/a6lo3e.png" width="300px" /></p>
+</li>
+<li><p><strong>Per-key Averaging</strong></p>
+  <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rdd.mapValues(x =&gt; (x, <span class="number">1</span>)).reduceByKey((x, y) =&gt; (x._1 + y._1, x._2 + y._2))</span><br></pre></td></tr></table></figure>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rdd.mapValues(<span class="keyword">lambda</span> x: (x, <span class="number">1</span>)).reduceByKey(<span class="keyword">lambda</span> x, y: (x[<span class="number">0</span>] + y[<span class="number">0</span>], x[<span class="number">1</span>] + y[<span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
+<p>  <img src="https://p.ipic.vip/y6aucy.png" width="300px" /></p>
+</li>
+<li><p><strong>Word Count Example</strong></p>
+  <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> input = sc.textFile(<span class="string">&quot;s3://...&quot;</span>)</span><br><span class="line"><span class="keyword">val</span> words = input.flatMap(x =&gt; x.split(<span class="string">&quot; &quot;</span>))</span><br><span class="line"><span class="keyword">val</span> results = words.map(x =&gt; (x, <span class="number">1</span>)).reduceByKey((x, y) =&gt; x + y)</span><br><span class="line"></span><br><span class="line"><span class="comment">// shorthand implementation</span></span><br><span class="line"><span class="keyword">val</span> lines = sc.textFile(<span class="string">&quot;s3://...&quot;</span>)</span><br><span class="line"><span class="keyword">val</span> counts = lines.flatMap(line =&gt; line.split(<span class="string">&quot; &quot;</span>))</span><br><span class="line">                  .map(word =&gt; (word, <span class="number">1</span>))</span><br><span class="line">                  .reduceByKey(_ + _)</span><br></pre></td></tr></table></figure>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rdd = sc.textFile(<span class="string">&quot;s3://...&quot;</span>)</span><br><span class="line">words = rdd.flatMap(<span class="keyword">lambda</span> x: x.split(<span class="string">&quot; &quot;</span>))</span><br><span class="line">results = words.<span class="built_in">map</span>(<span class="keyword">lambda</span> x: (x, <span class="number">1</span>)).reduceByKey(<span class="keyword">lambda</span> x, y: x + y)</span><br></pre></td></tr></table></figure>
+<p>  <img src="https://p.ipic.vip/8tjkzj.png" width="400px" /></p>
+</li>
+</ul>
+<h2 id="Fault-Tolerance"><a href="#Fault-Tolerance" class="headerlink" title="Fault Tolerance"></a>Fault Tolerance</h2><p>An RDD has enough information about how it was derived from other datasets (aka its lineage)</p>
+<ul>
+<li><p>RDD’s Lineage info can be used to reconstruct lost partitions<br>  <img src="https://p.ipic.vip/vzjzvv.png" width="500px" /></p>
+</li>
+<li><p>These datasets will be stored as a chain of objects capturing the lineage of each RDD. Each dataset object contains a pointer to its parent and information about how the parent was transformed.</p>
+</li>
+</ul>
+<h2 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h2><h3 id="PageRank"><a href="#PageRank" class="headerlink" title="PageRank"></a>PageRank</h3><ol>
+<li>Start each page at a rank of 1</li>
+<li>On each iteration, have page p contribute rank$_p$ / |neighbors$_p$| to its neighbors</li>
+<li>Set each page’s rank to 0.15 + 0.85 × contribs</li>
+</ol>
+<p><img src="https://p.ipic.vip/srblai.png" width="500px" /></p>
+<ul>
+<li><p><strong>Naïve Implementation</strong></p>
+  <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(<span class="string">&quot;local&quot;</span>, <span class="string">&quot;PageRank&quot;</span>, sparkHome, <span class="type">Seq</span>(<span class="string">&quot;pagerank.jar&quot;</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> links = <span class="comment">// RDD of (url, neighbors) pairs</span></span><br><span class="line"><span class="keyword">var</span> ranks = <span class="comment">// RDD of (url, rank) pairs</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (i &lt;- <span class="number">1</span> to <span class="type">ITERATIONS</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> contribs = links.join(ranks).flatMap &#123;</span><br><span class="line">        <span class="keyword">case</span> (url, (links, rank)) =&gt; </span><br><span class="line">            links.map(dest =&gt; (dest, rank / links.size))</span><br><span class="line">    &#125;</span><br><span class="line">    ranks = contribs.reduceByKey(_ + _).mapValues(<span class="number">0.15</span> + <span class="number">0.85</span> * _)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  <img src="https://p.ipic.vip/khlwev.png" width="500px" /></p>
+</li>
+<li><p><strong>Control the Partitioning of RDDs</strong></p>
+  <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> links = sc.textFile(inputpath)</span><br><span class="line">    .filter(line =&gt; !line.startsWith(<span class="string">&quot;#&quot;</span>))</span><br><span class="line">    .map&#123;line =&gt; line.split(<span class="string">&quot;\t&quot;</span>)&#125;</span><br><span class="line">    .map&#123;nodes =&gt; (nodes(<span class="number">0</span>), nodes(<span class="number">1</span>))&#125;</span><br><span class="line">    .groupByKey()</span><br><span class="line">    .partitionBy(<span class="keyword">new</span> <span class="type">HashPartitioner</span>(<span class="number">8</span>))    <span class="comment">// add paritioner if necessary</span></span><br></pre></td></tr></table></figure>
+<p>  <img src="https://p.ipic.vip/bczpko.png" width="600px" /></p>
+</li>
+<li><p><strong>Execution Flow:</strong><br>  <img src="https://p.ipic.vip/hw0uq1.png" width="500px" /></p>
+</li>
+<li><p><strong>RDD Partitioning:</strong><br>  <img src="https://p.ipic.vip/hfxnmc.png" width="500px" /></p>
+</li>
+</ul>
+<h2 id="Execution-Process"><a href="#Execution-Process" class="headerlink" title="Execution Process"></a>Execution Process</h2><p><img src="https://p.ipic.vip/0xnsxs.png" width="500px" /></p>
+<ul>
+<li><strong>DAG Scheduler:</strong></li>
+<li>Input: RDD and Partitions to compute</li>
+<li>Output: Output from Actions of those Partitions</li>
+</ul>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><ol>
+<li>Scala: OOP + Functional Programming</li>
+<li>RDDs: fault tolerance, data locality/ partitioning-control, scalability</li>
+<li>RDD implemented in Spark using Scala</li>
+<li>Spark offers a rich API to make data analytics fast: both fast to write and fast to run</li>
+<li>Rapidly growing community</li>
+</ol>
+<!-- 
+<img src="" width="500px" />
+<font color="3A75EA">Blue</font>
+<font color="F54747">Red</font>
+<font color="880ED4">Purple</font>
+<font color="00A300">Green</font>
+--></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog">Donald Lam</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog/2024/03/09/CUHK/ESTR4316/2024-3-9-ESTR4316-Spark/">https://github.com/DonaldLamNL/myBlog/2024/03/09/CUHK/ESTR4316/2024-3-9-ESTR4316-Spark/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/myBlog/tags/Big-Data-Systems/">Big Data Systems</a></div><div class="post_share"><div class="social-share" data-image="https://p.ipic.vip/hwdr0p.jpg" data-sites="facebook,twitter"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/myBlog/2024/03/11/CUHK/AIST4010/2024-3-11-AIST4010-Attention/"><img class="prev-cover" src="https://p.ipic.vip/llqylk.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Attention</div></div></a></div><div class="next-post pull-right"><a href="/myBlog/2024/03/04/CUHK/ESTR4316/2024-3-4-ESTR4316-Apache-Hive/"><img class="next-cover" src="https://p.ipic.vip/hwdr0p.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Apache Hive</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/myBlog/2024/01/18/CUHK/ESTR4316/2024-1-18-ESTR4316-Introduction/" title="Resource Management and Infrastructure"><img class="cover" src="https://p.ipic.vip/hwdr0p.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-18</div><div class="title">Resource Management and Infrastructure</div></div></a></div><div><a href="/myBlog/2024/03/16/CUHK/ESTR4316/2024-3-16-ESTR4316-SparkSQL/" title="Spark SQL"><img class="cover" src="https://p.ipic.vip/hwdr0p.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-16</div><div class="title">Spark SQL</div></div></a></div><div><a href="/myBlog/2024/03/23/CUHK/ESTR4316/2024-3-23-ESTR4316-Apache-Storm/" title="Stream Processing - Apache Storm"><img class="cover" src="https://p.ipic.vip/hwdr0p.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-23</div><div class="title">Stream Processing - Apache Storm</div></div></a></div><div><a href="/myBlog/2024/03/30/CUHK/ESTR4316/2024-3-30-ESTR4316-Apache-Kafka/" title="Stream Processing - Apache Kafka"><img class="cover" src="https://p.ipic.vip/hwdr0p.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-30</div><div class="title">Stream Processing - Apache Kafka</div></div></a></div><div><a href="/myBlog/2024/04/13/CUHK/ESTR4316/2024-4-13-ESTR4316-Big-Graph-Analytics/" title="Big Graph Analytics"><img class="cover" src="https://p.ipic.vip/hwdr0p.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-13</div><div class="title">Big Graph Analytics</div></div></a></div><div><a href="/myBlog/2024/03/02/CUHK/ESTR4316/2024-3-2-ESTR4316-Apache-Pig/" title="Apache Pig"><img class="cover" src="https://p.ipic.vip/hwdr0p.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-02</div><div class="title">Apache Pig</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="this.onerror=null;this.src='/myBlog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Donald Lam</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">83</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">14</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://donaldlamnl.github.io/myWeb/#/home"><i></i><span>My Personal Website</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DonaldLamNL" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:manholam8@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Functional-Programming"><span class="toc-number">2.</span> <span class="toc-text">Functional Programming</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Quick-Tour-of-Scala"><span class="toc-number">2.1.</span> <span class="toc-text">Quick Tour of Scala</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scala-Closure-Syntax"><span class="toc-number">2.2.</span> <span class="toc-text">Scala Closure Syntax</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Resilient-Distributed-Datasets"><span class="toc-number">3.</span> <span class="toc-text">Resilient Distributed Datasets</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RDD-Types"><span class="toc-number">3.1.</span> <span class="toc-text">RDD Types</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Programming-Model"><span class="toc-number">4.</span> <span class="toc-text">Programming Model</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Transformations"><span class="toc-number">4.1.</span> <span class="toc-text">Transformations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Actions"><span class="toc-number">4.2.</span> <span class="toc-text">Actions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Parallel-Operations"><span class="toc-number">4.3.</span> <span class="toc-text">Parallel Operations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Key-Value-Pairs"><span class="toc-number">4.4.</span> <span class="toc-text">Key-Value Pairs</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples"><span class="toc-number">4.4.1.</span> <span class="toc-text">Examples</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fault-Tolerance"><span class="toc-number">5.</span> <span class="toc-text">Fault Tolerance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Algorithm"><span class="toc-number">6.</span> <span class="toc-text">Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PageRank"><span class="toc-number">6.1.</span> <span class="toc-text">PageRank</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Execution-Process"><span class="toc-number">7.</span> <span class="toc-text">Execution Process</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-number">8.</span> <span class="toc-text">Conclusion</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/04/13/CUHK/ESTR4316/2024-4-13-ESTR4316-Big-Graph-Analytics/" title="Big Graph Analytics"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Big Graph Analytics"/></a><div class="content"><a class="title" href="/myBlog/2024/04/13/CUHK/ESTR4316/2024-4-13-ESTR4316-Big-Graph-Analytics/" title="Big Graph Analytics">Big Graph Analytics</a><time datetime="2024-04-12T16:00:00.000Z" title="Created 2024-04-13 00:00:00">2024-04-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/04/06/CUHK/ESTR4316/2024-4-6-ESTR4316-Graph-based-Computing-Platforms/" title="Graph-based Computing Platforms"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Graph-based Computing Platforms"/></a><div class="content"><a class="title" href="/myBlog/2024/04/06/CUHK/ESTR4316/2024-4-6-ESTR4316-Graph-based-Computing-Platforms/" title="Graph-based Computing Platforms">Graph-based Computing Platforms</a><time datetime="2024-04-05T16:00:00.000Z" title="Created 2024-04-06 00:00:00">2024-04-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/04/02/CUHK/ESTR4316/2024-4-2-ESTR4316-Stream-Processing/" title="Stream Processing - Spark Streaming"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Stream Processing - Spark Streaming"/></a><div class="content"><a class="title" href="/myBlog/2024/04/02/CUHK/ESTR4316/2024-4-2-ESTR4316-Stream-Processing/" title="Stream Processing - Spark Streaming">Stream Processing - Spark Streaming</a><time datetime="2024-04-01T16:00:00.000Z" title="Created 2024-04-02 00:00:00">2024-04-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/03/30/CUHK/ESTR4316/2024-3-30-ESTR4316-Apache-Kafka/" title="Stream Processing - Apache Kafka"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Stream Processing - Apache Kafka"/></a><div class="content"><a class="title" href="/myBlog/2024/03/30/CUHK/ESTR4316/2024-3-30-ESTR4316-Apache-Kafka/" title="Stream Processing - Apache Kafka">Stream Processing - Apache Kafka</a><time datetime="2024-03-29T16:00:00.000Z" title="Created 2024-03-30 00:00:00">2024-03-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/03/23/CUHK/ESTR4316/2024-3-23-ESTR4316-Apache-Storm/" title="Stream Processing - Apache Storm"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Stream Processing - Apache Storm"/></a><div class="content"><a class="title" href="/myBlog/2024/03/23/CUHK/ESTR4316/2024-3-23-ESTR4316-Apache-Storm/" title="Stream Processing - Apache Storm">Stream Processing - Apache Storm</a><time datetime="2024-03-22T16:00:00.000Z" title="Created 2024-03-23 00:00:00">2024-03-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By Donald Lam</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/myBlog/js/utils.js"></script><script src="/myBlog/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/myBlog/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

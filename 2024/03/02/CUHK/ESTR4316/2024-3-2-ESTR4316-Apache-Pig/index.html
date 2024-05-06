@@ -1,0 +1,447 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Apache Pig | myBlog</title><meta name="keywords" content="Big Data Systems"><meta name="author" content="Donald Lam,manholam8@gmail.com"><meta name="copyright" content="Donald Lam"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="IntroductoryPig is a large-scale data processing system, the scripts are written in Pig Latin, a dataflow language  Pig Engine Parses: compiles Pig Latin scripts into MapReduce jobs run on top of Hado">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apache Pig">
+<meta property="og:url" content="https://github.com/DonaldLamNL/myBlog/2024/03/02/CUHK/ESTR4316/2024-3-2-ESTR4316-Apache-Pig/index.html">
+<meta property="og:site_name" content="myBlog">
+<meta property="og:description" content="IntroductoryPig is a large-scale data processing system, the scripts are written in Pig Latin, a dataflow language  Pig Engine Parses: compiles Pig Latin scripts into MapReduce jobs run on top of Hado">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://p.ipic.vip/hwdr0p.jpg">
+<meta property="article:published_time" content="2024-03-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-03-01T16:00:00.000Z">
+<meta property="article:author" content="Donald Lam">
+<meta property="article:tag" content="Big Data Systems">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p.ipic.vip/hwdr0p.jpg"><link rel="shortcut icon" href="/myBlog/img/favicon.png"><link rel="canonical" href="https://github.com/DonaldLamNL/myBlog/2024/03/02/CUHK/ESTR4316/2024-3-2-ESTR4316-Apache-Pig/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/myBlog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/myBlog/',
+  algolia: undefined,
+  localSearch: {"path":"/myBlog/search.xml","preload":true,"languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Apache Pig',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-02 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">83</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">14</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://p.ipic.vip/hwdr0p.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/myBlog/">myBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Apache Pig</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-03-01T16:00:00.000Z" title="Created 2024-03-02 00:00:00">2024-03-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-03-01T16:00:00.000Z" title="Updated 2024-03-02 00:00:00">2024-03-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/myBlog/categories/ESTR4316/">ESTR4316</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Apache Pig"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Introductory"><a href="#Introductory" class="headerlink" title="Introductory"></a>Introductory</h2><p>Pig is a large-scale data processing system, the scripts are written in Pig Latin, a dataflow language</p>
+<ul>
+<li>Pig Engine Parses: compiles Pig Latin scripts into MapReduce jobs run on top of Hadoop</li>
+<li>Pig Latin: a dataflow language</li>
+<li>Pig: the high level language interface for Hadoop</li>
+</ul>
+<h3 id="Why-not-MapReduce"><a href="#Why-not-MapReduce" class="headerlink" title="Why not MapReduce"></a>Why not MapReduce</h3><p>Compute the natural join $R(A,B) \Join S(B,C)$</p>
+<ul>
+<li>Implementation in MapReduce:<ol>
+<li>Each input tuple <code>R(a,b)</code> into key-value pair <code>(b,(a,R))</code></li>
+<li>Each input tuple <code>S(b,c)</code> into <code>(b,(c,S))</code></li>
+</ol>
+<ul>
+<li>Map processes send each key-value pair with key <code>b</code> to Reduce process <code>h(b)</code></li>
+<li>Each Reduce process matches all the pairs <code>(b,(a,R))</code> with all <code>(b,(c,S))</code> and outputs <code>(a,b,c)</code></li>
+</ul>
+</li>
+</ul>
+<p>The implementation is complicated, we need a faster code development<br><img src="https://p.ipic.vip/0mx1pl.png" width="500px" /><br>Although the performance is on par with (maybe ~2 times slower than) raw Hadoop, it is convenient in the development</p>
+<h3 id="Pig-Components"><a href="#Pig-Components" class="headerlink" title="Pig Components"></a>Pig Components</h3><ul>
+<li><p><strong>Two Main Components:</strong></p>
+<ol>
+<li>High-level language (Pig Latin)</li>
+<li>Two execution modes<ul>
+<li>Local: reads/writes to local file system</li>
+<li>Mapreduce: connects to Hadoop cluster and reads/writes to HDFS</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p><strong>Two modes:</strong></p>
+<ol>
+<li>Interactive mode: using console</li>
+<li>Batch mode: submit a script</li>
+</ol>
+</li>
+<li><p><strong>Pig Compilation</strong><br><img src="https://p.ipic.vip/inwea9.png" width="500px" /></p>
+</li>
+</ul>
+<h3 id="Introductory-Example-1"><a href="#Introductory-Example-1" class="headerlink" title="Introductory Example 1"></a>Introductory Example 1</h3><p><em>Task: Find users who tend to visit “good” pages</em><br><img src="https://p.ipic.vip/oz7lv0.png" width="400px" /></p>
+<ul>
+<li><p>Implementation:</p>
+  <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Operates directly over files -- schames optional</span></span><br><span class="line">Visits = load <span class="string">&#x27;/data/visits&#x27;</span> as (user, url, <span class="keyword">time</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment"># User-defined functions (UDFs): can be used in every construct</span></span><br><span class="line">Visits = <span class="keyword">foreach</span> Visits generate user, Canonicalize(url), <span class="keyword">time</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Operates directly over files -- schames optional</span></span><br><span class="line">Pages = load <span class="string">&#x27;/data/pages&#x27;</span> as (url, pagerank);</span><br><span class="line"></span><br><span class="line">VP = <span class="keyword">join</span> Visits by url, Pages by url;</span><br><span class="line">UserVisits = group VP by user;</span><br><span class="line">UserPageranks = <span class="keyword">foreach</span> UserVisits generate user, AVG(VP.pagerank) as avgpr;</span><br><span class="line">GoodUsers = filter UserPageranks by avgpr &gt; <span class="string">&#x27;0.5&#x27;</span>;</span><br><span class="line"></span><br><span class="line">Store GoodUsers into <span class="string">&#x27;/data/good_users&#x27;</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Conceptual Dataflow:<br>  <img src="https://p.ipic.vip/1z629q.png" width="400px" /></p>
+</li>
+<li><p>Illustration:<br>  <img src="https://p.ipic.vip/qcydpo.png" width="500px" /></p>
+</li>
+</ul>
+<!-- - System-Level Dataflow: -->
+<h3 id="Introductory-Example-2"><a href="#Introductory-Example-2" class="headerlink" title="Introductory Example 2"></a>Introductory Example 2</h3><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># MapReduce Job 1: group by url + foreach</span></span><br><span class="line">visits = load <span class="string">&#x27;/data/visits&#x27;</span> as (user, url, <span class="keyword">time</span>);</span><br><span class="line">gVisits = group visits by url;</span><br><span class="line">urlCounts = <span class="keyword">foreach</span> gVisits generate url, count(visits);</span><br><span class="line"></span><br><span class="line"><span class="comment"># MapReduce Job 2: join</span></span><br><span class="line">urlInfo = load <span class="string">&#x27;/data/urlInfo&#x27;</span> as (url, category, pRank);</span><br><span class="line">urlCategoryCount = <span class="keyword">join</span> urlCounts by url, urlInfo by url;</span><br><span class="line"></span><br><span class="line"><span class="comment"># MapReduce Job 3: group by category + for each</span></span><br><span class="line">gCategories = group urlCategoryCount by category;</span><br><span class="line">topUrls = <span class="keyword">foreach</span> gCategories generate top(urlCounts,<span class="number">10</span>);</span><br><span class="line">store topUrls into <span class="string">&#x27;/data/topUrls&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="Pig-Latin"><a href="#Pig-Latin" class="headerlink" title="Pig Latin"></a>Pig Latin</h2><h3 id="Language-Features"><a href="#Language-Features" class="headerlink" title="Language Features"></a>Language Features</h3><ul>
+<li><p><strong>Keywords</strong><br>  <code>Load</code>, <code>Filter</code>, <code>Foreach Generate</code>, <code>Group By</code>, <code>Store</code>, <code>Join</code>, <code>Distinct</code>, <code>Order By</code>, …</p>
+</li>
+<li><p><strong>Aggregations</strong><br>  <code>Count</code>, <code>Avg</code>, <code>Sum</code>, <code>Max</code>, <code>Min</code></p>
+</li>
+<li><p><strong>Schema</strong><br>  Defines at <font color="F54747">query-time</font> not when files are loaded</p>
+</li>
+<li><p><strong>User Defined Functions (UDFs)</strong></p>
+<ul>
+<li>As first-class citizens in the language</li>
+<li>UDFs can be written in other languages, e.g. Java, Python, Javascript, etc</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://p.ipic.vip/qpy8tv.png" width="500px" /></p>
+<h3 id="Data-Types"><a href="#Data-Types" class="headerlink" title="Data Types"></a>Data Types</h3><ol>
+<li><strong>Atom:</strong> a simple atomic value<br> <code>&#39;alice&#39;</code></li>
+<li><strong>Tuple:</strong> a sequence of fields, each can be any of the data types<br> <code>(&#39;alice&#39;, &#39;lakers&#39;)</code></li>
+<li><strong>Bag:</strong> a collection of tuples (similar to set)<br> <code>&#123;(&#39;alice&#39;, &#39;lakers&#39;), (&#39;alice&#39;, (&#39;iPod&#39;, &#39;apple&#39;))&#125;</code></li>
+<li><strong>Map:</strong> a collection of data items that is associated with a dedicated atom (similar to the dictionary)<br> <code>[&#39;fan of&#39; -&gt; &#123;&#39;lackers&#39;, &#39;iPod&#39;&#125;, &#39;age&#39; -&gt; 20]</code></li>
+</ol>
+<h3 id="Expressions"><a href="#Expressions" class="headerlink" title="Expressions"></a>Expressions</h3><script type="math/tex; mode=display">t = \Big( \text{‘alice'}, \begin{Bmatrix} (\text{‘lackers'}, 1) \\ (\text{‘iPod'}, 2) \end{Bmatrix}, [\text{‘age'} \rightarrow 20] \Big)</script><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>Expression Type</strong></th>
+<th style="text-align:center"><strong>Example</strong></th>
+<th style="text-align:center"><strong>Value for tuple t</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Constant</td>
+<td style="text-align:center"><code>&#39;bob&#39;</code></td>
+<td style="text-align:center">Independent of t</td>
+</tr>
+<tr>
+<td style="text-align:center">Field by position</td>
+<td style="text-align:center"><code>$0</code></td>
+<td style="text-align:center">$\text{‘alice’}$</td>
+</tr>
+<tr>
+<td style="text-align:center">Field by name</td>
+<td style="text-align:center"><code>f3</code></td>
+<td style="text-align:center">$[\text{‘age’} \rightarrow 20]$</td>
+</tr>
+<tr>
+<td style="text-align:center">Projection</td>
+<td style="text-align:center"><code>f2.$0</code></td>
+<td style="text-align:center">$\begin{Bmatrix} (\text{‘lackers’}) \\ (\text{‘iPod’}) \end{Bmatrix}$</td>
+</tr>
+<tr>
+<td style="text-align:center">Map Loopup</td>
+<td style="text-align:center"><code>f3#&#39;age&#39;</code></td>
+<td style="text-align:center">$20$</td>
+</tr>
+<tr>
+<td style="text-align:center">Function Evaluation</td>
+<td style="text-align:center"><code>SUM(f2.$1)</code></td>
+<td style="text-align:center">$1 + 2 = 3$</td>
+</tr>
+<tr>
+<td style="text-align:center">Conditional Expression</td>
+<td style="text-align:center"><code>f3#&#39;age&#39; &gt; 18 ? &#39;adult&#39; : &#39;minor&#39;</code></td>
+<td style="text-align:center">$\text{adult’}$</td>
+</tr>
+<tr>
+<td style="text-align:center">Flattening (<font color="F54747">remove the bags and tuples</font>)</td>
+<td style="text-align:center"><code>FLATTEN(f2)</code></td>
+<td style="text-align:center">$\text{‘lackers’}, 1, \text{iPod’}, 2$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>Other examples:<br>  <img src="https://p.ipic.vip/7e0zfr.png" width="500px" /></li>
+</ul>
+<h3 id="Commands-and-Operations"><a href="#Commands-and-Operations" class="headerlink" title="Commands and Operations"></a>Commands and Operations</h3><ol>
+<li><p><code>LOAD</code>: Specify input data</p>
+ <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">queries = LOAD <span class="string">`query_log.txt`</span> USING myLoad() AS (userID, queryString, timestamp);</span><br></pre></td></tr></table></figure>
+<p> <img src="https://p.ipic.vip/nfz17x.png" width="700px" /></p>
+</li>
+<li><p><code>FOREACH</code>: Per-tuple processing</p>
+ <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expandedQueries = FOREACH queries GENERATE userID, expandQuery(queryString);</span><br></pre></td></tr></table></figure>
+<p> <img src="https://p.ipic.vip/id0a3f.png" width="700px" /></p>
+</li>
+<li><p><code>FLATTEN</code>: Remove the nested data in tuples (or bags)</p>
+ <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FLATTEN(expandedQueries);</span><br></pre></td></tr></table></figure>
+<p> <img src="https://p.ipic.vip/pzcool.png" width="700px" /></p>
+</li>
+<li><p><code>FILTER</code>: Discarding unwanted data</p>
+ <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FILTER expandedQueries BY userId == <span class="string">&#x27;alice&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p> <img src="https://p.ipic.vip/0vlky6.png" width="700px" /></p>
+</li>
+<li><p><code>COGROUP</code>: Getting related data together</p>
+ <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grouped_data = COGROUP results BY queryString, revenue BY queryString;</span><br></pre></td></tr></table></figure>
+<p> <img src="https://p.ipic.vip/firorn.png" width="700px" /></p>
+</li>
+<li><p><code>JOIN</code>: Cross product of two tables</p>
+ <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">join_result = JOIN results BY queryString, revenue BY queryString;</span><br></pre></td></tr></table></figure>
+<p> <img src="https://p.ipic.vip/mrwej6.png" width="700px" /></p>
+</li>
+<li><p><code>STORE</code>: Create output</p>
+ <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">final_result = STORE join_results INTO <span class="string">`myoutput`</span> USING myStore();</span><br></pre></td></tr></table></figure>
+<p> <img src="https://p.ipic.vip/zc8phd.png" width="700px" /></p>
+ <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">STORE(&amp;DUMP)    <span class="comment"># output data to screen</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Other operators such as <code>UNION</code>, <code>CROSS</code>, <code>ORDER</code>, <code>DISTINCT</code>, <code>LIMIT</code></p>
+</li>
+</ol>
+<h3 id="Additional-Operators"><a href="#Additional-Operators" class="headerlink" title="Additional Operators"></a>Additional Operators</h3><ol>
+<li><p>Re-partition Join: using <code>parallel x</code> to customise the number of partitions</p>
+ <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C = <span class="keyword">join</span> beta by name, B by user parallel <span class="number">40</span>;</span><br></pre></td></tr></table></figure>
+<p> <img src="https://p.ipic.vip/cc3r4f.png" width="500px" /></p>
+</li>
+<li><p>Replicated Join: using <code>using &#39;replicated&#39;</code> to conduct the replicated join<br> <font color="F54747">Optimization in joining a big dataset with a small one</font></p>
+ <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C = <span class="keyword">join</span> Big by user, small by name using <span class="string">&#x27;replicated&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p> <img src="https://p.ipic.vip/gpyt8w.png" width="500px" /></p>
+</li>
+<li><p>Multiple Outputs: Pig is able to produce multiple outputs to different files<br> <img src="https://p.ipic.vip/v2alna.png" width="500px" /></p>
+</li>
+</ol>
+<h3 id="User-Defined-Function"><a href="#User-Defined-Function" class="headerlink" title="User Defined Function"></a>User Defined Function</h3><ul>
+<li><p>Types of UDF’s:</p>
+<ul>
+<li>Eval Functions (extends <code>EvalFunc&lt;String&gt;</code>)</li>
+<li>Aggregate Functions (extends <code>EvalFunc&lt;Long&gt;</code> implements Algebraic)</li>
+<li>Filter Functions (extends <code>FilterFunc</code>)</li>
+</ul>
+</li>
+<li><p>Sample UDF</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TopLevelDomain</span> <span class="keyword">extends</span></span><br><span class="line">    <span class="title class_">EvalFunc</span>&lt;String&gt; &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> String <span class="title function_">exec</span><span class="params">(Tuple tuple)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">            <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> tuple.get(<span class="number">0</span>); <span class="keyword">if</span> (o == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Validator.getTLD(o.toString()); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Pig-Latin-vs-SQL"><a href="#Pig-Latin-vs-SQL" class="headerlink" title="Pig Latin vs. SQL"></a>Pig Latin vs. SQL</h3><ul>
+<li><p><strong>Pig Latin</strong></p>
+<ul>
+<li>Pig Latin is <font color="F54747">procedural</font> (dataflow programming), <font color="F54747">step-by-step query</font> style is much cleaner and easier to write</li>
+<li><strong><font color="F54747">Lazy evaluation:</font></strong> <font color="F54747">data not processed prior to STORE command</font></li>
+<li>Data can be stored at any point during the pipeline</li>
+<li>Schema and data types are lazily defined at <font color="3A75EA">run-time</font></li>
+<li>An execution plan can be explicitly defined (Use optimizer hints)</li>
+</ul>
+</li>
+<li><p><strong>SQL</strong></p>
+<ul>
+<li>SQL is <font color="F54747">declarative</font> but not step-by-step style</li>
+<li><font color="F54747">Query plans are solely decided by the system</font></li>
+<li>Data cannot be stored in the middle</li>
+<li>Schema and data types are defined at the <font color="3A75EA">creation time</font></li>
+</ul>
+</li>
+</ul>
+<h2 id="Optimization"><a href="#Optimization" class="headerlink" title="Optimization"></a>Optimization</h2><ol>
+<li>Schema and type checking</li>
+<li><font color="F54747">Translating into efficient physical dataflow</font> (i.e., sequence of one or more MapReduce jobs)</li>
+<li>Exploiting data reduction opportunities (e.g., early partial aggregation via a combiner)</li>
+<li>Executing the system-level dataflow (i.e., running the MapReduce jobs) n Tracking progress, errors, etc.</li>
+</ol>
+<ul>
+<li><strong>Logic Plan:</strong> The Pig Latin script<br>  <img src="https://p.ipic.vip/rkenwo.png" width="450px" /></li>
+</ul>
+<ul>
+<li><strong>Physical Plan:</strong> Automatically optimize the executions<br>  <img src="https://p.ipic.vip/6dtdfr.png" width="500px" /></li>
+</ul>
+<h2 id="Apache-Tez"><a href="#Apache-Tez" class="headerlink" title="Apache Tez"></a>Apache Tez</h2><ul>
+<li>Tez is a distributed execution framework targeting data-processing applications<ul>
+<li>NOT a standlone computation engine like MapReduce or Spark ; Instead, it is intended to be use as a “backend” library</li>
+</ul>
+</li>
+<li>Based on expressing a computation as a <font color="F54747">DAG dataflow graph</font></li>
+<li>Highly customizable to meet a broad spectrum of use cases</li>
+<li>Built on top of YARN: the resource management framework for Hadoop</li>
+</ul>
+<p><img src="https://p.ipic.vip/li27tj.png" width="400px" /></p>
+<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><p>TeZ is an Alternative Execution Library for <font color="3A75EA">realizing Pig’s Logical Computation Plan</font></p>
+<ol>
+<li>The Required Data Processing Flow is represented as a <font color="F54747">Directed-Acyclic Graph (DAG)</font> (which is what PIG has been doing all along)</li>
+<li>TeZ can then be used to realize/execute the DAG-based dataflow/computation to avoid limitations imposed by the rigid 2-stage MapReduce model</li>
+</ol>
+<p><img src="https://p.ipic.vip/h91y28.png" width="400px" /></p>
+<h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1"></a>Example 1</h3><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">f = Load <span class="string">&#x27;foo&#x27;</span> AS (<span class="keyword">x</span>, <span class="keyword">y</span>, z);</span><br><span class="line">g1 = GROUP f BY <span class="keyword">y</span>;</span><br><span class="line">g2 = GROUP f BY z;</span><br><span class="line">j = JOIN g1 BY group,</span><br><span class="line">         g2 BY group;</span><br></pre></td></tr></table></figure>
+<p><img src="https://p.ipic.vip/2f6qqe.png" width="500px" /></p>
+<h3 id="Example-2"><a href="#Example-2" class="headerlink" title="Example 2"></a>Example 2</h3><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">l = Load <span class="string">&#x27;left&#x27;</span> AS (<span class="keyword">x</span>, <span class="keyword">y</span>);</span><br><span class="line">r = Load <span class="string">&#x27;right&#x27;</span> AS (<span class="keyword">x</span>, z);</span><br><span class="line">j = JOIN l BY <span class="keyword">x</span>, <span class="keyword">x</span> BY <span class="keyword">y</span>, USING <span class="string">&#x27;skewed&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="https://p.ipic.vip/mxvsc8.png" width="500px" /></p>
+<!-- 
+<img src="" width="500px" />
+<font color="3A75EA">Blue</font>
+<font color="F54747">Red</font>
+<font color="880ED4">Purple</font>
+<font color="00A300">Green</font>
+--></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog">Donald Lam</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog/2024/03/02/CUHK/ESTR4316/2024-3-2-ESTR4316-Apache-Pig/">https://github.com/DonaldLamNL/myBlog/2024/03/02/CUHK/ESTR4316/2024-3-2-ESTR4316-Apache-Pig/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/myBlog/tags/Big-Data-Systems/">Big Data Systems</a></div><div class="post_share"><div class="social-share" data-image="https://p.ipic.vip/hwdr0p.jpg" data-sites="facebook,twitter"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/myBlog/2024/03/04/CUHK/ESTR4316/2024-3-4-ESTR4316-Apache-Hive/"><img class="prev-cover" src="https://p.ipic.vip/hwdr0p.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Apache Hive</div></div></a></div><div class="next-post pull-right"><a href="/myBlog/2024/03/01/CUHK/AIST4010/2024-3-1-AIST4010-RNN-Model-Architectures/"><img class="next-cover" src="https://p.ipic.vip/llqylk.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">RNN++ (Model Architectures)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/myBlog/2024/01/18/CUHK/ESTR4316/2024-1-18-ESTR4316-Introduction/" title="Resource Management and Infrastructure"><img class="cover" src="https://p.ipic.vip/hwdr0p.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-18</div><div class="title">Resource Management and Infrastructure</div></div></a></div><div><a href="/myBlog/2024/03/16/CUHK/ESTR4316/2024-3-16-ESTR4316-SparkSQL/" title="Spark SQL"><img class="cover" src="https://p.ipic.vip/hwdr0p.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-16</div><div class="title">Spark SQL</div></div></a></div><div><a href="/myBlog/2024/03/23/CUHK/ESTR4316/2024-3-23-ESTR4316-Apache-Storm/" title="Stream Processing - Apache Storm"><img class="cover" src="https://p.ipic.vip/hwdr0p.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-23</div><div class="title">Stream Processing - Apache Storm</div></div></a></div><div><a href="/myBlog/2024/03/30/CUHK/ESTR4316/2024-3-30-ESTR4316-Apache-Kafka/" title="Stream Processing - Apache Kafka"><img class="cover" src="https://p.ipic.vip/hwdr0p.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-30</div><div class="title">Stream Processing - Apache Kafka</div></div></a></div><div><a href="/myBlog/2024/03/09/CUHK/ESTR4316/2024-3-9-ESTR4316-Spark/" title="Spark and BDAS"><img class="cover" src="https://p.ipic.vip/hwdr0p.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-09</div><div class="title">Spark and BDAS</div></div></a></div><div><a href="/myBlog/2024/04/13/CUHK/ESTR4316/2024-4-13-ESTR4316-Big-Graph-Analytics/" title="Big Graph Analytics"><img class="cover" src="https://p.ipic.vip/hwdr0p.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-13</div><div class="title">Big Graph Analytics</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="this.onerror=null;this.src='/myBlog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Donald Lam</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">83</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">14</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://donaldlamnl.github.io/myWeb/#/home"><i></i><span>My Personal Website</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DonaldLamNL" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:manholam8@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introductory"><span class="toc-number">1.</span> <span class="toc-text">Introductory</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Why-not-MapReduce"><span class="toc-number">1.1.</span> <span class="toc-text">Why not MapReduce</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pig-Components"><span class="toc-number">1.2.</span> <span class="toc-text">Pig Components</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Introductory-Example-1"><span class="toc-number">1.3.</span> <span class="toc-text">Introductory Example 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Introductory-Example-2"><span class="toc-number">1.4.</span> <span class="toc-text">Introductory Example 2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pig-Latin"><span class="toc-number">2.</span> <span class="toc-text">Pig Latin</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Language-Features"><span class="toc-number">2.1.</span> <span class="toc-text">Language Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Types"><span class="toc-number">2.2.</span> <span class="toc-text">Data Types</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Expressions"><span class="toc-number">2.3.</span> <span class="toc-text">Expressions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Commands-and-Operations"><span class="toc-number">2.4.</span> <span class="toc-text">Commands and Operations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Additional-Operators"><span class="toc-number">2.5.</span> <span class="toc-text">Additional Operators</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#User-Defined-Function"><span class="toc-number">2.6.</span> <span class="toc-text">User Defined Function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pig-Latin-vs-SQL"><span class="toc-number">2.7.</span> <span class="toc-text">Pig Latin vs. SQL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Optimization"><span class="toc-number">3.</span> <span class="toc-text">Optimization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache-Tez"><span class="toc-number">4.</span> <span class="toc-text">Apache Tez</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage"><span class="toc-number">4.1.</span> <span class="toc-text">Usage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-1"><span class="toc-number">4.2.</span> <span class="toc-text">Example 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-2"><span class="toc-number">4.3.</span> <span class="toc-text">Example 2</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/04/13/CUHK/ESTR4316/2024-4-13-ESTR4316-Big-Graph-Analytics/" title="Big Graph Analytics"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Big Graph Analytics"/></a><div class="content"><a class="title" href="/myBlog/2024/04/13/CUHK/ESTR4316/2024-4-13-ESTR4316-Big-Graph-Analytics/" title="Big Graph Analytics">Big Graph Analytics</a><time datetime="2024-04-12T16:00:00.000Z" title="Created 2024-04-13 00:00:00">2024-04-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/04/06/CUHK/ESTR4316/2024-4-6-ESTR4316-Graph-based-Computing-Platforms/" title="Graph-based Computing Platforms"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Graph-based Computing Platforms"/></a><div class="content"><a class="title" href="/myBlog/2024/04/06/CUHK/ESTR4316/2024-4-6-ESTR4316-Graph-based-Computing-Platforms/" title="Graph-based Computing Platforms">Graph-based Computing Platforms</a><time datetime="2024-04-05T16:00:00.000Z" title="Created 2024-04-06 00:00:00">2024-04-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/04/02/CUHK/ESTR4316/2024-4-2-ESTR4316-Stream-Processing/" title="Stream Processing - Spark Streaming"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Stream Processing - Spark Streaming"/></a><div class="content"><a class="title" href="/myBlog/2024/04/02/CUHK/ESTR4316/2024-4-2-ESTR4316-Stream-Processing/" title="Stream Processing - Spark Streaming">Stream Processing - Spark Streaming</a><time datetime="2024-04-01T16:00:00.000Z" title="Created 2024-04-02 00:00:00">2024-04-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/03/30/CUHK/ESTR4316/2024-3-30-ESTR4316-Apache-Kafka/" title="Stream Processing - Apache Kafka"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Stream Processing - Apache Kafka"/></a><div class="content"><a class="title" href="/myBlog/2024/03/30/CUHK/ESTR4316/2024-3-30-ESTR4316-Apache-Kafka/" title="Stream Processing - Apache Kafka">Stream Processing - Apache Kafka</a><time datetime="2024-03-29T16:00:00.000Z" title="Created 2024-03-30 00:00:00">2024-03-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/03/23/CUHK/ESTR4316/2024-3-23-ESTR4316-Apache-Storm/" title="Stream Processing - Apache Storm"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Stream Processing - Apache Storm"/></a><div class="content"><a class="title" href="/myBlog/2024/03/23/CUHK/ESTR4316/2024-3-23-ESTR4316-Apache-Storm/" title="Stream Processing - Apache Storm">Stream Processing - Apache Storm</a><time datetime="2024-03-22T16:00:00.000Z" title="Created 2024-03-23 00:00:00">2024-03-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By Donald Lam</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/myBlog/js/utils.js"></script><script src="/myBlog/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/myBlog/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

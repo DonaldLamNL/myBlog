@@ -1,0 +1,348 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Spark SQL | myBlog</title><meta name="keywords" content="Big Data Systems"><meta name="author" content="Donald Lam,manholam8@gmail.com"><meta name="copyright" content="Donald Lam"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="IntroductionEfficient In-Memory Storage Simply caching Hive records as Java objects is inefficient due to high per-object overhead Instead, Shark employs column-oriented storage using arrays of primit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark SQL">
+<meta property="og:url" content="https://github.com/DonaldLamNL/myBlog/2024/03/16/CUHK/ESTR4316/2024-3-16-ESTR4316-SparkSQL/index.html">
+<meta property="og:site_name" content="myBlog">
+<meta property="og:description" content="IntroductionEfficient In-Memory Storage Simply caching Hive records as Java objects is inefficient due to high per-object overhead Instead, Shark employs column-oriented storage using arrays of primit">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://p.ipic.vip/hwdr0p.jpg">
+<meta property="article:published_time" content="2024-03-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-03-15T16:00:00.000Z">
+<meta property="article:author" content="Donald Lam">
+<meta property="article:tag" content="Big Data Systems">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p.ipic.vip/hwdr0p.jpg"><link rel="shortcut icon" href="/myBlog/img/favicon.png"><link rel="canonical" href="https://github.com/DonaldLamNL/myBlog/2024/03/16/CUHK/ESTR4316/2024-3-16-ESTR4316-SparkSQL/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/myBlog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/myBlog/',
+  algolia: undefined,
+  localSearch: {"path":"/myBlog/search.xml","preload":true,"languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Spark SQL',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-16 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">83</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">14</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://p.ipic.vip/hwdr0p.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/myBlog/">myBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Spark SQL</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-03-15T16:00:00.000Z" title="Created 2024-03-16 00:00:00">2024-03-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-03-15T16:00:00.000Z" title="Updated 2024-03-16 00:00:00">2024-03-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/myBlog/categories/ESTR4316/">ESTR4316</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Spark SQL"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="Efficient-In-Memory-Storage"><a href="#Efficient-In-Memory-Storage" class="headerlink" title="Efficient In-Memory Storage"></a>Efficient In-Memory Storage</h3><ul>
+<li>Simply caching Hive records as Java objects is inefficient due to high per-object overhead</li>
+<li>Instead, Shark employs <font color="F54747">column-oriented storage</font> using arrays of primitive types<br>  <img src="https://p.ipic.vip/nc9typ.png" width="300px" /><ul>
+<li>Row-oriented storage is more suitable for real time searching (such as real-time transaction processing)</li>
+<li>Column-oriented storage is more suitable for big data systems for anlyzing, like search the frequent objects within the whole dataset that requires to scan the whole column</li>
+</ul>
+</li>
+</ul>
+<h3 id="Approaches"><a href="#Approaches" class="headerlink" title="Approaches"></a>Approaches</h3><ul>
+<li>Spark SQL introduces a Tightly Integrated way to work with a new abstraction of Structured Data called <strong><font color="F54747">SchemaRDD (a.k.a. DataFrame)</font></strong>, which is a Distributed Collection of Rows (i.e. a Table) with <font color="3A75EA">Named Columns</font></li>
+<li><p>It supports the <font color="F54747">Transformation of RDDs using SQL</font>: In particular, DataFrames (aka SchemaRDDs) is an abstraction which supports Selecting, Filtering, Aggregating and Plotting Structured data</p>
+</li>
+<li><p><strong>Spark SQL v.s. Shark</strong></p>
+<ul>
+<li><p>Shark modified the Hive backend to run over Spark but had two challenges:</p>
+<ol>
+<li>Limited integration with Spark programs</li>
+<li>Hive Optimizer not designed for Spark</li>
+</ol>
+</li>
+<li><p>Spark SQL</p>
+<ul>
+<li>reuses some parts of Shark: Hive Data Loading and In-memory Column-store</li>
+<li>adds the features: RDD-aware Optimizer and Richer Language Interfaces</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>RDDs v.s. SchemaRDDs</strong></p>
+<ul>
+<li><strong>Spark + RDDs:</strong> Functional transformations on Partitioned Collections of Opaque Objects</li>
+<li><strong>SQL + DataFrames (aka SchemaRDDs):</strong> Declarative transformations on Partitioned Collections of Tuples</li>
+</ul>
+</li>
+<li><p><strong>Data Model</strong></p>
+<ul>
+<li>Nested data model</li>
+<li>Supports both primitive SQL types (<code>boolean</code>, <code>integer</code>, <code>double</code>, <code>decimal</code>, <code>string</code>, <code>data</code>, <code>timestamp</code>) and complex types (<code>structs</code>, <code>arrays</code>, <code>maps</code>, and <code>unions</code>); also user defined types.</li>
+<li>First class support for complex data types</li>
+</ul>
+</li>
+</ul>
+<h2 id="Schema"><a href="#Schema" class="headerlink" title="Schema"></a>Schema</h2><h3 id="Relational-operations"><a href="#Relational-operations" class="headerlink" title="Relational operations"></a>Relational operations</h3><ul>
+<li>Relational operations include <code>select</code>, <code>where</code>, <code>join</code>, <code>groupBy</code> via a DSL</li>
+<li>Operators take expression objects</li>
+<li>Operators build up an <font color="F54747">abstract syntax tree (AST)</font>, which is then <font color="3A75EA">optimized by Catalyst</font>  <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Spark SQL</span></span><br><span class="line">employees</span><br><span class="line">    .join(dept, employees (<span class="string">&quot;deptId&quot;</span>) === dept(<span class="string">&quot;id&quot;</span>))</span><br><span class="line">    .where(employees(<span class="string">&quot;gender&quot;</span>) === <span class="string">&quot;female&quot;</span>)</span><br><span class="line">    .groupBy(dept(<span class="string">&quot;id&quot;</span>), dept(<span class="string">&quot;name&quot;</span>))</span><br><span class="line">    .agg(count(<span class="string">&quot;name&quot;</span>))</span><br></pre></td></tr></table></figure></li>
+<li>Alternatively, register as temp SQL table and perform traditional SQL query strings  <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// temp SQL table</span></span><br><span class="line">users.where(users(<span class="string">&quot;age&quot;</span>) &lt; <span class="number">21</span>).registerTempTable(<span class="string">&quot;young&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// traditional SQL query strings</span></span><br><span class="line">ctx.sql(<span class="string">&quot;SELECT count(*), avg(age) FROM young&quot;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="SQLContext"><a href="#SQLContext" class="headerlink" title="SQLContext"></a>SQLContext</h3><ul>
+<li>Entry point for all SQL functionality</li>
+<li><p>Wraps/Extend existing Spark Context</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># remind for operating Spark SQL</span></span><br><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> SQLContext</span><br><span class="line">sqlCtx = SQLContext(sc)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Sample</strong><br>  Given a text file filled with people’s names and age:</p>
+<pre><code>  &lt;img src=&quot;https://p.ipic.vip/wot4it.png&quot; width=&quot;300px&quot; /&gt;
+</code></pre><ul>
+<li><p>RDDs as Relations using Scala</p>
+  <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> sqlContext = <span class="keyword">new</span> org.apache.spark.sql.<span class="type">SQLContext</span>(sc)</span><br><span class="line"><span class="keyword">import</span> sqlcontext._</span><br><span class="line"></span><br><span class="line"><span class="comment">// Define the schema using a case class.</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span>(<span class="params">name: <span class="type">String</span>, age: <span class="type">Int</span></span>)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Create an RDD of Person objects and register it as a table.</span></span><br><span class="line"><span class="keyword">val</span> people = sc.textFile(<span class="string">&quot;examples/src/main/resources/people.txt&quot;</span>)</span><br><span class="line">            .map(_.split(<span class="string">&quot;,&quot;</span>))</span><br><span class="line">            .map(p =&gt; <span class="type">Person</span>(p(<span class="number">0</span>), p(<span class="number">1</span>).trim.toInt))</span><br><span class="line">people.registerAsTable(<span class="string">&quot;people&quot;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>RDDs as Relations using Python</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Load a text file and convert each line to a dictionary.</span></span><br><span class="line">lines = sc.textFile(<span class="string">&quot;examples/.../people. txt&quot;</span>)</span><br><span class="line">parts = lines.<span class="built_in">map</span>(<span class="keyword">lambda</span> l: l.split(<span class="string">&quot;,&quot;</span>))</span><br><span class="line">people = parts.<span class="built_in">map</span>(<span class="keyword">lambda</span> p: Row(name=p[<span class="number">0</span>], age=<span class="built_in">int</span>(p[<span class="number">1</span>])))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Infer the schema, and register the SchemaRDD as a table</span></span><br><span class="line">peopleTable = sqlCtx.inferSchema(people)</span><br><span class="line">peopleTable.registerAsTable(<span class="string">&quot;people&quot;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Querying using Spark SQL in Python</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># SQL can be run over SchemaRDDs that have been registered as a table</span></span><br><span class="line">teenagers = sqlCtx.sql(<span class="string">&quot;&quot;&quot;SELECT name FROM people WHERE age &gt;= 13 AND age &lt;= 19&quot;&quot;&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># The results of SQL queries are RDDs and support all the normal RDD operations</span></span><br><span class="line">teenNames = teenagers.<span class="built_in">map</span>(<span class="keyword">lambda</span> p: <span class="string">&quot;Name: &quot;</span> + p.name)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="HiveContext"><a href="#HiveContext" class="headerlink" title="HiveContext"></a>HiveContext</h3><ul>
+<li><p>Wraps/Extend existing Hive Context</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ctx = new HiveContext()</span><br><span class="line">users = ctx.table(<span class="string">&quot;users&quot;</span>)</span><br><span class="line">young = users.where(user(<span class="string">&quot;age&quot;</span>) &lt; <span class="number">21</span>)</span><br><span class="line">println(young.count())</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Sample:</strong> Reading data stored in Hive</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> HiveContext</span><br><span class="line">hiveCtx = HiveContext(sc)</span><br><span class="line"></span><br><span class="line">hiveCtx.hql(<span class="string">&quot;&quot;&quot;CREATE TABLE IF NOT EXISTS src (key INT, value STRING)&quot;&quot;&quot;</span>)</span><br><span class="line"></span><br><span class="line">hiveCtx.hql(<span class="string">&quot;&quot;&quot;LOAD DATA LOCAL INPATH &#x27;examples/.../kv1.txt&#x27; INTO TABLE src&quot;&quot;&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Queries can be expressed in HiveQL</span></span><br><span class="line">results = hiveCtx.hql(<span class="string">&quot;FROM src SELECT key, value&quot;</span>).collect()</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Caching-Tables-In-Memory"><a href="#Caching-Tables-In-Memory" class="headerlink" title="Caching Tables In-Memory"></a>Caching Tables In-Memory</h3><p>SparkSQL can cache tables using an in-memory columnar format:</p>
+<ul>
+<li>Scan only required columns</li>
+<li>Fewer allocated objects (less Garbage Collection)</li>
+<li>Automatically selects best compression<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cacheTable(<span class="string">&quot;people&quot;</span>) <span class="keyword">or</span> dataframe.cache()</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="JSON-Support"><a href="#JSON-Support" class="headerlink" title="JSON Support"></a>JSON Support</h3><ul>
+<li>We can use jsonFile or jsonRDD to convert a collection of JSON objects into a DataFrame</li>
+<li>Infer and Union the schema of each record</li>
+<li>Maintain nested structures and arrays  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Create a SchemaRDD from the file(s) pointed to by path</span></span><br><span class="line">people = sqlContext.jsonFile(path)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Visualized inferred schema with printSchema()</span></span><br><span class="line">people.printSchema()</span><br><span class="line"></span><br><span class="line"><span class="comment"># root</span></span><br><span class="line"><span class="comment"># |-- age: integer</span></span><br><span class="line"><span class="comment"># |-- name: string</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Register this SchemaRDD as a table</span></span><br><span class="line">people.registerTempTable(<span class="string">&quot;people&quot;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Data-Sources-API"><a href="#Data-Sources-API" class="headerlink" title="Data Sources API"></a>Data Sources API</h3><p>Allow easy integration with new sources of structured data:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE TEMPORARY TABLE episodes</span><br><span class="line">USING com.databricks.spark.avro</span><br><span class="line">OPTIONS (path <span class="string">&quot;./episodes.avro&quot;</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="Read-Write-Data"><a href="#Read-Write-Data" class="headerlink" title="Read/Write Data"></a>Read/Write Data</h3><p>We can unify and simplify the interface to read/write data in many different formats<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Read and Write functions create new builders for doing the I/Os</span></span><br><span class="line"><span class="comment"># Builder methods are used to specify: Format, Paritioning, Handling of existing data, ...</span></span><br><span class="line">df = sqlContext.read \</span><br><span class="line">    .<span class="built_in">format</span>(<span class="string">&quot;json&quot;</span>) \</span><br><span class="line">    .option(<span class="string">&quot;samplingRatio&quot;</span>, <span class="string">&quot;0.1&quot;</span>) \</span><br><span class="line">    .load(<span class="string">&quot;/home/michael/data.json&quot;</span>)</span><br><span class="line"></span><br><span class="line">df.write \</span><br><span class="line">  .<span class="built_in">format</span>(<span class="string">&quot;parquet&quot;</span>) \</span><br><span class="line">  .mode(<span class="string">&quot;append&quot;</span>) \</span><br><span class="line">  .partitionBy(<span class="string">&quot;year&quot;</span>) \</span><br><span class="line">  .saveAsTable(<span class="string">&quot;fasterData&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># load, save or saveAsTable functions create new builders for doing the I/Os</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Computational-Operations"><a href="#Computational-Operations" class="headerlink" title="Computational Operations"></a>Computational Operations</h3><ol>
+<li><p><strong>Computing Average:</strong></p>
+<ul>
+<li><p>Using RDD:</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data = sc.textFile(...).split(<span class="string">&quot;\t&quot;</span>)</span><br><span class="line">data.<span class="built_in">map</span>(<span class="keyword">lambda</span> x: (x[<span class="number">0</span>], [<span class="built_in">int</span>(x[<span class="number">1</span>]), <span class="number">1</span>])) \</span><br><span class="line">    .reduceByKey(<span class="keyword">lambda</span> x, y: [x[<span class="number">0</span>] + y[<span class="number">0</span>], x[<span class="number">1</span>] + y[<span class="number">1</span>]]) \ </span><br><span class="line">    .<span class="built_in">map</span>(<span class="keyword">lambda</span> x: [x[<span class="number">0</span>], x[<span class="number">1</span>][<span class="number">0</span>] / x[<span class="number">1</span>][<span class="number">1</span>]]) \</span><br><span class="line">    .collect()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Using SQL:</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> name, <span class="built_in">avg</span>(age)</span><br><span class="line"><span class="keyword">FROM</span> people</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> name</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Using pig:</p>
+  <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">P = load <span class="string">&#x27;/people&#x27;</span> as (name, age);</span><br><span class="line">G = group P by name;</span><br><span class="line">R = <span class="keyword">foreach</span> G generate ... AVG(G.age);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Using DataFrames:</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sqlCtx.table(<span class="string">&quot;people&quot;</span>) \ </span><br><span class="line">      .groupBy(<span class="string">&quot;name&quot;</span>) \ </span><br><span class="line">      .agg(<span class="string">&quot;name&quot;</span>, avg(<span class="string">&quot;age&quot;</span>)) \ </span><br><span class="line">      .collect()</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="Optimization"><a href="#Optimization" class="headerlink" title="Optimization"></a>Optimization</h2><h3 id="Plan-Optimization"><a href="#Plan-Optimization" class="headerlink" title="Plan Optimization"></a>Plan Optimization</h3><p>Optimization happens as late as possible, Spark SQL can optimize even across different functions</p>
+<ul>
+<li>Example:  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">joined = users.join(events, users.<span class="built_in">id</span> == events.uid)</span><br><span class="line">filtered = joined.<span class="built_in">filter</span>(events.date &gt;= <span class="string">&quot;2015-01-01&quot;</span>)</span><br></pre></td></tr></table></figure>
+  <img src="https://p.ipic.vip/v4p7d9.png" width="600px" /></li>
+</ul>
+<h3 id="Datasets-and-DataFrames"><a href="#Datasets-and-DataFrames" class="headerlink" title="Datasets and DataFrames"></a>Datasets and DataFrames</h3><ul>
+<li><strong>DataFrames</strong> are collections of rows with a schema</li>
+<li><strong>Datasets</strong> add static types, e.g. <code>Dataset[Person]</code><ul>
+<li>Libraries can take data of both forms</li>
+<li>DataFrames, Datasets, and SQL share the same optimization/execution pipeline</li>
+</ul>
+</li>
+<li>Example:  <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span>(<span class="params">name: <span class="type">String</span>, id: <span class="type">Int</span></span>)</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">Message</span>(<span class="params">user: <span class="type">User</span>, text: <span class="type">String</span></span>)</span></span><br><span class="line"></span><br><span class="line">dataframe = sqlContext.read.json(<span class="string">&quot;log.json&quot;</span>)  <span class="comment">// DataFrame, i.e. Dataset[Row]</span></span><br><span class="line">messages = dataframe.as[<span class="type">Message</span>]  <span class="comment">// Dataset[Message]</span></span><br><span class="line"></span><br><span class="line">users = messages.filter(m =&gt; m.text.contains(<span class="string">&quot;Spark&quot;</span>))</span><br><span class="line">                .map(m =&gt; m.user)  <span class="comment">// Dataset[User]</span></span><br><span class="line"></span><br><span class="line">pipeline.train(users)  <span class="comment">// MLlib takes either DataFrames or Datasets</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><ul>
+<li>SQL is wildly popular and important for real-world customers</li>
+<li>Schema is very useful<ul>
+<li>In most data pipelines, even the ones that start with unstructured data end up having some implicit structure</li>
+<li>Key-value abstraction (under RDD) is too limited</li>
+<li>Nevertheless, Support for Semi/Un-structured data is critical!</li>
+</ul>
+</li>
+<li>Separation of Logical vs. Physical Plan is important for Performance Optimizations, e.g. join selection.</li>
+</ul>
+<!-- 
+<img src="" width="500px" />
+<font color="3A75EA">Blue</font>
+<font color="F54747">Red</font>
+<font color="880ED4">Purple</font>
+<font color="00A300">Green</font>
+--></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog">Donald Lam</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://github.com/DonaldLamNL/myBlog/2024/03/16/CUHK/ESTR4316/2024-3-16-ESTR4316-SparkSQL/">https://github.com/DonaldLamNL/myBlog/2024/03/16/CUHK/ESTR4316/2024-3-16-ESTR4316-SparkSQL/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/myBlog/tags/Big-Data-Systems/">Big Data Systems</a></div><div class="post_share"><div class="social-share" data-image="https://p.ipic.vip/hwdr0p.jpg" data-sites="facebook,twitter"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/myBlog/2024/03/23/CUHK/ESTR4316/2024-3-23-ESTR4316-Apache-Storm/"><img class="prev-cover" src="https://p.ipic.vip/hwdr0p.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Stream Processing - Apache Storm</div></div></a></div><div class="next-post pull-right"><a href="/myBlog/2024/03/14/CUHK/AIST4010/2024-3-14-AIST4010-Word-Embedding/"><img class="next-cover" src="https://p.ipic.vip/llqylk.jpg" onerror="onerror=null;src='/myBlog/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Word Embedding</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/myBlog/2024/01/18/CUHK/ESTR4316/2024-1-18-ESTR4316-Introduction/" title="Resource Management and Infrastructure"><img class="cover" src="https://p.ipic.vip/hwdr0p.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-18</div><div class="title">Resource Management and Infrastructure</div></div></a></div><div><a href="/myBlog/2024/03/23/CUHK/ESTR4316/2024-3-23-ESTR4316-Apache-Storm/" title="Stream Processing - Apache Storm"><img class="cover" src="https://p.ipic.vip/hwdr0p.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-23</div><div class="title">Stream Processing - Apache Storm</div></div></a></div><div><a href="/myBlog/2024/03/30/CUHK/ESTR4316/2024-3-30-ESTR4316-Apache-Kafka/" title="Stream Processing - Apache Kafka"><img class="cover" src="https://p.ipic.vip/hwdr0p.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-30</div><div class="title">Stream Processing - Apache Kafka</div></div></a></div><div><a href="/myBlog/2024/03/09/CUHK/ESTR4316/2024-3-9-ESTR4316-Spark/" title="Spark and BDAS"><img class="cover" src="https://p.ipic.vip/hwdr0p.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-09</div><div class="title">Spark and BDAS</div></div></a></div><div><a href="/myBlog/2024/04/13/CUHK/ESTR4316/2024-4-13-ESTR4316-Big-Graph-Analytics/" title="Big Graph Analytics"><img class="cover" src="https://p.ipic.vip/hwdr0p.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-13</div><div class="title">Big Graph Analytics</div></div></a></div><div><a href="/myBlog/2024/03/02/CUHK/ESTR4316/2024-3-2-ESTR4316-Apache-Pig/" title="Apache Pig"><img class="cover" src="https://p.ipic.vip/hwdr0p.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-02</div><div class="title">Apache Pig</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://p.ipic.vip/5dc8z2.jpeg" onerror="this.onerror=null;this.src='/myBlog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Donald Lam</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">Articles</div><div class="length-num">83</div></a><a href="/myBlog/tags/"><div class="headline">Tags</div><div class="length-num">14</div></a><a href="/myBlog/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://donaldlamnl.github.io/myWeb/#/home"><i></i><span>My Personal Website</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DonaldLamNL" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:manholam8@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Efficient-In-Memory-Storage"><span class="toc-number">1.1.</span> <span class="toc-text">Efficient In-Memory Storage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Approaches"><span class="toc-number">1.2.</span> <span class="toc-text">Approaches</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Schema"><span class="toc-number">2.</span> <span class="toc-text">Schema</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Relational-operations"><span class="toc-number">2.1.</span> <span class="toc-text">Relational operations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQLContext"><span class="toc-number">2.2.</span> <span class="toc-text">SQLContext</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HiveContext"><span class="toc-number">2.3.</span> <span class="toc-text">HiveContext</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Caching-Tables-In-Memory"><span class="toc-number">2.4.</span> <span class="toc-text">Caching Tables In-Memory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JSON-Support"><span class="toc-number">2.5.</span> <span class="toc-text">JSON Support</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Sources-API"><span class="toc-number">2.6.</span> <span class="toc-text">Data Sources API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Read-Write-Data"><span class="toc-number">2.7.</span> <span class="toc-text">Read&#x2F;Write Data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Computational-Operations"><span class="toc-number">2.8.</span> <span class="toc-text">Computational Operations</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Optimization"><span class="toc-number">3.</span> <span class="toc-text">Optimization</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Plan-Optimization"><span class="toc-number">3.1.</span> <span class="toc-text">Plan Optimization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Datasets-and-DataFrames"><span class="toc-number">3.2.</span> <span class="toc-text">Datasets and DataFrames</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-number">4.</span> <span class="toc-text">Conclusion</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/04/13/CUHK/ESTR4316/2024-4-13-ESTR4316-Big-Graph-Analytics/" title="Big Graph Analytics"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Big Graph Analytics"/></a><div class="content"><a class="title" href="/myBlog/2024/04/13/CUHK/ESTR4316/2024-4-13-ESTR4316-Big-Graph-Analytics/" title="Big Graph Analytics">Big Graph Analytics</a><time datetime="2024-04-12T16:00:00.000Z" title="Created 2024-04-13 00:00:00">2024-04-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/04/06/CUHK/ESTR4316/2024-4-6-ESTR4316-Graph-based-Computing-Platforms/" title="Graph-based Computing Platforms"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Graph-based Computing Platforms"/></a><div class="content"><a class="title" href="/myBlog/2024/04/06/CUHK/ESTR4316/2024-4-6-ESTR4316-Graph-based-Computing-Platforms/" title="Graph-based Computing Platforms">Graph-based Computing Platforms</a><time datetime="2024-04-05T16:00:00.000Z" title="Created 2024-04-06 00:00:00">2024-04-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/04/02/CUHK/ESTR4316/2024-4-2-ESTR4316-Stream-Processing/" title="Stream Processing - Spark Streaming"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Stream Processing - Spark Streaming"/></a><div class="content"><a class="title" href="/myBlog/2024/04/02/CUHK/ESTR4316/2024-4-2-ESTR4316-Stream-Processing/" title="Stream Processing - Spark Streaming">Stream Processing - Spark Streaming</a><time datetime="2024-04-01T16:00:00.000Z" title="Created 2024-04-02 00:00:00">2024-04-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/03/30/CUHK/ESTR4316/2024-3-30-ESTR4316-Apache-Kafka/" title="Stream Processing - Apache Kafka"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Stream Processing - Apache Kafka"/></a><div class="content"><a class="title" href="/myBlog/2024/03/30/CUHK/ESTR4316/2024-3-30-ESTR4316-Apache-Kafka/" title="Stream Processing - Apache Kafka">Stream Processing - Apache Kafka</a><time datetime="2024-03-29T16:00:00.000Z" title="Created 2024-03-30 00:00:00">2024-03-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/myBlog/2024/03/23/CUHK/ESTR4316/2024-3-23-ESTR4316-Apache-Storm/" title="Stream Processing - Apache Storm"><img src="https://p.ipic.vip/hwdr0p.jpg" onerror="this.onerror=null;this.src='/myBlog/img/404.jpg'" alt="Stream Processing - Apache Storm"/></a><div class="content"><a class="title" href="/myBlog/2024/03/23/CUHK/ESTR4316/2024-3-23-ESTR4316-Apache-Storm/" title="Stream Processing - Apache Storm">Stream Processing - Apache Storm</a><time datetime="2024-03-22T16:00:00.000Z" title="Created 2024-03-23 00:00:00">2024-03-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By Donald Lam</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/myBlog/js/utils.js"></script><script src="/myBlog/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/myBlog/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
